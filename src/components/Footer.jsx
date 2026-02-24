@@ -7,7 +7,7 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 border-b border-white/10 pb-16">
                     <div className="md:col-span-2">
                         <img
-                            src="/images/logo/lockup-nobg.png"
+                            src="/images/logo/lockup-nobg.webp"
                             alt="RSL/A Logo"
                             className="h-20 md:h-28 w-auto mb-6 block"
                         />

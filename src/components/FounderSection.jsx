@@ -51,7 +51,7 @@ export default function FounderSection() {
                         className="w-full aspect-[3/4] rounded-[2rem] bg-dark/10 overflow-hidden transition-all duration-700 hover:grayscale-0 hover:scale-[1.02]"
                         style={{ filter: 'grayscale(1)' }}
                     >
-                        <img src="/images/rahul.png" alt="Rahul Lalia" className="w-full h-full object-cover" />
+                        <img src="/images/rahul.webp" alt="Rahul Lalia" className="w-full h-full object-cover" />
                     </div>
                 </div>
 

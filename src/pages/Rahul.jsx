@@ -71,7 +71,7 @@ export default function Rahul() {
             <div className="relative z-10 w-full max-w-sm bg-white/[0.03] border border-white/10 backdrop-blur-sm rounded-[2rem] px-8 py-10 flex flex-col items-center shadow-2xl">
                 {/* Profile photo */}
                 <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-accent/30 shadow-lg shadow-accent/10 mb-6">
-                    <img src="/images/rahul.png" alt="Rahul Lalia" className="w-full h-full object-cover" />
+                    <img src="/images/rahul.webp" alt="Rahul Lalia" className="w-full h-full object-cover" />
                 </div>
 
                 {/* Name & title */}
