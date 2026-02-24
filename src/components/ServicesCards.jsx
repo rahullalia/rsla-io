@@ -29,25 +29,25 @@ function AnimatedBeamVisual() {
 
             {/* Funnel visualization */}
             <div className="absolute right-4 md:right-10 top-1/2 -translate-y-[55%] flex flex-col items-center">
-                <svg width="80" height="120" viewBox="0 0 80 120" fill="none" className="md:w-[100px] md:h-[150px]">
-                    {/* Funnel glow */}
+                <svg width="110" height="130" viewBox="0 0 110 130" fill="none" className="md:w-[130px] md:h-[155px]">
                     <defs>
                         <filter id="funnelGlow" x="-50%" y="-50%" width="200%" height="200%">
-                            <feGaussianBlur stdDeviation="4" result="blur" />
+                            <feGaussianBlur stdDeviation="5" result="blur" />
                             <feComposite in="SourceGraphic" in2="blur" operator="over" />
                         </filter>
                         <linearGradient id="funnelFill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="rgba(0,112,243,0.15)" />
-                            <stop offset="100%" stopColor="rgba(0,194,255,0.08)" />
+                            <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
+                            <stop offset="50%" stopColor="rgba(200,220,255,0.06)" />
+                            <stop offset="100%" stopColor="rgba(180,210,255,0.03)" />
                         </linearGradient>
                     </defs>
-                    {/* Wide mouth at top, narrow spout at bottom */}
-                    <path d="M6 8 L74 8 L74 16 L50 60 L50 100 L30 100 L30 60 L6 16 Z" fill="url(#funnelFill)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" filter="url(#funnelGlow)" />
-                    {/* Filter lines inside funnel */}
-                    <line x1="14" y1="28" x2="66" y2="28" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" strokeDasharray="3 3" />
-                    <line x1="24" y1="44" x2="56" y2="44" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" strokeDasharray="3 3" />
-                    {/* Drip at bottom */}
-                    <circle cx="40" cy="108" r="3" fill="#0070F3" className="funnel-drip" />
+                    {/* Wide mouth tapering to narrow spout */}
+                    <path d="M2 6 Q2 2 6 2 L104 2 Q108 2 108 6 L108 14 L64 70 L64 110 Q64 116 58 116 L52 116 Q46 116 46 110 L46 70 L2 14 Z" fill="url(#funnelFill)" stroke="rgba(255,255,255,0.25)" strokeWidth="1" filter="url(#funnelGlow)" />
+                    {/* Filter lines */}
+                    <line x1="16" y1="30" x2="94" y2="30" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" strokeDasharray="4 4" />
+                    <line x1="30" y1="50" x2="80" y2="50" stroke="rgba(255,255,255,0.07)" strokeWidth="0.5" strokeDasharray="3 3" />
+                    {/* Drip */}
+                    <circle cx="55" cy="124" r="3" fill="rgba(200,220,255,0.6)" className="funnel-drip" />
                 </svg>
                 {/* Output label */}
                 <div className="mt-1 md:mt-2 flex items-center gap-1.5">
