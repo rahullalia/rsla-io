@@ -5,7 +5,8 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
     const isHome = location.pathname === '/';
-    const isDarkBgPage = isHome;
+    const darkHeroPages = ['/', '/about', '/services', '/start-here', '/how-it-works'];
+    const isDarkBgPage = darkHeroPages.includes(location.pathname);
 
     useEffect(() => {
         const handleScroll = () => {
