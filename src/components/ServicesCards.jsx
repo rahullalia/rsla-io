@@ -47,7 +47,7 @@ function AnimatedBeamVisual() {
                     <line x1="16" y1="30" x2="94" y2="30" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" strokeDasharray="4 4" />
                     <line x1="30" y1="50" x2="80" y2="50" stroke="rgba(255,255,255,0.07)" strokeWidth="0.5" strokeDasharray="3 3" />
                     {/* Drip */}
-                    <circle cx="55" cy="124" r="3" fill="rgba(200,220,255,0.6)" className="funnel-drip" />
+                    <text x="55" y="126" textAnchor="middle" fill="rgba(200,220,255,0.7)" fontSize="12" fontWeight="bold" className="funnel-drip">$$$</text>
                 </svg>
                 {/* Output label */}
                 <div className="mt-1 md:mt-2 flex items-center gap-1.5">
@@ -96,8 +96,8 @@ function AnimatedBeamVisual() {
                     animation: drip 2s ease-in-out infinite;
                 }
                 @keyframes drip {
-                    0%, 100% { opacity: 0.3; r: 2; }
-                    50% { opacity: 1; r: 4; }
+                    0%, 100% { opacity: 0.3; }
+                    50% { opacity: 1; }
                 }
             `}} />
         </div>
