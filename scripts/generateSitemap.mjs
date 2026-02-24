@@ -1,0 +1,90 @@
+import { createClient } from '@sanity/client';
+import { writeFileSync } from 'fs';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const client = createClient({
+  projectId: 'yz25oyux',
+  dataset: 'production',
+  apiVersion: '2025-03-01',
+  useCdn: true,
+});
+
+const SITE_URL = 'https://rsla.io';
+
+const staticRoutes = [
+  { path: '/', priority: '1.0' },
+  { path: '/about', priority: '0.8' },
+  { path: '/services', priority: '0.9' },
+  { path: '/how-it-works', priority: '0.8' },
+  { path: '/start-here', priority: '0.8' },
+  { path: '/work', priority: '0.8' },
+  { path: '/blog', priority: '0.8' },
+];
+
+async function generateSitemap() {
+  console.log('Generating sitemap...');
+
+  // Fetch all published blog slugs (V1 + V2)
+  const blogSlugs = await client.fetch(
+    `*[_type in ["blogPost", "blogPostV2"] && defined(slug.current) && defined(publishedAt) && publishedAt <= now()]{
+      "slug": slug.current,
+      publishedAt
+    } | order(publishedAt desc)`
+  );
+
+  // Fetch all case study slugs (V1 + V2)
+  const caseSlugs = await client.fetch(
+    `*[_type in ["caseStudy", "caseStudyV2"] && defined(slug.current)]{
+      "slug": slug.current,
+      publishedAt
+    } | order(publishedAt desc)`
+  );
+
+  const today = new Date().toISOString().split('T')[0];
+
+  const urls = [
+    // Static routes
+    ...staticRoutes.map(({ path, priority }) => ({
+      loc: `${SITE_URL}${path}`,
+      lastmod: today,
+      priority,
+    })),
+    // Blog posts
+    ...blogSlugs.map(({ slug, publishedAt }) => ({
+      loc: `${SITE_URL}/blog/${slug}`,
+      lastmod: publishedAt ? publishedAt.split('T')[0] : today,
+      priority: '0.6',
+    })),
+    // Case studies
+    ...caseSlugs.map(({ slug, publishedAt }) => ({
+      loc: `${SITE_URL}/work/${slug}`,
+      lastmod: publishedAt ? publishedAt.split('T')[0] : today,
+      priority: '0.7',
+    })),
+  ];
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls
+  .map(
+    ({ loc, lastmod, priority }) => `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <priority>${priority}</priority>
+  </url>`
+  )
+  .join('\n')}
+</urlset>`;
+
+  const outputPath = resolve(__dirname, '../dist/sitemap.xml');
+  writeFileSync(outputPath, xml, 'utf-8');
+  console.log(`Sitemap generated: ${urls.length} URLs (${staticRoutes.length} static, ${blogSlugs.length} blog, ${caseSlugs.length} case studies)`);
+}
+
+generateSitemap().catch((err) => {
+  console.error('Failed to generate sitemap:', err);
+  process.exit(1);
+});
