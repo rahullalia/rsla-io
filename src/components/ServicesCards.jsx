@@ -56,50 +56,31 @@ function AnimatedBeamVisual() {
                 </div>
             </div>
 
-            {/* Animated particle trails (curved paths) */}
+            {/* Dots only — traveling from platforms into funnel top */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 240" preserveAspectRatio="none">
-                <defs>
-                    <linearGradient id="trailGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="rgba(24,119,242,0)" />
-                        <stop offset="40%" stopColor="rgba(24,119,242,0.7)" />
-                        <stop offset="100%" stopColor="rgba(24,119,242,0)" />
-                    </linearGradient>
-                    <linearGradient id="trailGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="rgba(66,133,244,0)" />
-                        <stop offset="40%" stopColor="rgba(66,133,244,0.7)" />
-                        <stop offset="100%" stopColor="rgba(66,133,244,0)" />
-                    </linearGradient>
-                    <linearGradient id="trailGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="rgba(10,102,194,0)" />
-                        <stop offset="40%" stopColor="rgba(10,102,194,0.7)" />
-                        <stop offset="100%" stopColor="rgba(10,102,194,0)" />
-                    </linearGradient>
-                </defs>
-                {/* Curved paths from each platform to funnel mouth */}
-                <path d="M100,55 C170,55 230,45 310,70" stroke="url(#trailGrad1)" strokeWidth="2" fill="none" className="beam-trail" style={{ animationDelay: '0s' }} />
-                <path d="M100,120 C180,120 240,100 310,90" stroke="url(#trailGrad2)" strokeWidth="2" fill="none" className="beam-trail" style={{ animationDelay: '0.8s' }} />
-                <path d="M100,185 C170,185 230,150 310,110" stroke="url(#trailGrad3)" strokeWidth="2" fill="none" className="beam-trail" style={{ animationDelay: '1.6s' }} />
-                {/* Traveling dots on each path */}
-                <circle r="3" fill="#1877F2" className="beam-dot" style={{ animationDelay: '0s' }}>
-                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,55 C170,55 230,45 310,70" />
+                {/* Invisible paths for dot motion — curves from each platform into the funnel mouth */}
+                <circle r="4" fill="#1877F2" className="beam-dot">
+                    <animateMotion dur="2.2s" repeatCount="indefinite" path="M100,55 C160,30 250,10 310,45" />
                 </circle>
-                <circle r="3" fill="#4285F4" className="beam-dot" style={{ animationDelay: '0.8s' }}>
-                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,120 C180,120 240,100 310,90" begin="0.8s" />
+                <circle r="4" fill="#4285F4" className="beam-dot">
+                    <animateMotion dur="2.4s" repeatCount="indefinite" path="M100,120 C180,80 250,30 310,45" begin="0.7s" />
                 </circle>
-                <circle r="3" fill="#0A66C2" className="beam-dot" style={{ animationDelay: '1.6s' }}>
-                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,185 C170,185 230,150 310,110" begin="1.6s" />
+                <circle r="4" fill="#0A66C2" className="beam-dot">
+                    <animateMotion dur="2.6s" repeatCount="indefinite" path="M100,185 C170,150 250,50 310,45" begin="1.4s" />
+                </circle>
+                {/* Second wave of dots (staggered) for continuous flow feel */}
+                <circle r="3" fill="#1877F2" opacity="0.5" className="beam-dot">
+                    <animateMotion dur="2.2s" repeatCount="indefinite" path="M100,55 C160,30 250,10 310,45" begin="1.1s" />
+                </circle>
+                <circle r="3" fill="#4285F4" opacity="0.5" className="beam-dot">
+                    <animateMotion dur="2.4s" repeatCount="indefinite" path="M100,120 C180,80 250,30 310,45" begin="1.9s" />
+                </circle>
+                <circle r="3" fill="#0A66C2" opacity="0.5" className="beam-dot">
+                    <animateMotion dur="2.6s" repeatCount="indefinite" path="M100,185 C170,150 250,50 310,45" begin="2.7s" />
                 </circle>
             </svg>
 
             <style dangerouslySetInnerHTML={{ __html: `
-                .beam-trail {
-                    stroke-dasharray: 30 370;
-                    animation: trailFlow 2.5s linear infinite;
-                }
-                @keyframes trailFlow {
-                    0% { stroke-dashoffset: 400; }
-                    100% { stroke-dashoffset: 0; }
-                }
                 .beam-source {
                     animation: sourcePulse 3s ease-in-out infinite;
                 }
@@ -108,7 +89,7 @@ function AnimatedBeamVisual() {
                     50% { box-shadow: 0 0 20px 4px rgba(0,112,243,0.15); }
                 }
                 .beam-dot {
-                    filter: drop-shadow(0 0 4px currentColor);
+                    filter: drop-shadow(0 0 6px currentColor);
                 }
                 .funnel-drip {
                     animation: drip 2s ease-in-out infinite;
