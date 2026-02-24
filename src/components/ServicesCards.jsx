@@ -48,12 +48,11 @@ function AnimatedBeamVisual() {
                     <line x1="30" y1="50" x2="80" y2="50" stroke="rgba(255,255,255,0.07)" strokeWidth="0.5" strokeDasharray="3 3" />
                     {/* Drip */}
                 </svg>
-                {/* $$$ output */}
-                <div className="mt-2 md:mt-3 font-bold text-sm md:text-base text-emerald-400 tracking-wide funnel-drip">$$$</div>
                 {/* Output label */}
-                <div className="mt-1.5 flex items-center gap-1.5">
+                <div className="mt-2 md:mt-3 flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-wider text-emerald-400/70">Qualified Leads</span>
+                    <span className="font-bold text-xs md:text-sm text-emerald-400 funnel-drip">$$$</span>
                 </div>
             </div>
 
