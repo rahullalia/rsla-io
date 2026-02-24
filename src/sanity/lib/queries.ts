@@ -1,5 +1,6 @@
-// We use groq from @sanity/client since we are in a React SPA now, not Next.js
-import groq from 'groq';
+// Tagged template literal for GROQ queries (identity function, no runtime dependency needed)
+const groq = (strings: TemplateStringsArray, ...values: unknown[]): string =>
+  String.raw({ raw: strings }, ...values);
 
 // Get all blog posts (with pagination support)
 // Only shows posts with publishedAt set (drafts have no publishedAt)

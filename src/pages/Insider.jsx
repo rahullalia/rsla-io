@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
 
+const KIT_FORM_ID = import.meta.env.VITE_KIT_FORM_ID;
+const KIT_API_KEY = import.meta.env.VITE_KIT_API_KEY;
+
 const benefits = [
     'Case studies saving clients $20K to $136K annually',
     'Actionable automation tips you can use today',
@@ -11,11 +14,31 @@ const benefits = [
 export default function Insider() {
     const [email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // TODO: Wire up to newsletter provider (ConvertKit, Mailchimp, GHL, etc.)
-        setSubmitted(true);
+        setError('');
+        setLoading(true);
+
+        try {
+            const res = await fetch(
+                `https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ api_key: KIT_API_KEY, email }),
+                }
+            );
+
+            if (!res.ok) throw new Error('Subscription failed');
+            setSubmitted(true);
+        } catch {
+            setError('Something went wrong. Try again?');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -77,11 +100,16 @@ export default function Insider() {
                             />
                             <button
                                 type="submit"
-                                className="px-6 py-3.5 rounded-full bg-accent text-white font-sans font-bold text-sm btn-neon hover:scale-[1.03] active:scale-95 transition-transform duration-300 whitespace-nowrap"
+                                disabled={loading}
+                                className="px-6 py-3.5 rounded-full bg-accent text-white font-sans font-bold text-sm btn-neon hover:scale-[1.03] active:scale-95 transition-transform duration-300 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                Get weekly insights
+                                {loading ? 'Subscribing...' : 'Get weekly insights'}
                             </button>
                         </form>
+
+                        {error && (
+                            <p className="font-body text-sm text-coral mb-2">{error}</p>
+                        )}
 
                         {/* Trust line */}
                         <p className="font-body text-xs text-white/25">
