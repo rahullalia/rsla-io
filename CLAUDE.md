@@ -6,6 +6,11 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Canvas 2D hero, S
 
 **Positioning:** "I show founders how to put AI to work, then I build it for them."
 
+**Status:** Phases 1-5 complete. Phase 6 (Performance & Launch) remaining. See TODO.md for full task list.
+
+**Deployed:** `new-rsla-website.vercel.app` (auto-deploys from `main` branch)
+**GitHub:** `rahullalia/new-rslaWebsite`
+
 ---
 
 ## Tech Stack
@@ -19,6 +24,7 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Canvas 2D hero, S
 | CMS | Sanity (Project: `yz25oyux`, Dataset: `production`) |
 | Icons | Lucide React |
 | Rich Text | @portabletext/react |
+| SEO | Custom Seo.jsx component (no dependencies) |
 
 ---
 
@@ -26,14 +32,66 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Canvas 2D hero, S
 
 ```
 src/
-  components/     # Reusable UI components (Navbar, Footer, sections)
-  pages/          # Route-level page components
+  components/
+    Seo.jsx           # Per-page SEO (title, description, OG, Twitter, canonical, robots)
+    Navbar.jsx         # Desktop nav + mobile hamburger menu
+    Footer.jsx
+    FounderSection.jsx # Profile photo + bio
+    ServicesCards.jsx   # 3 stacking cards with animated visuals
+    BookingSection.jsx  # GHL booking embed
+  pages/
+    Home.jsx           # /
+    About.jsx          # /about
+    Services.jsx       # /services
+    HowItWorksPage.jsx # /how-it-works
+    StartHere.jsx      # /start-here
+    Work.jsx           # /work (case studies listing)
+    WorkInner.jsx      # /work/:slug
+    Blog.jsx           # /blog
+    BlogInner.jsx      # /blog/:slug
+    BookCall.jsx       # /book-a-call (noindex)
+    BookingConfirmed.jsx # /booking-confirmed (noindex)
+    Rahul.jsx          # /rahul (chromeless, noindex)
+    Insider.jsx        # /insider (noindex)
+    Privacy.jsx        # /privacy-policy (noindex)
+    Terms.jsx          # /terms (noindex)
+    NotFound.jsx       # 404 catch-all
   sanity/
-    schemas/      # Sanity schema definitions (blogPost, caseStudy, V1 + V2)
-    lib/          # Sanity client, image helper, GROQ queries
-brand/            # All brand reference docs (copy, UI/UX playbook, strategy)
-PLAN.md           # Build plan with phases and checklists
+    schemas/           # Sanity schema definitions
+    lib/               # Sanity client, image helper, GROQ queries
+brand/                 # Brand reference docs
+public/
+  images/rahul.png     # Profile photo
+  rahul.vcf            # vCard for /rahul page
+PLAN.md                # Build plan (phases 1-5 done)
+TODO.md                # Remaining tasks and wishlist
+vercel.json            # Vite SPA routing config
 ```
+
+---
+
+## Route Architecture
+
+| Route | Page | Indexed | Chrome |
+|---|---|---|---|
+| / | Home | Yes | Full |
+| /about | About | Yes | Full |
+| /services | Services | Yes | Full |
+| /how-it-works | HowItWorksPage | Yes | Full |
+| /start-here | StartHere | Yes | Full |
+| /work | Work | Yes | Full |
+| /work/:slug | WorkInner | Yes | Full |
+| /blog | Blog | Yes | Full |
+| /blog/:slug | BlogInner | Yes | Full |
+| /book-a-call | BookCall | No | Full |
+| /booking-confirmed | BookingConfirmed | No | Full |
+| /rahul | Rahul | No | Chromeless |
+| /insider | Insider | No | Full |
+| /privacy-policy | Privacy | No | Full |
+| /terms | Terms | No | Full |
+
+**Chromeless pages** (no navbar/footer): controlled by `chromelessRoutes` array in App.jsx.
+**noIndex pages**: controlled per-page via `<Seo noIndex />` component prop.
 
 ---
 
@@ -43,8 +101,21 @@ PLAN.md           # Build plan with phases and checklists
 - **Dataset:** `production`
 - **API Version:** `2025-03-01`
 - **Schemas deployed:** blogPost, blogPostV2, caseStudy, caseStudyV2, author, category, blogGenerationJob
-- **Legacy project:** `36wenybq` (has existing content, 12 case studies, blog posts)
-- Content migration from legacy to new project is a future phase (see PLAN.md Phase 5)
+- **Legacy project:** `36wenybq` (content migrated to new project, 2026-02-22)
+- **Content:** 40 blog posts, 12 case studies, 17 categories, 1 author (Rahul Lalia), 176 images
+- **Client config:** projectId/dataset hardcoded in `src/sanity/lib/client.ts` (env vars don't resolve during Vercel build)
+- **Token:** `VITE_SANITY_API_TOKEN` in `.env.local` (only needed for draft content, not CDN reads)
+
+---
+
+## SEO Implementation
+
+- `Seo.jsx` component uses `useEffect` to set `document.title` and create/update meta tags
+- Props: `title`, `description`, `canonical`, `noIndex`
+- Updates: description, og:title, og:description, og:url, twitter:title, twitter:description, canonical link, robots
+- Default fallback tags in `index.html` for crawlers that don't execute JS
+- BlogInner/WorkInner pull dynamic SEO from Sanity content
+- OG image referenced as `/og-image.png` (needs to be created)
 
 ---
 
@@ -56,8 +127,6 @@ PLAN.md           # Build plan with phases and checklists
 | Inter | `.font-body` | Body copy, long-form, UI elements |
 | Space Grotesk | `.font-mono` | Tech labels, tags, uppercase badges |
 | Playfair Display | `.font-drama` | Single accent word per section (italic, max 2 words) |
-
-**Current state:** Fonts not yet swapped. Still using Space Grotesk as primary and DM Serif Display as drama font. Phase 1 task.
 
 ---
 
@@ -86,33 +155,15 @@ PLAN.md           # Build plan with phases and checklists
 
 ## Performance Budget
 
-| Metric | Target |
-|---|---|
-| LCP | < 2.5s |
-| TBT | < 200ms |
-| CLS | < 0.1 |
-| JS Bundle | < 250KB gzipped |
-| Canvas | 60fps |
+| Metric | Target | Current |
+|---|---|---|
+| LCP | < 2.5s | TBD (needs Lighthouse) |
+| TBT | < 200ms | TBD |
+| CLS | < 0.1 | TBD |
+| JS Bundle | < 250KB gzipped | 186KB gzipped |
+| Canvas | 60fps | TBD |
 
----
-
-## MCP Components Available
-
-- **Magic UI:** Border Beam, Shine Border, Marquee, Animated Beam, Neon Gradient Card, Blur Fade, Text Animations, Device Mocks
-- **shadcn/ui:** Standard UI components (buttons, forms, dialogs)
-- **21st.dev Magic:** AI-generated custom components, logo search
-
----
-
-## Build Order
-
-Follow PLAN.md. Summary:
-1. Phase 1: Foundation (fonts, colors, navbar, footer, cleanup)
-2. Phase 2: Homepage (hero, problem, services cards, how it works, founder, case studies, marquee, booking, micro-interactions)
-3. Phase 3: Content pages (about, how it works, service pages, start here)
-4. Phase 4: Inner pages (Sanity client, blog V2, case study V2)
-5. Phase 5: Content migration (legacy Sanity to new)
-6. Phase 6: Performance and launch
+**Note:** One chunk at 585KB pre-gzip triggers Vite warning. Needs code-splitting (GSAP, Sanity client).
 
 ---
 
@@ -133,5 +184,30 @@ All brand docs in `/brand/`:
 ```bash
 npm install                    # Install dependencies
 npm run dev                    # Start dev server (Vite)
+npm run build                  # Production build
 npx sanity schema deploy       # Deploy schemas to Sanity cloud
 ```
+
+---
+
+## Session Log
+
+### 2026-02-24: Pages, SEO, Mobile Nav, Copy
+- Added 3 new pages: /booking-confirmed, /rahul (digital business card), /insider (newsletter signup)
+- Built Seo.jsx component, added per-page SEO to all 16 pages matching existing rsla.io metadata
+- Built mobile hamburger menu with full-screen overlay and auto-close
+- Replaced founder section placeholder with profile photo (/images/rahul.png)
+- Styled About page quote with drama font and inline opening quote mark
+- Refined all 3 service card copy (voice DNA aligned)
+- Redesigned dashboard visual (donut chart, pipeline bar, colored stats)
+- Made terminal animation loop continuously with realistic bot conversation
+- Removed Siddharth author from Sanity, reassigned 3 posts to Rahul
+- Updated .vcf with real vCard data
+- Committed, pushed, auto-deploying to Vercel
+- Created TODO.md with remaining tasks and wishlist
+
+---
+
+## Last Updated
+
+2026-02-24
