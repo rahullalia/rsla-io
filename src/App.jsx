@@ -24,7 +24,7 @@ const Insider = lazy(() => import('./pages/Insider'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 
-const chromelessRoutes = ['/rahul'];
+const chromelessRoutes = ['/rahul', '/booking-confirmed'];
 
 function App() {
   const location = useLocation();
