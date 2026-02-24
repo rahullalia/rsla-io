@@ -1,0 +1,174 @@
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import BookingSection from '../components/BookingSection';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const tags = ['MARKETING ANALYTICS', 'SELF-TAUGHT BUILDER', 'BUILDER SINCE 2022'];
+
+export default function About() {
+    const pageRef = useRef(null);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+
+        const ctx = gsap.context(() => {
+            gsap.fromTo('.about-hero-content',
+                { y: 40, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.1 }
+            );
+
+            gsap.fromTo('.about-section',
+                { y: 50, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.about-body',
+                        start: 'top 75%',
+                        once: true,
+                    }
+                }
+            );
+
+            gsap.fromTo('.about-tag',
+                { y: 20, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.about-tags',
+                        start: 'top 85%',
+                        once: true,
+                    }
+                }
+            );
+
+            gsap.fromTo('.words-section blockquote p',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.words-section',
+                        start: 'top 70%',
+                        once: true,
+                    }
+                }
+            );
+        }, pageRef);
+
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <main ref={pageRef} className="min-h-screen">
+            {/* Hero */}
+            <section className="bg-dark pt-32 pb-20 md:pb-28 px-6 md:px-12">
+                <div className="about-hero-content max-w-4xl mx-auto text-center">
+                    <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-white tracking-tight mb-6 leading-tight">
+                        What a privilege to be tired from work you once begged the universe for.
+                    </h1>
+                </div>
+            </section>
+
+            {/* Body Content */}
+            <div className="about-body bg-sand pt-20 pb-24 px-6 md:px-12">
+                <div className="max-w-3xl mx-auto">
+                    {/* Origin Story */}
+                    <div className="about-section mb-16">
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            I started my career in marketing analytics. Numbers, dashboards, attribution models. I was the guy staring at spreadsheets while everyone else was making the creative decisions.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            Then I got laid off.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            And honestly? It was the best thing that happened to me. Because it forced me to build something on my own.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            I started an agency. The classic social media marketing agency thing. Posting content, running accounts, doing the hustle. But I kept noticing the same pattern with every client I worked with.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            They were not struggling because they lacked talent. They were drowning in manual work.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            Following up with leads at midnight. Copy-pasting between three different tools. Losing deals because they forgot to reply. Running ads with zero tracking. Paying for five different software subscriptions that did not talk to each other.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            And you know what? Most of the "solutions" out there made it worse. More tools, more complexity, more things to manage.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed">
+                            So I started asking a different question. What if AI could handle all the stuff that founders should not be doing manually? Not theoretical AI. Not "we will build you a chatbot" AI. Practical, measured, actually-useful-for-your-business AI. That became the whole thing.
+                        </p>
+                    </div>
+
+                    {/* What I Actually Do */}
+                    <div className="about-section mb-16">
+                        <h2 className="font-sans font-bold text-2xl md:text-4xl text-dark tracking-tight mb-6">
+                            What I actually do
+                        </h2>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            I show founders how to put AI to work in their business. Then I build it for them.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            The teaching part is free. I post the workflows, the tools, the exact systems. No gatekeeping. If you can build it yourself after watching my content, I genuinely want that for you.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed">
+                            But here is the thing. There is a difference between knowing what to build and building it right. A system that works for 10 leads breaks at 500. An AI bot that sounds great in a demo falls apart with real customers. The gap between a prototype and a production system is where most founders get stuck. That is where RSL/A comes in. My team and I are the ones who build the production version. The one that actually scales, actually handles edge cases, and actually shows you the numbers so you know it is working.
+                        </p>
+                    </div>
+
+                    {/* Why I Am Different */}
+                    <div className="about-section mb-16">
+                        <h2 className="font-sans font-bold text-2xl md:text-4xl text-dark tracking-tight mb-6">
+                            Why I am different (honestly)
+                        </h2>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed mb-6">
+                            I came from analytics. That matters.
+                        </p>
+                        <p className="font-body text-dark/80 text-base md:text-lg leading-relaxed">
+                            Most people in this space show you a demo and call it done. I show you a dashboard. Real numbers. What the AI system did this week, how many leads it handled, how many meetings it booked, what the conversion rate was. Because if you cannot measure it, it is just a toy. And founders do not need toys. They need infrastructure.
+                        </p>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="about-tags about-section flex flex-wrap gap-3 mb-12">
+                        {tags.map((tag) => (
+                            <span key={tag} className="about-tag inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent border border-accent/30 rounded-full px-4 py-1.5">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+
+                    {/* CTA */}
+                    <div className="about-section">
+                        <Link to="/work" className="link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-dark transition-colors group">
+                            See what we have built
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
+            {/* Words I Like */}
+            <section className="words-section bg-dark py-24 px-6 md:px-12">
+                <div className="max-w-3xl mx-auto">
+                    <h2 className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent/60 mb-12">
+                        Words I Like
+                    </h2>
+                    <blockquote className="font-drama italic text-2xl md:text-4xl text-white/90 leading-snug tracking-tight">
+                        <p className="mb-4">What a privilege to be tired from work you once begged the universe for.</p>
+                        <p className="mb-4">What a privilege to feel overwhelmed by growth you used to dream about.</p>
+                        <p className="mb-4">What a privilege to be challenged by a life you created on purpose.</p>
+                        <p>What a privilege to outgrow things you used to settle for.</p>
+                    </blockquote>
+                    <cite className="block mt-8 font-body text-sm text-white/40 not-italic">
+                        Aryan Sachdeva, via Medium
+                    </cite>
+                </div>
+            </section>
+
+            <BookingSection />
+        </main>
+    );
+}
