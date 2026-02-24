@@ -11,9 +11,9 @@ function AnimatedBeamVisual() {
         <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
             {/* Source icons */}
             <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-6">
-                {['Meta', 'Google', 'LinkedIn'].map((name, i) => (
-                    <div key={name} className="w-10 h-10 rounded-lg bg-white/10 border border-white/10 flex items-center justify-center font-mono text-[9px] text-white/50 beam-source" style={{ animationDelay: `${i * 0.4}s` }}>
-                        {name[0]}
+                {['Facebook', 'Google', 'LinkedIn'].map((name, i) => (
+                    <div key={name} className="w-16 h-10 rounded-lg bg-white/10 border border-white/10 flex items-center justify-center font-mono text-[8px] text-white/50 beam-source" style={{ animationDelay: `${i * 0.4}s` }}>
+                        {name}
                     </div>
                 ))}
             </div>
