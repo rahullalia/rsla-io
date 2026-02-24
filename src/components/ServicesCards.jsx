@@ -28,7 +28,7 @@ function AnimatedBeamVisual() {
             </div>
 
             {/* Funnel visualization */}
-            <div className="absolute right-4 md:right-10 top-1/2 -translate-y-[55%] flex flex-col items-center">
+            <div className="absolute right-4 md:right-10 top-1/2 -translate-y-[40%] flex flex-col items-center">
                 <svg width="110" height="130" viewBox="0 0 110 130" fill="none" className="md:w-[130px] md:h-[155px]">
                     <defs>
                         <filter id="funnelGlow" x="-50%" y="-50%" width="200%" height="200%">
