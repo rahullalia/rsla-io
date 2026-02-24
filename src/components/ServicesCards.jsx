@@ -57,7 +57,7 @@ function AnimatedBeamVisual() {
             </div>
 
             {/* Dots only — traveling from platforms into funnel top */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 240" preserveAspectRatio="none">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 240">
                 {/* Invisible paths for dot motion — curves from each platform into the funnel mouth */}
                 <circle r="4" fill="#1877F2" className="beam-dot">
                     <animateMotion dur="2.2s" repeatCount="indefinite" path="M100,55 C160,30 250,10 310,45" />
