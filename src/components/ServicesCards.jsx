@@ -7,56 +7,115 @@ gsap.registerPlugin(ScrollTrigger);
 // --- Card Visuals ---
 
 function AnimatedBeamVisual() {
+    const platforms = [
+        { name: 'Facebook', color: '#1877F2', icon: 'f' },
+        { name: 'Google', color: '#4285F4', icon: 'G' },
+        { name: 'LinkedIn', color: '#0A66C2', icon: 'in' },
+    ];
+
     return (
         <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-            {/* Source icons */}
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-6">
-                {['Facebook', 'Google', 'LinkedIn'].map((name, i) => (
-                    <div key={name} className="w-16 h-10 rounded-lg bg-white/10 border border-white/10 flex items-center justify-center font-mono text-[8px] text-white/50 beam-source" style={{ animationDelay: `${i * 0.4}s` }}>
-                        {name}
+            {/* Source platform cards */}
+            <div className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 flex flex-col gap-4 md:gap-5">
+                {platforms.map((p, i) => (
+                    <div key={p.name} className="beam-source flex items-center gap-2 md:gap-2.5 px-2.5 md:px-3 py-2 md:py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.08] backdrop-blur-sm" style={{ animationDelay: `${i * 0.5}s` }}>
+                        <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg flex items-center justify-center text-white font-bold text-xs md:text-sm shrink-0" style={{ backgroundColor: p.color + '20', border: `1px solid ${p.color}40` }}>
+                            <span style={{ color: p.color }}>{p.icon}</span>
+                        </div>
+                        <span className="font-body text-[10px] md:text-xs text-white/60 hidden sm:block">{p.name}</span>
                     </div>
                 ))}
             </div>
 
-            {/* Funnel */}
-            <div className="absolute right-8 top-1/2 -translate-y-1/2">
-                <div className="w-14 h-20 relative">
-                    <svg viewBox="0 0 56 80" fill="none" className="w-full h-full">
-                        <path d="M4 4 L52 4 L36 40 L36 72 L20 72 L20 40 Z" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" fill="rgba(0,112,243,0.1)" />
-                    </svg>
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-accent animate-pulse" />
+            {/* Funnel visualization */}
+            <div className="absolute right-4 md:right-10 top-1/2 -translate-y-[55%] flex flex-col items-center">
+                <svg width="80" height="120" viewBox="0 0 80 120" fill="none" className="md:w-[100px] md:h-[150px]">
+                    {/* Funnel glow */}
+                    <defs>
+                        <filter id="funnelGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="4" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <linearGradient id="funnelFill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="rgba(0,112,243,0.15)" />
+                            <stop offset="100%" stopColor="rgba(0,194,255,0.08)" />
+                        </linearGradient>
+                    </defs>
+                    {/* Wide mouth at top, narrow spout at bottom */}
+                    <path d="M6 8 L74 8 L74 16 L50 60 L50 100 L30 100 L30 60 L6 16 Z" fill="url(#funnelFill)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" filter="url(#funnelGlow)" />
+                    {/* Filter lines inside funnel */}
+                    <line x1="14" y1="28" x2="66" y2="28" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" strokeDasharray="3 3" />
+                    <line x1="24" y1="44" x2="56" y2="44" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" strokeDasharray="3 3" />
+                    {/* Drip at bottom */}
+                    <circle cx="40" cy="108" r="3" fill="#0070F3" className="funnel-drip" />
+                </svg>
+                {/* Output label */}
+                <div className="mt-1 md:mt-2 flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-wider text-emerald-400/70">Qualified Leads</span>
                 </div>
             </div>
 
-            {/* Animated beams */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 200">
-                {[60, 100, 140].map((y, i) => (
-                    <line key={i} x1="60" y1={y} x2="230" y2="100" stroke="url(#beamGrad)" strokeWidth="1" className="beam-line" style={{ animationDelay: `${i * 0.6}s` }} />
-                ))}
+            {/* Animated particle trails (curved paths) */}
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 240" preserveAspectRatio="none">
                 <defs>
-                    <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="rgba(0,112,243,0)" />
-                        <stop offset="50%" stopColor="rgba(0,112,243,0.6)" />
-                        <stop offset="100%" stopColor="rgba(0,112,243,0)" />
+                    <linearGradient id="trailGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="rgba(24,119,242,0)" />
+                        <stop offset="40%" stopColor="rgba(24,119,242,0.7)" />
+                        <stop offset="100%" stopColor="rgba(24,119,242,0)" />
+                    </linearGradient>
+                    <linearGradient id="trailGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="rgba(66,133,244,0)" />
+                        <stop offset="40%" stopColor="rgba(66,133,244,0.7)" />
+                        <stop offset="100%" stopColor="rgba(66,133,244,0)" />
+                    </linearGradient>
+                    <linearGradient id="trailGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="rgba(10,102,194,0)" />
+                        <stop offset="40%" stopColor="rgba(10,102,194,0.7)" />
+                        <stop offset="100%" stopColor="rgba(10,102,194,0)" />
                     </linearGradient>
                 </defs>
+                {/* Curved paths from each platform to funnel mouth */}
+                <path d="M100,55 C170,55 230,45 310,70" stroke="url(#trailGrad1)" strokeWidth="2" fill="none" className="beam-trail" style={{ animationDelay: '0s' }} />
+                <path d="M100,120 C180,120 240,100 310,90" stroke="url(#trailGrad2)" strokeWidth="2" fill="none" className="beam-trail" style={{ animationDelay: '0.8s' }} />
+                <path d="M100,185 C170,185 230,150 310,110" stroke="url(#trailGrad3)" strokeWidth="2" fill="none" className="beam-trail" style={{ animationDelay: '1.6s' }} />
+                {/* Traveling dots on each path */}
+                <circle r="3" fill="#1877F2" className="beam-dot" style={{ animationDelay: '0s' }}>
+                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,55 C170,55 230,45 310,70" />
+                </circle>
+                <circle r="3" fill="#4285F4" className="beam-dot" style={{ animationDelay: '0.8s' }}>
+                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,120 C180,120 240,100 310,90" begin="0.8s" />
+                </circle>
+                <circle r="3" fill="#0A66C2" className="beam-dot" style={{ animationDelay: '1.6s' }}>
+                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,185 C170,185 230,150 310,110" begin="1.6s" />
+                </circle>
             </svg>
 
             <style dangerouslySetInnerHTML={{ __html: `
-                .beam-line {
-                    stroke-dasharray: 40 260;
-                    animation: beamFlow 2.5s linear infinite;
+                .beam-trail {
+                    stroke-dasharray: 30 370;
+                    animation: trailFlow 2.5s linear infinite;
                 }
-                @keyframes beamFlow {
-                    0% { stroke-dashoffset: 300; }
+                @keyframes trailFlow {
+                    0% { stroke-dashoffset: 400; }
                     100% { stroke-dashoffset: 0; }
                 }
                 .beam-source {
-                    animation: beamPulse 2s ease-in-out infinite;
+                    animation: sourcePulse 3s ease-in-out infinite;
                 }
-                @keyframes beamPulse {
+                @keyframes sourcePulse {
                     0%, 100% { box-shadow: 0 0 0 0 rgba(0,112,243,0); }
-                    50% { box-shadow: 0 0 12px 2px rgba(0,112,243,0.3); }
+                    50% { box-shadow: 0 0 20px 4px rgba(0,112,243,0.15); }
+                }
+                .beam-dot {
+                    filter: drop-shadow(0 0 4px currentColor);
+                }
+                .funnel-drip {
+                    animation: drip 2s ease-in-out infinite;
+                }
+                @keyframes drip {
+                    0%, 100% { opacity: 0.3; r: 2; }
+                    50% { opacity: 1; r: 4; }
                 }
             `}} />
         </div>
