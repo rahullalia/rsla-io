@@ -151,6 +151,24 @@ export default function WorkInner() {
                 title={`${caseStudy.title} | RSL/A`}
                 description={caseStudy.tldr || caseStudy.description || ''}
                 canonical={`https://rsla.io/work/${slug}`}
+                ogImage="https://rsla.io/og-image.png"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'Article',
+                    headline: caseStudy.title,
+                    description: caseStudy.tldr || caseStudy.description || '',
+                    datePublished: caseStudy.publishedAt || undefined,
+                    author: {
+                        '@type': 'Person',
+                        name: 'Rahul Lalia',
+                    },
+                    publisher: {
+                        '@type': 'Organization',
+                        name: 'RSL/A',
+                        logo: { '@type': 'ImageObject', url: 'https://rsla.io/images/logo/lockup-nobg.webp' },
+                    },
+                    mainEntityOfPage: `https://rsla.io/work/${slug}`,
+                }}
             />
             <div className="max-w-4xl mx-auto relative z-10">
 

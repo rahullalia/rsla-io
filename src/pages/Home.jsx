@@ -15,6 +15,26 @@ export default function Home() {
                 title="RSL/A | Intelligent Marketing Systems"
                 description="We architect intelligent marketing systems. Paid Ads, AI Automation, and Smart Infrastructure for scaling businesses."
                 canonical="https://rsla.io"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'Organization',
+                    name: 'RSL/A',
+                    url: 'https://rsla.io',
+                    logo: 'https://rsla.io/images/logo/lockup-nobg.webp',
+                    description: 'We architect intelligent marketing systems. Paid Ads, AI Automation, and Smart Infrastructure for scaling businesses.',
+                    founder: {
+                        '@type': 'Person',
+                        name: 'Rahul Lalia',
+                        jobTitle: 'Founder & CEO',
+                    },
+                    sameAs: [
+                        'https://www.instagram.com/rahulslalia/',
+                        'https://www.linkedin.com/in/rahullalia/',
+                        'https://www.youtube.com/@rahul_lalia',
+                        'https://www.tiktok.com/@rahul_lalia',
+                        'https://x.com/rahul_lalia',
+                    ],
+                }}
             />
             <Hero />
             <ProblemSection />

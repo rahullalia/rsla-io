@@ -116,6 +116,25 @@ export default function BlogInner() {
                 title={`${post.title} | RSL/A`}
                 description={seoDescription}
                 canonical={`https://rsla.io/blog/${slug}`}
+                ogImage={imageUrl || 'https://rsla.io/og-image.png'}
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'BlogPosting',
+                    headline: post.title,
+                    description: seoDescription,
+                    image: imageUrl || undefined,
+                    datePublished: post.publishedAt,
+                    author: {
+                        '@type': 'Person',
+                        name: post.author?.name || 'Rahul Lalia',
+                    },
+                    publisher: {
+                        '@type': 'Organization',
+                        name: 'RSL/A',
+                        logo: { '@type': 'ImageObject', url: 'https://rsla.io/images/logo/lockup-nobg.webp' },
+                    },
+                    mainEntityOfPage: `https://rsla.io/blog/${slug}`,
+                }}
             />
             <div className="max-w-4xl mx-auto relative z-10 block">
 

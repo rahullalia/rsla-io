@@ -20,7 +20,9 @@ function setOrCreateLink(rel, href) {
     el.setAttribute('href', href);
 }
 
-export default function Seo({ title, description, canonical, noIndex }) {
+const JSON_LD_ID = 'seo-jsonld';
+
+export default function Seo({ title, description, canonical, noIndex, ogImage, jsonLd }) {
     useEffect(() => {
         // Title
         if (title) {
@@ -41,6 +43,10 @@ export default function Seo({ title, description, canonical, noIndex }) {
         }
         if (canonical) {
             setOrCreateMeta('property', 'og:url', canonical);
+        }
+        if (ogImage) {
+            setOrCreateMeta('property', 'og:image', ogImage);
+            setOrCreateMeta('name', 'twitter:image', ogImage);
         }
 
         // Twitter tags
@@ -66,14 +72,30 @@ export default function Seo({ title, description, canonical, noIndex }) {
             }
         }
 
-        // Cleanup canonical on unmount to avoid stale values
+        // JSON-LD structured data
+        if (jsonLd) {
+            let script = document.getElementById(JSON_LD_ID);
+            if (!script) {
+                script = document.createElement('script');
+                script.id = JSON_LD_ID;
+                script.type = 'application/ld+json';
+                document.head.appendChild(script);
+            }
+            script.textContent = JSON.stringify(jsonLd);
+        }
+
+        // Cleanup on unmount
         return () => {
             const canonicalEl = document.querySelector('link[rel="canonical"]');
             if (canonicalEl) {
                 canonicalEl.remove();
             }
+            const jsonLdEl = document.getElementById(JSON_LD_ID);
+            if (jsonLdEl) {
+                jsonLdEl.remove();
+            }
         };
-    }, [title, description, canonical, noIndex]);
+    }, [title, description, canonical, noIndex, ogImage, jsonLd]);
 
     return null;
 }
