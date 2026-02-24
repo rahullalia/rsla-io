@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { client } from '../sanity/lib/client';
 import { caseStudiesQuery } from '../sanity/lib/queries';
 import { ArrowRight } from "lucide-react";
+import Seo from '../components/Seo';
 
 // Reusable inline card component 
 const CaseStudyCard = ({ data }) => (
@@ -81,6 +82,11 @@ export default function Work() {
 
     return (
         <main className="min-h-screen bg-background text-dark pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
+            <Seo
+                title="Case Studies | RSL/A"
+                description="Real results from real clients. See how RSL/A uses AI automation, paid ads, and CRM systems to drive measurable growth."
+                canonical="https://rsla.io/work"
+            />
             {/* Hero Section */}
             <section className="mb-20 text-center max-w-4xl mx-auto relative z-10">
                 <h1 className="text-5xl md:text-7xl font-sans font-bold mb-6 tracking-tighter">

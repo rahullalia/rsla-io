@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom';
+import Seo from '../components/Seo';
 
 export default function Privacy() {
     return (
         <main className="min-h-screen bg-background text-dark relative overflow-hidden pt-32 pb-24 px-6 md:px-12">
+            <Seo
+                title="Privacy Policy | RSL/A"
+                description="RSL/A privacy policy. How we collect, use, and protect your information."
+                noIndex
+            />
             <div className="max-w-4xl mx-auto relative z-10">
                 <Link to="/" className="inline-flex items-center gap-2 text-dark/50 hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider mb-12">
                     ← Back to Home

@@ -5,6 +5,7 @@ import { client } from '../sanity/lib/client';
 import { blogPostBySlugQuery, blogPostBySlugV2Query, relatedCaseStudyForBlogQuery, featuredCaseStudyFallbackQuery } from '../sanity/lib/queries';
 import { urlForImage } from '../sanity/lib/image';
 import { PortableTextComponents } from '../components/blog/PortableTextRenderer';
+import Seo from '../components/Seo';
 
 export default function BlogInner() {
     const { slug } = useParams();
@@ -107,8 +108,15 @@ export default function BlogInner() {
 
     const imageUrl = post.featuredImage?.asset ? urlForImage(post.featuredImage.asset)?.width(1600).height(900).url() : null;
 
+    const seoDescription = post.excerpt || (post.body?.[0]?.children?.[0]?.text || '').slice(0, 160);
+
     return (
         <article className="min-h-screen bg-background text-dark pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
+            <Seo
+                title={`${post.title} | RSL/A`}
+                description={seoDescription}
+                canonical={`https://rsla.io/blog/${slug}`}
+            />
             <div className="max-w-4xl mx-auto relative z-10 block">
 
                 {/* Header Breadcrumb & Back */}

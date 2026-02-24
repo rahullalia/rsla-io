@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Seo from '../components/Seo';
 import BookingSection from '../components/BookingSection';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -116,6 +117,11 @@ export default function Services() {
 
     return (
         <main ref={pageRef} className="min-h-screen">
+            <Seo
+                title="Services | RSL/A"
+                description="AI automation, paid advertising, CRM implementation, and local SEO. Real systems that generate leads, book calls, and run your operations."
+                canonical="https://rsla.io/services"
+            />
             {/* Hero */}
             <section className="bg-dark pt-32 pb-20 md:pb-28 px-6 md:px-12">
                 <div className="services-hero-content max-w-4xl mx-auto text-center">

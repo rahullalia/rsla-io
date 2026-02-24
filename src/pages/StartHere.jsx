@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Seo from '../components/Seo';
 import BookingSection from '../components/BookingSection';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -81,6 +82,11 @@ export default function StartHere() {
 
     return (
         <main ref={pageRef} className="min-h-screen">
+            <Seo
+                title="Start Here | RSL/A"
+                description="Ready to put AI to work in your business? Start here. Book a call and see what RSL/A can build for you."
+                canonical="https://rsla.io/start-here"
+            />
             {/* Hero */}
             <section className="bg-dark pt-32 pb-20 md:pb-28 px-6 md:px-12">
                 <div className="start-hero-content max-w-4xl mx-auto text-center">

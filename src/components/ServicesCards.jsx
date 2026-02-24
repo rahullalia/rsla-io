@@ -52,7 +52,7 @@ function AnimatedBeamVisual() {
                 <div className="mt-2 md:mt-3 flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-wider text-emerald-400/70">Qualified Leads</span>
-                    <span className="font-bold text-xs md:text-sm text-emerald-400 funnel-drip">$$$</span>
+                    <span className="font-bold text-[8px] md:text-[9px] text-emerald-400 funnel-drip">$$$</span>
                 </div>
             </div>
 
@@ -107,47 +107,58 @@ function AnimatedBeamVisual() {
 function TypewriterVisual() {
     const [lines, setLines] = useState([]);
     const fullConversation = [
-        { role: 'system', text: '> New lead captured: Sarah M.' },
-        { role: 'bot', text: '> AI: Qualifying lead...' },
-        { role: 'bot', text: '> AI: Budget confirmed. Booking call.' },
-        { role: 'bot', text: '> AI: Calendar invite sent.' },
-        { role: 'system', text: '> Status: MEETING BOOKED' },
+        { role: 'system', text: '> Inbound lead: Sarah M. via Instagram' },
+        { role: 'bot', text: '> Bot: Hey Sarah! What service are you looking for?' },
+        { role: 'system', text: '> Sarah: I need help with my Google ads' },
+        { role: 'bot', text: '> Bot: Got it. What\'s your monthly ad budget?' },
+        { role: 'system', text: '> Sarah: Around $3,000' },
+        { role: 'bot', text: '> Bot: Perfect. Grabbing a time for you...' },
+        { role: 'bot', text: '> Bot: You\'re booked for Thursday 2pm.' },
+        { role: 'system', text: '> Status: CALL BOOKED ✓' },
     ];
 
     useEffect(() => {
         let lineIdx = 0;
         let charIdx = 0;
         let currentLines = [];
+        let interval;
+        let timeout;
 
-        const interval = setInterval(() => {
-            if (lineIdx >= fullConversation.length) {
-                // Reset after pause
-                setTimeout(() => {
-                    setLines([]);
-                    lineIdx = 0;
+        function startTyping() {
+            lineIdx = 0;
+            charIdx = 0;
+            currentLines = [];
+            setLines([]);
+
+            interval = setInterval(() => {
+                if (lineIdx >= fullConversation.length) {
+                    clearInterval(interval);
+                    timeout = setTimeout(startTyping, 2500);
+                    return;
+                }
+
+                const currentLine = fullConversation[lineIdx];
+                charIdx++;
+
+                if (charIdx <= currentLine.text.length) {
+                    const updated = [...currentLines, { ...currentLine, text: currentLine.text.slice(0, charIdx) }];
+                    setLines(updated);
+                }
+
+                if (charIdx >= currentLine.text.length) {
+                    currentLines.push(currentLine);
+                    lineIdx++;
                     charIdx = 0;
-                    currentLines = [];
-                }, 2000);
-                clearInterval(interval);
-                return;
-            }
+                }
+            }, 50);
+        }
 
-            const currentLine = fullConversation[lineIdx];
-            charIdx++;
+        startTyping();
 
-            if (charIdx <= currentLine.text.length) {
-                const updated = [...currentLines, { ...currentLine, text: currentLine.text.slice(0, charIdx) }];
-                setLines(updated);
-            }
-
-            if (charIdx >= currentLine.text.length) {
-                currentLines.push(currentLine);
-                lineIdx++;
-                charIdx = 0;
-            }
-        }, 50);
-
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval);
+            clearTimeout(timeout);
+        };
     }, []);
 
     return (
@@ -204,27 +215,63 @@ function DashboardVisual() {
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                 <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                 <div className="ml-2 flex-1 bg-white/5 rounded-md h-5 flex items-center px-2">
-                    <span className="text-[9px] text-white/30 font-mono">app.rsla.io/dashboard</span>
+                    <span className="text-[9px] text-white/30 font-mono">go.rsla.io/dashboard</span>
                 </div>
             </div>
             {/* Dashboard content */}
-            <div className="p-4 md:p-6 grid grid-cols-3 gap-3">
+            <div className="p-3 md:p-5 grid grid-cols-3 gap-2 md:gap-3">
                 {[
-                    { label: 'Leads', value: counts.leads, suffix: '' },
-                    { label: 'Revenue', value: counts.revenue, suffix: 'K' },
-                    { label: 'Booked', value: counts.booked, suffix: '' },
+                    { label: 'Leads', value: counts.leads, suffix: '', color: 'text-accent' },
+                    { label: 'Revenue', value: counts.revenue, suffix: 'K', prefix: '$', color: 'text-emerald-400' },
+                    { label: 'Booked', value: counts.booked, suffix: '', color: 'text-cyan' },
                 ].map((stat) => (
-                    <div key={stat.label} className="bg-white/5 rounded-xl p-3 text-center">
-                        <div className="font-sans font-bold text-xl md:text-2xl text-accent">{stat.value}{stat.suffix}</div>
-                        <div className="font-mono text-[9px] uppercase tracking-wider text-white/40 mt-1">{stat.label}</div>
+                    <div key={stat.label} className="bg-white/5 rounded-xl p-2.5 md:p-3 text-center">
+                        <div className={`font-sans font-bold text-lg md:text-2xl ${stat.color}`}>{stat.prefix || ''}{stat.value}{stat.suffix}</div>
+                        <div className="font-mono text-[8px] md:text-[9px] uppercase tracking-wider text-white/40 mt-0.5">{stat.label}</div>
                     </div>
                 ))}
-                {/* Bar chart */}
-                <div className="col-span-3 bg-white/5 rounded-xl p-3 mt-1">
-                    <div className="flex items-end gap-1 h-16">
-                        {[40, 65, 35, 80, 55, 90, 70, 95, 60, 85, 75, 100].map((h, i) => (
-                            <div key={i} className="flex-1 bg-accent/30 rounded-t-sm transition-all duration-700"
-                                style={{ height: `${h}%`, animationDelay: `${i * 100}ms` }} />
+                {/* Bar chart + line chart row */}
+                <div className="col-span-2 bg-white/5 rounded-xl p-2.5 md:p-3">
+                    <div className="flex items-center justify-between mb-1.5">
+                        <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">Monthly Leads</span>
+                        <span className="font-mono text-[8px] text-emerald-400/60">+23%</span>
+                    </div>
+                    <div className="flex items-end gap-[3px] h-12 md:h-14">
+                        {[30, 45, 35, 60, 50, 70, 55, 80, 65, 85, 75, 95].map((h, i) => (
+                            <div key={i} className="flex-1 rounded-t-sm transition-all duration-700"
+                                style={{ height: `${h}%`, background: i >= 10 ? 'rgba(0,112,243,0.5)' : 'rgba(0,112,243,0.25)' }} />
+                        ))}
+                    </div>
+                </div>
+                {/* Donut chart */}
+                <div className="col-span-1 bg-white/5 rounded-xl p-2.5 md:p-3 flex flex-col items-center justify-center">
+                    <div className="relative w-12 h-12 md:w-14 md:h-14">
+                        <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
+                            <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="3" />
+                            <circle cx="18" cy="18" r="14" fill="none" stroke="#0070F3" strokeWidth="3" strokeDasharray="52 88" strokeLinecap="round" />
+                            <circle cx="18" cy="18" r="14" fill="none" stroke="#00C2FF" strokeWidth="3" strokeDasharray="22 88" strokeDashoffset="-52" strokeLinecap="round" />
+                            <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="3" strokeDasharray="14 88" strokeDashoffset="-74" strokeLinecap="round" />
+                        </svg>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <span className="font-bold text-[10px] md:text-xs text-white/70">72%</span>
+                        </div>
+                    </div>
+                    <span className="font-mono text-[7px] md:text-[8px] text-white/30 uppercase tracking-wider mt-1">Close Rate</span>
+                </div>
+                {/* Pipeline stages */}
+                <div className="col-span-3 bg-white/5 rounded-xl p-2.5 md:p-3">
+                    <div className="flex items-center justify-between mb-2">
+                        <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">Pipeline</span>
+                    </div>
+                    <div className="flex gap-1 h-2 rounded-full overflow-hidden">
+                        <div className="bg-accent/70 rounded-l-full" style={{ width: '35%' }} />
+                        <div className="bg-cyan/50" style={{ width: '25%' }} />
+                        <div className="bg-emerald-400/50" style={{ width: '22%' }} />
+                        <div className="bg-white/10 rounded-r-full" style={{ width: '18%' }} />
+                    </div>
+                    <div className="flex justify-between mt-1.5">
+                        {['New', 'Qualified', 'Proposal', 'Won'].map((stage) => (
+                            <span key={stage} className="font-mono text-[7px] md:text-[8px] text-white/25 uppercase">{stage}</span>
                         ))}
                     </div>
                 </div>
@@ -240,7 +287,7 @@ const services = [
         tag: 'LEAD GEN',
         title: 'Leads that find',
         accent: 'you.',
-        body: 'Stop boosting posts and hoping for the best. We build optimized ad campaigns across Meta and Google that learn what works and double down automatically. Every click tracked, every creative tested, every qualified lead fed directly into your pipeline.',
+        body: 'Stop boosting posts and hoping for the best. We set up ad systems across Facebook and Google that test creatives, kill what\'s not working, and scale what is. No guessing. Every dollar tracked, every lead scored, every qualified prospect fed straight into your pipeline.',
         cta: 'See how we find your leads',
         link: '/services#lead-generation',
         Visual: AnimatedBeamVisual,
@@ -249,7 +296,7 @@ const services = [
         tag: 'ZERO MANUAL WORK',
         title: 'Booking calls while you',
         accent: 'sleep.',
-        body: 'If someone messages you at 2 AM, they should have a calendar invite waiting for them by 2:01 AM. We build custom bots and workflow automations that qualify leads, handle customer questions, and do the repetitive work your team should not be wasting time on.',
+        body: 'Someone messages you at 2 AM. By 2:01 AM they have a calendar invite. No human touched it. We build the bots and automations that do the stuff your team keeps losing hours to... qualifying leads, answering the same five questions, chasing follow ups. All of it runs without you.',
         cta: 'See automations in action',
         link: '/services#automations',
         Visual: TypewriterVisual,
@@ -258,7 +305,7 @@ const services = [
         tag: 'OPERATIONS',
         title: 'One brain running your',
         accent: 'business.',
-        body: 'We consolidate your scattered tools into a single integrated operating system. Pipelines, calendars, follow-ups, and reporting. All connected, all intelligent. Your dashboard tells you what to do next instead of you having to figure it out.',
+        body: 'Right now your CRM says one thing, your calendar says another, and half your follow ups live in someone\'s head. We wire it all into one system. Leads, pipeline, bookings, reporting. You open one dashboard and it tells you exactly what needs attention. No digging, no guessing.',
         cta: 'See how we run operations',
         link: '/services#operations',
         Visual: DashboardVisual,

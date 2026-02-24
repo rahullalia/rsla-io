@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Seo from '../components/Seo';
 import BookingSection from '../components/BookingSection';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -68,6 +69,11 @@ export default function HowItWorksPage() {
 
     return (
         <main ref={pageRef} className="min-h-screen">
+            <Seo
+                title="How It Works | RSL/A"
+                description="Our process from first call to live systems. Discovery, strategy, build, and launch in weeks, not months."
+                canonical="https://rsla.io/how-it-works"
+            />
             {/* Hero */}
             <section className="bg-dark pt-32 pb-20 md:pb-28 px-6 md:px-12">
                 <div className="hiw-hero-content max-w-4xl mx-auto text-center">

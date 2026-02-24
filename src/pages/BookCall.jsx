@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Seo from '../components/Seo';
 
 export default function BookCall() {
     useEffect(() => {
@@ -14,6 +15,12 @@ export default function BookCall() {
 
     return (
         <main className="min-h-screen bg-primary text-dark relative overflow-hidden pt-32 pb-24 px-6 md:px-12">
+            <Seo
+                title="Book a Call | RSL/A"
+                description="Schedule an onboarding or support call with RSL/A."
+                canonical="https://rsla.io/book-a-call"
+                noIndex
+            />
             <div className="max-w-4xl mx-auto bg-dark border border-white/10 text-white rounded-[3rem] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden group">
 
                 {/* Background blur blobs */}

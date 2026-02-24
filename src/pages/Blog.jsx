@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { client } from '../sanity/lib/client';
 import { blogPostsUnionQuery, blogPostsCountUnionQuery } from '../sanity/lib/queries';
 import { urlForImage } from '../sanity/lib/image';
+import Seo from '../components/Seo';
 
 const POSTS_PER_PAGE = 9;
 
@@ -49,6 +50,11 @@ export default function Blog() {
 
     return (
         <div className="min-h-screen bg-background text-dark pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
+            <Seo
+                title="Blog | RSL/A"
+                description="Insights on marketing automation, AI systems, local SEO, and business growth strategies from RSL/A."
+                canonical="https://rsla.io/blog"
+            />
             {/* Soft noise overlay inherited from globals */}
             <div className="max-w-7xl mx-auto relative z-10">
                 <header className="mb-20 text-center">

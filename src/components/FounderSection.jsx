@@ -51,10 +51,7 @@ export default function FounderSection() {
                         className="w-full aspect-[3/4] rounded-[2rem] bg-dark/10 overflow-hidden transition-all duration-700 hover:grayscale-0 hover:scale-[1.02]"
                         style={{ filter: 'grayscale(1)' }}
                     >
-                        {/* Placeholder until headshot is available */}
-                        <div className="w-full h-full flex items-center justify-center bg-dark/5">
-                            <span className="font-sans font-bold text-6xl text-dark/20">RL</span>
-                        </div>
+                        <img src="/images/rahul.png" alt="Rahul Lalia" className="w-full h-full object-cover" />
                     </div>
                 </div>
 

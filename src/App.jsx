@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -15,13 +15,21 @@ import BlogInner from './pages/BlogInner';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import BookCall from './pages/BookCall';
+import BookingConfirmed from './pages/BookingConfirmed';
+import Rahul from './pages/Rahul';
+import Insider from './pages/Insider';
 import NotFound from './pages/NotFound';
 
 
+const chromelessRoutes = ['/rahul'];
+
 function App() {
+  const location = useLocation();
+  const hideChrome = chromelessRoutes.includes(location.pathname);
+
   return (
     <main className="w-full bg-background min-h-screen text-dark selection:bg-accent selection:text-white">
-      <Navbar />
+      {!hideChrome && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -40,12 +48,15 @@ function App() {
         <Route path="/privacy-policy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/book-a-call" element={<BookCall />} />
+        <Route path="/booking-confirmed" element={<BookingConfirmed />} />
+        <Route path="/rahul" element={<Rahul />} />
+        <Route path="/insider" element={<Insider />} />
 
         {/* 404 Catch-All */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      <Footer />
+      {!hideChrome && <Footer />}
     </main>
   );
 }

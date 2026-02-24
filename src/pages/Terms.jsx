@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom';
+import Seo from '../components/Seo';
 
 export default function Terms() {
     return (
         <main className="min-h-screen bg-background text-dark relative overflow-hidden pt-32 pb-24 px-6 md:px-12">
+            <Seo
+                title="Terms & Conditions | RSL/A"
+                description="RSL/A terms and conditions for services and website usage."
+                noIndex
+            />
             <div className="max-w-4xl mx-auto relative z-10">
                 <Link to="/" className="inline-flex items-center gap-2 text-dark/50 hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider mb-12">
                     ← Back to Home

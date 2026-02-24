@@ -5,6 +5,7 @@ import { client } from '../sanity/lib/client';
 import { caseStudyBySlugQuery, caseStudyBySlugV2Query, relatedCaseStudiesQuery } from '../sanity/lib/queries';
 import { urlForImage } from '../sanity/lib/image';
 import { PortableTextComponents } from '../components/blog/PortableTextRenderer';
+import Seo from '../components/Seo';
 
 // Local CaseStudyCard component (migrated structure)
 const CaseStudyCard = ({ slug, tag, title, description, metrics }) => (
@@ -146,6 +147,11 @@ export default function WorkInner() {
 
     return (
         <article className="min-h-screen bg-background text-dark pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
+            <Seo
+                title={`${caseStudy.title} | RSL/A`}
+                description={caseStudy.tldr || caseStudy.description || ''}
+                canonical={`https://rsla.io/work/${slug}`}
+            />
             <div className="max-w-4xl mx-auto relative z-10">
 
                 {/* Header Breadcrumb & Back */}

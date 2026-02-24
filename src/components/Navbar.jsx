@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
     const location = useLocation();
     const isHome = location.pathname === '/';
     const darkHeroPages = ['/', '/about', '/services', '/start-here', '/how-it-works'];
@@ -15,6 +16,21 @@ export default function Navbar() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Close mobile menu on route change
+    useEffect(() => {
+        setMobileOpen(false);
+    }, [location.pathname]);
+
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (mobileOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [mobileOpen]);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -63,12 +79,73 @@ export default function Navbar() {
                     ))}
                 </div>
 
-                <div>
+                {/* Hamburger button — mobile only */}
+                <button
+                    onClick={() => setMobileOpen(!mobileOpen)}
+                    className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] relative z-50"
+                    aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                >
+                    <span
+                        className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
+                            scrolled ? 'bg-dark' : (isDarkBgPage ? 'bg-white' : 'bg-dark')
+                        } ${mobileOpen ? 'rotate-45 translate-y-[7px]' : ''}`}
+                    />
+                    <span
+                        className={`block w-5 h-[2px] rounded-full transition-all duration-300 ${
+                            scrolled ? 'bg-dark' : (isDarkBgPage ? 'bg-white' : 'bg-dark')
+                        } ${mobileOpen ? 'opacity-0' : ''}`}
+                    />
+                    <span
+                        className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
+                            scrolled ? 'bg-dark' : (isDarkBgPage ? 'bg-white' : 'bg-dark')
+                        } ${mobileOpen ? '-rotate-45 -translate-y-[7px]' : ''}`}
+                    />
+                </button>
+
+                {/* Desktop CTA */}
+                <div className="hidden md:block">
                     <Link
                         to="/book-a-call"
                         className={`inline-block relative px-5 py-2.5 rounded-full text-sm font-sans font-bold transition-transform hover:scale-[1.03] active:scale-95 duration-300 btn-neon ${scrolled
                             ? 'bg-accent text-white'
                             : (isDarkBgPage ? 'bg-white text-dark' : 'bg-dark text-white')}`}
+                    >
+                        <span className="relative z-10">Let's Talk</span>
+                    </Link>
+                </div>
+            </div>
+
+            {/* Mobile menu overlay */}
+            <div
+                className={`fixed inset-0 bg-dark z-40 flex flex-col items-center justify-center transition-all duration-500 md:hidden ${
+                    mobileOpen
+                        ? 'opacity-100 pointer-events-auto'
+                        : 'opacity-0 pointer-events-none'
+                }`}
+            >
+                <div className={`flex flex-col items-center gap-8 font-mono text-sm uppercase tracking-widest transition-all duration-500 delay-100 ${
+                    mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+                }`}>
+                    {navLinks.map(({ to, label, onClick }) => (
+                        <Link
+                            key={to}
+                            to={to}
+                            onClick={() => {
+                                setMobileOpen(false);
+                                if (onClick) onClick();
+                            }}
+                            className={`text-lg text-white transition-colors ${
+                                isActive(to) ? 'text-accent font-bold' : 'hover:text-accent/80'
+                            }`}
+                        >
+                            {label}
+                        </Link>
+                    ))}
+
+                    <Link
+                        to="/book-a-call"
+                        onClick={() => setMobileOpen(false)}
+                        className="mt-4 inline-block px-8 py-3 rounded-full text-sm font-sans font-bold bg-accent text-white transition-transform hover:scale-[1.03] active:scale-95 btn-neon"
                     >
                         <span className="relative z-10">Let's Talk</span>
                     </Link>
