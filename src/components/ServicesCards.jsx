@@ -59,25 +59,25 @@ function AnimatedBeamVisual() {
             {/* Dots only — traveling from platforms into funnel top */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 240">
                 {/* Invisible paths for dot motion — curves from each platform into the funnel mouth */}
-                {/* Dots arc up then drop down into funnel mouth */}
+                {/* Dots rise up high then fall straight down into funnel */}
                 <circle r="4" fill="#1877F2" className="beam-dot">
-                    <animateMotion dur="2.2s" repeatCount="indefinite" path="M100,60 C180,20 260,20 310,80" />
+                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,60 C150,-10 280,-10 305,15 Q315,25 310,80" />
                 </circle>
                 <circle r="4" fill="#4285F4" className="beam-dot">
-                    <animateMotion dur="2.4s" repeatCount="indefinite" path="M100,120 C180,60 270,40 310,80" begin="0.7s" />
+                    <animateMotion dur="2.7s" repeatCount="indefinite" path="M100,120 C150,20 270,-10 305,15 Q315,25 310,80" begin="0.8s" />
                 </circle>
                 <circle r="4" fill="#0A66C2" className="beam-dot">
-                    <animateMotion dur="2.6s" repeatCount="indefinite" path="M100,185 C180,140 270,60 310,80" begin="1.4s" />
+                    <animateMotion dur="2.9s" repeatCount="indefinite" path="M100,185 C150,60 270,-10 305,15 Q315,25 310,80" begin="1.6s" />
                 </circle>
                 {/* Second wave */}
                 <circle r="3" fill="#1877F2" opacity="0.5" className="beam-dot">
-                    <animateMotion dur="2.2s" repeatCount="indefinite" path="M100,60 C180,20 260,20 310,80" begin="1.1s" />
+                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,60 C150,-10 280,-10 305,15 Q315,25 310,80" begin="1.25s" />
                 </circle>
                 <circle r="3" fill="#4285F4" opacity="0.5" className="beam-dot">
-                    <animateMotion dur="2.4s" repeatCount="indefinite" path="M100,120 C180,60 270,40 310,80" begin="1.9s" />
+                    <animateMotion dur="2.7s" repeatCount="indefinite" path="M100,120 C150,20 270,-10 305,15 Q315,25 310,80" begin="2.15s" />
                 </circle>
                 <circle r="3" fill="#0A66C2" opacity="0.5" className="beam-dot">
-                    <animateMotion dur="2.6s" repeatCount="indefinite" path="M100,185 C180,140 270,60 310,80" begin="2.7s" />
+                    <animateMotion dur="2.9s" repeatCount="indefinite" path="M100,185 C150,60 270,-10 305,15 Q315,25 310,80" begin="3.05s" />
                 </circle>
             </svg>
 
