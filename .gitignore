@@ -31,3 +31,4 @@ legacy-export.tar.gz
 legacy-export.ndjson
 migrate.mjs
 .vercel
+.sanity/
