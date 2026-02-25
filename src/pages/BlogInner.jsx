@@ -166,7 +166,7 @@ export default function BlogInner() {
                             <img
                                 src={urlForImage(post.author.image.asset)?.width(100).height(100).url()}
                                 alt={post.author.name}
-                                className="w-12 h-12 rounded-full object-cover grayscale"
+                                className="w-12 h-12 rounded-full object-cover"
                             />
                         )}
                         <div>
@@ -235,7 +235,7 @@ export default function BlogInner() {
                                                     src={relatedImg}
                                                     alt={related.featuredImage?.alt || related.title}
                                                     loading="lazy"
-                                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                                    className="w-full h-full object-cover transition-all duration-500"
                                                 />
                                             </div>
                                         )}

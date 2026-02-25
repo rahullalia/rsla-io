@@ -1,8 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 // --- Card Visuals ---
 
@@ -41,14 +37,10 @@ function AnimatedBeamVisual() {
                             <stop offset="100%" stopColor="rgba(180,210,255,0.03)" />
                         </linearGradient>
                     </defs>
-                    {/* Wide mouth tapering to narrow spout */}
                     <path d="M2 6 Q2 2 6 2 L104 2 Q108 2 108 6 L108 14 L64 70 L64 110 Q64 116 58 116 L52 116 Q46 116 46 110 L46 70 L2 14 Z" fill="url(#funnelFill)" stroke="rgba(255,255,255,0.25)" strokeWidth="1" filter="url(#funnelGlow)" />
-                    {/* Filter lines */}
                     <line x1="16" y1="30" x2="94" y2="30" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" strokeDasharray="4 4" />
                     <line x1="30" y1="50" x2="80" y2="50" stroke="rgba(255,255,255,0.07)" strokeWidth="0.5" strokeDasharray="3 3" />
-                    {/* Drip */}
                 </svg>
-                {/* Output label */}
                 <div className="mt-2 md:mt-3 flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-wider text-emerald-400/70">Qualified Leads</span>
@@ -56,10 +48,8 @@ function AnimatedBeamVisual() {
                 </div>
             </div>
 
-            {/* Dots only — traveling from platforms into funnel top */}
+            {/* Animated dots */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 240">
-                {/* Invisible paths for dot motion — curves from each platform into the funnel mouth */}
-                {/* Dots rise up high then fall straight down into funnel */}
                 <circle r="4" fill="#1877F2" className="beam-dot">
                     <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,60 C150,-10 280,-10 305,15 Q315,25 310,80" />
                 </circle>
@@ -69,7 +59,6 @@ function AnimatedBeamVisual() {
                 <circle r="4" fill="#0A66C2" className="beam-dot">
                     <animateMotion dur="2.9s" repeatCount="indefinite" path="M100,185 C150,60 270,-10 305,15 Q315,25 310,80" begin="1.6s" />
                 </circle>
-                {/* Second wave */}
                 <circle r="3" fill="#1877F2" opacity="0.5" className="beam-dot">
                     <animateMotion dur="2.5s" repeatCount="indefinite" path="M100,60 C150,-10 280,-10 305,15 Q315,25 310,80" begin="1.25s" />
                 </circle>
@@ -82,19 +71,13 @@ function AnimatedBeamVisual() {
             </svg>
 
             <style dangerouslySetInnerHTML={{ __html: `
-                .beam-source {
-                    animation: sourcePulse 3s ease-in-out infinite;
-                }
+                .beam-source { animation: sourcePulse 3s ease-in-out infinite; }
                 @keyframes sourcePulse {
                     0%, 100% { box-shadow: 0 0 0 0 rgba(0,112,243,0); }
                     50% { box-shadow: 0 0 20px 4px rgba(0,112,243,0.15); }
                 }
-                .beam-dot {
-                    filter: drop-shadow(0 0 6px currentColor);
-                }
-                .funnel-drip {
-                    animation: drip 2s ease-in-out infinite;
-                }
+                .beam-dot { filter: drop-shadow(0 0 6px currentColor); }
+                .funnel-drip { animation: drip 2s ease-in-out infinite; }
                 @keyframes drip {
                     0%, 100% { opacity: 0.3; }
                     50% { opacity: 1; }
@@ -163,7 +146,6 @@ function TypewriterVisual() {
 
     return (
         <div className="w-full h-full bg-dark rounded-2xl border border-white/10 p-4 md:p-6 font-mono text-xs overflow-hidden">
-            {/* Terminal header */}
             <div className="flex items-center gap-1.5 mb-4">
                 <div className="w-2.5 h-2.5 rounded-full bg-coral/60" />
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
@@ -184,9 +166,23 @@ function TypewriterVisual() {
 }
 
 function DashboardVisual() {
+    const ref = useRef(null);
     const [counts, setCounts] = useState({ leads: 0, revenue: 0, booked: 0 });
+    const [started, setStarted] = useState(false);
 
     useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !started) setStarted(true);
+            },
+            { threshold: 0.5 }
+        );
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, [started]);
+
+    useEffect(() => {
+        if (!started) return;
         const targets = { leads: 847, revenue: 36, booked: 42 };
         const duration = 2000;
         const steps = 60;
@@ -195,7 +191,7 @@ function DashboardVisual() {
         const interval = setInterval(() => {
             step++;
             const progress = Math.min(step / steps, 1);
-            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
             setCounts({
                 leads: Math.round(targets.leads * eased),
                 revenue: Math.round(targets.revenue * eased),
@@ -205,11 +201,10 @@ function DashboardVisual() {
         }, duration / steps);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [started]);
 
     return (
-        <div className="w-full h-full rounded-2xl border border-white/10 overflow-hidden bg-dark">
-            {/* Browser frame */}
+        <div ref={ref} className="w-full h-full rounded-2xl border border-white/10 overflow-hidden bg-dark">
             <div className="flex items-center gap-1.5 px-4 py-2.5 bg-white/5 border-b border-white/10">
                 <div className="w-2.5 h-2.5 rounded-full bg-coral/60" />
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
@@ -218,7 +213,6 @@ function DashboardVisual() {
                     <span className="text-[9px] text-white/30 font-mono">go.rsla.io/dashboard</span>
                 </div>
             </div>
-            {/* Dashboard content */}
             <div className="p-3 md:p-5 grid grid-cols-3 gap-2 md:gap-3">
                 {[
                     { label: 'Leads', value: counts.leads, suffix: '', color: 'text-accent' },
@@ -230,7 +224,6 @@ function DashboardVisual() {
                         <div className="font-mono text-[8px] md:text-[9px] uppercase tracking-wider text-white/40 mt-0.5">{stat.label}</div>
                     </div>
                 ))}
-                {/* Bar chart + line chart row */}
                 <div className="col-span-2 bg-white/5 rounded-xl p-2.5 md:p-3">
                     <div className="flex items-center justify-between mb-1.5">
                         <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">Monthly Leads</span>
@@ -243,7 +236,6 @@ function DashboardVisual() {
                         ))}
                     </div>
                 </div>
-                {/* Donut chart */}
                 <div className="col-span-1 bg-white/5 rounded-xl p-2.5 md:p-3 flex flex-col items-center justify-center">
                     <div className="relative w-12 h-12 md:w-14 md:h-14">
                         <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
@@ -258,7 +250,6 @@ function DashboardVisual() {
                     </div>
                     <span className="font-mono text-[7px] md:text-[8px] text-white/30 uppercase tracking-wider mt-1">Close Rate</span>
                 </div>
-                {/* Pipeline stages */}
                 <div className="col-span-3 bg-white/5 rounded-xl p-2.5 md:p-3">
                     <div className="flex items-center justify-between mb-2">
                         <span className="font-mono text-[8px] text-white/30 uppercase tracking-wider">Pipeline</span>
@@ -312,80 +303,83 @@ const services = [
     },
 ];
 
-export default function ServicesCards() {
-    const containerRef = useRef(null);
+function ServiceCard({ service, index }) {
+    const ref = useRef(null);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            const cards = gsap.utils.toArray('.service-card');
-
-            gsap.set(cards, { filter: 'blur(0px)', opacity: 1, scale: 1 });
-
-            cards.forEach((card, i) => {
-                if (i === cards.length - 1) return;
-
-                ScrollTrigger.create({
-                    trigger: card,
-                    start: 'top top',
-                    endTrigger: cards[cards.length - 1],
-                    end: 'top top',
-                    pin: true,
-                    pinSpacing: false,
-                });
-
-                const nextCard = cards[i + 1];
-                if (nextCard) {
-                    gsap.fromTo(card,
-                        { scale: 1, opacity: 1, filter: 'blur(0px)' },
-                        {
-                            scale: 0.9, opacity: 0.5, filter: 'blur(20px)',
-                            scrollTrigger: {
-                                trigger: nextCard,
-                                start: 'top bottom',
-                                end: 'top top',
-                                scrub: true,
-                            }
-                        }
-                    );
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setVisible(true);
+                    observer.disconnect();
                 }
-            });
-        }, containerRef);
-
-        return () => ctx.revert();
+            },
+            { threshold: 0.15 }
+        );
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
     }, []);
 
     return (
-        <section ref={containerRef} className="bg-dark">
+        <div
+            ref={ref}
+            className="snap-card w-full min-h-screen flex items-center justify-center p-4 md:p-6 bg-dark snap-start"
+        >
+            <div
+                className={`bg-white/[0.03] border border-white/10 rounded-[3rem] p-8 md:p-14 max-w-5xl w-full shadow-2xl flex flex-col md:flex-row gap-8 md:gap-12 items-center backdrop-blur-sm transition-all duration-700 ease-out ${
+                    visible
+                        ? 'opacity-100 translate-y-0'
+                        : 'opacity-0 translate-y-12'
+                }`}
+                style={{ transitionDelay: '100ms' }}
+            >
+                <div className="flex-1 text-left">
+                    <span className="inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent border border-accent/30 rounded-full px-4 py-1.5 mb-6">
+                        {service.tag}
+                    </span>
+                    <h3 className="font-sans font-bold text-2xl md:text-4xl lg:text-5xl text-primary mb-4 leading-tight">
+                        {service.title} <span className="font-drama italic font-normal">{service.accent}</span>
+                    </h3>
+                    <p className="font-body text-sm md:text-base text-white/60 leading-relaxed max-w-md mb-8">
+                        {service.body}
+                    </p>
+                    <a href={service.link} className="link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-white transition-colors group">
+                        {service.cta}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                    </a>
+                </div>
+                <div className="flex-1 w-full h-64 md:h-96">
+                    <service.Visual />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default function ServicesCards() {
+    return (
+        <section className="bg-dark">
             <div className="max-w-7xl mx-auto px-6 pt-10 pb-10 text-center">
                 <span className="font-mono text-accent text-xs uppercase tracking-widest font-bold">What We Build</span>
             </div>
 
-            <div className="relative">
+            <div className="snap-container">
                 {services.map((service, i) => (
-                    <div key={i} className="service-card w-full min-h-screen flex items-center justify-center p-4 md:p-6 bg-dark origin-top" style={{ filter: 'blur(0px)', opacity: 1, scale: 1 }}>
-                        <div className="bg-white/[0.03] border border-white/10 rounded-[3rem] p-8 md:p-14 max-w-5xl w-full shadow-2xl flex flex-col md:flex-row gap-8 md:gap-12 items-center backdrop-blur-sm">
-                            <div className="flex-1 text-left">
-                                <span className="inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent border border-accent/30 rounded-full px-4 py-1.5 mb-6">
-                                    {service.tag}
-                                </span>
-                                <h3 className="font-sans font-bold text-2xl md:text-4xl lg:text-5xl text-primary mb-4 leading-tight">
-                                    {service.title} <span className="font-drama italic font-normal">{service.accent}</span>
-                                </h3>
-                                <p className="font-body text-sm md:text-base text-white/60 leading-relaxed max-w-md mb-8">
-                                    {service.body}
-                                </p>
-                                <a href={service.link} className="link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-white transition-colors group">
-                                    {service.cta}
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-                                </a>
-                            </div>
-                            <div className="flex-1 w-full h-64 md:h-96">
-                                <service.Visual />
-                            </div>
-                        </div>
-                    </div>
+                    <ServiceCard key={i} service={service} index={i} />
                 ))}
             </div>
+
+            <style dangerouslySetInnerHTML={{ __html: `
+                @supports (scroll-snap-type: y mandatory) {
+                    .snap-container {
+                        scroll-snap-type: y proximity;
+                    }
+                    .snap-card {
+                        scroll-snap-align: start;
+                    }
+                }
+            `}} />
         </section>
     );
 }

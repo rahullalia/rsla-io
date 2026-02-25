@@ -7,24 +7,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function FounderSection() {
     const sectionRef = useRef(null);
-    const photoRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Grayscale to color on scroll
-            gsap.fromTo(photoRef.current,
-                { filter: 'grayscale(1)' },
-                {
-                    filter: 'grayscale(0)',
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top 60%',
-                        end: 'center center',
-                        scrub: true,
-                    }
-                }
-            );
-
             // Text fade up
             gsap.fromTo('.founder-text',
                 { y: 40, opacity: 0 },
@@ -46,11 +31,7 @@ export default function FounderSection() {
             <div className="max-w-6xl mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-12 md:gap-16 items-start">
                 {/* Photo */}
                 <div className="md:sticky md:top-32 w-full md:w-2/5 flex-shrink-0">
-                    <div
-                        ref={photoRef}
-                        className="w-full aspect-[3/4] rounded-[2rem] bg-dark/10 overflow-hidden transition-all duration-700 hover:grayscale-0 hover:scale-[1.02]"
-                        style={{ filter: 'grayscale(1)' }}
-                    >
+                    <div className="w-full aspect-[3/4] rounded-[2rem] bg-dark/10 overflow-hidden transition-all duration-700 hover:scale-[1.02]">
                         <img src="/images/rahul.webp" alt="Rahul Lalia" className="w-full h-full object-cover" />
                     </div>
                 </div>

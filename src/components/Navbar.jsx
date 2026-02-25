@@ -81,28 +81,18 @@ export default function Navbar() {
                     ))}
                 </div>
 
-                {/* Hamburger button — mobile only */}
-                <button
-                    onClick={() => setMobileOpen(!mobileOpen)}
-                    className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] relative z-50"
-                    aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-                >
-                    <span
-                        className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
-                            scrolled ? 'bg-dark' : (isDarkBgPage ? 'bg-white' : 'bg-dark')
-                        } ${mobileOpen ? 'rotate-45 translate-y-[7px]' : ''}`}
-                    />
-                    <span
-                        className={`block w-5 h-[2px] rounded-full transition-all duration-300 ${
-                            scrolled ? 'bg-dark' : (isDarkBgPage ? 'bg-white' : 'bg-dark')
-                        } ${mobileOpen ? 'opacity-0' : ''}`}
-                    />
-                    <span
-                        className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
-                            scrolled ? 'bg-dark' : (isDarkBgPage ? 'bg-white' : 'bg-dark')
-                        } ${mobileOpen ? '-rotate-45 -translate-y-[7px]' : ''}`}
-                    />
-                </button>
+                {/* Hamburger button — mobile only (hidden when menu is open) */}
+                {!mobileOpen && (
+                    <button
+                        onClick={() => setMobileOpen(true)}
+                        className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px]"
+                        aria-label="Open menu"
+                    >
+                        <span className={`block w-5 h-[2px] rounded-full transition-all duration-300 ${scrolled ? 'bg-dark' : (isDarkBgPage ? 'bg-white' : 'bg-dark')}`} />
+                        <span className={`block w-5 h-[2px] rounded-full transition-all duration-300 ${scrolled ? 'bg-dark' : (isDarkBgPage ? 'bg-white' : 'bg-dark')}`} />
+                        <span className={`block w-5 h-[2px] rounded-full transition-all duration-300 ${scrolled ? 'bg-dark' : (isDarkBgPage ? 'bg-white' : 'bg-dark')}`} />
+                    </button>
+                )}
 
                 {/* Desktop CTA */}
                 <div className="hidden md:block">
@@ -131,6 +121,18 @@ export default function Navbar() {
                         : 'opacity-0 pointer-events-none'
                 }`}
             >
+                {/* Close button — top right */}
+                <button
+                    onClick={() => setMobileOpen(false)}
+                    className="absolute top-8 right-6 w-10 h-10 flex items-center justify-center z-50"
+                    aria-label="Close menu"
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                    </svg>
+                </button>
+
                 <div className={`flex flex-col items-center gap-8 font-mono text-sm uppercase tracking-widest transition-all duration-500 delay-100 ${
                     mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
                 }`}>

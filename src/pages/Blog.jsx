@@ -92,7 +92,7 @@ export default function Blog() {
                                                     src={imageUrl}
                                                     alt={post.featuredImage?.alt || post.title}
                                                     loading="lazy"
-                                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
+                                                    className="w-full h-full object-cover transition-all duration-500 scale-100 group-hover:scale-105"
                                                 />
                                             </div>
                                         )}

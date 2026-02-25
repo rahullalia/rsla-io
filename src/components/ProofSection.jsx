@@ -1,22 +1,28 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
+import { client } from '../sanity/lib/client';
+import { featuredCaseStudiesV2Query, featuredCaseStudiesQuery } from '../sanity/lib/queries';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const proofs = [
+// Hardcoded fallback in case Sanity is unreachable
+const fallbackProofs = [
     {
+        slug: null,
         type: 'Local Service Co.',
         result: 'Optimized ad targeting turned $600 in spend into $36,000 closed revenue in 45 days.',
         metric: '$36K',
     },
     {
+        slug: null,
         type: 'Consulting Firm',
         result: 'Reactivated a dead database of 13,000 cold contacts and booked 42 appointments in one week.',
         metric: '42',
     },
     {
+        slug: null,
         type: 'E-Commerce Brand',
         result: 'Custom chat infrastructure cut manual customer service hours by 80%.',
         metric: '80%',
@@ -25,6 +31,34 @@ const proofs = [
 
 export default function ProofSection() {
     const sectionRef = useRef(null);
+    const [proofs, setProofs] = useState(fallbackProofs);
+
+    useEffect(() => {
+        async function fetchCaseStudies() {
+            try {
+                // Try V2 first, fall back to V1
+                let data = await client.fetch(featuredCaseStudiesV2Query);
+                console.log('[ProofSection] V2 data:', data);
+                if (!data || data.length === 0) {
+                    data = await client.fetch(featuredCaseStudiesQuery);
+                    console.log('[ProofSection] V1 data:', data);
+                }
+                if (data && data.length > 0) {
+                    const mapped = data.map((cs) => ({
+                        slug: cs.slug,
+                        type: cs.tag || 'Case Study',
+                        result: cs.description,
+                        metric: cs.metrics?.[0]?.value || '',
+                    }));
+                    console.log('[ProofSection] mapped proofs:', mapped);
+                    setProofs(mapped);
+                }
+            } catch (err) {
+                console.error('[ProofSection] fetch error:', err);
+            }
+        }
+        fetchCaseStudies();
+    }, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -41,7 +75,7 @@ export default function ProofSection() {
             );
         }, sectionRef);
         return () => ctx.revert();
-    }, []);
+    }, [proofs]);
 
     return (
         <section ref={sectionRef} className="w-full bg-dark py-24 md:py-32">
@@ -51,17 +85,36 @@ export default function ProofSection() {
                 </h2>
 
                 <div className="space-y-0">
-                    {proofs.map((proof, i) => (
-                        <div key={i} className="proof-row flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8 py-8 md:py-10 border-b border-white/10 group hover:border-accent/30 transition-colors duration-500">
-                            <div className="flex-1">
-                                <span className="font-mono text-[10px] uppercase tracking-widest text-accent font-bold">{proof.type}</span>
-                                <p className="font-body text-white/60 text-sm md:text-base leading-relaxed mt-2 max-w-xl">{proof.result}</p>
+                    {proofs.map((proof, i) => {
+                        const inner = (
+                            <>
+                                <div className="flex-1">
+                                    <span className="font-mono text-[10px] uppercase tracking-widest text-accent font-bold">{proof.type}</span>
+                                    <p className="font-body text-white/60 text-sm md:text-base leading-relaxed mt-2 max-w-xl">{proof.result}</p>
+                                </div>
+                                <div className="flex-shrink-0 flex items-center gap-3">
+                                    <div className="font-drama italic font-normal text-5xl md:text-7xl text-accent leading-none">{proof.metric}</div>
+                                    {proof.slug && (
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/20 group-hover:text-accent group-hover:translate-x-1 transition-all">
+                                            <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                                        </svg>
+                                    )}
+                                </div>
+                            </>
+                        );
+
+                        const className = "proof-row flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8 py-8 md:py-10 border-b border-white/10 group hover:border-accent/30 transition-colors duration-500";
+
+                        return proof.slug ? (
+                            <Link key={i} to={`/work/${proof.slug}`} className={className}>
+                                {inner}
+                            </Link>
+                        ) : (
+                            <div key={i} className={className}>
+                                {inner}
                             </div>
-                            <div className="flex-shrink-0">
-                                <div className="font-drama italic font-normal text-5xl md:text-7xl text-accent leading-none">{proof.metric}</div>
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
 
                 <div className="mt-12">
