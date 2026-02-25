@@ -105,7 +105,7 @@ export default function Rahul() {
                 {/* Email */}
                 <a
                     href="mailto:lalia@rsla.io"
-                    className="font-mono text-xs uppercase tracking-wider text-white/40 hover:text-accent transition-colors mb-5"
+                    className="font-mono text-xs tracking-wider text-white/40 hover:text-accent transition-colors mb-5"
                 >
                     📧 lalia@rsla.io
                 </a>
