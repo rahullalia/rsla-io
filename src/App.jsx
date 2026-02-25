@@ -1,10 +1,24 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 // Homepage loads eagerly (critical path)
 import Home from './pages/Home';
+
+// Scroll to hash anchor after navigation (e.g. /#contact)
+function useHashScroll() {
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      // Small delay to let the page render before scrolling
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, [location]);
+}
 
 // Everything else lazy-loaded
 const About = lazy(() => import('./pages/About'));
@@ -28,6 +42,7 @@ const chromelessRoutes = ['/rahul', '/booking-confirmed'];
 
 function App() {
   const location = useLocation();
+  useHashScroll();
   const hideChrome = chromelessRoutes.includes(location.pathname);
 
   return (

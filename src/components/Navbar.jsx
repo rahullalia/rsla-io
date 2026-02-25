@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
     const isHome = location.pathname === '/';
     const darkHeroPages = ['/', '/about', '/services', '/start-here', '/how-it-works'];
     const isDarkBgPage = darkHeroPages.includes(location.pathname);
+    const pagesWithContact = ['/', '/about', '/services', '/start-here', '/how-it-works'];
 
     useEffect(() => {
         const handleScroll = () => {
@@ -104,14 +106,20 @@ export default function Navbar() {
 
                 {/* Desktop CTA */}
                 <div className="hidden md:block">
-                    <Link
-                        to="/book-a-call"
-                        className={`inline-block relative px-5 py-2.5 rounded-full text-sm font-sans font-bold transition-transform hover:scale-[1.03] active:scale-95 duration-300 btn-neon ${scrolled
+                    <button
+                        onClick={() => {
+                            if (pagesWithContact.includes(location.pathname)) {
+                                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                            } else {
+                                navigate('/#contact');
+                            }
+                        }}
+                        className={`inline-block relative px-5 py-2.5 rounded-full text-sm font-sans font-bold transition-transform hover:scale-[1.03] active:scale-95 duration-300 btn-neon cursor-pointer ${scrolled
                             ? 'bg-accent text-white'
                             : (isDarkBgPage ? 'bg-white text-dark' : 'bg-dark text-white')}`}
                     >
                         <span className="relative z-10">Let's Talk</span>
-                    </Link>
+                    </button>
                 </div>
             </div>
 
@@ -142,13 +150,21 @@ export default function Navbar() {
                         </Link>
                     ))}
 
-                    <Link
-                        to="/book-a-call"
-                        onClick={() => setMobileOpen(false)}
-                        className="mt-4 inline-block px-8 py-3 rounded-full text-sm font-sans font-bold bg-accent text-white transition-transform hover:scale-[1.03] active:scale-95 btn-neon"
+                    <button
+                        onClick={() => {
+                            setMobileOpen(false);
+                            if (pagesWithContact.includes(location.pathname)) {
+                                setTimeout(() => {
+                                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                                }, 300);
+                            } else {
+                                navigate('/#contact');
+                            }
+                        }}
+                        className="mt-4 inline-block px-8 py-3 rounded-full text-sm font-sans font-bold bg-accent text-white transition-transform hover:scale-[1.03] active:scale-95 btn-neon cursor-pointer"
                     >
                         <span className="relative z-10">Let's Talk</span>
-                    </Link>
+                    </button>
                 </div>
             </div>
         </nav>

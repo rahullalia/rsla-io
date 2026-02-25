@@ -83,8 +83,8 @@ export default function Terms() {
                     <p className="mb-8 p-6 bg-dark/5 rounded-xl border border-dark/10">
                         <strong className="text-dark font-sans tracking-widest text-lg">RSL/A</strong><br />
                         <span className="opacity-50 text-xs uppercase tracking-widest mt-2 block">Direct Inquiry:</span>
-                        <a href="mailto:lalia@rsla.io" className="text-accent hover:underline font-mono text-base mt-1 block">
-                            lalia@rsla.io
+                        <a href="mailto:team@rsla.io" className="text-accent hover:underline font-mono text-base mt-1 block">
+                            team@rsla.io
                         </a>
                     </p>
 

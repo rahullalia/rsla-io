@@ -88,8 +88,8 @@ export default function Privacy() {
                     <h2 className="text-2xl mt-16 mb-6 font-sans font-bold text-dark border-b border-dark/10 pb-4">7. Your Privacy Rights</h2>
                     <p className="mb-8">
                         Depending on your jurisdiction, you may have rights to access, correct, delete, or opt out of certain uses of your information. Contact us at{' '}
-                        <a href="mailto:lalia@rsla.io" className="text-accent hover:underline decoration-accent/50 underline-offset-4 transition-colors">
-                            lalia@rsla.io
+                        <a href="mailto:team@rsla.io" className="text-accent hover:underline decoration-accent/50 underline-offset-4 transition-colors">
+                            team@rsla.io
                         </a>{' '}
                         to exercise these rights.
                     </p>
@@ -98,8 +98,8 @@ export default function Privacy() {
                     <p className="mb-8 p-6 bg-dark/5 rounded-xl border border-dark/10">
                         <strong className="text-dark font-sans tracking-widest text-lg">RSL/A</strong><br />
                         <span className="opacity-50 text-xs uppercase tracking-widest mt-2 block">Direct Inquiry:</span>
-                        <a href="mailto:lalia@rsla.io" className="text-accent hover:underline font-mono text-base mt-1 block">
-                            lalia@rsla.io
+                        <a href="mailto:team@rsla.io" className="text-accent hover:underline font-mono text-base mt-1 block">
+                            team@rsla.io
                         </a>
                     </p>
 

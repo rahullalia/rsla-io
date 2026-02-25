@@ -9,5 +9,4 @@ export const client = createClient({
     dataset,
     apiVersion,
     useCdn: true,
-    token: import.meta.env.VITE_SANITY_API_TOKEN,
 })
