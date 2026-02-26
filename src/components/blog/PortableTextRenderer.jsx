@@ -29,7 +29,7 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email_address: email }),
             });
-            if (res.ok) {
+            if (res.ok || res.redirected) {
                 localStorage.setItem('rsla_resource_unlocked', '1');
                 setStatus('unlocked');
                 triggerDownload(downloadUrl);
