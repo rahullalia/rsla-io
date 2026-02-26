@@ -76,7 +76,7 @@ export const PortableTextComponents = {
             );
         },
         videoEmbed: ({ value }) => {
-            const { url, caption } = value;
+            const { url, caption, orientation } = value;
             let embedUrl = '';
 
             if (url.includes('youtube.com') || url.includes('youtu.be')) {
@@ -90,13 +90,18 @@ export const PortableTextComponents = {
             } else if (url.includes('loom.com')) {
                 const videoId = url.split('/share/')[1]?.split('?')[0];
                 embedUrl = `https://www.loom.com/embed/${videoId}`;
+            } else if (url.includes('wistia.com/medias/')) {
+                const videoId = url.split('/medias/')[1]?.split('?')[0];
+                embedUrl = `https://fast.wistia.net/embed/iframe/${videoId}`;
             }
 
             if (!embedUrl) return null;
 
+            const isVertical = orientation === 'vertical';
+
             return (
                 <figure className="my-10 flex flex-col items-center">
-                    <div className="relative rounded-xl overflow-hidden w-full aspect-video bg-surfaceAlt border border-accent-border shadow-lg">
+                    <div className={`relative rounded-xl overflow-hidden bg-surfaceAlt border border-accent-border shadow-lg ${isVertical ? 'w-full max-w-sm aspect-[9/16]' : 'w-full aspect-video'}`}>
                         <iframe
                             src={embedUrl}
                             className="absolute inset-0 w-full h-full"
