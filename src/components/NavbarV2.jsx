@@ -126,6 +126,8 @@ export default function NavbarV2() {
                         <img
                             src="/images/logo/logomark.svg"
                             alt="RSL/A Logo"
+                            width="24"
+                            height="24"
                             className="h-6 w-auto"
                         />
                     </Link>
@@ -188,6 +190,8 @@ export default function NavbarV2() {
                         <img
                             src="/images/logo/logomark.svg"
                             alt="RSL/A Logo"
+                            width="28"
+                            height="28"
                             className="h-7 w-auto"
                         />
                     </Link>

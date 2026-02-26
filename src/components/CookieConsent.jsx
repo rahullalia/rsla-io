@@ -67,7 +67,7 @@ export default function CookieConsent() {
                 <div className="flex items-start justify-between gap-3 mb-3">
                     <p className="font-body text-xs text-textMuted leading-relaxed">
                         We use cookies to improve your experience.{' '}
-                        <Link to="/privacy-policy" className="text-accent hover:underline">Learn more</Link>
+                        <Link to="/privacy-policy" className="text-accent hover:underline">Privacy Policy</Link>
                     </p>
                     <button
                         onClick={decline}

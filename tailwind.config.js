@@ -45,7 +45,7 @@ export default {
         text: "#0F172A",              // slate-900 — primary text
         textMuted: "#64748B",         // slate-500 — secondary text
         textLight: "#94A3B8",         // slate-400 — tertiary text
-        accent: "#0070F3",            // brand blue
+        accent: "#0066E0",            // brand blue (darkened from #0070F3 for WCAG AA contrast)
         cyan: "#00C2FF",              // electric cyan
         coral: "#FF6B6B",             // soft coral (errors only)
 

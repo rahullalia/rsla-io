@@ -61,6 +61,8 @@ export default function FooterV2() {
                             <img
                                 src="/images/logo/lockup-nobg.webp"
                                 alt="RSL/A Logo"
+                                width="200"
+                                height="80"
                                 className="h-20 w-auto"
                             />
                         </Link>
@@ -86,9 +88,9 @@ export default function FooterV2() {
 
                     {/* Explore */}
                     <div>
-                        <h5 className="font-sans font-bold text-sm uppercase tracking-wider mb-4 text-white/80">
+                        <p className="font-sans font-bold text-sm uppercase tracking-wider mb-4 text-white/80">
                             Explore
-                        </h5>
+                        </p>
                         <ul className="flex flex-col gap-2.5">
                             {navLinks.map((link) => (
                                 <li key={link.to}>
@@ -105,9 +107,9 @@ export default function FooterV2() {
 
                     {/* Follow */}
                     <div>
-                        <h5 className="font-sans font-bold text-sm uppercase tracking-wider mb-4 text-white/80">
+                        <p className="font-sans font-bold text-sm uppercase tracking-wider mb-4 text-white/80">
                             Follow
-                        </h5>
+                        </p>
                         <ul className="flex flex-col gap-2.5">
                             {socials.map((social) => (
                                 <li key={social.label}>
@@ -126,9 +128,9 @@ export default function FooterV2() {
 
                     {/* Newsletter */}
                     <div>
-                        <h5 className="font-sans font-bold text-sm uppercase tracking-wider mb-4 text-white/80">
+                        <p className="font-sans font-bold text-sm uppercase tracking-wider mb-4 text-white/80">
                             The Insider
-                        </h5>
+                        </p>
                         <p className="font-body text-base text-white/60 mb-4">
                             Join the insider club. AI and marketing insights, weekly.
                         </p>
