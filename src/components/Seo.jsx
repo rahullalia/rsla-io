@@ -44,10 +44,9 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, j
         if (canonical) {
             setOrCreateMeta('property', 'og:url', canonical);
         }
-        if (ogImage) {
-            setOrCreateMeta('property', 'og:image', ogImage);
-            setOrCreateMeta('name', 'twitter:image', ogImage);
-        }
+        const resolvedOgImage = ogImage || 'https://rsla.io/og-image.png';
+        setOrCreateMeta('property', 'og:image', resolvedOgImage);
+        setOrCreateMeta('name', 'twitter:image', resolvedOgImage);
 
         // Twitter tags
         if (title) {

@@ -91,7 +91,7 @@ export default function BlogInner() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-background pt-32 pb-24 flex items-center justify-center">
+            <div className="min-h-screen bg-surface pt-32 pb-24 flex items-center justify-center">
                 <div className="font-mono text-accent animate-pulse">[FETCHING_ARTICLE...]</div>
             </div>
         );
@@ -99,9 +99,9 @@ export default function BlogInner() {
 
     if (!post) {
         return (
-            <div className="min-h-screen bg-background pt-32 pb-24 flex flex-col items-center justify-center">
-                <h1 className="text-4xl font-sans font-bold text-dark mb-4">404 - Article Not Found</h1>
-                <Link to="/blog" className="text-accent hover:underline font-mono">← Return to Archive</Link>
+            <div className="min-h-screen bg-surface pt-32 pb-24 flex flex-col items-center justify-center">
+                <h1 className="text-4xl font-sans font-bold text-text mb-4">404 - Article Not Found</h1>
+                <Link to="/blog" className="text-accent hover:underline font-mono">← Back to Blog</Link>
             </div>
         );
     }
@@ -111,7 +111,7 @@ export default function BlogInner() {
     const seoDescription = post.excerpt || (post.body?.[0]?.children?.[0]?.text || '').slice(0, 160);
 
     return (
-        <article className="min-h-screen bg-background text-dark pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
+        <article className="min-h-screen bg-surface text-text pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
             <Seo
                 title={`${post.title} | RSL/A`}
                 description={seoDescription}
@@ -140,8 +140,8 @@ export default function BlogInner() {
 
                 {/* Header Breadcrumb & Back */}
                 <div className="mb-12 flex flex-col items-start gap-4">
-                    <Link to="/blog" className="inline-flex items-center gap-2 text-dark/50 hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider">
-                        ← Back to Archive
+                    <Link to="/blog" className="inline-flex items-center gap-2 text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider">
+                        ← Back to Blog
                     </Link>
 
                     {post.categories && post.categories.length > 0 && (
@@ -157,11 +157,11 @@ export default function BlogInner() {
 
                 {/* Article Header */}
                 <header className="mb-16">
-                    <h1 className="text-4xl md:text-6xl font-sans font-bold leading-tight tracking-tight text-dark mb-8">
+                    <h1 className="text-4xl md:text-6xl font-sans font-bold leading-tight tracking-tight text-text mb-8">
                         {post.title}
                     </h1>
 
-                    <div className="flex items-center gap-4 py-6 border-y border-dark/10">
+                    <div className="flex items-center gap-4 py-6 border-y border-accent-border">
                         {post.author?.image?.asset && (
                             <img
                                 src={urlForImage(post.author.image.asset)?.width(100).height(100).url()}
@@ -171,7 +171,7 @@ export default function BlogInner() {
                         )}
                         <div>
                             <div className="font-sans font-bold text-lg">{post.author?.name || 'SYS.ADMIN'}</div>
-                            <div className="font-mono text-sm text-dark/50 uppercase tracking-wider flex items-center gap-2">
+                            <div className="font-mono text-sm text-textLight uppercase tracking-wider flex items-center gap-2">
                                 <span>{post.author?.role || 'Architect'}</span>
                                 <span>•</span>
                                 <time>
@@ -192,14 +192,14 @@ export default function BlogInner() {
 
                 {/* Pull Quote (V2) */}
                 {post.pullQuote && (
-                    <blockquote className="border-l-4 border-accent pl-8 my-12 italic text-2xl md:text-3xl text-dark/80 font-drama leading-relaxed">
+                    <blockquote className="border-l-4 border-accent pl-8 my-12 italic text-2xl md:text-3xl text-textMuted font-drama leading-relaxed">
                         {post.pullQuote}
                     </blockquote>
                 )}
 
                 {/* Hero Image */}
                 {imageUrl && (
-                    <div className="w-full aspect-video rounded-[2rem] overflow-hidden mb-16 shadow-lg border border-dark/5">
+                    <div className="w-full aspect-video rounded-[2rem] overflow-hidden mb-16 shadow-lg border border-accent-border">
                         <img
                             src={imageUrl}
                             alt={post.featuredImage?.alt || post.title}
@@ -217,7 +217,7 @@ export default function BlogInner() {
                 {/* Related Posts (V2) */}
                 {post.relatedPosts && post.relatedPosts.length > 0 && (
                     <div className="mt-20 mb-16">
-                        <h3 className="text-3xl font-sans font-bold text-dark mb-10 text-center">Read Next</h3>
+                        <h3 className="text-3xl font-sans font-bold text-text mb-10 text-center">Read Next</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {post.relatedPosts.map((related) => {
                                 const relatedImg = related.featuredImage?.asset
@@ -227,10 +227,10 @@ export default function BlogInner() {
                                     <Link
                                         key={related._id}
                                         to={`/blog/${related.slug.current}`}
-                                        className="group flex flex-col bg-primary rounded-[1.5rem] border border-dark/5 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                                        className="group flex flex-col bg-surfaceAlt rounded-[1.5rem] border border-accent-border overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                                     >
                                         {relatedImg && (
-                                            <div className="aspect-[3/2] overflow-hidden bg-dark/5">
+                                            <div className="aspect-[3/2] overflow-hidden bg-surfaceAlt">
                                                 <img
                                                     src={relatedImg}
                                                     alt={related.featuredImage?.alt || related.title}
@@ -244,9 +244,9 @@ export default function BlogInner() {
                                                 {related.title}
                                             </h4>
                                             {related.excerpt && (
-                                                <p className="font-mono text-sm text-dark/50 line-clamp-2">{related.excerpt}</p>
+                                                <p className="font-mono text-sm text-textLight line-clamp-2">{related.excerpt}</p>
                                             )}
-                                            <div className="mt-4 font-mono text-xs text-dark/40 flex items-center gap-2">
+                                            <div className="mt-4 font-mono text-xs text-textLight flex items-center gap-2">
                                                 <time>
                                                     {new Date(related.publishedAt).toLocaleDateString('en-US', {
                                                         month: 'short', day: 'numeric', year: 'numeric'
@@ -269,22 +269,18 @@ export default function BlogInner() {
 
                 {/* Related Case Study Injection */}
                 {relatedCaseStudy && (
-                    <div className="mt-24 p-10 bg-dark rounded-[2rem] text-white shadow-2xl relative overflow-hidden group">
-                        {/* Abstract Background Decoration */}
-                        <div className="absolute -inset-10 bg-[radial-gradient(circle_at_100%_0%,rgba(0,112,243,0.15),transparent_50%)] 
-                                        opacity-50 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-                        <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
+                    <div className="mt-24 p-10 bg-surfaceAlt border border-accent-border rounded-[2rem] shadow-sm relative overflow-hidden">
+                        <div className="flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
                             <div className="max-w-xl">
                                 <h3 className="font-mono text-accent text-sm uppercase tracking-widest mb-4">See It In Action</h3>
-                                <h4 className="text-3xl font-sans font-bold mb-3">{relatedCaseStudy.title}</h4>
-                                <p className="text-white/60 font-mono text-sm leading-relaxed mb-6">{relatedCaseStudy.description}</p>
+                                <h4 className="text-3xl font-sans font-bold text-text mb-3">{relatedCaseStudy.title}</h4>
+                                <p className="text-textMuted font-body text-sm leading-relaxed mb-6">{relatedCaseStudy.description}</p>
 
                                 {relatedCaseStudy.metrics && relatedCaseStudy.metrics.length > 0 && (
                                     <div className="flex gap-6 mb-8 border-l-2 border-accent pl-6">
                                         {relatedCaseStudy.metrics.slice(0, 2).map((metric, idx) => (
                                             <div key={idx}>
-                                                <strong className="block text-2xl font-bold">{metric.value}</strong>
+                                                <strong className="block text-2xl font-bold text-text">{metric.value}</strong>
                                                 <span className="text-[10px] font-mono text-accent uppercase tracking-wider">{metric.label}</span>
                                             </div>
                                         ))}
@@ -293,9 +289,9 @@ export default function BlogInner() {
 
                                 <Link
                                     to={`/work/${relatedCaseStudy.slug}`}
-                                    className="inline-flex items-center gap-3 px-6 py-3 bg-white text-dark font-sans font-bold rounded-full hover:scale-105 transition-transform"
+                                    className="inline-flex items-center gap-3 px-6 py-3 bg-accent text-white font-sans font-bold rounded-full hover:scale-105 transition-transform"
                                 >
-                                    Read Case Study <span className="text-accent">→</span>
+                                    Read Case Study <span>→</span>
                                 </Link>
                             </div>
                         </div>

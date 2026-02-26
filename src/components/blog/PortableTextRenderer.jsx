@@ -18,7 +18,7 @@ export const PortableTextComponents = {
 
             return (
                 <figure className="my-12">
-                    <div className="relative w-full overflow-hidden bg-dark/5 rounded-[1.5rem] border border-dark/5">
+                    <div className="relative w-full overflow-hidden bg-surfaceAlt rounded-[1.5rem] border border-accent-border">
                         <img
                             src={imageUrl}
                             alt={value.alt || 'Blog illustration'}
@@ -28,7 +28,7 @@ export const PortableTextComponents = {
                         />
                     </div>
                     {value.caption && (
-                        <figcaption className="text-center text-sm font-mono text-dark/50 mt-4 italic">
+                        <figcaption className="text-center text-sm font-mono text-textLight mt-4 italic">
                             {value.caption}
                         </figcaption>
                     )}
@@ -37,7 +37,7 @@ export const PortableTextComponents = {
         },
         code: ({ value }) => {
             return (
-                <pre className="bg-dark text-white rounded-xl p-6 overflow-x-auto my-8 max-w-full shadow-lg">
+                <pre className="bg-slate-900 text-white rounded-xl p-6 overflow-x-auto my-8 max-w-full shadow-lg">
                     {value.filename && (
                         <div className="text-sm text-accent font-mono mb-4 border-b border-white/10 pb-3">
                             {value.filename}
@@ -68,7 +68,7 @@ export const PortableTextComponents = {
 
             return (
                 <figure className="my-10 flex flex-col items-center">
-                    <div className="relative rounded-xl overflow-hidden w-full aspect-video bg-dark/5 border border-dark/10 shadow-lg">
+                    <div className="relative rounded-xl overflow-hidden w-full aspect-video bg-surfaceAlt border border-accent-border shadow-lg">
                         <iframe
                             src={embedUrl}
                             className="absolute inset-0 w-full h-full"
@@ -78,7 +78,7 @@ export const PortableTextComponents = {
                         />
                     </div>
                     {caption && (
-                        <figcaption className="text-center text-sm font-mono text-dark/50 mt-4 italic">
+                        <figcaption className="text-center text-sm font-mono text-textLight mt-4 italic">
                             {caption}
                         </figcaption>
                     )}
@@ -92,8 +92,8 @@ export const PortableTextComponents = {
                     <div className="flex items-start gap-4">
                         <span className="text-2xl pt-1">💡</span>
                         <div className="flex-1">
-                            {title && <h4 className="text-xl font-bold font-sans text-dark mb-3">{title}</h4>}
-                            <p className="font-mono text-dark/70 leading-relaxed text-sm md:text-base">{content}</p>
+                            {title && <h4 className="text-xl font-bold font-sans text-text mb-3">{title}</h4>}
+                            <p className="font-mono text-textMuted leading-relaxed text-sm md:text-base">{content}</p>
                         </div>
                     </div>
                 </div>
@@ -106,9 +106,9 @@ export const PortableTextComponents = {
             return (
                 <div className="my-12 grid grid-cols-2 md:grid-cols-4 gap-4">
                     {stats.map((stat, idx) => (
-                        <div key={idx} className="bg-primary border border-dark/10 rounded-2xl p-6 text-center shadow-sm">
+                        <div key={idx} className="bg-surfaceAlt border border-accent-border rounded-2xl p-6 text-center shadow-sm">
                             <div className="text-4xl font-bold font-sans text-accent mb-2">{stat.value}</div>
-                            <div className="text-xs font-mono text-dark/50 uppercase tracking-widest">{stat.label}</div>
+                            <div className="text-xs font-mono text-textLight uppercase tracking-widest">{stat.label}</div>
                         </div>
                     ))}
                 </div>
@@ -125,7 +125,7 @@ export const PortableTextComponents = {
                     </div>
                 );
             }
-            return <hr className="my-16 border-t border-dark/10" />;
+            return <hr className="my-16 border-t border-accent-border" />;
         },
         ctaButton: ({ value }) => {
             const { text, url, style } = value;
@@ -146,7 +146,7 @@ export const PortableTextComponents = {
                         className={`inline-flex items-center gap-2 px-8 py-4 rounded-full font-sans font-bold text-base transition-all hover:scale-105 ${
                             isPrimary
                                 ? 'bg-accent text-white shadow-[0_0_20px_rgba(0,112,243,0.3)]'
-                                : 'bg-transparent text-dark border-2 border-dark/20 hover:border-dark/40'
+                                : 'bg-transparent text-text border-2 border-accent-border hover:border-accent/40'
                         }`}
                     >
                         {text} <span className={isPrimary ? 'text-white/70' : 'text-accent'}>→</span>
@@ -161,9 +161,9 @@ export const PortableTextComponents = {
             return (
                 <div className="my-12 p-8 rounded-[1.5rem] border-2 border-dashed border-accent/30 bg-accent/5 text-center">
                     <span className="text-3xl mb-4 block">📥</span>
-                    <h4 className="text-xl font-bold font-sans text-dark mb-2">{title}</h4>
+                    <h4 className="text-xl font-bold font-sans text-text mb-2">{title}</h4>
                     {description && (
-                        <p className="font-mono text-sm text-dark/60 mb-6 max-w-md mx-auto">{description}</p>
+                        <p className="font-mono text-sm text-textMuted mb-6 max-w-md mx-auto">{description}</p>
                     )}
                     <a
                         href={downloadUrl}
@@ -181,16 +181,16 @@ export const PortableTextComponents = {
             if (!quote) return null;
 
             return (
-                <div className="my-12 p-8 rounded-[1.5rem] bg-dark/5 border border-dark/10 relative">
+                <div className="my-12 p-8 rounded-[1.5rem] bg-surfaceAlt border border-accent-border relative">
                     <span className="text-6xl text-accent/20 font-drama absolute top-4 left-6 leading-none">"</span>
-                    <blockquote className="text-xl md:text-2xl text-dark/80 font-drama italic leading-relaxed pl-8 pt-4">
+                    <blockquote className="text-xl md:text-2xl text-textMuted font-drama italic leading-relaxed pl-8 pt-4">
                         {quote}
                     </blockquote>
                     {(author || role) && (
                         <div className="mt-6 pl-8 flex items-center gap-3">
                             <div className="w-8 h-[2px] bg-accent/40" />
-                            <div className="font-mono text-sm text-dark/60">
-                                {author && <span className="font-bold text-dark">{author}</span>}
+                            <div className="font-mono text-sm text-textMuted">
+                                {author && <span className="font-bold text-text">{author}</span>}
                                 {author && role && <span className="mx-1">·</span>}
                                 {role && <span>{role}</span>}
                             </div>
@@ -204,7 +204,7 @@ export const PortableTextComponents = {
             if (!tools || tools.length === 0) return null;
 
             return (
-                <div className="my-10 p-8 rounded-[1.5rem] border bg-dark text-white border-dark">
+                <div className="my-10 p-8 rounded-[1.5rem] border bg-slate-900 text-white border-slate-900">
                     <div className="flex items-start gap-4">
                         <span className="text-2xl pt-1">⚡️</span>
                         <div className="flex-1">
@@ -241,7 +241,7 @@ export const PortableTextComponents = {
                 text = children;
             }
             const id = slugify(text);
-            return <h2 id={id} className="text-4xl md:text-5xl text-dark mt-16 mb-8 font-sans font-bold tracking-tight scroll-mt-32">{children}</h2>;
+            return <h2 id={id} className="text-4xl md:text-5xl text-text mt-16 mb-8 font-sans font-bold tracking-tight scroll-mt-32">{children}</h2>;
         },
         h3: ({ children }) => {
             let text = '';
@@ -251,28 +251,28 @@ export const PortableTextComponents = {
                 text = children;
             }
             const id = slugify(text);
-            return <h3 id={id} className="text-2xl md:text-3xl text-dark mt-12 mb-6 font-sans font-semibold scroll-mt-32">{children}</h3>;
+            return <h3 id={id} className="text-2xl md:text-3xl text-text mt-12 mb-6 font-sans font-semibold scroll-mt-32">{children}</h3>;
         },
-        h4: ({ children }) => <h4 className="text-xl md:text-2xl text-dark mt-10 mb-4 font-sans font-medium">{children}</h4>,
-        normal: ({ children }) => <p className="text-lg md:text-xl leading-relaxed text-dark/70 mb-8 max-w-[80ch]">{children}</p>,
+        h4: ({ children }) => <h4 className="text-xl md:text-2xl text-text mt-10 mb-4 font-sans font-medium">{children}</h4>,
+        normal: ({ children }) => <p className="text-lg md:text-xl leading-relaxed text-textMuted mb-8 max-w-[80ch]">{children}</p>,
         blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-accent pl-8 my-12 italic text-2xl text-dark/80 font-drama leading-relaxed">
+            <blockquote className="border-l-4 border-accent pl-8 my-12 italic text-2xl text-textMuted font-drama leading-relaxed">
                 {children}
             </blockquote>
         ),
     },
     list: {
-        bullet: ({ children }) => <ul className="list-disc pl-8 mb-8 text-lg md:text-xl leading-relaxed text-dark/70 max-w-[80ch] space-y-3 marker:text-accent/50">{children}</ul>,
-        number: ({ children }) => <ol className="list-decimal pl-8 mb-8 text-lg md:text-xl leading-relaxed text-dark/70 max-w-[80ch] space-y-3 marker:text-accent font-mono">{children}</ol>,
+        bullet: ({ children }) => <ul className="list-disc pl-8 mb-8 text-lg md:text-xl leading-relaxed text-textMuted max-w-[80ch] space-y-3 marker:text-accent/50">{children}</ul>,
+        number: ({ children }) => <ol className="list-decimal pl-8 mb-8 text-lg md:text-xl leading-relaxed text-textMuted max-w-[80ch] space-y-3 marker:text-accent font-mono">{children}</ol>,
     },
     listItem: {
         bullet: ({ children }) => <li>{children}</li>,
-        number: ({ children }) => <li className="font-sans text-dark/70">{children}</li>,
+        number: ({ children }) => <li className="font-sans text-textMuted">{children}</li>,
     },
     marks: {
-        strong: ({ children }) => <strong className="font-bold text-dark">{children}</strong>,
+        strong: ({ children }) => <strong className="font-bold text-text">{children}</strong>,
         em: ({ children }) => <em className="italic">{children}</em>,
-        code: ({ children }) => <code className="bg-dark/5 text-accent px-2 py-1 rounded text-[0.85em] font-mono border border-dark/10">{children}</code>,
+        code: ({ children }) => <code className="bg-surfaceAlt text-accent px-2 py-1 rounded text-[0.85em] font-mono border border-accent-border">{children}</code>,
         link: ({ value, children }) => {
             const target = value?.blank ? '_blank' : undefined;
             const rel = value?.blank ? 'noopener noreferrer' : undefined;

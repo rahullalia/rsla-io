@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
+import { FlickeringGrid } from '../components/ui/flickering-grid';
 
 const KIT_FORM_ID = import.meta.env.VITE_KIT_FORM_ID;
 const KIT_API_KEY = import.meta.env.VITE_KIT_API_KEY;
@@ -42,13 +43,22 @@ export default function Insider() {
     };
 
     return (
-        <main className="min-h-screen bg-dark text-white relative overflow-hidden flex items-center justify-center px-6">
+        <main className="min-h-screen bg-surface relative overflow-hidden flex items-center justify-center px-6">
             <Seo
                 title="Insider Newsletter | RSL/A"
                 description="Get weekly automation insights delivered to your inbox."
                 noIndex
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-cyan/5 pointer-events-none" />
+
+            {/* Flickering grid background */}
+            <FlickeringGrid
+                className="absolute inset-0 z-0"
+                squareSize={4}
+                gridGap={6}
+                color="rgb(0, 112, 243)"
+                maxOpacity={0.06}
+                flickerChance={0.1}
+            />
 
             <div className="relative z-10 max-w-lg w-full text-center">
                 {/* Tag */}
@@ -57,12 +67,12 @@ export default function Insider() {
                 </span>
 
                 {/* Headline */}
-                <h1 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-4 leading-tight">
+                <h1 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-4 leading-tight text-text">
                     Automate smarter <span className="font-drama italic font-normal">every week.</span>
                 </h1>
 
                 {/* Subhead */}
-                <p className="font-body text-white/50 text-base md:text-lg mb-10 max-w-md mx-auto">
+                <p className="font-body text-textMuted text-base md:text-lg mb-10 max-w-md mx-auto">
                     Real automation strategies, case studies, and AI tools delivered straight to your inbox every week.
                 </p>
 
@@ -71,20 +81,20 @@ export default function Insider() {
                     {benefits.map((benefit) => (
                         <div key={benefit} className="flex items-start gap-3">
                             <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                            <p className="font-body text-sm text-white/60">{benefit}</p>
+                            <p className="font-body text-sm text-textMuted">{benefit}</p>
                         </div>
                     ))}
                 </div>
 
                 {submitted ? (
-                    <div className="bg-white/[0.04] border border-emerald-400/20 rounded-2xl p-8">
+                    <div className="bg-surfaceAlt border border-emerald-400/20 rounded-2xl p-8">
                         <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-emerald-400/40 flex items-center justify-center">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <polyline points="20 6 9 17 4 12" />
                             </svg>
                         </div>
-                        <p className="font-sans font-bold text-lg mb-1">You're in.</p>
-                        <p className="font-body text-sm text-white/40">Check your inbox to confirm your subscription.</p>
+                        <p className="font-sans font-bold text-lg text-text mb-1">You're in.</p>
+                        <p className="font-body text-sm text-textLight">Check your inbox to confirm your subscription.</p>
                     </div>
                 ) : (
                     <>
@@ -96,7 +106,7 @@ export default function Insider() {
                                 placeholder="your@email.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="flex-1 px-5 py-3.5 rounded-full bg-white/[0.06] border border-white/[0.1] text-white font-body text-sm placeholder:text-white/25 focus:outline-none focus:border-accent/50 transition-colors"
+                                className="flex-1 px-5 py-3.5 rounded-full bg-surfaceAlt border border-accent-border text-text font-body text-sm placeholder:text-textLight focus:outline-none focus:border-accent/50 transition-colors"
                             />
                             <button
                                 type="submit"
@@ -112,9 +122,9 @@ export default function Insider() {
                         )}
 
                         {/* Trust line */}
-                        <p className="font-body text-xs text-white/25">
+                        <p className="font-body text-xs text-textLight">
                             No spam, unsubscribe anytime.{' '}
-                            <Link to="/privacy-policy" className="underline underline-offset-2 hover:text-white/40 transition-colors">
+                            <Link to="/privacy-policy" className="underline underline-offset-2 hover:text-textMuted transition-colors">
                                 Privacy Policy
                             </Link>
                         </p>

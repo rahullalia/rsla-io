@@ -174,9 +174,59 @@
   font-display: swap;
 }
 
+/* Cormorant Garamond @font-face declarations */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/CormorantGaramond-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/CormorantGaramond-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @layer base {
   body {
-    @apply bg-background text-dark font-sans overflow-x-hidden antialiased;
+    @apply bg-background text-text font-sans overflow-x-hidden antialiased;
+  }
+  :root {
+    /* Blue-gray palette mapped to shadcn CSS variables */
+    --background: 210 40% 98%;        /* #F8FAFC slate-50 */
+    --foreground: 222 47% 11%;        /* #0F172A slate-900 */
+    --card: 0 0% 100%;                /* #FFFFFF white */
+    --card-foreground: 222 47% 11%;   /* #0F172A */
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 211 100% 48%;          /* #0070F3 brand blue */
+    --primary-foreground: 0 0% 100%;  /* white text on blue */
+    --secondary: 210 40% 96%;         /* #F1F5F9 slate-100 */
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;             /* #F1F5F9 slate-100 */
+    --muted-foreground: 215 16% 47%;  /* #64748B slate-500 */
+    --accent: 211 100% 48%;           /* #0070F3 brand blue */
+    --accent-foreground: 0 0% 100%;   /* white text on blue */
+    --destructive: 0 72% 51%;         /* coral-ish */
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 91%;            /* #E2E8F0 slate-200 */
+    --input: 214 32% 91%;
+    --ring: 211 100% 48%;             /* brand blue ring */
+    --radius: 0.5rem;
+
+    /* Brand custom properties (for CTA glow, etc.) */
+    --brand: 211 100% 48%;
+    --brand-foreground: 211 100% 48%;
+  }
+  .theme {
+    --animate-shine: shine var(--duration) infinite linear;
+    --animate-marquee: marquee var(--duration) infinite linear;
+    --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+    --animate-rippling: rippling var(--duration) ease-out;
   }
 }
 
@@ -198,34 +248,60 @@
   pointer-events: none;
   z-index: 9999;
   opacity: 0.05;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMFCA0RFRkMMAkAAADCSURBVDjLhZJBDoMwDASXPvD/X+wJqwp1kXLYEWPHToAPXPhGFOH4EH2F+wGFKoFVMO/YCQz3F7AI5kUPYHbA+wKOYLq/gY2Y7m8gE1NJB7DJqaQDKORU0gEUair5AEqaSjqAWk0lHcBxiV9gE1PJB7CJqeQDKMRU8gGkakr6AFJJEz1gXOP7zew8FsJB7DzWw4HsItbCQew81sMB7CLWwkHsPFbDAew8VsJB7D2WwkHsIpbDgdQ+PsCihT/XkC5At/PYxlR3CjCAAAAAElFTkSuQmCC");
+  background-repeat: repeat;
 }
 
-/* Border Beam effect */
+/* Card Beam — rotating gradient border for service cards */
+.card-beam {
+  position: relative;
+  overflow: hidden;
+  padding: 1px;
+  background: hsl(214 32% 91%);
+}
+.card-beam::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 200%;
+  min-height: 200%;
+  aspect-ratio: 1;
+  background: conic-gradient(from 0deg, transparent 20%, #0070F3 40%, #00C2FF 50%, #0070F3 60%, transparent 80%);
+  animation: beamRotate 4s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Border Beam effect — rotating conic-gradient border */
 .border-beam {
   position: relative;
+  overflow: hidden;
 }
 .border-beam::before {
   content: '';
   position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  padding: 2px;
-  background: conic-gradient(from var(--beam-angle, 0deg), transparent 60%, #0070F3 80%, #00C2FF 90%, transparent 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: beamRotate 3s linear infinite;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(from 0deg, transparent 30%, #0070F3 45%, #00C2FF 55%, transparent 70%);
+  animation: beamRotate 4s linear infinite;
   pointer-events: none;
+  z-index: 1;
+}
+.border-beam::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: inherit;
+  background: var(--beam-bg, #FFFFFF);
+  pointer-events: none;
+  z-index: 2;
 }
 @keyframes beamRotate {
-  0% { --beam-angle: 0deg; }
-  100% { --beam-angle: 360deg; }
-}
-@property --beam-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* Link underline animation */
@@ -255,7 +331,6 @@
 }
 .btn-neon:hover {
   box-shadow: 0 0 25px rgba(0, 112, 243, 0.5), 0 0 80px rgba(0, 194, 255, 0.2);
-  animation: none;
 }
 @keyframes neonPulse {
   0%, 100% { box-shadow: 0 0 20px rgba(0, 112, 243, 0.3), 0 0 60px rgba(0, 112, 243, 0.1); }
@@ -288,4 +363,43 @@
 }
 .btn-gradient-border:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+@theme inline {
+  @keyframes shine {
+  0% {
+    background-position: 0% 0%;
+    }
+  50% {
+    background-position: 100% 100%;
+    }
+  to {
+    background-position: 0% 0%;
+    }
+  }
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes rippling {
+  0% {
+    opacity: 1;
+    }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+    }
+  }
 }

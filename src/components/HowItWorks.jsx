@@ -47,7 +47,7 @@ export default function HowItWorks() {
             <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="text-center mb-16 md:mb-20">
                     <span className="font-mono text-accent text-xs uppercase tracking-widest font-bold">The Process</span>
-                    <h2 className="font-sans font-bold text-3xl md:text-5xl text-dark tracking-tight mt-4">
+                    <h2 className="font-sans font-bold text-3xl md:text-5xl text-text tracking-tight mt-4">
                         How it <span className="font-drama italic font-normal">works.</span>
                     </h2>
                 </div>
@@ -56,8 +56,8 @@ export default function HowItWorks() {
                     {steps.map((step) => (
                         <div key={step.num} className="hiw-step text-center md:text-left">
                             <div className="font-drama italic font-normal text-6xl text-accent mb-4">{step.num}</div>
-                            <h3 className="font-sans font-bold text-xl md:text-2xl text-dark mb-3">{step.title}</h3>
-                            <p className="font-body text-dark/60 text-sm md:text-base leading-relaxed">{step.desc}</p>
+                            <h3 className="font-sans font-bold text-xl md:text-2xl text-text mb-3">{step.title}</h3>
+                            <p className="font-body text-textMuted text-sm md:text-base leading-relaxed">{step.desc}</p>
                         </div>
                     ))}
                 </div>

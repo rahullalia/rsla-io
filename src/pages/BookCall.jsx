@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Seo from '../components/Seo';
+import { ShineBorder } from '../components/ui/shine-border';
 
 export default function BookCall() {
     useEffect(() => {
@@ -14,37 +15,36 @@ export default function BookCall() {
     }, []);
 
     return (
-        <main className="min-h-screen bg-primary text-dark relative overflow-hidden pt-32 pb-24 px-6 md:px-12">
+        <main className="min-h-screen bg-surface pt-32 pb-24 px-6 md:px-12">
             <Seo
                 title="Book a Call | RSL/A"
-                description="Schedule an onboarding or support call with RSL/A."
+                description="Schedule a call with RSL/A. Existing clients can book onboarding, strategy, and support sessions."
                 canonical="https://rsla.io/book-a-call"
                 noIndex
             />
-            <div className="max-w-4xl mx-auto bg-dark border border-white/10 text-white rounded-[3rem] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden group">
+            <div className="max-w-4xl mx-auto bg-surfaceAlt border border-accent-border rounded-[2rem] md:rounded-[3rem] p-6 md:p-16 text-center shadow-sm relative overflow-hidden">
+                <ShineBorder shineColor={['#0070F3', '#00C2FF']} borderWidth={1} duration={12} />
 
-                {/* Background blur blobs */}
-                <div className="absolute -top-32 -left-32 w-64 h-64 bg-accent rounded-full mix-blend-screen filter blur-[100px] opacity-30 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none" />
-                <div className="absolute -bottom-32 -right-32 w-64 h-64 bg-cyan rounded-full mix-blend-screen filter blur-[100px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none" />
+                <span className="inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent border border-accent/30 rounded-full px-4 py-1.5 mb-6">
+                    Client Portal
+                </span>
 
-                <div className="relative z-10">
-                    <h1 className="text-3xl md:text-5xl font-sans font-bold mb-4 tracking-tight">
-                        Establish <span className="font-drama italic font-normal">Connection.</span>
-                    </h1>
-                    <p className="font-body text-white/60 mb-10 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
-                        Select a block to deploy the onboarding sequence.
-                    </p>
+                <h1 className="text-3xl md:text-5xl font-sans font-bold mb-4 tracking-tight text-text">
+                    Book Your <span className="font-drama italic font-normal">Session.</span>
+                </h1>
+                <p className="font-body text-textMuted mb-10 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
+                    Pick a time that works for you. Whether it's onboarding, a strategy check-in, or a support call, we'll make sure you're covered.
+                </p>
 
-                    <div className="rounded-2xl">
-                        <iframe
-                            src="https://api.leadconnectorhq.com/widget/booking/GHDT7fcZ1a6Yj4t3FCx7"
-                            style={{ width: '100%', border: 'none', overflow: 'hidden' }}
-                            scrolling="no"
-                            id="client-booking-calendar"
-                            title="Client Booking Calendar"
-                            className="rounded-xl h-[750px] md:h-[1100px]"
-                        />
-                    </div>
+                <div className="rounded-2xl">
+                    <iframe
+                        src="https://api.leadconnectorhq.com/widget/booking/GHDT7fcZ1a6Yj4t3FCx7"
+                        style={{ width: '100%', border: 'none', overflow: 'hidden' }}
+                        scrolling="no"
+                        id="client-booking-calendar"
+                        title="Client Booking Calendar"
+                        className="rounded-xl h-[750px] md:h-[1100px]"
+                    />
                 </div>
             </div>
         </main>

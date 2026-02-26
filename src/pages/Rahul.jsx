@@ -1,26 +1,28 @@
 import { Link } from 'react-router-dom';
+import { UserPlus, Phone, MessageCircle, Globe } from 'lucide-react';
 import Seo from '../components/Seo';
+import { ShineBorder } from '../components/ui/shine-border';
 
 const contactActions = [
     {
         label: 'Save My Info',
-        icon: '📱',
+        icon: UserPlus,
         href: '/rahul.vcf',
         highlight: true,
     },
     {
         label: "Let's Talk",
-        icon: '📞',
+        icon: Phone,
         href: 'tel:+16466413173',
     },
     {
         label: 'Text Me',
-        icon: '💬',
+        icon: MessageCircle,
         href: "sms:+16466413173?body=Hi%20Rahul%2C%20I'd%20like%20to%20connect%20with%20you.",
     },
     {
         label: 'Visit Website',
-        icon: '🌐',
+        icon: Globe,
         href: 'https://rsla.io',
         external: true,
     },
@@ -54,60 +56,80 @@ const socials = [
             </svg>
         ),
     },
+    {
+        name: 'YouTube',
+        href: 'https://www.youtube.com/@rahul_lalia',
+        icon: (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+        ),
+    },
+    {
+        name: 'GitHub',
+        href: 'https://github.com/rahullalia',
+        icon: (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+            </svg>
+        ),
+    },
 ];
 
 export default function Rahul() {
     return (
-        <main className="min-h-screen bg-dark text-white flex items-center justify-center px-4 py-12">
+        <main className="min-h-screen bg-surface flex items-center justify-center px-4 py-12">
             <Seo
                 title="Rahul Lalia | RSL/A"
                 description="Connect with Rahul Lalia, Founder & CEO of RSL/A."
                 noIndex
             />
-            {/* Background gradient */}
-            <div className="fixed inset-0 bg-gradient-to-br from-accent/5 via-transparent to-cyan/5 pointer-events-none" />
 
             {/* Card */}
-            <div className="relative z-10 w-full max-w-sm bg-white/[0.03] border border-white/10 backdrop-blur-sm rounded-[2rem] px-8 py-10 flex flex-col items-center shadow-2xl">
+            <div className="relative z-10 w-full max-w-sm bg-surfaceAlt border border-accent-border rounded-[2rem] px-8 py-10 flex flex-col items-center shadow-sm overflow-hidden">
+                <ShineBorder shineColor={['#0070F3', '#00C2FF']} borderWidth={1} duration={10} />
                 {/* Profile photo */}
                 <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-accent/30 shadow-lg shadow-accent/10 mb-6">
                     <img src="/images/rahul.webp" alt="Rahul Lalia" className="w-full h-full object-cover" />
                 </div>
 
                 {/* Name & title */}
-                <h1 className="font-sans font-bold text-2xl tracking-tight mb-1.5">Rahul Lalia</h1>
+                <h1 className="font-sans font-bold text-2xl tracking-tight mb-1.5 text-text">Rahul Lalia</h1>
                 <p className="font-sans text-accent text-sm font-bold mb-1">Founder & CEO, RSL/A</p>
-                <p className="font-body text-white/40 text-sm mb-8">Marketing & AI Automation Expert</p>
+                <p className="font-body text-textLight text-sm mb-8">Marketing & AI Automation Expert</p>
 
                 {/* Contact actions */}
                 <div className="w-full flex flex-col gap-3 mb-8">
-                    {contactActions.map((action) => (
-                        <a
-                            key={action.label}
-                            href={action.href}
-                            target={action.external ? '_blank' : undefined}
-                            rel={action.external ? 'noopener noreferrer' : undefined}
-                            className={`flex items-center justify-center gap-2.5 w-full py-4 rounded-full text-sm font-sans font-bold transition-all duration-300 hover:scale-[1.02] active:scale-95 ${
-                                action.highlight
-                                    ? 'bg-accent text-white btn-neon'
-                                    : 'bg-white/[0.04] border border-white/[0.08] text-white/80 hover:bg-white/[0.08]'
-                            }`}
-                        >
-                            <span className="text-base">{action.icon}</span>
-                            <span>{action.label}</span>
-                        </a>
-                    ))}
+                    {contactActions.map((action) => {
+                        const Icon = action.icon;
+                        return (
+                            <a
+                                key={action.label}
+                                href={action.href}
+                                target={action.external ? '_blank' : undefined}
+                                rel={action.external ? 'noopener noreferrer' : undefined}
+                                className={`flex items-center justify-center gap-3 w-full py-5 rounded-full text-base font-sans font-bold transition-all duration-300 hover:scale-[1.02] active:scale-95 ${
+                                    action.highlight
+                                        ? 'bg-accent text-white btn-neon'
+                                        : 'bg-surface border border-accent-border text-text hover:border-accent/30'
+                                }`}
+                            >
+                                <Icon size={20} strokeWidth={2} />
+                                <span>{action.label}</span>
+                            </a>
+                        );
+                    })}
                 </div>
 
                 {/* Divider */}
-                <div className="w-full border-t border-white/[0.06] mb-6" />
+                <div className="w-full border-t border-accent-border mb-6" />
 
                 {/* Email */}
                 <a
                     href="mailto:lalia@rsla.io"
-                    className="font-mono text-xs tracking-wider text-white/40 hover:text-accent transition-colors mb-5"
+                    className="font-mono text-xs tracking-wider text-textLight hover:text-accent transition-colors mb-5"
                 >
-                    📧 lalia@rsla.io
+                    lalia@rsla.io
                 </a>
 
                 {/* Socials */}
@@ -118,7 +140,7 @@ export default function Rahul() {
                             href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-white/25 hover:text-accent transition-colors duration-300"
+                            className="text-textLight hover:text-accent transition-colors duration-300"
                             aria-label={social.name}
                         >
                             {social.icon}
@@ -127,10 +149,10 @@ export default function Rahul() {
                 </div>
 
                 {/* Divider */}
-                <div className="w-full border-t border-white/[0.06] mb-6" />
+                <div className="w-full border-t border-accent-border mb-6" />
 
                 {/* Footer */}
-                <Link to="/" className="font-mono text-[10px] uppercase tracking-widest text-white/15 hover:text-white/30 transition-colors">
+                <Link to="/" className="font-mono text-[10px] uppercase tracking-widest text-textLight/50 hover:text-textLight transition-colors">
                     Powered by RSL/A
                 </Link>
             </div>

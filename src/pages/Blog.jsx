@@ -49,7 +49,7 @@ export default function Blog() {
     }, [currentPage]);
 
     return (
-        <div className="min-h-screen bg-background text-dark pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
+        <div className="min-h-screen bg-surface text-text pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
             <Seo
                 title="Blog | RSL/A"
                 description="Insights on marketing automation, AI systems, local SEO, and business growth strategies from RSL/A."
@@ -61,7 +61,7 @@ export default function Blog() {
                     <h1 className="text-5xl md:text-7xl font-sans font-bold mb-6 tracking-tighter">
                         The <span className="text-accent italic font-drama pr-2">Archive.</span>
                     </h1>
-                    <p className="font-mono text-dark/70 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                    <p className="font-mono text-textMuted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                         Insights on marketing automation, AI systems, local SEO, and strategies to scale your operations without overhead.
                     </p>
                 </header>
@@ -71,7 +71,7 @@ export default function Blog() {
                         [FETCHING_DATA...]
                     </div>
                 ) : posts.length === 0 ? (
-                    <div className="text-center py-20 font-mono text-dark/50">
+                    <div className="text-center py-20 font-mono text-textLight">
                         No intel logged yet. Check back soon.
                     </div>
                 ) : (
@@ -84,10 +84,10 @@ export default function Blog() {
                                     <Link
                                         key={post._id}
                                         to={`/blog/${post.slug.current}`}
-                                        className="group flex flex-col h-full bg-primary rounded-[2rem] border border-dark/5 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
+                                        className="group flex flex-col h-full bg-surfaceAlt rounded-[2rem] border border-accent-border overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
                                     >
                                         {imageUrl && (
-                                            <div className="relative aspect-[3/2] overflow-hidden bg-dark/5">
+                                            <div className="relative aspect-[3/2] overflow-hidden bg-surfaceAlt">
                                                 <img
                                                     src={imageUrl}
                                                     alt={post.featuredImage?.alt || post.title}
@@ -110,11 +110,11 @@ export default function Blog() {
                                                 {post.title}
                                             </h2>
                                             {post.excerpt && (
-                                                <p className="font-mono text-sm text-dark/60 line-clamp-3 mb-6 flex-grow leading-relaxed">
+                                                <p className="font-mono text-sm text-textMuted line-clamp-3 mb-6 flex-grow leading-relaxed">
                                                     {post.excerpt}
                                                 </p>
                                             )}
-                                            <div className="flex items-center justify-between font-mono text-xs text-dark/40 mt-auto pt-4 border-t border-dark/5">
+                                            <div className="flex items-center justify-between font-mono text-xs text-textLight mt-auto pt-4 border-t border-accent-border">
                                                 <span>{post.author?.name || 'SYS.ADMIN'}</span>
                                                 <time>
                                                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -135,17 +135,17 @@ export default function Blog() {
                                 <button
                                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                                     disabled={currentPage === 1}
-                                    className="px-4 py-2 hover:text-accent disabled:opacity-30 disabled:hover:text-dark transition-colors"
+                                    className="px-4 py-2 hover:text-accent disabled:opacity-30 disabled:hover:text-text transition-colors"
                                 >
                                     &larr; PREV
                                 </button>
-                                <span className="text-dark/50">
+                                <span className="text-textLight">
                                     PG {currentPage} / {totalPages}
                                 </span>
                                 <button
                                     onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                                     disabled={currentPage === totalPages}
-                                    className="px-4 py-2 hover:text-accent disabled:opacity-30 disabled:hover:text-dark transition-colors"
+                                    className="px-4 py-2 hover:text-accent disabled:opacity-30 disabled:hover:text-text transition-colors"
                                 >
                                     NEXT &rarr;
                                 </button>

@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Siddharth Rodrigues
+N:Rodrigues;Siddharth;;;
+ORG:RSL/A
+TITLE:Co-Founder & CTO
+TEL;TYPE=CELL:+91 93562 52711
+EMAIL;TYPE=INTERNET:sid@rsla.io
+URL:https://rsla.io
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/dorddis/
+NOTE:Software Development & AI Systems Expert - Co-Founder & CTO at RSL/A. Specializing in technical infrastructure, AI automation systems, and enterprise development.
+REV:2025-12-24T12:00:00Z
+END:VCARD

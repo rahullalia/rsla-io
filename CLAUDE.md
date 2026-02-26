@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-New rsla.io website. React 19 + Vite SPA with GSAP animations, Canvas 2D hero, Sanity CMS for blogs and case studies.
+New rsla.io website. React 19 + Vite SPA with GSAP animations, Aurora background hero, Sanity CMS for blogs and case studies. Blue-gray light theme with Magic UI and 21st.dev components.
 
 **Positioning:** "I show founders how to put AI to work, then I build it for them."
 
-**Status:** Phases 1-5 complete. Phase 6 (Performance & Launch) remaining. See TODO.md for full task list.
+**Status:** Phases 1-7 in progress. Phase 7 (UI Component Implementation) actively building. See TODO.md for full task list.
 
 **Deployed:** `new-rsla-website.vercel.app` (auto-deploys from `main` branch)
 **GitHub:** `rahullalia/new-rslaWebsite`
@@ -18,9 +18,10 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Canvas 2D hero, S
 | Layer | Tool |
 |---|---|
 | Framework | React 19 + Vite |
-| Styling | Tailwind CSS v3.4 |
-| Animation | GSAP 3 + ScrollTrigger |
-| Hero Background | Canvas 2D (custom, no Three.js) |
+| Styling | Tailwind CSS v3.4 + shadcn/ui utilities |
+| Animation | GSAP 3 + ScrollTrigger, Motion (for Magic UI components only) |
+| UI Components | Magic UI (MagicCard, TextAnimate, Marquee, NumberTicker, ShineBorder, InteractiveHoverButton) |
+| Hero Background | Aurora Background (CSS keyframe, adapted from Aceternity) |
 | CMS | Sanity (Project: `yz25oyux`, Dataset: `production`) |
 | Icons | Lucide React |
 | Rich Text | @portabletext/react |
@@ -34,10 +35,20 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Canvas 2D hero, S
 src/
   components/
     Seo.jsx           # Per-page SEO (title, description, OG, Twitter, canonical, robots)
-    Navbar.jsx         # Desktop nav + mobile hamburger menu
-    Footer.jsx
+    NavbarV2.jsx       # Tubelight navbar (desktop top pill + mobile bottom pill, GSAP lamp)
+    FooterV2.jsx       # Light theme 4-col footer with Kit newsletter
+    Navbar.jsx         # (deprecated) Desktop nav + mobile hamburger menu
+    Footer.jsx         # (deprecated) Dark theme footer
     FounderSection.jsx # Profile photo + bio
-    ServicesCards.jsx   # 3 stacking cards with animated visuals
+    AuroraBackground.jsx # CSS aurora hero background (adapted from Aceternity)
+    HeroV2.jsx         # Aurora + TextAnimate + InteractiveHoverButton hero
+    ServicesV2.jsx     # Magic Card grid (3 service cards)
+    StatsSection.jsx   # Number Ticker count-up stats
+    Testimonials.jsx   # Masonry grid testimonial cards (GSAP stagger)
+    BlogPreview.jsx    # Latest 3 Sanity posts
+    CtaWithGlow.jsx    # Bottom glow CTA section
+    MarqueeV2.jsx      # Magic UI Marquee service labels
+    ServicesCards.jsx   # (deprecated) 3 stacking cards with animated visuals
     BookingSection.jsx  # GHL booking embed
   pages/
     Home.jsx           # /
@@ -130,16 +141,26 @@ vercel.json            # Vite SPA routing config
 
 ---
 
-## Color Palette
+## Color Palette (Blue-Gray Theme)
 
-| Name | Hex | Tailwind |
+| Name | Hex / Value | Tailwind |
 |---|---|---|
-| Deep Slate | `#111827` | `dark` |
-| Pure White | `#FFFFFF` | `white` |
-| Warm Sand | `#F9FAFB` | `sand` |
-| Anchor Blue | `#0070F3` | `accent` |
+| Background | `#F8FAFC` (slate-50) | `background` |
+| Surface | `#FFFFFF` (white cards) | `surface` |
+| Surface Alt | `#F1F5F9` (slate-100) | `surfaceAlt` |
+| Text | `#0F172A` (slate-900) | `text` |
+| Text Muted | `#64748B` (slate-500) | `textMuted` |
+| Text Light | `#94A3B8` (slate-400) | `textLight` |
+| Accent | `#0070F3` (brand blue) | `accent` |
 | Electric Cyan | `#00C2FF` | `cyan` |
 | Soft Coral | `#FF6B6B` | `coral` (errors only) |
+| Blue Wash | `rgba(0,112,243,0.05)` | `accent-light` |
+| Blue Border | `rgba(0,112,243,0.08)` | `accent-border` |
+| Blue Border Strong | `rgba(0,112,243,0.15)` | `accent-border-strong` |
+
+**Backward-compat aliases:** `dark` (#0F172A), `primary` (#FFFFFF), `sand` (#F8FAFC) still work.
+
+**Section alternation pattern:** surface (white) -> accent-light (blue wash) -> surfaceAlt (slate-100)
 
 ---
 
@@ -206,8 +227,39 @@ npx sanity schema deploy       # Deploy schemas to Sanity cloud
 - Committed, pushed, auto-deploying to Vercel
 - Created TODO.md with remaining tasks and wishlist
 
+### 2026-02-25: UI Component Implementation (Phase 7)
+- Initialized shadcn CLI (components.json, tsconfig.json with @ alias)
+- Updated Tailwind to blue-gray theme palette (slate-50 bg, slate-900 text, blue-tinted borders)
+- Installed 6 Magic UI components: InteractiveHoverButton, MagicCard, TextAnimate, Marquee, NumberTicker, ShineBorder
+- motion library pulled in as dep (used by MagicCard, TextAnimate, NumberTicker), split into separate chunk (93KB/31KB gzipped)
+- Converted 5 21st.dev components from Framer Motion/Next.js to GSAP/React Router:
+  - AuroraBackground (CSS aurora, replaces CanvasParticles)
+  - NavbarV2 (GSAP lamp indicator, desktop top + mobile bottom pill)
+  - CtaWithGlow (radial gradient glow, GSAP scroll entrance)
+  - Testimonials (plain HTML lifted cards, GSAP stagger)
+  - FooterV2 (light theme, Kit newsletter, plain HTML)
+- Built 7 new homepage sections: HeroV2, ServicesV2, StatsSection, Testimonials, BlogPreview, CtaWithGlow, MarqueeV2
+- Swapped NavbarV2 and FooterV2 into App.jsx (site-wide)
+- Removed from homepage: ProblemSection, HowItWorks, FounderSection, ProofSection (still available on their dedicated pages)
+- Build passes, bundle size: 326KB/108KB gzipped main chunk
+- UI_COMPONENTS.md updated as component decision tracker
+- Reference source code at ~/lalia/4-Resources/uiComponents/
+
+### 2026-02-25: Homepage Polish & Fixes
+- FooterV2 switched to dark (#0A0A0A) — white/opacity text, bigger logo (h-20), email in brand column
+- InteractiveHoverButton: blue-filled (bg-accent text-white), white dot expand on hover
+- ServicesV2: replaced ShineBorder with card-beam CSS (rotating conic-gradient, 1px border via padding approach)
+- Testimonials: restored masonry grid (1 featured 2x2 + 4 regular = 5 cards, fills 8-cell grid)
+- CTA section: FlickeringGrid (Magic UI) background on dark #0A0A0A, InteractiveHoverButton CTA, removed `group` class that was triggering button hover on section enter
+- Marquee: added missing `marquee` + `marquee-vertical` keyframes to tailwind.config.js (was not animating)
+- ShineBorder: added `shine` keyframe to tailwind.config.js (was in @theme inline block, Tailwind v4 syntax ignored by v3.4)
+- Footer: removed Start Here from nav, updated newsletter subheading, moved email from bottom bar to brand column
+- Installed FlickeringGrid via `npx shadcn@latest add` from Magic UI
+- Visual QA pass: all homepage sections verified via Puppeteer screenshots
+- Installed puppeteer-core in /tmp for screenshot workflow
+
 ---
 
 ## Last Updated
 
-2026-02-24
+2026-02-25

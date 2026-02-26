@@ -148,6 +148,10 @@ export const caseStudyBySlugQuery = groq`
     solutionApproach,
     resultsOutcome,
     servicesUsed,
+    featuredImage {
+      asset->,
+      alt
+    },
     relatedCases[]->{
       title,
       "slug": slug.current,

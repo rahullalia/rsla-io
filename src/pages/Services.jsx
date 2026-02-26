@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Seo from '../components/Seo';
-import BookingSection from '../components/BookingSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,10 +11,10 @@ const services = [
         tag: 'LEAD GEN',
         title: 'Stop paying for clicks. Start paying for',
         accent: 'customers.',
-        bg: 'bg-dark',
-        text: 'text-white',
-        bodyText: 'text-white/60',
-        borderColor: 'border-white/10',
+        bg: 'bg-surfaceAlt',
+        text: 'text-text',
+        bodyText: 'text-textMuted',
+        borderColor: 'border-accent-border',
         problem: 'Most founders either boost posts and hope for the best, or they hire an agency that shows them impressions and reach numbers. Neither gets you customers.',
         bullets: [
             { bold: 'Targeting that learns:', desc: 'Your campaigns learn which audiences convert and shift budget toward them automatically. No manual bid adjustments.' },
@@ -31,10 +30,10 @@ const services = [
         tag: 'ZERO MANUAL WORK',
         title: 'Your business should not stop working when',
         accent: 'you do.',
-        bg: 'bg-sand',
-        text: 'text-dark',
-        bodyText: 'text-dark/60',
-        borderColor: 'border-dark/10',
+        bg: 'bg-surface',
+        text: 'text-text',
+        bodyText: 'text-textMuted',
+        borderColor: 'border-accent-border',
         problem: 'A lead messages you at 11 PM. You see it at 8 AM. By then they have already talked to two of your competitors. You lost the deal because you were sleeping. That is not a business problem. That is an infrastructure problem.',
         bullets: [
             { bold: 'Conversational bots:', desc: 'Not the robotic "please select an option" kind. Actual AI that understands context, qualifies leads, answers questions, and books meetings. At 2 AM. At 2 PM. Whenever.' },
@@ -50,10 +49,10 @@ const services = [
         tag: 'OPERATIONS',
         title: 'Stop managing tools. Let AI manage your',
         accent: 'business.',
-        bg: 'bg-dark',
-        text: 'text-white',
-        bodyText: 'text-white/60',
-        borderColor: 'border-white/10',
+        bg: 'bg-surfaceAlt',
+        text: 'text-text',
+        bodyText: 'text-textMuted',
+        borderColor: 'border-accent-border',
         problem: 'You are paying for Calendly. And Mailchimp. And some CRM you barely use. And a website builder. And a texting platform. And maybe two more things you forgot about. None of them talk to each other. You are the integration layer. That is expensive. Not just the subscriptions. Your time.',
         bullets: [
             { bold: 'Unified pipeline:', desc: 'Every lead, every deal, every customer in one place. AI tells you what needs attention today, not a spreadsheet you forgot to update.' },
@@ -69,10 +68,10 @@ const services = [
         tag: 'DIGITAL PRESENCE',
         title: 'Your website should work as hard as',
         accent: 'you do.',
-        bg: 'bg-sand',
-        text: 'text-dark',
-        bodyText: 'text-dark/60',
-        borderColor: 'border-dark/10',
+        bg: 'bg-surface',
+        text: 'text-text',
+        bodyText: 'text-textMuted',
+        borderColor: 'border-accent-border',
         problem: 'You have a website. It looks okay. But it is basically a digital business card that does not do anything. No one finds it on Google. The few people who do visit do not convert. And you have no idea why because there is no data.',
         bullets: [
             { bold: 'Conversion-focused design:', desc: 'Every page built around one goal: getting the visitor to take the next step. Tested layouts and copy that improve over time.' },
@@ -123,12 +122,12 @@ export default function Services() {
                 canonical="https://rsla.io/services"
             />
             {/* Hero */}
-            <section className="bg-dark pt-32 pb-20 md:pb-28 px-6 md:px-12">
+            <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">
                 <div className="services-hero-content max-w-4xl mx-auto text-center">
-                    <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-white tracking-tight mb-6 leading-tight">
+                    <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-text tracking-tight mb-6 leading-tight">
                         Everything we build runs on <span className="font-drama italic font-normal">AI.</span>
                     </h1>
-                    <p className="font-body text-white/60 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                    <p className="font-body text-textMuted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                         We do not do "marketing." We build AI infrastructure for founders. Here is what that actually means.
                     </p>
                 </div>
@@ -165,14 +164,14 @@ export default function Services() {
                         </div>
 
                         {service.proof && (
-                            <div className={`svc-animate ${service.bg === 'bg-dark' ? 'bg-white/5 border-white/10' : 'bg-dark/5 border-dark/10'} border rounded-2xl p-6 md:p-8 mb-8`}>
-                                <p className={`font-body ${service.bg === 'bg-dark' ? 'text-white/70' : 'text-dark/70'} text-sm md:text-base leading-relaxed italic`}>
+                            <div className="svc-animate bg-accent-light border border-accent-border rounded-2xl p-6 md:p-8 mb-8">
+                                <p className="font-body text-textMuted text-sm md:text-base leading-relaxed italic">
                                     {service.proof}
                                 </p>
                             </div>
                         )}
 
-                        <a href="#contact" className="svc-animate link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-white transition-colors group">
+                        <a href="/#contact" className="svc-animate link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
                             {service.cta}
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                         </a>
@@ -180,7 +179,6 @@ export default function Services() {
                 </section>
             ))}
 
-            <BookingSection />
         </main>
     );
 }

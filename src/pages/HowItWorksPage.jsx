@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Seo from '../components/Seo';
-import BookingSection from '../components/BookingSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -75,12 +74,12 @@ export default function HowItWorksPage() {
                 canonical="https://rsla.io/how-it-works"
             />
             {/* Hero */}
-            <section className="bg-dark pt-32 pb-20 md:pb-28 px-6 md:px-12">
+            <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">
                 <div className="hiw-hero-content max-w-4xl mx-auto text-center">
-                    <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-white tracking-tight mb-6 leading-tight">
+                    <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-text tracking-tight mb-6 leading-tight">
                         From "I think I need this" to <span className="font-drama italic font-normal">running.</span>
                     </h1>
-                    <p className="font-body text-white/60 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                    <p className="font-body text-textMuted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                         Here is exactly how it works. No surprises, no scope creep, no six month timelines.
                     </p>
                 </div>
@@ -88,9 +87,9 @@ export default function HowItWorksPage() {
 
             {/* Steps */}
             {steps.map((step, i) => (
-                <section key={step.num} className={`hiw-expanded-step ${i % 2 === 0 ? 'bg-sand' : 'bg-dark'} py-20 md:py-28 px-6 md:px-12`}>
+                <section key={step.num} className={`hiw-expanded-step ${i % 2 === 0 ? 'bg-surfaceAlt' : 'bg-surface'} py-20 md:py-28 px-6 md:px-12`}>
                     <div className="max-w-3xl mx-auto">
-                        <div className={`hiw-animate font-drama italic font-normal text-6xl md:text-8xl ${i % 2 === 0 ? 'text-accent' : 'text-accent'} mb-4`}>
+                        <div className="hiw-animate font-drama italic font-normal text-6xl md:text-8xl text-accent mb-4">
                             {step.num}
                         </div>
 
@@ -98,12 +97,12 @@ export default function HowItWorksPage() {
                             {step.tag}
                         </span>
 
-                        <h2 className={`hiw-animate font-sans font-bold text-2xl md:text-4xl ${i % 2 === 0 ? 'text-dark' : 'text-white'} tracking-tight mb-8`}>
+                        <h2 className="hiw-animate font-sans font-bold text-2xl md:text-4xl text-text tracking-tight mb-8">
                             {step.title}
                         </h2>
 
                         {step.body.map((paragraph, j) => (
-                            <p key={j} className={`hiw-animate font-body ${i % 2 === 0 ? 'text-dark/70' : 'text-white/60'} text-base md:text-lg leading-relaxed mb-6 last:mb-0`}>
+                            <p key={j} className="hiw-animate font-body text-textMuted text-base md:text-lg leading-relaxed mb-6 last:mb-0">
                                 {paragraph}
                             </p>
                         ))}
@@ -111,7 +110,6 @@ export default function HowItWorksPage() {
                 </section>
             ))}
 
-            <BookingSection />
         </main>
     );
 }

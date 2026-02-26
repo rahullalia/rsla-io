@@ -1,12 +1,14 @@
 import Seo from '../components/Seo';
-import Hero from '../components/Hero';
-import ProblemSection from '../components/ProblemSection';
-import ServicesCards from '../components/ServicesCards';
-import HowItWorks from '../components/HowItWorks';
-import FounderSection from '../components/FounderSection';
+import HeroV2 from '../components/HeroV2';
+import ServicesV2 from '../components/ServicesV2';
+import StatsSection from '../components/StatsSection';
 import ProofSection from '../components/ProofSection';
-import MarqueeStrip from '../components/MarqueeStrip';
+import Testimonials from '../components/Testimonials';
+import FounderSection from '../components/FounderSection';
+import BlogPreview from '../components/BlogPreview';
 import BookingSection from '../components/BookingSection';
+import CtaWithGlow from '../components/CtaWithGlow';
+import MarqueeV2 from '../components/MarqueeV2';
 
 export default function Home() {
     return (
@@ -36,14 +38,16 @@ export default function Home() {
                     ],
                 }}
             />
-            <Hero />
-            <ProblemSection />
-            <ServicesCards />
-            <HowItWorks />
-            <FounderSection />
+            <HeroV2 />
+            <ServicesV2 />
+            <StatsSection />
             <ProofSection />
-            <MarqueeStrip />
+            <Testimonials />
+            <FounderSection />
+            <BlogPreview />
             <BookingSection />
+            <CtaWithGlow />
+            <MarqueeV2 />
         </>
     );
 }

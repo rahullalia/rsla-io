@@ -14,19 +14,16 @@ export default function BookingSection() {
     }, []);
 
     return (
-        <section id="contact" className="py-24 md:py-32 bg-primary px-4 md:px-6">
-            <div className="max-w-4xl mx-auto bg-dark border border-white/10 text-white rounded-[1.5rem] md:rounded-[3rem] px-3 py-8 md:p-16 text-center shadow-2xl relative overflow-hidden group">
-
-                {/* Background blur blobs */}
-                <div className="absolute -top-32 -left-32 w-64 h-64 bg-accent rounded-full mix-blend-screen filter blur-[100px] opacity-30 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none" />
-                <div className="absolute -bottom-32 -right-32 w-64 h-64 bg-cyan rounded-full mix-blend-screen filter blur-[100px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none" />
+        <section id="contact" className="py-24 md:py-32 bg-surface px-4 md:px-6">
+            <div className="max-w-4xl mx-auto bg-surfaceAlt border border-accent-border rounded-[1.5rem] md:rounded-[3rem] px-3 py-8 md:p-16 text-center shadow-sm relative overflow-hidden">
 
                 <div className="relative z-10">
-                    <h2 className="font-sans font-bold text-2xl md:text-5xl tracking-tight mb-3 md:mb-4">
-                        Ready to put AI to <span className="font-drama italic font-normal">work?</span>
+                    <span className="font-mono text-xs uppercase tracking-wider text-accent">Book a Call</span>
+                    <h2 className="font-sans font-bold text-2xl md:text-5xl tracking-tight mb-3 md:mb-4 mt-3 text-text">
+                        Let's <span className="font-drama italic font-normal">talk.</span>
                     </h2>
-                    <p className="font-body text-white/60 mb-8 md:mb-10 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
-                        Book a free call. We will look at your business, find the manual work that AI should be handling, and show you exactly what the system looks like. No pitch deck. Just a screen share and honest answers.
+                    <p className="font-body text-textMuted mb-8 md:mb-10 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
+                        Book a free call. We'll look at your business, find the manual work that AI should be handling, and show you exactly what the system looks like. No pitch deck. Just a screen share and honest answers.
                     </p>
 
                     <div className="rounded-2xl -mx-1 md:mx-0" style={{ transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}>

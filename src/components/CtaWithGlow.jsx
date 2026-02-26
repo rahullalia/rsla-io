@@ -1,0 +1,82 @@
+/**
+ * CTA Section — Dark background with FlickeringGrid and InteractiveHoverButton.
+ * Creates visual contrast before the dark footer.
+ */
+
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
+import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
+import { FlickeringGrid } from '@/components/ui/flickering-grid';
+import { cn } from '@/lib/utils';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function CtaWithGlow({
+    title = 'Ready to put AI to work?',
+    subtitle = "Book a free strategy call. No pitch deck, no pressure. Just a conversation about what's possible.",
+    buttonText = 'Book a Call',
+    buttonTo = '/book-a-call',
+    className,
+}) {
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                '.cta-glow-content > *',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.12,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top 80%',
+                        once: true,
+                    },
+                }
+            );
+        }, sectionRef);
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <section
+            ref={sectionRef}
+            className={cn('relative overflow-hidden py-24 sm:py-32 bg-[#0A0A0A]', className)}
+        >
+            {/* FlickeringGrid background */}
+            <FlickeringGrid
+                className="absolute inset-0 z-0"
+                squareSize={4}
+                gridGap={6}
+                color="#0070F3"
+                maxOpacity={0.15}
+                flickerChance={0.08}
+            />
+
+            {/* Subtle radial glow behind content */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1]">
+                <div className="w-[600px] h-[400px] rounded-full bg-accent/8 blur-[120px]" />
+            </div>
+
+            <div className="cta-glow-content relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 text-center px-6 sm:gap-8">
+                <h2 className="font-sans font-bold text-3xl sm:text-5xl tracking-tight text-white">
+                    {title}
+                </h2>
+                <p className="font-body text-lg text-white/60 max-w-xl">
+                    {subtitle}
+                </p>
+                <Link to={buttonTo}>
+                    <InteractiveHoverButton className="text-base px-8 py-3">
+                        {buttonText}
+                    </InteractiveHoverButton>
+                </Link>
+            </div>
+        </section>
+    );
+}
