@@ -71,16 +71,18 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, j
             }
         }
 
-        // JSON-LD structured data
+        // JSON-LD structured data (supports single object or array of objects)
         if (jsonLd) {
-            let script = document.getElementById(JSON_LD_ID);
-            if (!script) {
-                script = document.createElement('script');
-                script.id = JSON_LD_ID;
+            const schemas = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+            // Remove any previous JSON-LD blocks
+            document.querySelectorAll(`script[data-seo-jsonld]`).forEach(el => el.remove());
+            schemas.forEach((schema, i) => {
+                const script = document.createElement('script');
+                script.setAttribute('data-seo-jsonld', '');
                 script.type = 'application/ld+json';
+                script.textContent = JSON.stringify(schema);
                 document.head.appendChild(script);
-            }
-            script.textContent = JSON.stringify(jsonLd);
+            });
         }
 
         // Cleanup on unmount
@@ -89,10 +91,7 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, j
             if (canonicalEl) {
                 canonicalEl.remove();
             }
-            const jsonLdEl = document.getElementById(JSON_LD_ID);
-            if (jsonLdEl) {
-                jsonLdEl.remove();
-            }
+            document.querySelectorAll('script[data-seo-jsonld]').forEach(el => el.remove());
         };
     }, [title, description, canonical, noIndex, ogImage, jsonLd]);
 
