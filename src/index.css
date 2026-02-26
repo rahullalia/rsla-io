@@ -259,6 +259,19 @@
   background-repeat: repeat;
 }
 
+/* Progressive blur-up for hero images */
+.blur-up {
+  filter: blur(20px);
+  opacity: 0.6;
+  transform: scale(1.05);
+  transition: filter 0.6s ease-out, opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.blur-up.loaded {
+  filter: blur(0);
+  opacity: 1;
+  transform: scale(1);
+}
+
 /* Card Beam — rotating gradient border for service cards */
 .card-beam {
   position: relative;

@@ -1,8 +1,9 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import NavbarV2 from './components/NavbarV2';
 import FooterV2 from './components/FooterV2';
 import CookieConsent, { initConsent } from './components/CookieConsent';
+import ScrollToTop from './components/ScrollToTop';
 
 // Homepage loads eagerly (critical path)
 import Home from './pages/Home';
@@ -51,11 +52,19 @@ function App() {
   const location = useLocation();
   useScrollToTop();
   const hideChrome = chromelessRoutes.includes(location.pathname);
+  const [pageReady, setPageReady] = useState(false);
+
+  useEffect(() => {
+    setPageReady(false);
+    const frame = requestAnimationFrame(() => setPageReady(true));
+    return () => cancelAnimationFrame(frame);
+  }, [location.pathname]);
 
   return (
     <main className="w-full bg-background min-h-screen text-text selection:bg-accent selection:text-white">
       {!hideChrome && <NavbarV2 />}
 
+      <div className={`transition-opacity duration-300 ease-out ${pageReady ? 'opacity-100' : 'opacity-0'}`}>
       <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -85,8 +94,10 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      </div>
 
       {!hideChrome && <FooterV2 />}
+      {!hideChrome && <ScrollToTop />}
       <CookieConsent />
     </main>
   );

@@ -200,12 +200,12 @@ export default function BlogInner() {
 
                 {/* Hero Image */}
                 {imageUrl && (
-                    <div className="w-full aspect-video rounded-[2rem] overflow-hidden mb-16 shadow-lg border border-accent-border">
+                    <div className="w-full aspect-video rounded-[2rem] overflow-hidden mb-16 shadow-lg border border-accent-border bg-surfaceAlt">
                         <img
                             src={imageUrl}
                             alt={post.featuredImage?.alt || post.title}
-                            className="w-full h-full object-cover"
-                            priority="true"
+                            className="w-full h-full object-cover blur-up"
+                            onLoad={(e) => e.target.classList.add('loaded')}
                         />
                     </div>
                 )}

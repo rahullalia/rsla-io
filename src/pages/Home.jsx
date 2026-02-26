@@ -1,14 +1,18 @@
+import { lazy, Suspense } from 'react';
 import Seo from '../components/Seo';
 import HeroV2 from '../components/HeroV2';
-import ServicesV2 from '../components/ServicesV2';
-import StatsSection from '../components/StatsSection';
-import ProofSection from '../components/ProofSection';
-import Testimonials from '../components/Testimonials';
-import FounderSection from '../components/FounderSection';
-import BlogPreview from '../components/BlogPreview';
-import BookingSection from '../components/BookingSection';
-import CtaWithGlow from '../components/CtaWithGlow';
-import MarqueeV2 from '../components/MarqueeV2';
+
+// Lazy-load below-fold sections
+const ServicesV2 = lazy(() => import('../components/ServicesV2'));
+const StatsSection = lazy(() => import('../components/StatsSection'));
+const ProofSection = lazy(() => import('../components/ProofSection'));
+const Testimonials = lazy(() => import('../components/Testimonials'));
+const FounderSection = lazy(() => import('../components/FounderSection'));
+const BlogPreview = lazy(() => import('../components/BlogPreview'));
+const BookingSection = lazy(() => import('../components/BookingSection'));
+const FaqSection = lazy(() => import('../components/FaqSection'));
+const CtaWithGlow = lazy(() => import('../components/CtaWithGlow'));
+const MarqueeV2 = lazy(() => import('../components/MarqueeV2'));
 
 export default function Home() {
     return (
@@ -48,15 +52,18 @@ export default function Home() {
                 ]}
             />
             <HeroV2 />
-            <ServicesV2 />
-            <StatsSection />
-            <ProofSection />
-            <Testimonials />
-            <FounderSection />
-            <BlogPreview />
-            <BookingSection />
-            <CtaWithGlow />
-            <MarqueeV2 />
+            <Suspense fallback={null}>
+                <ServicesV2 />
+                <StatsSection />
+                <ProofSection />
+                <Testimonials />
+                <FounderSection />
+                <BlogPreview />
+                <BookingSection />
+                <FaqSection />
+                <CtaWithGlow />
+                <MarqueeV2 />
+            </Suspense>
         </>
     );
 }

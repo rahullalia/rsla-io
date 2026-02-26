@@ -20,16 +20,16 @@
 - [x] Test booking iframe height on very small phones (responsive, looks good)
 - [x] Ensure all touch targets meet 44x44px minimum (33 violations fixed across 15 files)
 
-## P2: When You Get To It (Nice to Have)
+## P2: When You Get To It (Nice to Have) ✓
 
-- [ ] Lazy-load below-fold sections (services, case studies, marquee)
-- [ ] Loading skeleton states for blog/case study listings
-- [ ] Image optimization: WebP/AVIF with Sanity image transforms
-- [ ] Scroll-to-top button on long pages
-- [ ] Page transition animations between routes
-- [ ] Case studies: industry/service type filtering
-- [ ] FAQ section (component saved, uses Radix accordion)
-- [ ] Progressive blur for blog hero images (CSS-only version ready)
+- [x] Lazy-load below-fold sections (homepage sections lazy-loaded, main chunk 350KB → 272KB)
+- [x] Loading skeleton states for blog/case study listings (BlogCardSkeleton, CaseStudyCardSkeleton)
+- [x] Image optimization: WebP/AVIF with Sanity auto-format + quality(80)
+- [x] Scroll-to-top button on long pages (floating chevron, appears after 600px scroll)
+- [x] Page transition animations between routes (CSS opacity fade on route change)
+- [x] Case studies: industry/service type filtering (already implemented with category buttons)
+- [x] FAQ section (accordion on homepage, 7 questions, CSS grid transition)
+- [x] Progressive blur for blog hero images (CSS blur-up effect on load)
 
 ## P3: Future (New Features)
 

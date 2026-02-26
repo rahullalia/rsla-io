@@ -8,5 +8,5 @@ const imageBuilder = createImageUrlBuilder({
 
 export const urlForImage = (source: any) => {
     if (!source) return null
-    return imageBuilder.image(source)
+    return imageBuilder.image(source).auto('format').quality(80)
 }

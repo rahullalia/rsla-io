@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const builder = imageUrlBuilder(client);
 function urlFor(source) {
-    return builder.image(source);
+    return builder.image(source).auto('format').quality(80);
 }
 
 const query = `*[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) [0...3] {

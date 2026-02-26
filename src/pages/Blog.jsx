@@ -15,6 +15,7 @@ import {
 } from '../sanity/lib/queries';
 import { urlForImage } from '../sanity/lib/image';
 import Seo from '../components/Seo';
+import BlogCardSkeleton from '../components/skeletons/BlogCardSkeleton';
 
 const POSTS_PER_PAGE = 9;
 
@@ -227,8 +228,10 @@ export default function Blog() {
                 </div>
 
                 {loading ? (
-                    <div className="flex justify-center items-center py-20 font-mono text-accent animate-pulse">
-                        [FETCHING_DATA...]
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                            <BlogCardSkeleton key={i} />
+                        ))}
                     </div>
                 ) : posts.length === 0 ? (
                     <div className="text-center py-20">

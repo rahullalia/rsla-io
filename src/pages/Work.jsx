@@ -4,6 +4,7 @@ import { client } from '../sanity/lib/client';
 import { caseStudiesQuery } from '../sanity/lib/queries';
 import { ArrowRight } from "lucide-react";
 import Seo from '../components/Seo';
+import CaseStudyCardSkeleton from '../components/skeletons/CaseStudyCardSkeleton';
 
 // Reusable inline card component 
 const CaseStudyCard = ({ data }) => (
@@ -148,8 +149,10 @@ export default function Work() {
             {/* Grid */}
             <section className="max-w-7xl mx-auto relative z-10 mb-32">
                 {loading ? (
-                    <div className="flex justify-center items-center py-20 font-mono text-accent animate-pulse">
-                        [FETCHING_DATA...]
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                            <CaseStudyCardSkeleton key={i} />
+                        ))}
                     </div>
                 ) : filteredAndSortedStudies.length === 0 ? (
                     <div className="text-center py-20 font-mono text-textLight">
