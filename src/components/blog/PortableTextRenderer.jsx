@@ -1,5 +1,96 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { urlForImage } from '../../sanity/lib/image';
+
+const KIT_FORM_ID = '7558498';
+
+function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
+    const alreadyUnlocked = typeof window !== 'undefined' && localStorage.getItem('rsla_resource_unlocked');
+    const [status, setStatus] = useState(alreadyUnlocked ? 'unlocked' : 'idle'); // idle | submitting | unlocked | error
+    const [email, setEmail] = useState('');
+
+    const triggerDownload = (url) => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = url.split('/').pop() || 'resource';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!email || status === 'submitting') return;
+
+        setStatus('submitting');
+        try {
+            const res = await fetch(`https://app.kit.com/forms/${KIT_FORM_ID}/subscriptions`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email_address: email }),
+            });
+            if (res.ok) {
+                localStorage.setItem('rsla_resource_unlocked', '1');
+                setStatus('unlocked');
+                triggerDownload(downloadUrl);
+            } else {
+                setStatus('error');
+                setTimeout(() => setStatus('idle'), 4000);
+            }
+        } catch {
+            setStatus('error');
+            setTimeout(() => setStatus('idle'), 4000);
+        }
+    };
+
+    if (status === 'unlocked') {
+        return (
+            <div className="my-12 p-8 rounded-[1.5rem] border-2 border-accent/30 bg-accent/5 text-center">
+                <span className="text-3xl mb-4 block">✅</span>
+                <h4 className="text-xl font-bold font-sans text-text mb-2">{title}</h4>
+                <p className="font-mono text-sm text-textMuted mb-6">Your download should start automatically.</p>
+                <a
+                    href={downloadUrl}
+                    download
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-sans font-bold rounded-full hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,112,243,0.3)]"
+                >
+                    Download Again
+                </a>
+            </div>
+        );
+    }
+
+    return (
+        <div className="my-12 p-8 rounded-[1.5rem] border-2 border-dashed border-accent/30 bg-accent/5 text-center">
+            <span className="text-3xl mb-4 block">📥</span>
+            <h4 className="text-xl font-bold font-sans text-text mb-2">{title}</h4>
+            {description && (
+                <p className="font-mono text-sm text-textMuted mb-6 max-w-md mx-auto">{description}</p>
+            )}
+            <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
+                <input
+                    type="email"
+                    placeholder="you@company.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={status === 'submitting'}
+                    required
+                    className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-mono text-sm placeholder:text-textLight focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                />
+                <button
+                    type="submit"
+                    disabled={status === 'submitting'}
+                    className="px-5 min-h-[44px] rounded-full bg-accent text-white font-sans font-bold text-sm hover:bg-accent/90 transition-colors disabled:opacity-50 cursor-pointer"
+                >
+                    {status === 'submitting' ? '...' : (buttonText || 'Download')}
+                </button>
+            </form>
+            {status === 'error' && (
+                <p className="font-mono text-xs text-coral mt-3">Something went wrong. Try again.</p>
+            )}
+        </div>
+    );
+}
 
 // Helper function to generate slug from text for anchor links
 function slugify(text) {
@@ -191,23 +282,7 @@ export const PortableTextComponents = {
             const { title, description, downloadUrl, buttonText } = value;
             if (!title || !downloadUrl) return null;
 
-            return (
-                <div className="my-12 p-8 rounded-[1.5rem] border-2 border-dashed border-accent/30 bg-accent/5 text-center">
-                    <span className="text-3xl mb-4 block">📥</span>
-                    <h4 className="text-xl font-bold font-sans text-text mb-2">{title}</h4>
-                    {description && (
-                        <p className="font-mono text-sm text-textMuted mb-6 max-w-md mx-auto">{description}</p>
-                    )}
-                    <a
-                        href={downloadUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-sans font-bold rounded-full hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,112,243,0.3)]"
-                    >
-                        {buttonText || 'Download Free Resource'}
-                    </a>
-                </div>
-            );
+            return <GatedResourceBlock title={title} description={description} downloadUrl={downloadUrl} buttonText={buttonText} />;
         },
         testimonial: ({ value }) => {
             const { quote, author, role } = value;
