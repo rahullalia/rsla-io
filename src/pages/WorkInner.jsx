@@ -196,7 +196,7 @@ export default function WorkInner() {
                     <h1 className="text-4xl md:text-6xl font-sans font-bold leading-tight tracking-tight text-text mb-6">
                         {caseStudy.title}
                     </h1>
-                    <p className="text-xl md:text-2xl text-textMuted font-drama italic">
+                    <p className="text-xl md:text-2xl text-textMuted font-quote italic">
                         {caseStudy.description}
                     </p>
                 </header>
@@ -300,7 +300,7 @@ export default function WorkInner() {
                 )}
 
                 {/* Body Content */}
-                <div className="prose-container max-w-none pb-20 border-b border-accent-border">
+                <div className="prose-container max-w-none pb-20 border-b border-accent-border case-study-prose">
                     {caseStudy.content ? (
                         <PortableText value={caseStudy.content} components={PortableTextComponents} />
                     ) : (
