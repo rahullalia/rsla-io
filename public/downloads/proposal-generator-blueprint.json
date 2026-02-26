@@ -1,0 +1,1798 @@
+{
+    "name": "AI Proposal Generator",
+    "flow": [
+        {
+            "id": 57,
+            "module": "typeform:WatchEventsWithResponses",
+            "version": 2,
+            "parameters": {
+                "__IMTHOOK__": 1314912
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0,
+                    "name": "Discovery Call Form Entry"
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTHOOK__": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "My Typeform Events webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTHOOK__",
+                        "type": "hook:typeform",
+                        "label": "Webhook",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "form_id",
+                        "type": "text",
+                        "label": "Form ID"
+                    },
+                    {
+                        "name": "event",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "type",
+                                "type": "text",
+                                "label": "Type"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Event"
+                    },
+                    {
+                        "name": "token",
+                        "type": "text",
+                        "label": "Token"
+                    },
+                    {
+                        "name": "submitted_at",
+                        "type": "date",
+                        "label": "Submitted at"
+                    },
+                    {
+                        "name": "landed_at",
+                        "type": "date",
+                        "label": "Landed at"
+                    },
+                    {
+                        "name": "calculated",
+                        "spec": [
+                            {
+                                "name": "score",
+                                "type": "number",
+                                "label": "Score"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Calculated"
+                    },
+                    {
+                        "name": "definition",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "title",
+                                "type": "text",
+                                "label": "Title"
+                            },
+                            {
+                                "name": "fields",
+                                "spec": {
+                                    "spec": [
+                                        {
+                                            "name": "id",
+                                            "type": "text",
+                                            "label": "ID"
+                                        },
+                                        {
+                                            "name": "title",
+                                            "type": "text",
+                                            "label": "Title"
+                                        },
+                                        {
+                                            "name": "type",
+                                            "type": "text",
+                                            "label": "Type"
+                                        },
+                                        {
+                                            "name": "ref",
+                                            "type": "text",
+                                            "label": "Internal Name"
+                                        },
+                                        {
+                                            "name": "allow_multiple_selections",
+                                            "type": "boolean",
+                                            "label": "Allow Multiple Selections"
+                                        },
+                                        {
+                                            "name": "allow_other_choice",
+                                            "type": "boolean",
+                                            "label": "Allow Other Choice"
+                                        }
+                                    ],
+                                    "type": "collection"
+                                },
+                                "type": "array",
+                                "label": "Fields"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Definition"
+                    },
+                    {
+                        "name": "answers",
+                        "spec": [
+                            {
+                                "name": "field",
+                                "spec": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "type",
+                                        "type": "text",
+                                        "label": "Type"
+                                    },
+                                    {
+                                        "name": "ref",
+                                        "type": "text",
+                                        "label": "Internal Name"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Field"
+                            },
+                            {
+                                "name": "type",
+                                "type": "text",
+                                "label": "Type"
+                            },
+                            {
+                                "name": "text",
+                                "type": "text",
+                                "label": "Text"
+                            },
+                            {
+                                "name": "email",
+                                "type": "email",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "boolean",
+                                "type": "boolean",
+                                "label": "Boolean"
+                            },
+                            {
+                                "name": "number",
+                                "type": "number",
+                                "label": "Number"
+                            },
+                            {
+                                "name": "date",
+                                "type": "date",
+                                "label": "Date"
+                            },
+                            {
+                                "name": "long_text",
+                                "type": "text",
+                                "label": "Long Text"
+                            },
+                            {
+                                "name": "short_text",
+                                "type": "text",
+                                "label": "Short Text"
+                            },
+                            {
+                                "name": "file_url",
+                                "type": "url",
+                                "label": "File URL"
+                            },
+                            {
+                                "name": "url",
+                                "type": "url",
+                                "label": "URL"
+                            },
+                            {
+                                "name": "phone_number",
+                                "type": "text",
+                                "label": "Phone Number"
+                            },
+                            {
+                                "name": "choice",
+                                "spec": [
+                                    {
+                                        "name": "label",
+                                        "type": "text",
+                                        "label": "Label"
+                                    },
+                                    {
+                                        "name": "other",
+                                        "type": "text",
+                                        "label": "Other"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Choice"
+                            },
+                            {
+                                "name": "choices",
+                                "spec": [
+                                    {
+                                        "name": "labels",
+                                        "spec": {
+                                            "type": "text"
+                                        },
+                                        "type": "array",
+                                        "label": "Labels"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Choices"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Answers"
+                    },
+                    {
+                        "name": "mappable_answers",
+                        "spec": [
+                            {
+                                "name": "4118efa9-55d1-4e53-8ea1-8a7063aa4309",
+                                "type": "text",
+                                "label": "*Who's the prospect?* (group)"
+                            },
+                            {
+                                "name": "c163b48b-a3f8-487a-a7d9-e4b00e5446f0",
+                                "type": "text",
+                                "label": "*Give a one line summary of their business*"
+                            },
+                            {
+                                "name": "372d9d3b-9127-4e83-8fdc-9b4f7207e5db",
+                                "type": "text",
+                                "label": "*What's the problem they're suffering from?*"
+                            },
+                            {
+                                "name": "36f39f96-b1f5-4c85-ac8e-5926ce267b6c",
+                                "type": "text",
+                                "label": "*What's the solution that you pitched?*"
+                            },
+                            {
+                                "name": "b73cefaf-eeb3-41ff-8510-194a01feb93f",
+                                "type": "text",
+                                "label": "*What are the deliverables?*"
+                            },
+                            {
+                                "name": "4f042d23-5921-4f11-bb33-4bed0f77a134",
+                                "type": "text",
+                                "label": "*How long will this take to deliver?*"
+                            },
+                            {
+                                "name": "1db37289-c34e-4c44-8a42-a0c62d569ea0",
+                                "type": "number",
+                                "label": "*How much will you price?*"
+                            },
+                            {
+                                "name": "9f05e515-d56e-4ac1-aafe-a90b1aefc0c0",
+                                "type": "text",
+                                "label": "First name / Parent Group: *Who's the prospect?*"
+                            },
+                            {
+                                "name": "d076a4a9-6a91-4316-86f9-632acd95a465",
+                                "type": "text",
+                                "label": "Last name / Parent Group: *Who's the prospect?*"
+                            },
+                            {
+                                "name": "67351d55-9a5e-4701-82d9-4fa3e7387c51",
+                                "type": "email",
+                                "label": "Email / Parent Group: *Who's the prospect?*"
+                            },
+                            {
+                                "name": "201a072f-2251-4ab2-95fa-a99d4e335fba",
+                                "type": "text",
+                                "label": "Company / Parent Group: *Who's the prospect?*"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Mappable Answers"
+                    },
+                    {
+                        "name": "hidden",
+                        "spec": [],
+                        "type": "collection",
+                        "label": "Hidden"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 58,
+            "module": "util:FunctionSleep",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "duration": "2"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {},
+                "expect": [
+                    {
+                        "name": "duration",
+                        "type": "uinteger",
+                        "label": "Delay",
+                        "required": true,
+                        "validate": {
+                            "max": 300,
+                            "min": 1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": 59,
+            "module": "typeform:ListResponses",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 3705755
+            },
+            "mapper": {
+                "limit": "1",
+                "formId": "VWG9z2uR",
+                "completed": true,
+                "excluded_response_ids": [
+                    "wp5upqgoho5afpfxwp5upqr5dwtiv5g1",
+                    "dt42vdj72wui9zfs5xh6lmdt42v7ow2y",
+                    "b5ktblys0bojnvtl72pjb5ktbly4gzct",
+                    "zkluehwbyf6daqlggouzkluehwbkcsct"
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "fields": {
+                            "mode": "chose"
+                        },
+                        "formId": {
+                            "mode": "chose",
+                            "label": "Proposal Generator Form"
+                        },
+                        "completed": {
+                            "mode": "chose"
+                        },
+                        "excluded_response_ids": {
+                            "mode": "chose",
+                            "label": [
+                                "Response ID: wp5upqgoho5afpfxwp5upqr5dwtiv5g1, submitted at: 09-09-2025 19:01:51",
+                                "Response ID: dt42vdj72wui9zfs5xh6lmdt42v7ow2y, submitted at: 09-09-2025 18:34:45",
+                                "Response ID: b5ktblys0bojnvtl72pjb5ktbly4gzct, submitted at: 09-09-2025 14:51:35",
+                                "Response ID: zkluehwbyf6daqlggouzkluehwbkcsct, submitted at: 08-09-2025 23:46:46"
+                            ]
+                        },
+                        "included_response_ids": {
+                            "mode": "edit"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "typeform2"
+                            },
+                            "label": "My Typeform connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:typeform2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "formId",
+                        "type": "select",
+                        "label": "Form ID",
+                        "required": true
+                    },
+                    {
+                        "name": "completed",
+                        "type": "boolean",
+                        "label": "Completed"
+                    },
+                    {
+                        "name": "query",
+                        "type": "text",
+                        "label": "Query"
+                    },
+                    {
+                        "name": "since",
+                        "type": "date",
+                        "label": "Since"
+                    },
+                    {
+                        "name": "until",
+                        "type": "date",
+                        "label": "Until"
+                    },
+                    {
+                        "name": "limit",
+                        "type": "uinteger",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "fields",
+                        "spec": {
+                            "name": "value",
+                            "type": "select",
+                            "dynamic": true,
+                            "options": [],
+                            "required": true
+                        },
+                        "type": "array",
+                        "label": "Fields"
+                    },
+                    {
+                        "name": "included_response_ids",
+                        "type": "select",
+                        "label": "Included Response IDs",
+                        "multiple": true
+                    },
+                    {
+                        "name": "excluded_response_ids",
+                        "type": "select",
+                        "label": "Excluded Response IDs",
+                        "multiple": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "landing_id",
+                        "type": "text",
+                        "label": "Landing ID"
+                    },
+                    {
+                        "name": "token",
+                        "type": "text",
+                        "label": "Token"
+                    },
+                    {
+                        "name": "response_id",
+                        "type": "text",
+                        "label": "Response ID"
+                    },
+                    {
+                        "name": "landed_at",
+                        "type": "date",
+                        "label": "Landed at"
+                    },
+                    {
+                        "name": "submitted_at",
+                        "type": "date",
+                        "label": "Submitted at"
+                    },
+                    {
+                        "name": "metadata",
+                        "spec": [
+                            {
+                                "name": "user_agent",
+                                "type": "text",
+                                "label": "User Agent"
+                            },
+                            {
+                                "name": "platform",
+                                "type": "text",
+                                "label": "Platform"
+                            },
+                            {
+                                "name": "referer",
+                                "type": "url",
+                                "label": "Referer"
+                            },
+                            {
+                                "name": "network_id",
+                                "type": "text",
+                                "label": "Network ID"
+                            },
+                            {
+                                "name": "browser",
+                                "type": "text",
+                                "label": "Browser"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Metadata"
+                    },
+                    {
+                        "name": "answers",
+                        "spec": [
+                            {
+                                "name": "field",
+                                "spec": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "type",
+                                        "type": "text",
+                                        "label": "Type"
+                                    },
+                                    {
+                                        "name": "ref",
+                                        "type": "text",
+                                        "label": "Readable Name"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Field"
+                            },
+                            {
+                                "name": "type",
+                                "type": "text",
+                                "label": "Type"
+                            },
+                            {
+                                "name": "text",
+                                "type": "text",
+                                "label": "Text"
+                            },
+                            {
+                                "name": "email",
+                                "type": "email",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "boolean",
+                                "type": "boolean",
+                                "label": "Boolean"
+                            },
+                            {
+                                "name": "number",
+                                "type": "number",
+                                "label": "Number"
+                            },
+                            {
+                                "name": "date",
+                                "type": "date",
+                                "label": "Date"
+                            },
+                            {
+                                "name": "long_text",
+                                "type": "text",
+                                "label": "Long Text"
+                            },
+                            {
+                                "name": "short_text",
+                                "type": "text",
+                                "label": "Short Text"
+                            },
+                            {
+                                "name": "file_url",
+                                "type": "url",
+                                "label": "File URL"
+                            },
+                            {
+                                "name": "url",
+                                "type": "url",
+                                "label": "URL"
+                            },
+                            {
+                                "name": "phone_number",
+                                "type": "text",
+                                "label": "Phone Number"
+                            },
+                            {
+                                "name": "choice",
+                                "spec": [
+                                    {
+                                        "name": "label",
+                                        "type": "text",
+                                        "label": "Label"
+                                    },
+                                    {
+                                        "name": "other",
+                                        "type": "text",
+                                        "label": "Other"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Choice"
+                            },
+                            {
+                                "name": "choices",
+                                "spec": [
+                                    {
+                                        "name": "labels",
+                                        "spec": {
+                                            "type": "text"
+                                        },
+                                        "type": "array",
+                                        "label": "Labels"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Choices"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Answers"
+                    },
+                    {
+                        "name": "mappable_answers",
+                        "spec": [
+                            {
+                                "name": "4118efa9-55d1-4e53-8ea1-8a7063aa4309",
+                                "type": "text",
+                                "label": "*Who's the prospect?* (group)"
+                            },
+                            {
+                                "name": "c163b48b-a3f8-487a-a7d9-e4b00e5446f0",
+                                "type": "text",
+                                "label": "*Give a one line summary of their business*"
+                            },
+                            {
+                                "name": "372d9d3b-9127-4e83-8fdc-9b4f7207e5db",
+                                "type": "text",
+                                "label": "*What's the problem they're suffering from?*"
+                            },
+                            {
+                                "name": "36f39f96-b1f5-4c85-ac8e-5926ce267b6c",
+                                "type": "text",
+                                "label": "*What's the solution that you pitched?*"
+                            },
+                            {
+                                "name": "b73cefaf-eeb3-41ff-8510-194a01feb93f",
+                                "type": "text",
+                                "label": "*What are the deliverables?*"
+                            },
+                            {
+                                "name": "4f042d23-5921-4f11-bb33-4bed0f77a134",
+                                "type": "text",
+                                "label": "*How long will this take to deliver?*"
+                            },
+                            {
+                                "name": "1db37289-c34e-4c44-8a42-a0c62d569ea0",
+                                "type": "number",
+                                "label": "*How much will you price?*"
+                            },
+                            {
+                                "name": "9f05e515-d56e-4ac1-aafe-a90b1aefc0c0",
+                                "type": "text",
+                                "label": "First name / Parent Group: *Who's the prospect?*"
+                            },
+                            {
+                                "name": "d076a4a9-6a91-4316-86f9-632acd95a465",
+                                "type": "text",
+                                "label": "Last name / Parent Group: *Who's the prospect?*"
+                            },
+                            {
+                                "name": "67351d55-9a5e-4701-82d9-4fa3e7387c51",
+                                "type": "email",
+                                "label": "Email / Parent Group: *Who's the prospect?*"
+                            },
+                            {
+                                "name": "201a072f-2251-4ab2-95fa-a99d4e335fba",
+                                "type": "text",
+                                "label": "Company / Parent Group: *Who's the prospect?*"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Mappable Answers"
+                    },
+                    {
+                        "name": "hidden",
+                        "spec": [],
+                        "type": "collection",
+                        "label": "Hidden"
+                    },
+                    {
+                        "name": "calculated",
+                        "spec": [
+                            {
+                                "name": "score",
+                                "type": "number",
+                                "label": "Score"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Calculated"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 91,
+            "module": "anthropic-claude:createAMessage",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 3082341
+            },
+            "mapper": {
+                "model": "claude-opus-4-20250514",
+                "messages": [
+                    {
+                        "role": "assistant",
+                        "content": "You are a proposal writer for a marketing agency. Return ONLY valid JSON (no prose, no code fences), without backticks. \nFill every field. Split deliverables into 5 bullets and timeline into 4 milestones. \nFollow the style of the examples the user provides."
+                    },
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "text": "You are a proposal writer for a marketing agency. \nReturn ONLY valid JSON (no prose, no code fences), without backticks. \nFill every field. Scope must always have exactly 5 items, and timeline must always have exactly 4 milestones. \nFollow the style of the examples below.\n\nExample scope:\n[\n  \"Automated CRM workflow integrated with Google Sheets and WordPress\",\n  \"Meta Ads campaign setup with tracking and lead forms\",\n  \"Standard Operating Procedure (SOP) for team handoff\"\n]\n\nExample timeline:\n[\n  \"Week 1 → Kickoff and requirements gathering\",\n  \"Week 2 → Build and test automation\",\n  \"Week 3 → QA and optimization\",\n  \"Week 4 → Final handoff and training\"\n]\n\nAfter-call notes:\nfirst_name: {{59.mappable_answers.`9f05e515-d56e-4ac1-aafe-a90b1aefc0c0`}}\nlast_name: {{59.mappable_answers.`d076a4a9-6a91-4316-86f9-632acd95a465`}}\ncompany: {{59.mappable_answers.`201a072f-2251-4ab2-95fa-a99d4e335fba`}}\nbusiness_summary: {{59.mappable_answers.`c163b48b-a3f8-487a-a7d9-e4b00e5446f0`}}\nproblem: {{59.mappable_answers.`372d9d3b-9127-4e83-8fdc-9b4f7207e5db`}}\nsolution: {{59.mappable_answers.`36f39f96-b1f5-4c85-ac8e-5926ce267b6c`}}\ndeliverables: {{59.mappable_answers.`b73cefaf-eeb3-41ff-8510-194a01feb93f`}}\ntimeline: {{59.mappable_answers.`4f042d23-5921-4f11-bb33-4bed0f77a134`}}\nprice: {{59.mappable_answers.`1db37289-c34e-4c44-8a42-a0c62d569ea0`}}\n\nReturn only a valid JSON object with this exact shape, without backticks:\n\n{\n  \"client\": {\n    \"first_name\": \"\",\n    \"last_name\": \"\",\n    \"company\": \"\",\n    \"business_summary\": \"\"\n  },\n  \"problem\": {\n    \"title\": \"\",\n    \"text\": \"\"\n  },\n  \"solution\": {\n    \"title\": \"\",\n    \"text\": \"\"\n  },\n  \"scope\": {\n    \"scope-1\": \"\",\n    \"scope-2\": \"\",\n    \"scope-3\": \"\",\n    \"scope-4\": \"\",\n    \"scope-5\": \"\"\n  },\n  \"milestones\": {\n    \"milestone-1\": \"\",\n    \"timeline-1\": \"\",\n    \"milestone-2\": \"\",\n    \"timeline-2\": \"\",\n    \"milestone-3\": \"\",\n    \"timeline-3\": \"\",\n    \"milestone-4\": \"\",\n    \"timeline-4\": \"\"\n  },\n  \"investment\": {\n    \"price\": \"\"\n  },\n  \"titles\": {\n    \"proposal_title\": \"\"\n  }\n}\n",
+                                "type": "text"
+                            }
+                        ]
+                    }
+                ],
+                "metadata": {},
+                "max_tokens": "1500",
+                "temperature": "0.5"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "model": {
+                            "mode": "chose",
+                            "label": "Claude Opus 4"
+                        },
+                        "messages": {
+                            "mode": "chose",
+                            "items": [
+                                {
+                                    "role": {
+                                        "mode": "chose",
+                                        "label": "Assistant"
+                                    }
+                                },
+                                {
+                                    "role": {
+                                        "mode": "chose",
+                                        "label": "User"
+                                    },
+                                    "content": {
+                                        "mode": "chose",
+                                        "items": [
+                                            {
+                                                "type": {
+                                                    "mode": "chose",
+                                                    "label": "Text"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "stop_sequences": {
+                            "mode": "chose"
+                        },
+                        "additionalParameters": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "anthropic-claude"
+                            },
+                            "label": "My Anthropic Claude connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:anthropic-claude",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "model",
+                        "type": "select",
+                        "label": "Model",
+                        "required": true
+                    },
+                    {
+                        "name": "max_tokens",
+                        "type": "uinteger",
+                        "label": "Max Tokens",
+                        "required": true
+                    },
+                    {
+                        "name": "messages",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "role",
+                                    "type": "select",
+                                    "label": "Role",
+                                    "options": [
+                                        {
+                                            "label": "User",
+                                            "value": "user",
+                                            "nested": [
+                                                {
+                                                    "name": "content",
+                                                    "spec": {
+                                                        "spec": [
+                                                            {
+                                                                "help": "For models that support image content blocks (vision), see the [Anthropic model comparison table](https://docs.anthropic.com/en/docs/about-claude/models#model-comparison-table).",
+                                                                "name": "type",
+                                                                "type": "select",
+                                                                "label": "Type",
+                                                                "options": [
+                                                                    {
+                                                                        "label": "Text",
+                                                                        "value": "text",
+                                                                        "nested": [
+                                                                            {
+                                                                                "help": "Content of the message on behalf of the selected **Role** .",
+                                                                                "name": "text",
+                                                                                "type": "text",
+                                                                                "label": "Text",
+                                                                                "required": true
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "label": "Image",
+                                                                        "value": "image",
+                                                                        "nested": [
+                                                                            {
+                                                                                "name": "source",
+                                                                                "spec": [
+                                                                                    {
+                                                                                        "help": "File name, including the extension, for example, `image.jpg`.",
+                                                                                        "name": "filename",
+                                                                                        "type": "filename",
+                                                                                        "label": "Filename",
+                                                                                        "required": true,
+                                                                                        "semantic": "file:name",
+                                                                                        "extension": [
+                                                                                            "jpeg",
+                                                                                            "jpg",
+                                                                                            "png",
+                                                                                            "gif",
+                                                                                            "webp"
+                                                                                        ]
+                                                                                    },
+                                                                                    {
+                                                                                        "help": "Binary data of the image. For example, you can retrieve the binary data of your image using the **HTTP: Get a file** module.",
+                                                                                        "name": "data",
+                                                                                        "type": "buffer",
+                                                                                        "label": "Data",
+                                                                                        "required": true,
+                                                                                        "semantic": "file:data"
+                                                                                    }
+                                                                                ],
+                                                                                "type": "collection",
+                                                                                "label": "Source",
+                                                                                "required": true
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "label": "PDF document",
+                                                                        "value": "document",
+                                                                        "nested": [
+                                                                            "rpc://anthropic-claude/1/notePdfDocument",
+                                                                            {
+                                                                                "name": "pdfFileName",
+                                                                                "type": "filename",
+                                                                                "label": "Filename",
+                                                                                "required": true,
+                                                                                "semantic": "file:name",
+                                                                                "extension": [
+                                                                                    "pdf"
+                                                                                ]
+                                                                            },
+                                                                            {
+                                                                                "name": "pdfFileData",
+                                                                                "type": "buffer",
+                                                                                "label": "Data",
+                                                                                "required": true,
+                                                                                "semantic": "file:data"
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "label": "Tool result",
+                                                                        "value": "tool_result",
+                                                                        "nested": [
+                                                                            {
+                                                                                "name": "tool_use_id",
+                                                                                "type": "text",
+                                                                                "label": "Tool Use ID",
+                                                                                "required": true
+                                                                            },
+                                                                            {
+                                                                                "name": "content",
+                                                                                "type": "text",
+                                                                                "label": "Content",
+                                                                                "required": true
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "required": true
+                                                            }
+                                                        ],
+                                                        "type": "collection",
+                                                        "label": "Content"
+                                                    },
+                                                    "type": "array",
+                                                    "label": "Content",
+                                                    "labels": {
+                                                        "add": "Add content"
+                                                    },
+                                                    "required": true
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "Assistant",
+                                            "value": "assistant",
+                                            "nested": [
+                                                {
+                                                    "help": "If the request ends with an assistant turn, then the response content will continue directly from that last turn.",
+                                                    "name": "content",
+                                                    "type": "text",
+                                                    "label": "Content",
+                                                    "required": true
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "Tool Assistant",
+                                            "value": "tool_assistant",
+                                            "nested": [
+                                                {
+                                                    "name": "content",
+                                                    "spec": {
+                                                        "spec": [
+                                                            {
+                                                                "help": "You can send image content blocks starting with Claude 3 models.",
+                                                                "name": "type",
+                                                                "type": "select",
+                                                                "label": "Type",
+                                                                "options": [
+                                                                    {
+                                                                        "label": "Text",
+                                                                        "value": "text",
+                                                                        "nested": [
+                                                                            {
+                                                                                "help": "Content of the message on behalf of the selected **Role** .",
+                                                                                "name": "text",
+                                                                                "type": "text",
+                                                                                "label": "Text",
+                                                                                "required": true
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "label": "Tool Use",
+                                                                        "value": "tool_use",
+                                                                        "nested": [
+                                                                            {
+                                                                                "name": "id",
+                                                                                "type": "text",
+                                                                                "label": "Tool Use ID",
+                                                                                "required": true
+                                                                            },
+                                                                            {
+                                                                                "name": "name",
+                                                                                "type": "text",
+                                                                                "label": "Tool Name",
+                                                                                "required": true
+                                                                            },
+                                                                            {
+                                                                                "name": "input",
+                                                                                "type": "any",
+                                                                                "label": "Input",
+                                                                                "required": true
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "required": true
+                                                            }
+                                                        ],
+                                                        "type": "collection",
+                                                        "label": "Content"
+                                                    },
+                                                    "type": "array",
+                                                    "label": "Content",
+                                                    "labels": {
+                                                        "add": "Add content"
+                                                    },
+                                                    "required": true
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "required": true
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Message"
+                        },
+                        "type": "array",
+                        "label": "Messages",
+                        "required": true
+                    },
+                    {
+                        "name": "system",
+                        "type": "text",
+                        "label": "System Prompt"
+                    },
+                    {
+                        "name": "metadata",
+                        "spec": [
+                            {
+                                "name": "user_id",
+                                "type": "text",
+                                "label": "User ID"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Metadata"
+                    },
+                    {
+                        "name": "stop_sequences",
+                        "spec": {
+                            "name": "value",
+                            "type": "text",
+                            "label": "Stop Sequence"
+                        },
+                        "type": "array",
+                        "label": "Stop Sequences"
+                    },
+                    {
+                        "name": "temperature",
+                        "type": "number",
+                        "label": "Temperature",
+                        "validate": {
+                            "max": 1,
+                            "min": 0
+                        }
+                    },
+                    {
+                        "name": "top_p",
+                        "type": "number",
+                        "label": "Top P",
+                        "validate": {
+                            "max": 1
+                        }
+                    },
+                    {
+                        "name": "top_k",
+                        "type": "uinteger",
+                        "label": "Top K"
+                    },
+                    {
+                        "name": "additionalParameters",
+                        "spec": {
+                            "name": "value",
+                            "spec": [
+                                {
+                                    "name": "key",
+                                    "type": "text",
+                                    "label": "Parameter Name",
+                                    "required": true
+                                },
+                                {
+                                    "name": "type",
+                                    "type": "select",
+                                    "label": "Input Type",
+                                    "options": [
+                                        {
+                                            "label": "Text",
+                                            "value": "text",
+                                            "nested": [
+                                                {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Parameter Value"
+                                                }
+                                            ],
+                                            "default": true
+                                        },
+                                        {
+                                            "label": "Number",
+                                            "value": "number",
+                                            "nested": [
+                                                {
+                                                    "name": "value",
+                                                    "type": "number",
+                                                    "label": "Parameter Value"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "Boolean",
+                                            "value": "boolean",
+                                            "nested": [
+                                                {
+                                                    "name": "value",
+                                                    "type": "boolean",
+                                                    "label": "Parameter Value"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "Date",
+                                            "value": "date",
+                                            "nested": [
+                                                {
+                                                    "name": "value",
+                                                    "type": "date",
+                                                    "label": "Parameter Value"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "Tools",
+                                            "value": "tools",
+                                            "nested": [
+                                                {
+                                                    "name": "value",
+                                                    "spec": {
+                                                        "type": "text",
+                                                        "label": "Parameter Value"
+                                                    },
+                                                    "type": "array",
+                                                    "label": "Parameter Values",
+                                                    "labels": {
+                                                        "add": "Add parameter value"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "label": "Any",
+                                            "value": "any",
+                                            "nested": [
+                                                {
+                                                    "name": "value",
+                                                    "type": "any",
+                                                    "label": "Parameter Value"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "type": "collection",
+                            "label": "Input Parameter"
+                        },
+                        "type": "array",
+                        "label": "Other Input Parameters"
+                    }
+                ],
+                "advanced": true
+            }
+        },
+        {
+            "id": 92,
+            "module": "json:ParseJSON",
+            "version": 1,
+            "parameters": {
+                "type": 184555
+            },
+            "mapper": {
+                "json": "{{91.content[].text}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1200,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "type": {
+                            "label": "Proposal Generator"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "type",
+                        "type": "udt",
+                        "label": "Data structure"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "json",
+                        "type": "text",
+                        "label": "JSON string",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "help": "",
+                        "name": "client",
+                        "spec": [
+                            {
+                                "help": "",
+                                "name": "first_name",
+                                "type": "text",
+                                "label": "First name",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "last_name",
+                                "type": "text",
+                                "label": "Last name",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "company",
+                                "type": "text",
+                                "label": "Company",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "business_summary",
+                                "type": "text",
+                                "label": "Business summary",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Client",
+                        "required": false
+                    },
+                    {
+                        "help": "",
+                        "name": "problem",
+                        "spec": [
+                            {
+                                "help": "",
+                                "name": "title",
+                                "type": "text",
+                                "label": "Title",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "text",
+                                "type": "text",
+                                "label": "Text",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Problem",
+                        "required": false
+                    },
+                    {
+                        "help": "",
+                        "name": "solution",
+                        "spec": [
+                            {
+                                "help": "",
+                                "name": "title",
+                                "type": "text",
+                                "label": "Title",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "text",
+                                "type": "text",
+                                "label": "Text",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Solution",
+                        "required": false
+                    },
+                    {
+                        "help": "",
+                        "name": "scope",
+                        "spec": [
+                            {
+                                "help": "",
+                                "name": "scope-1",
+                                "type": "text",
+                                "label": "Scope 1",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "scope-2",
+                                "type": "text",
+                                "label": "Scope 2",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "scope-3",
+                                "type": "text",
+                                "label": "Scope 3",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "scope-4",
+                                "type": "text",
+                                "label": "Scope 4",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "scope-5",
+                                "type": "text",
+                                "label": "Scope 5",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Scope",
+                        "required": false
+                    },
+                    {
+                        "help": "",
+                        "name": "milestones",
+                        "spec": [
+                            {
+                                "help": "",
+                                "name": "milestone-1",
+                                "type": "text",
+                                "label": "Milestone 1",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "timeline-1",
+                                "type": "text",
+                                "label": "Timeline 1",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "milestone-2",
+                                "type": "text",
+                                "label": "Milestone 2",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "timeline-2",
+                                "type": "text",
+                                "label": "Timeline 2",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "milestone-3",
+                                "type": "text",
+                                "label": "Milestone 3",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "timeline-3",
+                                "type": "text",
+                                "label": "Timeline 3",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "milestone-4",
+                                "type": "text",
+                                "label": "Milestone 4",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            },
+                            {
+                                "help": "",
+                                "name": "timeline-4",
+                                "type": "text",
+                                "label": "Timeline 4",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Milestones",
+                        "required": false
+                    },
+                    {
+                        "help": "",
+                        "name": "investment",
+                        "spec": [
+                            {
+                                "help": "",
+                                "name": "price",
+                                "type": "text",
+                                "label": "Price",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Investment",
+                        "required": false
+                    },
+                    {
+                        "help": "",
+                        "name": "titles",
+                        "spec": [
+                            {
+                                "help": "",
+                                "name": "proposal_title",
+                                "type": "text",
+                                "label": "Proposal title",
+                                "default": null,
+                                "required": false,
+                                "multiline": false
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Titles",
+                        "required": false
+                    }
+                ]
+            }
+        },
+        {
+            "id": 95,
+            "module": "google-docs:createADocumentFromTemplate",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 3082325
+            },
+            "mapper": {
+                "from": "drive",
+                "name": "Proposal for {{92.client.company}} x {{92.client.first_name}} {{92.client.last_name}}",
+                "image": {},
+                "select": "dropdown",
+                "document": "/1Iw41mHMZa5Rg3omZQ2Xd3rqb45U92hV_/1GMRJahoHi_XwJ6Yb3zfTKClOm_20U0S7RxU7ywKQoPM",
+                "folderId": "/1Iw41mHMZa5Rg3omZQ2Xd3rqb45U92hV_",
+                "requests": {
+                    "investment": "{{92.investment.price}}",
+                    "Client.Scope1": "{{92.scope.`scope-1`}}",
+                    "Client.Scope2": "{{92.scope.`scope-2`}}",
+                    "Client.Scope3": "{{92.scope.`scope-3`}}",
+                    "Client.Scope4": "{{92.scope.`scope-4`}}",
+                    "Client.Scope5": "{{92.scope.`scope-5`}}",
+                    "Client.Company": "{{92.client.company}}",
+                    "Client.LastName": "{{92.client.last_name}}",
+                    "Client.FirstName": "{{92.client.first_name}}",
+                    "Client.Timeline1": "{{92.milestones.`timeline-1`}}",
+                    "Client.Timeline2": "{{92.milestones.`timeline-2`}}",
+                    "Client.Timeline3": "{{92.milestones.`timeline-3`}}",
+                    "Client.Timeline4": "{{92.milestones.`timeline-4`}}",
+                    "Client.ProblemText": "{{92.problem.text}}",
+                    "Client.ProblemTitle": "{{92.problem.title}}",
+                    "Client.SolutionText": "{{92.solution.text}}",
+                    "Client.ProposalTitle": "{{92.titles.proposal_title}}",
+                    "Client.SolutionTitle": "{{92.solution.title}}"
+                },
+                "destination": "drive"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1500,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "from": {
+                            "label": "My Drive"
+                        },
+                        "select": {
+                            "label": "By Dropdown"
+                        },
+                        "document": {
+                            "path": [
+                                "Proposals",
+                                "Proposal Template"
+                            ]
+                        },
+                        "folderId": {
+                            "mode": "chose",
+                            "path": [
+                                "Proposals"
+                            ]
+                        },
+                        "destination": {
+                            "label": "My Drive"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "My Google connection (lalia@rslmediahub.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "select",
+                        "type": "select",
+                        "label": "Create a Document from a Template",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "map",
+                                "dropdown"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "type": "text",
+                        "label": "Title",
+                        "required": true
+                    },
+                    {
+                        "name": "destination",
+                        "type": "select",
+                        "label": "New Drive Location",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share",
+                                "team"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "type": "select",
+                        "label": "Choose a Drive",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share",
+                                "team"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "document",
+                        "type": "file",
+                        "label": "Document ID",
+                        "required": true
+                    },
+                    {
+                        "name": "requests",
+                        "spec": [
+                            {
+                                "name": "Client.ProposalTitle",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.FirstName",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.LastName",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Company",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.ProblemTitle",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.ProblemText",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.SolutionTitle",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.SolutionText",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Scope1",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Scope2",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Scope3",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Scope4",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Scope5",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Timeline1",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Timeline2",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Timeline3",
+                                "type": "any"
+                            },
+                            {
+                                "name": "Client.Timeline4",
+                                "type": "any"
+                            },
+                            {
+                                "name": "investment",
+                                "type": "any"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Values"
+                    },
+                    {
+                        "name": "image",
+                        "spec": [
+                            {
+                                "name": "kix.4lybdsmrajch-t.0",
+                                "type": "url",
+                                "label": "Tab (Tab 1) - Body: Image No. 1",
+                                "metadata": {
+                                    "tabId": "t.0"
+                                }
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Image URLs"
+                    },
+                    {
+                        "name": "folderId",
+                        "type": "folder",
+                        "label": "New Document's Location",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": true,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
