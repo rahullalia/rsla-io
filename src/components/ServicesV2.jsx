@@ -102,7 +102,7 @@ export default function ServicesV2() {
                                 </p>
                                 <Link
                                     to={s.link}
-                                    className="link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-accent/80 transition-colors group"
+                                    className="link-underline inline-flex items-center gap-2 min-h-[44px] font-sans font-bold text-accent text-sm hover:text-accent/80 transition-colors group"
                                 >
                                     {s.cta}
                                     <svg

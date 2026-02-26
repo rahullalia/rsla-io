@@ -71,7 +71,7 @@ export default function FooterV2() {
                         </p>
                         <a
                             href="mailto:hello@rsla.io"
-                            className="font-body text-sm text-accent hover:text-white transition-colors"
+                            className="font-body text-sm text-accent hover:text-white transition-colors inline-flex items-center min-h-[44px]"
                         >
                             hello@rsla.io
                         </a>
@@ -91,12 +91,12 @@ export default function FooterV2() {
                         <p className="font-sans font-bold text-sm uppercase tracking-wider mb-4 text-white/80">
                             Explore
                         </p>
-                        <ul className="flex flex-col gap-2.5">
+                        <ul className="flex flex-col gap-0.5">
                             {navLinks.map((link) => (
                                 <li key={link.to}>
                                     <Link
                                         to={link.to}
-                                        className="font-body text-sm text-white/50 hover:text-white transition-colors"
+                                        className="font-body text-sm text-white/50 hover:text-white transition-colors inline-flex items-center min-h-[44px]"
                                     >
                                         {link.label}
                                     </Link>
@@ -110,14 +110,14 @@ export default function FooterV2() {
                         <p className="font-sans font-bold text-sm uppercase tracking-wider mb-4 text-white/80">
                             Follow
                         </p>
-                        <ul className="flex flex-col gap-2.5">
+                        <ul className="flex flex-col gap-0.5">
                             {socials.map((social) => (
                                 <li key={social.label}>
                                     <a
                                         href={social.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="font-body text-sm text-white/50 hover:text-white transition-colors"
+                                        className="font-body text-sm text-white/50 hover:text-white transition-colors inline-flex items-center min-h-[44px]"
                                     >
                                         {social.label}
                                     </a>
@@ -143,12 +143,12 @@ export default function FooterV2() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     disabled={status === 'submitting' || status === 'success'}
                                     required
-                                    className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white font-body text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/50 transition-colors"
+                                    className="flex-1 px-4 min-h-[44px] rounded-lg bg-white/5 border border-white/10 text-white font-body text-sm placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent/50 transition-colors"
                                 />
                                 <button
                                     type="submit"
                                     disabled={status === 'submitting' || status === 'success'}
-                                    className="px-4 py-2.5 rounded-lg bg-accent text-white font-sans font-bold text-sm hover:bg-accent/90 transition-colors disabled:opacity-50"
+                                    className="px-4 min-h-[44px] rounded-lg bg-accent text-white font-sans font-bold text-sm hover:bg-accent/90 transition-colors disabled:opacity-50"
                                 >
                                     {status === 'submitting' ? '...' : 'Join'}
                                 </button>
@@ -168,17 +168,17 @@ export default function FooterV2() {
                     <p className="font-mono text-xs text-white/30">
                         &copy; {new Date().getFullYear()} RSL/A. All rights reserved.
                     </p>
-                    <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center md:justify-end">
-                        <Link to="/privacy-policy" className="font-mono text-xs text-white/30 hover:text-white transition-colors">
+                    <div className="flex flex-wrap gap-x-4 justify-center md:justify-end">
+                        <Link to="/privacy-policy" className="font-mono text-xs text-white/30 hover:text-white transition-colors inline-flex items-center min-h-[44px]">
                             Privacy
                         </Link>
-                        <Link to="/terms" className="font-mono text-xs text-white/30 hover:text-white transition-colors">
+                        <Link to="/terms" className="font-mono text-xs text-white/30 hover:text-white transition-colors inline-flex items-center min-h-[44px]">
                             Terms
                         </Link>
-                        <Link to="/disclaimer" className="font-mono text-xs text-white/30 hover:text-white transition-colors">
+                        <Link to="/disclaimer" className="font-mono text-xs text-white/30 hover:text-white transition-colors inline-flex items-center min-h-[44px]">
                             Disclaimer
                         </Link>
-                        <Link to="/accessibility" className="font-mono text-xs text-white/30 hover:text-white transition-colors">
+                        <Link to="/accessibility" className="font-mono text-xs text-white/30 hover:text-white transition-colors inline-flex items-center min-h-[44px]">
                             Accessibility
                         </Link>
                         <button
@@ -186,7 +186,7 @@ export default function FooterV2() {
                                 localStorage.removeItem('rsla_cookie_consent');
                                 window.location.reload();
                             }}
-                            className="font-mono text-xs text-white/30 hover:text-white transition-colors"
+                            className="font-mono text-xs text-white/30 hover:text-white transition-colors inline-flex items-center min-h-[44px]"
                         >
                             Cookie Settings
                         </button>

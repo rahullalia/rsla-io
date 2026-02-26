@@ -127,20 +127,20 @@ export default function Rahul() {
                 {/* Email */}
                 <a
                     href="mailto:lalia@rsla.io"
-                    className="font-mono text-xs tracking-wider text-textLight hover:text-accent transition-colors mb-5"
+                    className="font-mono text-xs tracking-wider text-textLight hover:text-accent transition-colors mb-5 inline-flex items-center min-h-[44px]"
                 >
                     lalia@rsla.io
                 </a>
 
                 {/* Socials */}
-                <div className="flex items-center gap-6 mb-8">
+                <div className="flex items-center gap-2 mb-8">
                     {socials.map((social) => (
                         <a
                             key={social.name}
                             href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-textLight hover:text-accent transition-colors duration-300"
+                            className="min-h-[44px] min-w-[44px] flex items-center justify-center text-textLight hover:text-accent transition-colors duration-300"
                             aria-label={social.name}
                         >
                             {social.icon}
@@ -152,7 +152,7 @@ export default function Rahul() {
                 <div className="w-full border-t border-accent-border mb-6" />
 
                 {/* Footer */}
-                <Link to="/" className="font-mono text-[10px] uppercase tracking-widest text-textLight/50 hover:text-textLight transition-colors">
+                <Link to="/" className="font-mono text-[10px] uppercase tracking-widest text-textLight/50 hover:text-textLight transition-colors inline-flex items-center min-h-[44px] px-4">
                     Powered by RSL/A
                 </Link>
             </div>

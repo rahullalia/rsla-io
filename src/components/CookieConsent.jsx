@@ -71,7 +71,7 @@ export default function CookieConsent() {
                     </p>
                     <button
                         onClick={decline}
-                        className="shrink-0 text-textLight hover:text-text transition-colors -mt-0.5"
+                        className="shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center -mr-2 -mt-2 text-textLight hover:text-text transition-colors"
                         aria-label="Dismiss"
                     >
                         <X size={16} />
@@ -80,13 +80,13 @@ export default function CookieConsent() {
                 <div className="flex items-center gap-2.5">
                     <button
                         onClick={accept}
-                        className="flex-1 py-2.5 bg-accent text-white text-xs font-sans font-bold rounded-full hover:bg-accent/90 active:scale-95 transition-all"
+                        className="flex-1 min-h-[44px] bg-accent text-white text-xs font-sans font-bold rounded-full hover:bg-accent/90 active:scale-95 transition-all"
                     >
                         Accept All
                     </button>
                     <button
                         onClick={decline}
-                        className="flex-1 py-2.5 bg-surfaceAlt text-textMuted text-xs font-sans font-bold rounded-full border border-accent-border hover:text-text active:scale-95 transition-all"
+                        className="flex-1 min-h-[44px] bg-surfaceAlt text-textMuted text-xs font-sans font-bold rounded-full border border-accent-border hover:text-text active:scale-95 transition-all"
                     >
                         Only Necessary
                     </button>

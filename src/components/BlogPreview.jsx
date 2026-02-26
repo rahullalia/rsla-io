@@ -140,7 +140,7 @@ export default function BlogPreview() {
                 <div className="md:hidden mt-8 text-center">
                     <Link
                         to="/blog"
-                        className="inline-flex items-center gap-2 font-sans font-bold text-accent text-sm"
+                        className="inline-flex items-center gap-2 min-h-[44px] font-sans font-bold text-accent text-sm"
                     >
                         View all posts
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

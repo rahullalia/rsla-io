@@ -174,7 +174,7 @@ export default function WorkInner() {
 
                 {/* Header Breadcrumb & Back */}
                 <div className="mb-12 flex flex-col items-start gap-4">
-                    <Link to="/work" className="inline-flex items-center gap-2 text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider">
+                    <Link to="/work" className="inline-flex items-center gap-2 min-h-[44px] text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider">
                         ← Back to Case Studies
                     </Link>
                 </div>

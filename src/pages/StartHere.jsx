@@ -123,17 +123,17 @@ export default function StartHere() {
                                 <h3 className="font-sans font-bold text-lg text-text mb-3">{tier.label}</h3>
                                 <p className="font-body text-textMuted text-sm leading-relaxed mb-6 flex-grow">{tier.desc}</p>
                                 {tier.external ? (
-                                    <a href={tier.link} target="_blank" rel="noopener noreferrer" className="link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
+                                    <a href={tier.link} target="_blank" rel="noopener noreferrer" className="link-underline inline-flex items-center gap-2 min-h-[44px] font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
                                         {tier.linkText}
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                                     </a>
                                 ) : tier.link.startsWith('#') ? (
-                                    <a href={tier.link} className="link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
+                                    <a href={tier.link} className="link-underline inline-flex items-center gap-2 min-h-[44px] font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
                                         {tier.linkText}
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                                     </a>
                                 ) : (
-                                    <Link to={tier.link} className="link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
+                                    <Link to={tier.link} className="link-underline inline-flex items-center gap-2 min-h-[44px] font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
                                         {tier.linkText}
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                                     </Link>
@@ -181,7 +181,7 @@ export default function StartHere() {
                     <p className="font-body text-textMuted text-base leading-relaxed mb-8">
                         If you have already done the learning and want it built, here is how that works.
                     </p>
-                    <Link to="/how-it-works" className="inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
+                    <Link to="/how-it-works" className="inline-flex items-center gap-2 min-h-[44px] font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
                         See how it works
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                     </Link>

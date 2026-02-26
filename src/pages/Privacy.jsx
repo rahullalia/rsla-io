@@ -10,7 +10,7 @@ export default function Privacy() {
                 noIndex
             />
             <div className="max-w-4xl mx-auto relative z-10">
-                <Link to="/" className="inline-flex items-center gap-2 text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider mb-12">
+                <Link to="/" className="inline-flex items-center gap-2 min-h-[44px] text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider mb-12">
                     ← Back to Home
                 </Link>
 

@@ -192,7 +192,7 @@ export default function Services() {
                             </div>
                         )}
 
-                        <a href="/#contact" className="svc-animate link-underline inline-flex items-center gap-2 font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
+                        <a href="/#contact" className="svc-animate link-underline inline-flex items-center gap-2 min-h-[44px] font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
                             {service.cta}
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                         </a>

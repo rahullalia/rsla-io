@@ -1,30 +1,122 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { Search, X } from 'lucide-react';
 import { client } from '../sanity/lib/client';
-import { blogPostsUnionQuery, blogPostsCountUnionQuery } from '../sanity/lib/queries';
+import {
+    blogPostsUnionQuery,
+    blogPostsCountUnionQuery,
+    blogCategoriesQuery,
+    blogPostsByCategoryQuery,
+    blogPostsCountByCategoryQuery,
+    blogPostsSearchQuery,
+    blogPostsSearchCountQuery,
+    blogPostsSearchByCategoryQuery,
+    blogPostsSearchByCategoryCountQuery,
+} from '../sanity/lib/queries';
 import { urlForImage } from '../sanity/lib/image';
 import Seo from '../components/Seo';
 
 const POSTS_PER_PAGE = 9;
 
 export default function Blog() {
+    const [searchParams, setSearchParams] = useSearchParams();
     const [posts, setPosts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const searchInputRef = useRef(null);
 
+    // Read state from URL
+    const activeCategory = searchParams.get('category') || '';
+    const searchQuery = searchParams.get('q') || '';
+    const currentPage = parseInt(searchParams.get('page') || '1', 10);
+
+    // Local search input (debounced before writing to URL)
+    const [searchInput, setSearchInput] = useState(searchQuery);
+    const debounceRef = useRef(null);
+
+    // Sync searchInput when URL changes externally (e.g. back button)
+    useEffect(() => {
+        setSearchInput(searchQuery);
+    }, [searchQuery]);
+
+    // Update URL params helper
+    const updateParams = useCallback((updates) => {
+        setSearchParams((prev) => {
+            const next = new URLSearchParams(prev);
+            Object.entries(updates).forEach(([key, value]) => {
+                if (value) {
+                    next.set(key, value);
+                } else {
+                    next.delete(key);
+                }
+            });
+            // Reset page to 1 when filters change (unless page is being set explicitly)
+            if (!('page' in updates)) {
+                next.delete('page');
+            }
+            return next;
+        }, { replace: true });
+    }, [setSearchParams]);
+
+    // Debounced search
+    const handleSearchInput = (value) => {
+        setSearchInput(value);
+        clearTimeout(debounceRef.current);
+        debounceRef.current = setTimeout(() => {
+            updateParams({ q: value || '' });
+        }, 350);
+    };
+
+    const clearSearch = () => {
+        setSearchInput('');
+        updateParams({ q: '' });
+        searchInputRef.current?.focus();
+    };
+
+    const handleCategoryClick = (slug) => {
+        updateParams({ category: slug === activeCategory ? '' : slug });
+    };
+
+    // Fetch categories once
+    useEffect(() => {
+        client.fetch(blogCategoriesQuery).then(setCategories).catch(console.error);
+    }, []);
+
+    // Fetch posts when filters/page change
     useEffect(() => {
         let isMounted = true;
-
         const fetchPosts = async () => {
             setLoading(true);
             try {
                 const start = (currentPage - 1) * POSTS_PER_PAGE;
                 const end = start + POSTS_PER_PAGE;
+                const hasCategory = !!activeCategory;
+                const hasSearch = !!searchQuery;
+
+                let postsQuery, countQuery, params;
+
+                if (hasCategory && hasSearch) {
+                    postsQuery = blogPostsSearchByCategoryQuery;
+                    countQuery = blogPostsSearchByCategoryCountQuery;
+                    params = { start, end, categorySlug: activeCategory, searchQuery: `${searchQuery}*` };
+                } else if (hasCategory) {
+                    postsQuery = blogPostsByCategoryQuery;
+                    countQuery = blogPostsCountByCategoryQuery;
+                    params = { start, end, categorySlug: activeCategory };
+                } else if (hasSearch) {
+                    postsQuery = blogPostsSearchQuery;
+                    countQuery = blogPostsSearchCountQuery;
+                    params = { start, end, searchQuery: `${searchQuery}*` };
+                } else {
+                    postsQuery = blogPostsUnionQuery;
+                    countQuery = blogPostsCountUnionQuery;
+                    params = { start, end };
+                }
 
                 const [fetchedPosts, totalCount] = await Promise.all([
-                    client.fetch(blogPostsUnionQuery, { start, end }),
-                    client.fetch(blogPostsCountUnionQuery)
+                    client.fetch(postsQuery, params),
+                    client.fetch(countQuery, params),
                 ]);
 
                 if (isMounted) {
@@ -32,21 +124,19 @@ export default function Blog() {
                     setTotalPages(Math.ceil(totalCount / POSTS_PER_PAGE));
                 }
             } catch (error) {
-                console.error("Error fetching blog posts:", error);
+                console.error('Error fetching blog posts:', error);
             } finally {
                 if (isMounted) setLoading(false);
             }
         };
 
         fetchPosts();
-
-        // Scroll to top on page change
         window.scrollTo(0, 0);
 
-        return () => {
-            isMounted = false;
-        };
-    }, [currentPage]);
+        return () => { isMounted = false; };
+    }, [currentPage, activeCategory, searchQuery]);
+
+    const activeCategoryName = categories.find((c) => c.slug?.current === activeCategory)?.name;
 
     return (
         <div className="min-h-screen bg-surface text-text pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
@@ -63,9 +153,8 @@ export default function Blog() {
                     isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: 'https://rsla.io' },
                 }}
             />
-            {/* Soft noise overlay inherited from globals */}
             <div className="max-w-7xl mx-auto relative z-10">
-                <header className="mb-20 text-center">
+                <header className="mb-12 text-center">
                     <h1 className="text-5xl md:text-7xl font-sans font-bold mb-6 tracking-tighter">
                         The <span className="text-accent italic font-drama pr-2">Archive.</span>
                     </h1>
@@ -74,13 +163,91 @@ export default function Blog() {
                     </p>
                 </header>
 
+                {/* Filter bar */}
+                <div className="mb-12 flex flex-col gap-4">
+                    {/* Search */}
+                    <div className="relative max-w-md mx-auto w-full">
+                        <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-textLight" />
+                        <input
+                            ref={searchInputRef}
+                            type="text"
+                            value={searchInput}
+                            onChange={(e) => handleSearchInput(e.target.value)}
+                            placeholder="Search articles..."
+                            className="w-full pl-11 pr-10 min-h-[44px] rounded-full bg-surfaceAlt border border-accent-border text-text font-mono text-sm placeholder:text-textLight focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                        />
+                        {searchInput && (
+                            <button
+                                onClick={clearSearch}
+                                className="absolute right-1 top-1/2 -translate-y-1/2 min-h-[44px] min-w-[44px] flex items-center justify-center text-textLight hover:text-text transition-colors"
+                                aria-label="Clear search"
+                            >
+                                <X size={14} />
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Category pills */}
+                    {categories.length > 0 && (
+                        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide justify-center flex-wrap">
+                            <button
+                                onClick={() => handleCategoryClick('')}
+                                className={`shrink-0 px-4 min-h-[44px] rounded-full font-mono text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                                    !activeCategory
+                                        ? 'bg-accent text-white'
+                                        : 'bg-surfaceAlt text-textMuted border border-accent-border hover:border-accent/30 hover:text-text'
+                                }`}
+                            >
+                                All
+                            </button>
+                            {categories.map((cat) => (
+                                <button
+                                    key={cat._id}
+                                    onClick={() => handleCategoryClick(cat.slug?.current)}
+                                    className={`shrink-0 px-4 min-h-[44px] rounded-full font-mono text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                                        activeCategory === cat.slug?.current
+                                            ? 'bg-accent text-white'
+                                            : 'bg-surfaceAlt text-textMuted border border-accent-border hover:border-accent/30 hover:text-text'
+                                    }`}
+                                >
+                                    {cat.name}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Active filter indicator */}
+                    {(activeCategory || searchQuery) && !loading && (
+                        <div className="text-center font-mono text-xs text-textLight">
+                            {posts.length} result{posts.length !== 1 ? 's' : ''}
+                            {activeCategoryName && <> in <span className="text-accent">{activeCategoryName}</span></>}
+                            {searchQuery && <> for "<span className="text-accent">{searchQuery}</span>"</>}
+                        </div>
+                    )}
+                </div>
+
                 {loading ? (
                     <div className="flex justify-center items-center py-20 font-mono text-accent animate-pulse">
                         [FETCHING_DATA...]
                     </div>
                 ) : posts.length === 0 ? (
-                    <div className="text-center py-20 font-mono text-textLight">
-                        No intel logged yet. Check back soon.
+                    <div className="text-center py-20">
+                        <p className="font-mono text-textLight mb-4">
+                            {searchQuery || activeCategory
+                                ? 'No posts match your filters.'
+                                : 'No intel logged yet. Check back soon.'}
+                        </p>
+                        {(searchQuery || activeCategory) && (
+                            <button
+                                onClick={() => {
+                                    setSearchInput('');
+                                    setSearchParams({}, { replace: true });
+                                }}
+                                className="font-mono text-sm text-accent hover:underline cursor-pointer inline-flex items-center min-h-[44px] px-4"
+                            >
+                                Clear filters
+                            </button>
+                        )}
                     </div>
                 ) : (
                     <>
@@ -141,9 +308,9 @@ export default function Blog() {
                         {totalPages > 1 && (
                             <div className="flex justify-center items-center gap-4 font-mono text-sm">
                                 <button
-                                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                    onClick={() => updateParams({ page: currentPage > 2 ? String(currentPage - 1) : '' })}
                                     disabled={currentPage === 1}
-                                    className="px-4 py-2 hover:text-accent disabled:opacity-30 disabled:hover:text-text transition-colors"
+                                    className="px-4 min-h-[44px] hover:text-accent disabled:opacity-30 disabled:hover:text-text transition-colors"
                                 >
                                     &larr; PREV
                                 </button>
@@ -151,9 +318,9 @@ export default function Blog() {
                                     PG {currentPage} / {totalPages}
                                 </span>
                                 <button
-                                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                    onClick={() => updateParams({ page: String(currentPage + 1) })}
                                     disabled={currentPage === totalPages}
-                                    className="px-4 py-2 hover:text-accent disabled:opacity-30 disabled:hover:text-text transition-colors"
+                                    className="px-4 min-h-[44px] hover:text-accent disabled:opacity-30 disabled:hover:text-text transition-colors"
                                 >
                                     NEXT &rarr;
                                 </button>

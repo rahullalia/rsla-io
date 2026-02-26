@@ -10,15 +10,15 @@
 - [x] Fix Lighthouse SEO: "Learn more" changed to "Privacy Policy" (descriptive link text)
 - [x] Add `width`/`height` attributes to logo `<img>` tags (navbar + footer)
 
-## P1: Soon (Post-Launch, High Impact)
+## P1: Soon (Post-Launch, High Impact) ✓
 
 - [x] Add client logos or tech icons to Marquee (keeping service text labels for now, revisit later)
 - [x] Preload hero fonts (Satoshi Bold, Space Grotesk, Inter) in index.html
-- [ ] Blog: category filtering and search
-- [ ] Blog: set up RSS feed
-- [ ] Email capture on blog posts (inline CTA or exit intent)
+- [x] Blog: category filtering and search (URL state, debounced search, category pills)
+- [x] Blog: set up RSS feed (build-time generation at /rss.xml, 50 latest posts)
+- [x] Email capture on blog posts (inline CTA using Kit form, after article body)
 - [x] Test booking iframe height on very small phones (responsive, looks good)
-- [ ] Ensure all touch targets meet 44x44px minimum
+- [x] Ensure all touch targets meet 44x44px minimum (33 violations fixed across 15 files)
 
 ## P2: When You Get To It (Nice to Have)
 

@@ -6,6 +6,7 @@ import { blogPostBySlugQuery, blogPostBySlugV2Query, relatedCaseStudyForBlogQuer
 import { urlForImage } from '../sanity/lib/image';
 import { PortableTextComponents } from '../components/blog/PortableTextRenderer';
 import Seo from '../components/Seo';
+import InlineNewsletterCta from '../components/blog/InlineNewsletterCta';
 
 export default function BlogInner() {
     const { slug } = useParams();
@@ -140,7 +141,7 @@ export default function BlogInner() {
 
                 {/* Header Breadcrumb & Back */}
                 <div className="mb-12 flex flex-col items-start gap-4">
-                    <Link to="/blog" className="inline-flex items-center gap-2 text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider">
+                    <Link to="/blog" className="inline-flex items-center gap-2 min-h-[44px] text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider">
                         ← Back to Blog
                     </Link>
 
@@ -213,6 +214,9 @@ export default function BlogInner() {
                 <div className="prose-container max-w-none">
                     <PortableText value={post.body} components={PortableTextComponents} />
                 </div>
+
+                {/* Newsletter CTA */}
+                <InlineNewsletterCta />
 
                 {/* Related Posts (V2) */}
                 {post.relatedPosts && post.relatedPosts.length > 0 && (

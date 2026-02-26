@@ -114,7 +114,7 @@ export default function Work() {
                                 key={category}
                                 onClick={() => setSelectedCategory(category)}
                                 className={`
-                                    px-4 py-2 rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-300
+                                    px-4 min-h-[44px] rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-300
                                     ${selectedCategory === category
                                         ? "bg-accent text-white"
                                         : "bg-surfaceAlt text-textMuted border border-accent-border hover:bg-accent/5 hover:text-text"

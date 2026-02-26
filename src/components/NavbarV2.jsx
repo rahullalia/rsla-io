@@ -186,7 +186,7 @@ export default function NavbarV2() {
                 scrolled ? 'bg-surface/95 backdrop-blur-lg shadow-sm' : 'bg-transparent'
             }`}>
                 <div className="flex items-center justify-between px-5 py-4">
-                    <Link to="/" className="shrink-0">
+                    <Link to="/" className="shrink-0 inline-flex items-center min-h-[44px] min-w-[44px] justify-center">
                         <img
                             src="/images/logo/logomark.svg"
                             alt="RSL/A Logo"
@@ -198,7 +198,7 @@ export default function NavbarV2() {
 
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
-                        className="p-2 text-text/70 hover:text-text transition-colors cursor-pointer"
+                        className="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-text/70 hover:text-text transition-colors cursor-pointer"
                         aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                     >
                         {mobileOpen ? <X size={24} /> : <Menu size={24} />}

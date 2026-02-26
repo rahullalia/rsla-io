@@ -76,19 +76,19 @@ export default function NotFound() {
                     <div className="flex gap-4">
                         <Link
                             to="/work"
-                            className="px-6 py-2.5 text-textMuted hover:text-accent border border-accent/20 hover:border-accent/50 rounded-full font-sans font-bold text-sm transition-all duration-300"
+                            className="px-6 min-h-[44px] inline-flex items-center text-textMuted hover:text-accent border border-accent/20 hover:border-accent/50 rounded-full font-sans font-bold text-sm transition-all duration-300"
                         >
                             Case Studies
                         </Link>
                         <Link
                             to="/blog"
-                            className="px-6 py-2.5 text-textMuted hover:text-accent border border-accent/20 hover:border-accent/50 rounded-full font-sans font-bold text-sm transition-all duration-300"
+                            className="px-6 min-h-[44px] inline-flex items-center text-textMuted hover:text-accent border border-accent/20 hover:border-accent/50 rounded-full font-sans font-bold text-sm transition-all duration-300"
                         >
                             Blog
                         </Link>
                         <Link
                             to="/start-here"
-                            className="px-6 py-2.5 text-textMuted hover:text-accent border border-accent/20 hover:border-accent/50 rounded-full font-sans font-bold text-sm transition-all duration-300"
+                            className="px-6 min-h-[44px] inline-flex items-center text-textMuted hover:text-accent border border-accent/20 hover:border-accent/50 rounded-full font-sans font-bold text-sm transition-all duration-300"
                         >
                             Start Here
                         </Link>
