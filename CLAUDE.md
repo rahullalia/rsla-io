@@ -286,7 +286,37 @@ npx sanity schema deploy       # Deploy schemas to Sanity cloud
   - Added noIndex to NotFound.jsx
 - Fixed Dependabot alerts: basic-ftp 5.1.0→5.2.0 (critical), rollup 4.58.0→4.59.0 (high)
 - Deleted 4 dead files from old website: Hero.jsx, MarqueeStrip.jsx, ProblemSection.jsx, vite.svg
-- 4 commits pushed to main
+
+### 2026-02-25: Domain, 404 Redesign, Testimonials, Security, Audits
+- Connected rsla.io + www.rsla.io to Vercel (both domains verified)
+- Redesigned 404 page: FlickeringGrid background, TextAnimate blur-in, InteractiveHoverButton CTA, GSAP entrance
+- Replaced placeholder testimonials with 5 real client quotes (Sid S. featured, Curtis H., Chris K., Laiz C., Parminder S.)
+- Added WebSite JSON-LD schema to homepage (tells Google to show "RSL/A" instead of "rsla.io" in SERPs)
+- Seo.jsx updated to support array of JSON-LD schemas
+- Regenerated favicon.ico at 48x48 and 96x96 (Google requires minimum 48px for SERP display)
+- Lighthouse audit: Perf 96, Accessibility 95, Best Practices 96, SEO 92 (all green)
+- Security audit and fixes:
+  - Added security headers to vercel.json: CSP, X-Frame-Options (DENY), X-Content-Type-Options (nosniff), Referrer-Policy, Permissions-Policy, X-XSS-Protection
+  - CSP whitelists: GTM, Sanity CDN, GHL embed, ConvertKit, YouTube/Vimeo/Loom
+  - Sanitized PortableText link renderer to block javascript:/data:/vbscript: protocol URLs
+  - Added "Cookie Settings" link to footer for GDPR consent revocation
+- npm audit: 0 vulnerabilities
+- Reorganized TODO.md into P0 to P4 priority tiers
+
+### 2026-02-25: P0 Fixes, Font Preloading, QA Sign-off
+- Connected rsla.io + www.rsla.io domains to Vercel (both verified)
+- P0 Lighthouse fixes:
+  - Accent color: #0070F3 to #0066E0 (WCAG AA contrast)
+  - Footer: h5 tags to p (heading hierarchy)
+  - Cookie banner: "Learn more" to "Privacy Policy" (descriptive link text)
+  - Logo imgs: added width/height attributes (CLS prevention)
+  - Canonical: added fallback `<link rel="canonical">` to index.html for non-JS crawlers
+- Preloaded critical above-fold fonts: Satoshi Bold, Space Grotesk Regular, Inter Regular
+- Visual QA pass: all pages approved by Rahul (responsive browser testing)
+- Mobile nav: hamburger/pill approved on all screen sizes
+- Booking iframe: responsive, approved
+- Marquee: keeping service text labels for now, may add logos later
+- All P0 items complete
 
 ---
 
