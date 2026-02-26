@@ -179,6 +179,15 @@ export default function FooterV2() {
                         <Link to="/accessibility" className="font-mono text-xs text-white/30 hover:text-white transition-colors">
                             Accessibility
                         </Link>
+                        <button
+                            onClick={() => {
+                                localStorage.removeItem('rsla_cookie_consent');
+                                window.location.reload();
+                            }}
+                            className="font-mono text-xs text-white/30 hover:text-white transition-colors"
+                        >
+                            Cookie Settings
+                        </button>
                     </div>
                 </div>
             </div>
