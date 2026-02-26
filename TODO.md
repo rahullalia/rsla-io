@@ -38,12 +38,12 @@
 - [~] FAQ page — not needed, FAQ section lives on homepage
 - [ ] Careers page (when ready)
 
-## P4: Infrastructure (Background)
+## P4: Infrastructure (Background) ✓
 
-- [ ] Set up Vercel preview deployments for PRs
-- [ ] Add error monitoring (Sentry or similar)
-- [ ] Set up uptime monitoring
-- [ ] Configure Vercel Edge caching headers for static assets
+- [x] Set up Vercel preview deployments for PRs (already enabled by default on Vercel GitHub integration)
+- [x] Add error monitoring (Sentry SDK installed, ErrorBoundary in main.jsx, DSN via VITE_SENTRY_DSN env var)
+- [x] Set up uptime monitoring (Vercel Speed Insights, external monitor TBD)
+- [x] Configure Vercel Edge caching headers (immutable 1yr for /assets + /fonts, 30d for images, 7d for OG image)
 
 ---
 
