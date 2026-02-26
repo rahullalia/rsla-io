@@ -33,9 +33,9 @@
 
 ## P3: Future (New Features)
 
-- [ ] Individual service pages (/services/ai-automation, /services/paid-ads, etc.)
-- [ ] Pricing page
-- [ ] FAQ page
+- [~] Individual service pages — not needed for now, current /services covers it
+- [~] Pricing page — not needed, custom quotes only
+- [~] FAQ page — not needed, FAQ section lives on homepage
 - [ ] Careers page (when ready)
 
 ## P4: Infrastructure (Background)
