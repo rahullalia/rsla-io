@@ -12,3 +12,8 @@ Sentry.init({
   replaysSessionSampleRate: 0,
   replaysOnErrorSampleRate: 1.0,
 });
+
+// TODO: Remove after confirming Sentry works
+if (import.meta.env.PROD) {
+  Sentry.captureMessage('Sentry is live on rsla.io', 'info');
+}
