@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { urlForImage } from '../../sanity/lib/image';
 
-const KIT_FORM_ID = '7558498';
+const KIT_FORM_ID = '9130465';
+const KIT_API_KEY = import.meta.env.VITE_KIT_API_KEY;
 
 function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
     const alreadyUnlocked = typeof window !== 'undefined' && localStorage.getItem('rsla_resource_unlocked');
@@ -24,12 +25,12 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
 
         setStatus('submitting');
         try {
-            const res = await fetch(`https://app.kit.com/forms/${KIT_FORM_ID}/subscriptions`, {
+            const res = await fetch(`https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email_address: email }),
+                body: JSON.stringify({ api_key: KIT_API_KEY, email }),
             });
-            if (res.ok || res.redirected) {
+            if (res.ok) {
                 localStorage.setItem('rsla_resource_unlocked', '1');
                 setStatus('unlocked');
                 triggerDownload(downloadUrl);

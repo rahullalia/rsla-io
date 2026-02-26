@@ -33,10 +33,10 @@ export default function FooterV2() {
 
         setStatus('submitting');
         try {
-            const res = await fetch('https://app.kit.com/forms/7558498/subscriptions', {
+            const res = await fetch('https://api.convertkit.com/v3/forms/9130465/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email_address: email }),
+                body: JSON.stringify({ api_key: import.meta.env.VITE_KIT_API_KEY, email }),
             });
             if (res.ok) {
                 setStatus('success');
