@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PortableText } from '@portabletext/react';
 import { client } from '../sanity/lib/client';
-import { blogPostBySlugQuery, blogPostBySlugV2Query, relatedCaseStudyForBlogQuery, featuredCaseStudyFallbackQuery } from '../sanity/lib/queries';
+import { blogPostBySlugV2Query, relatedCaseStudyForBlogQuery, featuredCaseStudyFallbackQuery } from '../sanity/lib/queries';
 import { urlForImage } from '../sanity/lib/image';
-import { PortableTextComponents } from '../components/blog/PortableTextRenderer';
+import { PortableTextComponents, slugify } from '../components/blog/PortableTextRenderer';
 import Seo from '../components/Seo';
 import InlineNewsletterCta from '../components/blog/InlineNewsletterCta';
 
@@ -20,11 +20,8 @@ export default function BlogInner() {
         const fetchPostData = async () => {
             setLoading(true);
             try {
-                // Try V2 first, fall back to V1
+                // Fetch V2 blog post
                 let fetchedPost = await client.fetch(blogPostBySlugV2Query, { slug });
-                if (!fetchedPost) {
-                    fetchedPost = await client.fetch(blogPostBySlugQuery, { slug });
-                }
 
                 if (!fetchedPost && isMounted) {
                     setPost(null);
@@ -125,6 +122,7 @@ export default function BlogInner() {
                     description: seoDescription,
                     image: imageUrl || undefined,
                     datePublished: post.publishedAt,
+                    ...(post.updatedAt && { dateModified: post.updatedAt }),
                     author: {
                         '@type': 'Person',
                         name: post.author?.name || 'Rahul Lalia',
@@ -186,6 +184,14 @@ export default function BlogInner() {
                                         <span>{post.readingTime} min read</span>
                                     </>
                                 )}
+                                {post.updatedAt && (
+                                    <>
+                                        <span>•</span>
+                                        <span>Updated {new Date(post.updatedAt).toLocaleDateString('en-US', {
+                                            month: 'short', day: 'numeric', year: 'numeric'
+                                        })}</span>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -197,6 +203,33 @@ export default function BlogInner() {
                         {post.pullQuote}
                     </blockquote>
                 )}
+
+                {/* Table of Contents */}
+                {(() => {
+                    if (!post.showTableOfContents) return null;
+                    const headings = (post.body || [])
+                        .filter((block) => block._type === 'block' && block.style === 'h2')
+                        .map((block) => {
+                            const text = (block.children || []).map((c) => c.text || '').join('');
+                            return { text, id: slugify(text) };
+                        })
+                        .filter((h) => h.text);
+                    if (headings.length < 2) return null;
+                    return (
+                        <nav className="my-12 p-8 rounded-[1.5rem] bg-surfaceAlt border border-accent-border">
+                            <h2 className="font-mono text-xs text-accent uppercase tracking-widest mb-4">Table of Contents</h2>
+                            <ol className="space-y-2 list-decimal list-inside">
+                                {headings.map((h) => (
+                                    <li key={h.id} className="font-mono text-sm">
+                                        <a href={`#${h.id}`} className="text-textMuted hover:text-accent transition-colors underline-offset-4 hover:underline">
+                                            {h.text}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ol>
+                        </nav>
+                    );
+                })()}
 
                 {/* Hero Image */}
                 {imageUrl && (

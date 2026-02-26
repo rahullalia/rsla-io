@@ -94,7 +94,7 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
 }
 
 // Helper function to generate slug from text for anchor links
-function slugify(text) {
+export function slugify(text) {
     if (!text) return '';
     return text.toString().toLowerCase()
         .replace(/[-\s]+/g, '-') // Replace spaces and dashes with a single dash
@@ -108,15 +108,22 @@ export const PortableTextComponents = {
             if (!value?.asset?._ref) return null;
             const imageUrl = urlForImage(value.asset)?.width(1000).fit('max').url() || '';
 
+            const aspectRatio = value.aspectRatio;
+            const hasRatio = aspectRatio && aspectRatio !== 'auto';
+            const ratioClass = aspectRatio === '16:9' ? 'aspect-video'
+                : aspectRatio === '1:1' ? 'aspect-square'
+                : aspectRatio === '4:5' ? 'aspect-[4/5]'
+                : '';
+
             return (
                 <figure className="my-12">
-                    <div className="relative w-full overflow-hidden bg-surfaceAlt rounded-[1.5rem] border border-accent-border">
+                    <div className={`relative w-full overflow-hidden bg-surfaceAlt rounded-[1.5rem] border border-accent-border ${hasRatio ? ratioClass : ''}`}>
                         <img
                             src={imageUrl}
                             alt={value.alt || 'Blog illustration'}
                             title={value.alt}
                             loading="lazy"
-                            className="w-full h-auto object-cover max-h-[600px]"
+                            className={hasRatio ? 'absolute inset-0 w-full h-full object-cover' : 'w-full h-auto object-cover max-h-[600px]'}
                         />
                     </div>
                     {value.caption && (
@@ -385,6 +392,7 @@ export const PortableTextComponents = {
         strong: ({ children }) => <strong className="font-bold text-text">{children}</strong>,
         em: ({ children }) => <em className="italic">{children}</em>,
         code: ({ children }) => <code className="bg-surfaceAlt text-accent px-2 py-1 rounded text-[0.85em] font-mono border border-accent-border">{children}</code>,
+        s: ({ children }) => <del className="text-textMuted line-through">{children}</del>,
         link: ({ value, children }) => {
             const href = value?.href || '#';
             const isUnsafe = /^(javascript|data|vbscript):/i.test(href);

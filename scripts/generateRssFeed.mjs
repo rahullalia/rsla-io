@@ -30,7 +30,7 @@ async function generateRssFeed() {
   console.log('Generating RSS feed...');
 
   const posts = await client.fetch(
-    `*[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) [0...50] {
+    `*[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) [0...50] {
       title,
       "slug": slug.current,
       excerpt,

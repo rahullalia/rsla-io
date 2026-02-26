@@ -268,9 +268,14 @@ export default function Blog() {
                                             </div>
                                         )}
                                         <div className="p-8 flex flex-col flex-grow">
-                                            {post.categories && post.categories.length > 0 && (
+                                            {(post.categories?.length > 0 || post.featured) && (
                                                 <div className="flex flex-wrap gap-2 mb-4">
-                                                    {post.categories.slice(0, 2).map((category, idx) => (
+                                                    {post.featured && (
+                                                        <span className="font-mono text-[10px] uppercase tracking-wider text-text border border-text/20 bg-text/5 px-2 py-1 rounded-sm">
+                                                            Pinned
+                                                        </span>
+                                                    )}
+                                                    {post.categories?.slice(0, 2).map((category, idx) => (
                                                         <span key={idx} className="font-mono text-[10px] uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-2 py-1 rounded-sm">
                                                             {category.name}
                                                         </span>

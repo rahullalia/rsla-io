@@ -27,11 +27,12 @@ const staticRoutes = [
 async function generateSitemap() {
   console.log('Generating sitemap...');
 
-  // Fetch all published blog slugs (V1 + V2)
+  // Fetch all published V2 blog slugs
   const blogSlugs = await client.fetch(
-    `*[_type in ["blogPost", "blogPostV2"] && defined(slug.current) && defined(publishedAt) && publishedAt <= now()]{
+    `*[_type == "blogPostV2" && status == "published" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()]{
       "slug": slug.current,
-      publishedAt
+      publishedAt,
+      updatedAt
     } | order(publishedAt desc)`
   );
 
@@ -53,9 +54,9 @@ async function generateSitemap() {
       priority,
     })),
     // Blog posts
-    ...blogSlugs.map(({ slug, publishedAt }) => ({
+    ...blogSlugs.map(({ slug, publishedAt, updatedAt }) => ({
       loc: `${SITE_URL}/blog/${slug}`,
-      lastmod: publishedAt ? publishedAt.split('T')[0] : today,
+      lastmod: (updatedAt || publishedAt || today).split('T')[0],
       priority: '0.6',
     })),
     // Case studies

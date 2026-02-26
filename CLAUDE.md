@@ -6,7 +6,7 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Aurora background
 
 **Positioning:** "I show founders how to put AI to work, then I build it for them."
 
-**Status:** Live at rsla.io. All phases complete. See TODO.md for remaining P1 to P4 items.
+**Status:** Live at rsla.io. All TODO items complete (P0 through P4). Only careers page remains (when ready).
 
 **Deployed:** `rsla.io` via Vercel (auto-deploys from `main` branch)
 **GitHub:** `rahullalia/new-rslaWebsite`
@@ -27,6 +27,7 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Aurora background
 | Icons | Lucide React |
 | Rich Text | @portabletext/react |
 | SEO | Custom Seo.jsx component (no dependencies) |
+| Error Monitoring | Sentry (@sentry/react, ErrorBoundary, browser tracing, replay-on-error) |
 
 ---
 
@@ -326,6 +327,19 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - Marquee: keeping service text labels for now, may add logos later
 - All P0 items complete
 
+### 2026-02-26: P4 Infrastructure
+- Installed @sentry/react with ErrorBoundary in main.jsx, browser tracing, session replay on errors
+- Sentry config: 20% trace sampling, 0% session replay, 100% replay on error, prod-only
+- DSN via VITE_SENTRY_DSN env var (set in Vercel dashboard), Sentry project: `rsla-website`
+- Added Edge caching headers to vercel.json:
+  - /assets/* + /fonts/*: 1 year, immutable (Vite content-hashed)
+  - /images/* + root PNGs: 30 days + stale-while-revalidate
+  - /og-image.png: 7 days
+- Confirmed Vercel preview deployments already enabled (every PR gets preview URL)
+- Updated CSP: added *.sentry.io, *.ingest.sentry.io, fast.wistia.net
+- Sentry test event confirmed working (RSLA-WEBSITE-1), test message removed
+- All P0 through P4 items complete
+
 ### 2026-02-26: Sanity Studio Deployment & Cleanup
 - Created standalone Sanity Studio at `~/lalia/1-Projects/rsl-a/rslaStudio/`
 - GitHub repo: `rahullalia/rslaStudio` (private), auto-deploys to Vercel
@@ -338,8 +352,58 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - Committed missing `generateRssFeed.mjs` (was breaking Vercel build)
 - Old studio remains at `admin.rsla.io` (project `36wenybq`)
 
+### 2026-02-27: Case Study Fixes — Images, Videos, Downloads
+- Fixed /work page only showing 3 case studies (was filtering to `featured: true` only)
+  - Now shows "Featured Intelligence" (3) + "All Case Studies" (5) sections
+- Added `caseStudyImage` handler to PortableTextRenderer (double-nested `asset.asset._ref`)
+  - Supports alt, caption, credit, and size (small/medium/large/full) fields
+- Added Wistia video embed support to `videoEmbed` handler
+  - Parses `rsla.wistia.com/medias/` URLs → `fast.wistia.net/embed/iframe/`
+  - Added `fast.wistia.net` to CSP `frame-src`
+  - Vertical orientation renders 9:16 aspect ratio
+- Added email gate to `gatedResource` blocks
+  - Subscribes to Kit form 7558498, auto-triggers download on success
+  - localStorage remembers returning visitors (skip email gate)
+  - Kit returns 302 on success — checks `res.ok || res.redirected`
+- Added `app.kit.com` to CSP `connect-src` (Kit rebranded from api.convertkit.com)
+- Added blueprint download files to `public/downloads/`
+  - `case-studies/email-ice-breaker/blueprint.json` (125KB)
+  - `proposal-generator-blueprint.json` (85KB)
+- Added `Content-Disposition: attachment` header for `/downloads/*` in vercel.json
+
+### 2026-02-27: Kit Fix, Case Study Redesign, Sanity Content Updates
+- Fixed Kit subscription across entire site (was broken, emails never reaching Kit)
+  - Wrong endpoint: `app.kit.com/forms/` is browser-only (redirects to bot guard), switched to `api.convertkit.com/v3/forms/{id}/subscribe`
+  - Wrong form ID: 7558498 → 9130465
+  - Fixed in: PortableTextRenderer (GatedResourceBlock), InlineNewsletterCta, FooterV2
+  - API key via `import.meta.env.VITE_KIT_API_KEY` (env var `VITE_KIT_API_KEY` set in Vercel)
+  - Insider.jsx was already correct (v3 API with env vars)
+- Redesigned case study inner pages (WorkInner.jsx) — editorial flow
+  - Max-width narrowed from 4xl to 3xl
+  - Metrics: flat row with border-y, no background/rounded box
+  - TL;DR: left accent border (border-l-2), no card
+  - Surfaced 3 unused schema fields: problemStatement, solutionApproach, resultsOutcome
+  - Before/After: kept as cards (tightened to rounded-xl)
+  - Key Takeaways: numbered list, no box
+  - Meta badges (industry/timeframe/services): merged inline with tag pill
+  - Body content wrapped in `case-study-prose` class for font scoping
+- Restyled PortableText headings for case studies
+  - H2: mono uppercase accent label (font-mono text-xs text-accent uppercase tracking-widest)
+  - H3: text-lg/xl font-semibold (down from text-4xl/5xl)
+  - Removed all emojis from callout, tech stack, gated resource blocks
+- Added Cormorant Garamond font for case study pages only
+  - WorkInner description uses font-quote (Cormorant Garamond) instead of font-drama (Playfair Display)
+  - CSS override: `.case-study-prose .font-drama { font-family: 'Cormorant Garamond', serif; }` in index.css
+  - Homepage ProofSection also updated to font-quote for metric numbers and heading
+- Replaced "Executive Axiom" with "Rahul Lalia" in Sanity content
+  - 8 testimonial blocks across 5 case studies (author field, role stays "RSL/A")
+  - All 5 documents published via Sanity MCP
+- Replaced blog category pills (17) with dropdown select
+  - Search + dropdown on same row (desktop), stacked (mobile)
+  - ChevronDown icon, rounded-full, matches site design system
+
 ---
 
 ## Last Updated
 
-2026-02-26
+2026-02-27

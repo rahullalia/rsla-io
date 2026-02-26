@@ -211,10 +211,10 @@ export const featuredCaseStudyFallbackQuery = groq`
   }
 `;
 
-// Get related blog posts for a case study page (match by category keywords)
+// Get related V2 blog posts for a case study page (match by category keywords)
 // Pass $categoryKeywords as an array of lowercase keyword strings derived from the case study category
 export const relatedBlogPostsForCaseStudyQuery = groq`
-  *[_type == "blogPost" && defined(publishedAt) && publishedAt <= now() && count((categories[]->slug.current)[@ in $categoryKeywords]) > 0] | order(publishedAt desc) [0...2] {
+  *[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && count((categories[]->slug.current)[@ in $categoryKeywords]) > 0] | order(publishedAt desc) [0...2] {
     _id,
     title,
     slug,
@@ -231,9 +231,9 @@ export const relatedBlogPostsForCaseStudyQuery = groq`
   }
 `;
 
-// Get related blog posts by category (for sidebar, excluding current post)
+// Get related V2 blog posts by category (for sidebar, excluding current post)
 export const relatedBlogPostsByCategoryQuery = groq`
-  *[_type == "blogPost" && defined(publishedAt) && publishedAt <= now() && _id != $currentId && count((categories[]->slug.current)[@ in $categorySlugs]) > 0] | order(publishedAt desc) [0...5] {
+  *[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && _id != $currentId && count((categories[]->slug.current)[@ in $categorySlugs]) > 0] | order(publishedAt desc) [0...5] {
     _id,
     title,
     slug,
@@ -294,6 +294,10 @@ export const blogPostBySlugV2Query = groq`
     pullQuote,
     readingTime,
     publishedAt,
+    updatedAt,
+    status,
+    showTableOfContents,
+    featured,
     featuredImage {
       asset->,
       alt
@@ -345,9 +349,9 @@ export const blogPostsCountV2Query = groq`
   count(*[_type == "blogPostV2" && defined(publishedAt) && publishedAt <= now()])
 `;
 
-// Get all V2 blog posts combined with V1 (union query for blog index)
+// Get all published V2 blog posts (primary listing query)
 export const blogPostsUnionQuery = groq`
-  *[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) [$start...$end] {
+  *[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now()] | order(featured desc, publishedAt desc) [$start...$end] {
     _id,
     _type,
     title,
@@ -355,6 +359,7 @@ export const blogPostsUnionQuery = groq`
     excerpt,
     readingTime,
     publishedAt,
+    featured,
     featuredImage {
       asset->,
       alt
@@ -375,23 +380,23 @@ export const blogPostsUnionQuery = groq`
   }
 `;
 
-// Count all published blog posts (V1 + V2)
+// Count all published V2 blog posts
 export const blogPostsCountUnionQuery = groq`
-  count(*[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now()])
+  count(*[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now()])
 `;
 
-// Get all categories that have at least one published blog post
+// Get all categories that have at least one published V2 blog post
 export const blogCategoriesQuery = groq`
-  *[_type == "category" && count(*[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now() && references(^._id)]) > 0] | order(name asc) {
+  *[_type == "category" && count(*[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && references(^._id)]) > 0] | order(name asc) {
     _id,
     name,
     slug
   }
 `;
 
-// Get blog posts filtered by category slug (with pagination)
+// Get V2 blog posts filtered by category slug (with pagination)
 export const blogPostsByCategoryQuery = groq`
-  *[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now() && $categorySlug in categories[]->slug.current] | order(publishedAt desc) [$start...$end] {
+  *[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && $categorySlug in categories[]->slug.current] | order(featured desc, publishedAt desc) [$start...$end] {
     _id,
     _type,
     title,
@@ -399,6 +404,7 @@ export const blogPostsByCategoryQuery = groq`
     excerpt,
     readingTime,
     publishedAt,
+    featured,
     featuredImage {
       asset->,
       alt
@@ -419,14 +425,14 @@ export const blogPostsByCategoryQuery = groq`
   }
 `;
 
-// Count blog posts filtered by category slug
+// Count V2 blog posts filtered by category slug
 export const blogPostsCountByCategoryQuery = groq`
-  count(*[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now() && $categorySlug in categories[]->slug.current])
+  count(*[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && $categorySlug in categories[]->slug.current])
 `;
 
-// Search blog posts by title or excerpt (with pagination)
+// Search V2 blog posts by title or excerpt (with pagination)
 export const blogPostsSearchQuery = groq`
-  *[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now() && (title match $searchQuery || excerpt match $searchQuery)] | order(publishedAt desc) [$start...$end] {
+  *[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && (title match $searchQuery || excerpt match $searchQuery)] | order(featured desc, publishedAt desc) [$start...$end] {
     _id,
     _type,
     title,
@@ -434,6 +440,7 @@ export const blogPostsSearchQuery = groq`
     excerpt,
     readingTime,
     publishedAt,
+    featured,
     featuredImage {
       asset->,
       alt
@@ -454,14 +461,14 @@ export const blogPostsSearchQuery = groq`
   }
 `;
 
-// Count search results
+// Count V2 search results
 export const blogPostsSearchCountQuery = groq`
-  count(*[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now() && (title match $searchQuery || excerpt match $searchQuery)])
+  count(*[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && (title match $searchQuery || excerpt match $searchQuery)])
 `;
 
-// Search blog posts filtered by category (with pagination)
+// Search V2 blog posts filtered by category (with pagination)
 export const blogPostsSearchByCategoryQuery = groq`
-  *[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now() && $categorySlug in categories[]->slug.current && (title match $searchQuery || excerpt match $searchQuery)] | order(publishedAt desc) [$start...$end] {
+  *[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && $categorySlug in categories[]->slug.current && (title match $searchQuery || excerpt match $searchQuery)] | order(featured desc, publishedAt desc) [$start...$end] {
     _id,
     _type,
     title,
@@ -469,6 +476,7 @@ export const blogPostsSearchByCategoryQuery = groq`
     excerpt,
     readingTime,
     publishedAt,
+    featured,
     featuredImage {
       asset->,
       alt
@@ -489,9 +497,9 @@ export const blogPostsSearchByCategoryQuery = groq`
   }
 `;
 
-// Count search results filtered by category
+// Count V2 search results filtered by category
 export const blogPostsSearchByCategoryCountQuery = groq`
-  count(*[_type in ["blogPost", "blogPostV2"] && defined(publishedAt) && publishedAt <= now() && $categorySlug in categories[]->slug.current && (title match $searchQuery || excerpt match $searchQuery)])
+  count(*[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && $categorySlug in categories[]->slug.current && (title match $searchQuery || excerpt match $searchQuery)])
 `;
 
 // Get all V2 case studies (ordered by priority)
