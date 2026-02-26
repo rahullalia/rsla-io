@@ -342,7 +342,6 @@ export const PortableTextComponents = {
     },
     block: {
         h2: ({ children }) => {
-            // Very basic text extraction for IDs
             let text = '';
             if (Array.isArray(children)) {
                 text = children.map(c => typeof c === 'string' ? c : (c.props?.text || '')).join('');
@@ -350,7 +349,11 @@ export const PortableTextComponents = {
                 text = children;
             }
             const id = slugify(text);
-            return <h2 id={id} className="text-4xl md:text-5xl text-text mt-16 mb-8 font-sans font-bold tracking-tight scroll-mt-32">{children}</h2>;
+            return (
+                <h2 id={id} className="mt-16 mb-6 scroll-mt-32">
+                    <span className="font-mono text-xs text-accent uppercase tracking-widest">{children}</span>
+                </h2>
+            );
         },
         h3: ({ children }) => {
             let text = '';
@@ -360,19 +363,19 @@ export const PortableTextComponents = {
                 text = children;
             }
             const id = slugify(text);
-            return <h3 id={id} className="text-2xl md:text-3xl text-text mt-12 mb-6 font-sans font-semibold scroll-mt-32">{children}</h3>;
+            return <h3 id={id} className="text-lg md:text-xl text-text mt-12 mb-4 font-sans font-semibold scroll-mt-32">{children}</h3>;
         },
-        h4: ({ children }) => <h4 className="text-xl md:text-2xl text-text mt-10 mb-4 font-sans font-medium">{children}</h4>,
-        normal: ({ children }) => <p className="text-lg md:text-xl leading-relaxed text-textMuted mb-8 max-w-[80ch]">{children}</p>,
+        h4: ({ children }) => <h4 className="text-base md:text-lg text-text mt-8 mb-3 font-sans font-medium">{children}</h4>,
+        normal: ({ children }) => <p className="text-base md:text-lg leading-relaxed text-textMuted mb-6 font-body">{children}</p>,
         blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-accent pl-8 my-12 italic text-2xl text-textMuted font-drama leading-relaxed">
+            <blockquote className="border-l-2 border-accent pl-6 my-10 italic text-xl text-textMuted font-drama leading-relaxed">
                 {children}
             </blockquote>
         ),
     },
     list: {
-        bullet: ({ children }) => <ul className="list-disc pl-8 mb-8 text-lg md:text-xl leading-relaxed text-textMuted max-w-[80ch] space-y-3 marker:text-accent/50">{children}</ul>,
-        number: ({ children }) => <ol className="list-decimal pl-8 mb-8 text-lg md:text-xl leading-relaxed text-textMuted max-w-[80ch] space-y-3 marker:text-accent font-mono">{children}</ol>,
+        bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 text-base md:text-lg leading-relaxed text-textMuted space-y-2 marker:text-accent/40">{children}</ul>,
+        number: ({ children }) => <ol className="list-decimal pl-6 mb-6 text-base md:text-lg leading-relaxed text-textMuted space-y-2 marker:text-accent/60 font-mono">{children}</ol>,
     },
     listItem: {
         bullet: ({ children }) => <li>{children}</li>,
