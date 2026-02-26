@@ -6,10 +6,11 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Aurora background
 
 **Positioning:** "I show founders how to put AI to work, then I build it for them."
 
-**Status:** Phases 1-7 in progress. Phase 7 (UI Component Implementation) actively building. See TODO.md for full task list.
+**Status:** Live at rsla.io. All phases complete. See TODO.md for remaining P1 to P4 items.
 
-**Deployed:** `new-rsla-website.vercel.app` (auto-deploys from `main` branch)
+**Deployed:** `rsla.io` via Vercel (auto-deploys from `main` branch)
 **GitHub:** `rahullalia/new-rslaWebsite`
+**Studio:** `studio.rsla.io` (separate repo: `rahullalia/rslaStudio`)
 
 ---
 
@@ -69,7 +70,6 @@ src/
     Accessibility.jsx  # /accessibility (noindex)
     NotFound.jsx       # 404 catch-all (noindex)
   sanity/
-    schemas/           # Sanity schema definitions
     lib/               # Sanity client, image helper, GROQ queries
 brand/                 # Brand reference docs
 public/
@@ -120,9 +120,12 @@ vercel.json            # Vite SPA routing config
 - **Project ID:** `yz25oyux`
 - **Dataset:** `production`
 - **API Version:** `2025-03-01`
+- **Studio:** `studio.rsla.io` (repo: `rahullalia/rslaStudio`, path: `~/lalia/1-Projects/rsl-a/rslaStudio/`)
+- **Schemas:** Owned by Studio repo (source of truth). Website repo has no schemas.
 - **Schemas deployed:** blogPost, blogPostV2, caseStudy, caseStudyV2, author, category, blogGenerationJob
-- **Legacy project:** `36wenybq` (content migrated to new project, 2026-02-22)
-- **Content:** 40 blog posts, 12 case studies, 17 categories, 1 author (Rahul Lalia), 176 images
+- **All content is V1 types:** 40 blog posts (`blogPost`), 12 case studies (`caseStudy`). V2 types exist but have 0 documents.
+- **Legacy project:** `36wenybq` (content migrated to new project, 2026-02-22; old studio at `admin.rsla.io`)
+- **Content:** 40 blog posts, 12 case studies, 17 categories, 1 author (Rahul Lalia), 177 images
 - **Client config:** projectId/dataset hardcoded in `src/sanity/lib/client.ts` (env vars don't resolve during Vercel build)
 - **Token:** `VITE_SANITY_API_TOKEN` in `.env.local` (only needed for draft content, not CDN reads)
 
@@ -218,8 +221,13 @@ All brand docs in `/brand/`:
 ```bash
 npm install                    # Install dependencies
 npm run dev                    # Start dev server (Vite)
-npm run build                  # Production build
-npx sanity schema deploy       # Deploy schemas to Sanity cloud
+npm run build                  # Production build (includes sitemap + RSS generation)
+```
+
+**Sanity Studio commands (run from rslaStudio/ repo, not here):**
+```bash
+npm run dev                    # Local Studio dev server
+npm run schema:deploy          # Deploy schemas to Sanity cloud
 ```
 
 ---
@@ -318,8 +326,20 @@ npx sanity schema deploy       # Deploy schemas to Sanity cloud
 - Marquee: keeping service text labels for now, may add logos later
 - All P0 items complete
 
+### 2026-02-26: Sanity Studio Deployment & Cleanup
+- Created standalone Sanity Studio at `~/lalia/1-Projects/rsl-a/rslaStudio/`
+- GitHub repo: `rahullalia/rslaStudio` (private), auto-deploys to Vercel
+- Live at `studio.rsla.io` with RSL/A favicon
+- Desk structure: V1 types primary (where all content lives), V2 under submenu for new content
+- Confirmed migration integrity: all case study images intact (double-nested `asset.asset._ref`)
+- Removed stale `readingTime` field from 7 case studies via Sanity API
+- Removed schemas from website repo (Studio is now source of truth)
+- Removed 5 Studio-only deps: sanity, @sanity/vision, @sanity/code-input, groq, styled-components
+- Committed missing `generateRssFeed.mjs` (was breaking Vercel build)
+- Old studio remains at `admin.rsla.io` (project `36wenybq`)
+
 ---
 
 ## Last Updated
 
-2026-02-25
+2026-02-26
