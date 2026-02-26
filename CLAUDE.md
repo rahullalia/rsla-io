@@ -37,8 +37,7 @@ src/
     Seo.jsx           # Per-page SEO (title, description, OG, Twitter, canonical, robots)
     NavbarV2.jsx       # Tubelight navbar (desktop top pill + mobile bottom pill, GSAP lamp)
     FooterV2.jsx       # Light theme 4-col footer with Kit newsletter
-    Navbar.jsx         # (deprecated) Desktop nav + mobile hamburger menu
-    Footer.jsx         # (deprecated) Dark theme footer
+    CookieConsent.jsx  # GDPR cookie banner (gates GTM loading, desktop pill + mobile card)
     FounderSection.jsx # Profile photo + bio
     AuroraBackground.jsx # CSS aurora hero background (adapted from Aceternity)
     HeroV2.jsx         # Aurora + TextAnimate + InteractiveHoverButton hero
@@ -48,7 +47,6 @@ src/
     BlogPreview.jsx    # Latest 3 Sanity posts
     CtaWithGlow.jsx    # Bottom glow CTA section
     MarqueeV2.jsx      # Magic UI Marquee service labels
-    ServicesCards.jsx   # (deprecated) 3 stacking cards with animated visuals
     BookingSection.jsx  # GHL booking embed
   pages/
     Home.jsx           # /
@@ -63,10 +61,13 @@ src/
     BookCall.jsx       # /book-a-call (noindex)
     BookingConfirmed.jsx # /booking-confirmed (noindex)
     Rahul.jsx          # /rahul (chromeless, noindex)
+    Sid.jsx            # /sid (chromeless, noindex)
     Insider.jsx        # /insider (noindex)
     Privacy.jsx        # /privacy-policy (noindex)
     Terms.jsx          # /terms (noindex)
-    NotFound.jsx       # 404 catch-all
+    Disclaimer.jsx     # /disclaimer (noindex)
+    Accessibility.jsx  # /accessibility (noindex)
+    NotFound.jsx       # 404 catch-all (noindex)
   sanity/
     schemas/           # Sanity schema definitions
     lib/               # Sanity client, image helper, GROQ queries
@@ -74,6 +75,10 @@ brand/                 # Brand reference docs
 public/
   images/rahul.png     # Profile photo
   rahul.vcf            # vCard for /rahul page
+  favicon.ico          # 32x32 from logomark.svg
+  apple-touch-icon.png # 180x180 from logomark.svg
+  icon-192.png         # PWA icon
+  icon-512.png         # PWA icon
 PLAN.md                # Build plan (phases 1-5 done)
 TODO.md                # Remaining tasks and wishlist
 vercel.json            # Vite SPA routing config
@@ -97,9 +102,13 @@ vercel.json            # Vite SPA routing config
 | /book-a-call | BookCall | No | Full |
 | /booking-confirmed | BookingConfirmed | No | Full |
 | /rahul | Rahul | No | Chromeless |
+| /sid | Sid | No | Chromeless |
 | /insider | Insider | No | Full |
 | /privacy-policy | Privacy | No | Full |
 | /terms | Terms | No | Full |
+| /disclaimer | Disclaimer | No | Full |
+| /accessibility | Accessibility | No | Full |
+| * (404) | NotFound | No | Full |
 
 **Chromeless pages** (no navbar/footer): controlled by `chromelessRoutes` array in App.jsx.
 **noIndex pages**: controlled per-page via `<Seo noIndex />` component prop.
@@ -122,11 +131,15 @@ vercel.json            # Vite SPA routing config
 ## SEO Implementation
 
 - `Seo.jsx` component uses `useEffect` to set `document.title` and create/update meta tags
-- Props: `title`, `description`, `canonical`, `noIndex`
-- Updates: description, og:title, og:description, og:url, twitter:title, twitter:description, canonical link, robots
+- Props: `title`, `description`, `canonical`, `noIndex`, `jsonLd`
+- Updates: description, og:title, og:description, og:url, twitter:title, twitter:description, canonical link, robots, JSON-LD
 - Default fallback tags in `index.html` for crawlers that don't execute JS
 - BlogInner/WorkInner pull dynamic SEO from Sanity content
-- OG image referenced as `/og-image.png` (needs to be created)
+- OG image: `/og-image.png` (1200x630, created)
+- Favicons: logomark.svg (primary), favicon.ico (32x32), apple-touch-icon.png (180x180)
+- JSON-LD on all indexed pages: Organization (Home), Person (About), ProfessionalService (Services), HowTo (HowItWorks), WebPage (StartHere), CollectionPage (Work, Blog), BlogPosting/Article (BlogInner, WorkInner)
+- GTM (GTM-MVJQSMF8): loaded conditionally via CookieConsent.jsx only after user accepts cookies
+- noIndex on: /book-a-call, /booking-confirmed, /rahul, /sid, /insider, /privacy-policy, /terms, /disclaimer, /accessibility, 404
 
 ---
 
@@ -257,6 +270,23 @@ npx sanity schema deploy       # Deploy schemas to Sanity cloud
 - Installed FlickeringGrid via `npx shadcn@latest add` from Magic UI
 - Visual QA pass: all homepage sections verified via Puppeteer screenshots
 - Installed puppeteer-core in /tmp for screenshot workflow
+
+### 2026-02-25: Light Theme Propagation, Cookie Consent, SEO Hardening
+- Converted all pages to semantic color tokens (surface, surfaceAlt, text, textMuted, textLight, accent-border)
+- Converted Blog.jsx, BlogInner.jsx, Work.jsx, WorkInner.jsx, PortableTextRenderer.jsx, HowItWorks.jsx
+- Built CookieConsent.jsx: desktop inline pill bar + mobile stacked card, gates GTM loading
+  - GTM removed from index.html, loads dynamically only on "Accept All"
+  - localStorage persistence, 1.5s delay before showing, smooth exit animation
+- NavbarV2 logo fade: fades out on scroll (opacity-0, pointer-events-none) since logo sits outside pill nav
+- Legal pages: Privacy, Terms redesigned; Accessibility, Disclaimer added (done in separate Claude instance)
+- /sid digital business card page created (chromeless)
+- SEO hardening:
+  - Generated favicon.ico (32x32), apple-touch-icon.png (180x180), icon-192.png, icon-512.png from logomark.svg
+  - Added JSON-LD structured data to 6 indexed pages (About, Services, HowItWorks, StartHere, Work, Blog)
+  - Added noIndex to NotFound.jsx
+- Fixed Dependabot alerts: basic-ftp 5.1.0→5.2.0 (critical), rollup 4.58.0→4.59.0 (high)
+- Deleted 4 dead files from old website: Hero.jsx, MarqueeStrip.jsx, ProblemSection.jsx, vite.svg
+- 4 commits pushed to main
 
 ---
 

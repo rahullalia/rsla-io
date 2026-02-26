@@ -17,10 +17,12 @@
 - [x] Cross-browser testing (Chrome, Safari, Firefox, mobile, tablet)
 
 ### SEO Finalization
-- [x] JSON-LD structured data (Organization, BlogPosting, Article)
+- [x] JSON-LD structured data on all indexed pages (Organization, Person, ProfessionalService, HowTo, CollectionPage, WebPage, BlogPosting, Article)
 - [x] Dynamic OG images from Sanity featured images
-- [x] Install Google Tag Manager snippet
+- [x] Install Google Tag Manager snippet (gated behind cookie consent)
 - [x] Install Meta Pixel
+- [x] Favicon: logomark.svg + favicon.ico (32x32) + apple-touch-icon.png (180x180) + PWA icons
+- [x] noIndex on all non-indexed pages (404, /book-a-call, /booking-confirmed, /rahul, /sid, /insider, /privacy-policy, /terms, /disclaimer, /accessibility)
 - [ ] Verify canonical tags after domain switch (inspect page source on live site)
 - [x] Google Search Console already set up for rsla.io (existing)
 - [x] Sitemap auto-submits via robots.txt reference
@@ -75,7 +77,7 @@
 - [x] Cookie consent banner (mobile optimized, gates GTM loading)
 - [ ] Visual QA pass on all non-homepage routes after theme change
 - [x] Remove ThemePreview.jsx and route (temporary page)
-- [x] Delete deprecated files (CanvasParticles.jsx, Navbar.jsx, Footer.jsx, ServicesCards.jsx)
+- [x] Delete deprecated files (CanvasParticles.jsx, Navbar.jsx, Footer.jsx, ServicesCards.jsx, Hero.jsx, MarqueeStrip.jsx, ProblemSection.jsx, vite.svg)
 - [ ] Re-run Lighthouse audit on new homepage
 - [ ] Test mobile nav (bottom pill) on all screen sizes
 - [ ] Add client logos or tech icons to Marquee

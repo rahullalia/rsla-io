@@ -12,30 +12,30 @@ gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
     {
-        name: 'Sarah Chen',
-        role: 'CEO, TechFlow Solutions',
-        body: "Rahul didn't just run our ads. He rebuilt our entire lead flow from scratch. Within 60 days we went from guessing to having a system that practically runs itself. The dashboard alone saved us 10 hours a week in reporting.",
+        name: 'Sid S.',
+        role: 'Account Executive, SBC',
+        body: "I recently hired Rahul to revamp our company website, and I couldn't be more thrilled with the results! Their expertise and dedication transformed my site by restructuring it, fixing critical errors, and significantly boosting its performance. Thanks to their outstanding work on on-page SEO and ongoing SEO efforts, my website has seen a remarkable increase in organic traffic and a substantial improvement in qualified inbound lead generation.",
         featured: true,
     },
     {
-        name: 'Marcus Rivera',
-        role: 'Founder, Rivera Construction',
-        body: 'The AI chatbot he built for us handles 80% of inquiries before they even reach our team. Our response time went from hours to seconds.',
+        name: 'Curtis H.',
+        role: 'CEO/Founder, AdReviveAI',
+        body: 'Working with Rahul on my GoHighLevel setup was an excellent experience. He was extremely knowledgeable, responsive, and efficient from start to finish. Rahul quickly understood what I needed and structured my GHL account properly. Pipelines, automations, workflows, integrations, and overall system flow.',
     },
     {
-        name: 'Priya Sharma',
-        role: 'COO, Momentum Health',
-        body: 'We were spending $12K a month on ads with zero tracking. Rahul set up attribution, cut waste, and tripled our qualified leads.',
+        name: 'Chris K.',
+        role: 'CEO/Co-Founder, Fieldshare',
+        body: 'Rahul redesigned our website, handled SEO optimization, and set up blogging automation. Site looks great, ranks better, and the automation saves us tons of time. Great communication and delivered on schedule. Highly recommend.',
     },
     {
-        name: 'Jason Park',
-        role: 'Founder, Park Digital',
-        body: "Honestly, I was skeptical about AI automation. But the systems Rahul built saved us 20 hours a week. That's not hype, that's real.",
+        name: 'Laiz C.',
+        role: 'CEO, Casagrande Salon',
+        body: "I tried for months to rent my salon space and nothing worked. After Rahul and RSL/A, in just a few months both my rooms were filled. Now I don't stress about rent anymore.",
     },
     {
-        name: 'Elena Voss',
-        role: 'Director, Voss & Co Real Estate',
-        body: "Our CRM was a mess. Three tools that didn't talk to each other. Rahul wired everything into one dashboard. Now I know exactly where every lead stands.",
+        name: 'Parminder S.',
+        role: 'CEO/Founder, Chauffeur on Demand',
+        body: 'Rahul does a stellar job on setting up GHL accounts. He is an expert and gave me immense knowledge about the platform. Would love to work with him again. Highly recommend anyone who wants an expert on Go High Level.',
     },
 ];
 
@@ -55,7 +55,7 @@ function TestimonialCard({ name, role, body, featured = false }) {
     return (
         <div
             className={`testimonial-card bg-surface rounded-2xl p-6 sm:p-8 border border-accent-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow ${
-                featured ? 'sm:col-span-2 lg:row-span-2' : ''
+                featured ? 'lg:row-span-2' : ''
             }`}
         >
             <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
@@ -111,7 +111,7 @@ export default function Testimonials() {
                     </h2>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-rows-2">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
                     {testimonials.map((t) => (
                         <TestimonialCard key={t.name} {...t} />
                     ))}
