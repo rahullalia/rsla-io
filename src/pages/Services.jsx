@@ -120,6 +120,27 @@ export default function Services() {
                 title="Services | RSL/A"
                 description="AI automation, paid advertising, CRM implementation, and local SEO. Real systems that generate leads, book calls, and run your operations."
                 canonical="https://rsla.io/services"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'ProfessionalService',
+                    name: 'RSL/A',
+                    url: 'https://rsla.io/services',
+                    description: 'AI automation, paid advertising, CRM implementation, and local SEO. Real systems that generate leads, book calls, and run your operations.',
+                    provider: {
+                        '@type': 'Organization',
+                        name: 'RSL/A',
+                        url: 'https://rsla.io',
+                    },
+                    hasOfferCatalog: {
+                        '@type': 'OfferCatalog',
+                        name: 'Marketing & AI Services',
+                        itemListElement: [
+                            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Lead Generation', description: 'Paid ads with AI optimization that generate qualified leads and book calls automatically.' } },
+                            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Automations', description: 'Custom AI systems that automate lead nurture, follow-ups, CRM workflows, and business operations.' } },
+                            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Operations', description: 'CRM infrastructure, dashboards, and intelligent reporting systems that run your business.' } },
+                        ],
+                    },
+                }}
             />
             {/* Hero */}
             <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">

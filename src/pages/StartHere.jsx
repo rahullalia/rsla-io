@@ -85,6 +85,14 @@ export default function StartHere() {
                 title="Start Here | RSL/A"
                 description="Ready to put AI to work in your business? Start here. Book a call and see what RSL/A can build for you."
                 canonical="https://rsla.io/start-here"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'WebPage',
+                    name: 'Start Here',
+                    url: 'https://rsla.io/start-here',
+                    description: 'Ready to put AI to work in your business? Start here. Book a call and see what RSL/A can build for you.',
+                    isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: 'https://rsla.io' },
+                }}
             />
             {/* Hero */}
             <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">

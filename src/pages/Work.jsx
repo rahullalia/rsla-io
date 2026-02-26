@@ -86,6 +86,14 @@ export default function Work() {
                 title="Case Studies | RSL/A"
                 description="Real results from real clients. See how RSL/A uses AI automation, paid ads, and CRM systems to drive measurable growth."
                 canonical="https://rsla.io/work"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'CollectionPage',
+                    name: 'Case Studies',
+                    url: 'https://rsla.io/work',
+                    description: 'Real results from real clients. See how RSL/A uses AI automation, paid ads, and CRM systems to drive measurable growth.',
+                    isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: 'https://rsla.io' },
+                }}
             />
             {/* Hero Section */}
             <section className="mb-20 text-center max-w-4xl mx-auto relative z-10">

@@ -66,6 +66,26 @@ export default function About() {
                 title="About | RSL/A"
                 description="Meet Rahul Lalia, founder of RSL/A. Five years in marketing, automation, and business infrastructure, building systems that actually run businesses."
                 canonical="https://rsla.io/about"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'Person',
+                    name: 'Rahul Lalia',
+                    jobTitle: 'Founder & CEO',
+                    url: 'https://rsla.io/about',
+                    image: 'https://rsla.io/images/rahul.webp',
+                    worksFor: {
+                        '@type': 'Organization',
+                        name: 'RSL/A',
+                        url: 'https://rsla.io',
+                    },
+                    sameAs: [
+                        'https://www.linkedin.com/in/rahullalia/',
+                        'https://www.instagram.com/rahul.lalia/',
+                        'https://www.youtube.com/@rahul_lalia',
+                        'https://www.tiktok.com/@rahul_lalia',
+                        'https://github.com/rahullalia',
+                    ],
+                }}
             />
             {/* Hero */}
             <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">

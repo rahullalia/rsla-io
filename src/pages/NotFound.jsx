@@ -4,7 +4,7 @@ import Seo from '../components/Seo';
 export default function NotFound() {
     return (
         <main className="min-h-screen bg-surface relative overflow-hidden flex items-center justify-center">
-            <Seo title="Page Not Found | RSL/A" />
+            <Seo title="Page Not Found | RSL/A" noIndex />
             {/* Background noise grid */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,112,243,0.05),transparent_60%)] pointer-events-none" />
 

@@ -54,6 +54,14 @@ export default function Blog() {
                 title="Blog | RSL/A"
                 description="Insights on marketing automation, AI systems, local SEO, and business growth strategies from RSL/A."
                 canonical="https://rsla.io/blog"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'CollectionPage',
+                    name: 'Blog',
+                    url: 'https://rsla.io/blog',
+                    description: 'Insights on marketing automation, AI systems, local SEO, and business growth strategies from RSL/A.',
+                    isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: 'https://rsla.io' },
+                }}
             />
             {/* Soft noise overlay inherited from globals */}
             <div className="max-w-7xl mx-auto relative z-10">

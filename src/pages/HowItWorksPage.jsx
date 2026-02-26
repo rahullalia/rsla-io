@@ -72,6 +72,17 @@ export default function HowItWorksPage() {
                 title="How It Works | RSL/A"
                 description="Our process from first call to live systems. Discovery, strategy, build, and launch in weeks, not months."
                 canonical="https://rsla.io/how-it-works"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'HowTo',
+                    name: 'How RSL/A Works',
+                    description: 'Our process from first call to live systems. Discovery, strategy, build, and launch in weeks, not months.',
+                    step: [
+                        { '@type': 'HowToStep', position: 1, name: 'Free Discovery Call', text: 'Book a call. We screen share, look at your business, and tell you exactly where AI should be doing the work instead of you.' },
+                        { '@type': 'HowToStep', position: 2, name: 'The Build', text: 'Your AI system gets designed, built, and tested. Lead generation, automations, operations. Everything we identified on the call.' },
+                        { '@type': 'HowToStep', position: 3, name: 'Launch & Optimize', text: 'We launch your system, monitor performance, and optimize continuously. Your system gets smarter the longer it runs.' },
+                    ],
+                }}
             />
             {/* Hero */}
             <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">
