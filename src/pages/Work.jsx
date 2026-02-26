@@ -173,6 +173,20 @@ export default function Work() {
                                 </div>
                             </div>
                         )}
+
+                        {/* All Other Cases */}
+                        {filteredAndSortedStudies.filter(s => !s.featured).length > 0 && (
+                            <div>
+                                <h2 className="font-mono text-xs text-textLight uppercase tracking-widest mb-6 px-4">
+                                    All Case Studies
+                                </h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    {filteredAndSortedStudies.filter(s => !s.featured).map((study) => (
+                                        <CaseStudyCard data={study} key={study.slug} />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
             </section>

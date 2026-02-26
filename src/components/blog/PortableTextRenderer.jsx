@@ -35,6 +35,34 @@ export const PortableTextComponents = {
                 </figure>
             );
         },
+        caseStudyImage: ({ value }) => {
+            // Case study images have double-nested refs: value.asset is { _type: "image", asset: { _ref } }
+            const ref = value?.asset?.asset?._ref;
+            if (!ref) return null;
+            const imageUrl = urlForImage(value.asset)?.width(1000).fit('max').url() || '';
+
+            const sizeClass = value.size === 'small' ? 'max-w-md mx-auto' :
+                              value.size === 'large' ? 'max-w-5xl mx-auto' : '';
+
+            return (
+                <figure className={`my-12 ${sizeClass}`}>
+                    <div className="relative w-full overflow-hidden bg-surfaceAlt rounded-[1.5rem] border border-accent-border">
+                        <img
+                            src={imageUrl}
+                            alt={value.alt || 'Case study image'}
+                            title={value.alt}
+                            loading="lazy"
+                            className="w-full h-auto object-cover max-h-[600px]"
+                        />
+                    </div>
+                    {(value.caption || value.credit) && (
+                        <figcaption className="text-center text-sm font-mono text-textLight mt-4 italic">
+                            {value.caption}{value.credit ? ` — ${value.credit}` : ''}
+                        </figcaption>
+                    )}
+                </figure>
+            );
+        },
         code: ({ value }) => {
             return (
                 <pre className="bg-slate-900 text-white rounded-xl p-6 overflow-x-auto my-8 max-w-full shadow-lg">
