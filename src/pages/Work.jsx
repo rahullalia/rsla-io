@@ -99,7 +99,7 @@ export default function Work() {
             {/* Hero Section */}
             <section className="mb-20 text-center max-w-4xl mx-auto relative z-10">
                 <h1 className="text-5xl md:text-7xl font-sans font-bold mb-6 tracking-tighter">
-                    Proven <span className="text-accent italic font-drama">Performance.</span>
+                    Proven <span className="text-accent italic font-quote">Performance.</span>
                 </h1>
                 <p className="font-mono text-textMuted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                     We don't sell promises. We sell engineered outcomes. Here is the proof.
@@ -194,7 +194,7 @@ export default function Work() {
             {/* CTA */}
             <section className="max-w-4xl mx-auto text-center relative z-10 bg-surfaceAlt border border-accent-border rounded-[3rem] p-16 overflow-hidden shadow-sm">
                 <h2 className="text-4xl md:text-5xl font-sans font-bold text-text mb-6">
-                    Ready to be the next <span className="text-accent font-drama italic font-normal">case study?</span>
+                    Ready to be the next <span className="text-accent font-quote italic font-normal">case study?</span>
                 </h2>
                 <p className="font-body text-textMuted mb-10 text-sm md:text-base max-w-xl mx-auto">
                     Let's build you an intelligent marketing system that delivers measurable results.
