@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Search, X } from 'lucide-react';
+import { Search, X, ChevronDown } from 'lucide-react';
 import { client } from '../sanity/lib/client';
 import {
     blogPostsUnionQuery,
@@ -166,56 +166,49 @@ export default function Blog() {
 
                 {/* Filter bar */}
                 <div className="mb-12 flex flex-col gap-4">
-                    {/* Search */}
-                    <div className="relative max-w-md mx-auto w-full">
-                        <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-textLight" />
-                        <input
-                            ref={searchInputRef}
-                            type="text"
-                            value={searchInput}
-                            onChange={(e) => handleSearchInput(e.target.value)}
-                            placeholder="Search articles..."
-                            className="w-full pl-11 pr-10 min-h-[44px] rounded-full bg-surfaceAlt border border-accent-border text-text font-mono text-sm placeholder:text-textLight focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
-                        />
-                        {searchInput && (
-                            <button
-                                onClick={clearSearch}
-                                className="absolute right-1 top-1/2 -translate-y-1/2 min-h-[44px] min-w-[44px] flex items-center justify-center text-textLight hover:text-text transition-colors"
-                                aria-label="Clear search"
-                            >
-                                <X size={14} />
-                            </button>
+                    {/* Search + Category row */}
+                    <div className="flex flex-col sm:flex-row items-center gap-3 max-w-2xl mx-auto w-full">
+                        {/* Search */}
+                        <div className="relative flex-1 w-full">
+                            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-textLight" />
+                            <input
+                                ref={searchInputRef}
+                                type="text"
+                                value={searchInput}
+                                onChange={(e) => handleSearchInput(e.target.value)}
+                                placeholder="Search articles..."
+                                className="w-full pl-11 pr-10 min-h-[44px] rounded-full bg-surfaceAlt border border-accent-border text-text font-mono text-sm placeholder:text-textLight focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                            />
+                            {searchInput && (
+                                <button
+                                    onClick={clearSearch}
+                                    className="absolute right-1 top-1/2 -translate-y-1/2 min-h-[44px] min-w-[44px] flex items-center justify-center text-textLight hover:text-text transition-colors"
+                                    aria-label="Clear search"
+                                >
+                                    <X size={14} />
+                                </button>
+                            )}
+                        </div>
+
+                        {/* Category dropdown */}
+                        {categories.length > 0 && (
+                            <div className="relative shrink-0 w-full sm:w-auto">
+                                <select
+                                    value={activeCategory}
+                                    onChange={(e) => handleCategoryClick(e.target.value)}
+                                    className="appearance-none w-full sm:w-auto min-h-[44px] pl-4 pr-10 rounded-full bg-surfaceAlt border border-accent-border text-text font-mono text-xs uppercase tracking-wider cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                                >
+                                    <option value="">All Topics</option>
+                                    {categories.map((cat) => (
+                                        <option key={cat._id} value={cat.slug?.current}>
+                                            {cat.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-textLight pointer-events-none" />
+                            </div>
                         )}
                     </div>
-
-                    {/* Category pills */}
-                    {categories.length > 0 && (
-                        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide justify-center flex-wrap">
-                            <button
-                                onClick={() => handleCategoryClick('')}
-                                className={`shrink-0 px-4 min-h-[44px] rounded-full font-mono text-xs uppercase tracking-wider transition-all cursor-pointer ${
-                                    !activeCategory
-                                        ? 'bg-accent text-white'
-                                        : 'bg-surfaceAlt text-textMuted border border-accent-border hover:border-accent/30 hover:text-text'
-                                }`}
-                            >
-                                All
-                            </button>
-                            {categories.map((cat) => (
-                                <button
-                                    key={cat._id}
-                                    onClick={() => handleCategoryClick(cat.slug?.current)}
-                                    className={`shrink-0 px-4 min-h-[44px] rounded-full font-mono text-xs uppercase tracking-wider transition-all cursor-pointer ${
-                                        activeCategory === cat.slug?.current
-                                            ? 'bg-accent text-white'
-                                            : 'bg-surfaceAlt text-textMuted border border-accent-border hover:border-accent/30 hover:text-text'
-                                    }`}
-                                >
-                                    {cat.name}
-                                </button>
-                            ))}
-                        </div>
-                    )}
 
                     {/* Active filter indicator */}
                     {(activeCategory || searchQuery) && !loading && (
