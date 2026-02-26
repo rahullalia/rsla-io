@@ -274,14 +274,18 @@ export const PortableTextComponents = {
         em: ({ children }) => <em className="italic">{children}</em>,
         code: ({ children }) => <code className="bg-surfaceAlt text-accent px-2 py-1 rounded text-[0.85em] font-mono border border-accent-border">{children}</code>,
         link: ({ value, children }) => {
+            const href = value?.href || '#';
+            const isUnsafe = /^(javascript|data|vbscript):/i.test(href);
+            if (isUnsafe) return <span>{children}</span>;
+
             const target = value?.blank ? '_blank' : undefined;
             const rel = value?.blank ? 'noopener noreferrer' : undefined;
 
-            if (value?.href?.startsWith('/')) {
-                return <Link to={value.href} className="text-accent underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-all">{children}</Link>;
+            if (href.startsWith('/')) {
+                return <Link to={href} className="text-accent underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-all">{children}</Link>;
             }
             return (
-                <a href={value?.href || '#'} target={target} rel={rel} className="text-accent underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-all">
+                <a href={href} target={target} rel={rel} className="text-accent underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-all">
                     {children}
                 </a>
             );
