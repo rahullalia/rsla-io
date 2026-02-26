@@ -38,10 +38,10 @@ export default function ProofSection() {
             try {
                 // Try V2 first, fall back to V1
                 let data = await client.fetch(featuredCaseStudiesV2Query);
-                console.log('[ProofSection] V2 data:', data);
+
                 if (!data || data.length === 0) {
                     data = await client.fetch(featuredCaseStudiesQuery);
-                    console.log('[ProofSection] V1 data:', data);
+
                 }
                 if (data && data.length > 0) {
                     const mapped = data.map((cs) => ({
@@ -50,7 +50,7 @@ export default function ProofSection() {
                         result: cs.description,
                         metric: cs.metrics?.[0]?.value || '',
                     }));
-                    console.log('[ProofSection] mapped proofs:', mapped);
+
                     setProofs(mapped);
                 }
             } catch (err) {
@@ -82,7 +82,7 @@ export default function ProofSection() {
             <div className="max-w-6xl mx-auto px-6 md:px-12">
                 <span className="font-mono text-xs uppercase tracking-wider text-accent">Case Studies</span>
                 <h2 className="font-sans font-bold text-3xl md:text-5xl text-text tracking-tight mt-3 mb-16 md:mb-20">
-                    The <span className="font-drama italic font-normal">Proof</span>
+                    The <span className="font-quote italic font-normal">Proof</span>
                 </h2>
 
                 <div className="space-y-0">
@@ -94,7 +94,7 @@ export default function ProofSection() {
                                     <p className="font-body text-textMuted text-sm md:text-base leading-relaxed mt-2 max-w-xl">{proof.result}</p>
                                 </div>
                                 <div className="flex-shrink-0 flex items-center gap-3">
-                                    <div className="font-drama italic font-normal text-5xl md:text-7xl text-accent leading-none">{proof.metric}</div>
+                                    <div className="font-quote italic font-normal text-5xl md:text-7xl text-accent leading-none">{proof.metric}</div>
                                     {proof.slug && (
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-textLight group-hover:text-accent group-hover:translate-x-1 transition-all">
                                             <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
