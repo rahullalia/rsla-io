@@ -47,7 +47,7 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
     if (status === 'unlocked') {
         return (
             <div className="my-12 p-8 rounded-[1.5rem] border-2 border-accent/30 bg-accent/5 text-center">
-                <span className="text-3xl mb-4 block">✅</span>
+                <p className="font-mono text-xs text-accent uppercase tracking-widest mb-4">Download Ready</p>
                 <h4 className="text-xl font-bold font-sans text-text mb-2">{title}</h4>
                 <p className="font-mono text-sm text-textMuted mb-6">Your download should start automatically.</p>
                 <a
@@ -63,7 +63,7 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
 
     return (
         <div className="my-12 p-8 rounded-[1.5rem] border-2 border-dashed border-accent/30 bg-accent/5 text-center">
-            <span className="text-3xl mb-4 block">📥</span>
+            <p className="font-mono text-xs text-accent uppercase tracking-widest mb-4">Free Resource</p>
             <h4 className="text-xl font-bold font-sans text-text mb-2">{title}</h4>
             {description && (
                 <p className="font-mono text-sm text-textMuted mb-6 max-w-md mx-auto">{description}</p>
@@ -215,7 +215,7 @@ export const PortableTextComponents = {
             return (
                 <div className="my-10 p-8 rounded-[1.5rem] border bg-accent/5 border-accent/20">
                     <div className="flex items-start gap-4">
-                        <span className="text-2xl pt-1">💡</span>
+                        <span className="w-1 self-stretch bg-accent/40 rounded-full shrink-0"></span>
                         <div className="flex-1">
                             {title && <h4 className="text-xl font-bold font-sans text-text mb-3">{title}</h4>}
                             <p className="font-mono text-textMuted leading-relaxed text-sm md:text-base">{content}</p>
@@ -315,7 +315,7 @@ export const PortableTextComponents = {
             return (
                 <div className="my-10 p-8 rounded-[1.5rem] border bg-slate-900 text-white border-slate-900">
                     <div className="flex items-start gap-4">
-                        <span className="text-2xl pt-1">⚡️</span>
+                        <span className="w-1 self-stretch bg-accent rounded-full shrink-0"></span>
                         <div className="flex-1">
                             <h4 className="text-xl font-bold font-sans mb-4">Tech Specs</h4>
                             <ul className="space-y-3 font-mono text-sm md:text-base">
