@@ -22,7 +22,7 @@ function setOrCreateLink(rel, href) {
 
 const JSON_LD_ID = 'seo-jsonld';
 
-export default function Seo({ title, description, canonical, noIndex, ogImage, jsonLd }) {
+export default function Seo({ title, description, canonical, noIndex, ogImage, jsonLd, keywords }) {
     useEffect(() => {
         // Title
         if (title) {
@@ -32,6 +32,11 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, j
         // Description
         if (description) {
             setOrCreateMeta('name', 'description', description);
+        }
+
+        // Keywords
+        if (keywords) {
+            setOrCreateMeta('name', 'keywords', keywords);
         }
 
         // OG tags
@@ -93,7 +98,7 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, j
             }
             document.querySelectorAll('script[data-seo-jsonld]').forEach(el => el.remove());
         };
-    }, [title, description, canonical, noIndex, ogImage, jsonLd]);
+    }, [title, description, canonical, noIndex, ogImage, jsonLd, keywords]);
 
     return null;
 }

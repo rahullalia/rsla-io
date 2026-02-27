@@ -19,7 +19,7 @@ const services = [
         bullets: [
             { bold: 'Targeting that learns:', desc: 'Your campaigns learn which audiences convert and shift budget toward them automatically. No manual bid adjustments.' },
             { bold: 'Creative testing at scale:', desc: 'We test dozens of ad variations simultaneously. AI identifies the winners and kills the losers before they waste your money.' },
-            { bold: 'Pipeline integration:', desc: 'Every qualified lead flows directly into your CRM. Tagged, scored, and ready for follow up. No spreadsheets, no manual entry.' },
+            { bold: 'Pipeline integration:', desc: 'Every qualified lead flows directly into your CRM. Tagged, scored, and ready for follow-up. No spreadsheets, no manual entry.' },
             { bold: 'Real-time dashboards:', desc: 'You see exactly what your ad spend is producing. Not vanity metrics. Revenue metrics.' },
         ],
         proof: '$600 in ad spend turned into $36,000 in closed revenue in 45 days. That is a 60x return. Not because of magic creative. Because the AI system optimized faster than any human could.',
@@ -37,7 +37,7 @@ const services = [
         problem: 'A lead messages you at 11 PM. You see it at 8 AM. By then they have already talked to two of your competitors. You lost the deal because you were sleeping. That is not a business problem. That is an infrastructure problem.',
         bullets: [
             { bold: 'Conversational bots:', desc: 'Not the robotic "please select an option" kind. Actual AI that understands context, qualifies leads, answers questions, and books meetings. At 2 AM. At 2 PM. Whenever.' },
-            { bold: 'Workflow automations:', desc: 'Lead comes in, gets tagged, gets the right follow up sequence, gets routed to the right person. Automatically. You do not touch it.' },
+            { bold: 'Workflow automations:', desc: 'Lead comes in, gets tagged, gets the right follow-up sequence, gets routed to the right person. Automatically. You do not touch it.' },
             { bold: 'Customer service AI:', desc: 'Handle the 80% of customer questions that are the same thing asked slightly differently. Your team focuses on the 20% that actually need a human.' },
             { bold: 'Database reactivation:', desc: 'Got a list of cold contacts collecting dust? AI wakes them up. Personalized outreach at scale, not mass blasts.' },
         ],

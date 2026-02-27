@@ -58,6 +58,16 @@
       ]
     }
   ],
+  "redirects": [
+    { "source": "/blog/gohighlevel-pricing-2026-cost-breakdown", "destination": "/blog/go-high-level-pricing", "statusCode": 301 },
+    { "source": "/blog/gohighlevel-for-real-estate", "destination": "/blog/go-high-level-for-real-estate-agents", "statusCode": 301 },
+    { "source": "/blog/best-crm-solo-real-estate-agent", "destination": "/blog/best-crm-solo-real-estate-agent-2026", "statusCode": 301 },
+    { "source": "/blog/best-crm-for-hvac-companies", "destination": "/blog/best-crm-for-hvac-companies-2026", "statusCode": 301 },
+    { "source": "/blog/gohighlevel-for-home-services-guide", "destination": "/blog/gohighlevel-for-home-services-guide-2026", "statusCode": 301 },
+    { "source": "/blog/google-business-profile-optimization-guide-complete-2025", "destination": "/blog/google-business-profile-optimization-guide-2026", "statusCode": 301 },
+    { "source": "/blog/scale-your-agency-top-no-code-tools-for-marketers-in-2025", "destination": "/blog/top-no-code-tools-for-marketers-2026", "statusCode": 301 },
+    { "source": "/blog/how-ai-is-revolutionizing-marketing-automation-in-2025", "destination": "/blog/ai-marketing-automation-2026", "statusCode": 301 }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]

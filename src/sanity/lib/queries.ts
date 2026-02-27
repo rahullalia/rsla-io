@@ -317,7 +317,15 @@ export const blogPostBySlugV2Query = groq`
       slug
     },
     body,
-    seo,
+    seo {
+      metaTitle,
+      metaDescription,
+      keywords,
+      socialImage {
+        asset->
+      }
+    },
+    faqSchema,
     relatedCaseStudies[]->{
       title,
       "slug": slug.current,

@@ -106,34 +106,55 @@ export default function BlogInner() {
 
     const imageUrl = post.featuredImage?.asset ? urlForImage(post.featuredImage.asset)?.width(1600).height(900).url() : null;
 
-    const seoDescription = post.excerpt || (post.body?.[0]?.children?.[0]?.text || '').slice(0, 160);
+    const seoDescription = post.seo?.metaDescription || post.excerpt || (post.body?.[0]?.children?.[0]?.text || '').slice(0, 160);
+    const seoTitle = post.seo?.metaTitle ? `${post.seo.metaTitle} | RSL/A` : `${post.title} | RSL/A`;
+    const seoImage = post.seo?.socialImage?.asset?.url || imageUrl || 'https://rsla.io/og-image.png';
+    const seoKeywords = post.seo?.keywords?.join(', ') || null;
+
+    const blogPostingSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.seo?.metaTitle || post.title,
+        description: seoDescription,
+        image: seoImage !== 'https://rsla.io/og-image.png' ? seoImage : undefined,
+        datePublished: post.publishedAt,
+        ...(post.updatedAt && { dateModified: post.updatedAt }),
+        author: {
+            '@type': 'Person',
+            name: post.author?.name || 'Rahul Lalia',
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'RSL/A',
+            logo: { '@type': 'ImageObject', url: 'https://rsla.io/images/logo/lockup-nobg.webp' },
+        },
+        mainEntityOfPage: `https://rsla.io/blog/${slug}`,
+    };
+
+    const faqSchema = post.faqSchema?.length > 0 ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: post.faqSchema.map((faq) => ({
+            '@type': 'Question',
+            name: faq.question,
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+            },
+        })),
+    } : null;
+
+    const jsonLdSchemas = faqSchema ? [blogPostingSchema, faqSchema] : blogPostingSchema;
 
     return (
         <article className="min-h-screen bg-surface text-text pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
             <Seo
-                title={`${post.title} | RSL/A`}
+                title={seoTitle}
                 description={seoDescription}
                 canonical={`https://rsla.io/blog/${slug}`}
-                ogImage={imageUrl || 'https://rsla.io/og-image.png'}
-                jsonLd={{
-                    '@context': 'https://schema.org',
-                    '@type': 'BlogPosting',
-                    headline: post.title,
-                    description: seoDescription,
-                    image: imageUrl || undefined,
-                    datePublished: post.publishedAt,
-                    ...(post.updatedAt && { dateModified: post.updatedAt }),
-                    author: {
-                        '@type': 'Person',
-                        name: post.author?.name || 'Rahul Lalia',
-                    },
-                    publisher: {
-                        '@type': 'Organization',
-                        name: 'RSL/A',
-                        logo: { '@type': 'ImageObject', url: 'https://rsla.io/images/logo/lockup-nobg.webp' },
-                    },
-                    mainEntityOfPage: `https://rsla.io/blog/${slug}`,
-                }}
+                ogImage={seoImage}
+                keywords={seoKeywords}
+                jsonLd={jsonLdSchemas}
             />
             <div className="max-w-4xl mx-auto relative z-10 block">
 

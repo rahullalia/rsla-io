@@ -26,6 +26,7 @@ export default function Home() {
                         '@context': 'https://schema.org',
                         '@type': 'Organization',
                         name: 'RSL/A',
+                        alternateName: ['RSLA', 'RSL/A', 'RSL A', 'RSL/A Agency'],
                         url: 'https://rsla.io',
                         logo: 'https://rsla.io/images/logo/lockup-nobg.webp',
                         description: 'We architect intelligent marketing systems. Paid Ads, AI Automation, and Smart Infrastructure for scaling businesses.',
@@ -46,7 +47,7 @@ export default function Home() {
                         '@context': 'https://schema.org',
                         '@type': 'WebSite',
                         name: 'RSL/A',
-                        alternateName: 'RSLA',
+                        alternateName: ['RSLA', 'RSL/A', 'RSL A'],
                         url: 'https://rsla.io',
                     },
                 ]}
