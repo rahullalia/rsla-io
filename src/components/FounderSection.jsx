@@ -55,7 +55,7 @@ export default function FounderSection() {
 
                     <div className="founder-text mt-10 border-t border-accent-border pt-8">
                         <p className="font-drama italic font-normal text-xl text-text mb-1">Rahul Lalia</p>
-                        <p className="font-mono text-xs uppercase tracking-widest text-textLight">Founder, RSL/A</p>
+                        <p className="font-mono text-xs uppercase tracking-widest text-textMuted">Founder, RSL/A</p>
                     </div>
 
                     <Link to="/blog" className="founder-text link-underline inline-flex items-center gap-2 mt-8 font-sans font-bold text-accent hover:text-accent/80 transition-colors group">

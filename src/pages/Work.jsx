@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { client } from '../sanity/lib/client';
 import { caseStudiesQuery } from '../sanity/lib/queries';
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import Seo from '../components/Seo';
 import CaseStudyCardSkeleton from '../components/skeletons/CaseStudyCardSkeleton';
 
@@ -50,7 +50,6 @@ export default function Work() {
     const [caseStudies, setCaseStudies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState("all");
-    const [sortBy, setSortBy] = useState("priority");
 
     useEffect(() => {
         let isMounted = true;
@@ -74,10 +73,7 @@ export default function Work() {
 
     const filteredAndSortedStudies = caseStudies
         .filter((study) => selectedCategory === "all" || study.category === selectedCategory)
-        .sort((a, b) => {
-            if (sortBy === "priority") return a.priority - b.priority;
-            return (b.annualSavings || 0) - (a.annualSavings || 0);
-        });
+        .sort((a, b) => a.priority - b.priority);
 
     const featuredStudies = filteredAndSortedStudies.filter(study => study.featured);
 
@@ -108,42 +104,27 @@ export default function Work() {
 
             {/* Filters */}
             <section className="mb-12 border-b border-accent-border pb-8 relative z-10 max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
-                    <div className="flex flex-wrap gap-3">
-                        {categories.map((category) => (
-                            <button
-                                key={category}
-                                onClick={() => setSelectedCategory(category)}
-                                className={`
-                                    px-4 min-h-[44px] rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-300
-                                    ${selectedCategory === category
-                                        ? "bg-accent text-white"
-                                        : "bg-surfaceAlt text-textMuted border border-accent-border hover:bg-accent/5 hover:text-text"
-                                    }
-                                `}
-                            >
-                                {category}
-                            </button>
-                        ))}
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                        <span className="font-mono text-xs text-textLight uppercase tracking-widest">Sort by:</span>
+                <div className="flex flex-col items-center gap-4">
+                    <div className="relative">
                         <select
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value)}
-                            className="bg-transparent border-b border-accent-border text-text font-sans font-bold pb-1 text-sm outline-none focus:border-accent transition-colors"
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                            className="appearance-none min-h-[44px] pl-4 pr-10 rounded-full bg-surfaceAlt border border-accent-border text-text font-mono text-xs uppercase tracking-wider cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
                         >
-                            <option value="priority">Featured First</option>
-                            <option value="savings">Highest ROI</option>
+                            {categories.map((category) => (
+                                <option key={category} value={category}>
+                                    {category === "all" ? "All Categories" : category}
+                                </option>
+                            ))}
                         </select>
+                        <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-textMuted pointer-events-none" />
                     </div>
+                    {!loading && (
+                        <div className="font-mono text-xs text-textMuted">
+                            Showing [{filteredAndSortedStudies.length}] result{filteredAndSortedStudies.length !== 1 ? 's' : ''}
+                        </div>
+                    )}
                 </div>
-                {!loading && (
-                    <div className="mt-6 font-mono text-xs text-textLight text-left md:text-right">
-                        Showing [{filteredAndSortedStudies.length}] result{filteredAndSortedStudies.length !== 1 ? 's' : ''}
-                    </div>
-                )}
             </section>
 
             {/* Grid */}
@@ -155,7 +136,7 @@ export default function Work() {
                         ))}
                     </div>
                 ) : filteredAndSortedStudies.length === 0 ? (
-                    <div className="text-center py-20 font-mono text-textLight">
+                    <div className="text-center py-20 font-mono text-textMuted">
                         No case studies found for this category.
                     </div>
                 ) : (
@@ -163,7 +144,7 @@ export default function Work() {
                         {/* Featured Row */}
                         {featuredStudies.length > 0 && (
                             <div>
-                                <h2 className="font-mono text-xs text-textLight uppercase tracking-widest mb-6 px-4">
+                                <h2 className="font-mono text-xs text-textMuted uppercase tracking-widest mb-6 px-4">
                                     Featured Intelligence
                                 </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -177,7 +158,7 @@ export default function Work() {
                         {/* All Other Cases */}
                         {filteredAndSortedStudies.filter(s => !s.featured).length > 0 && (
                             <div>
-                                <h2 className="font-mono text-xs text-textLight uppercase tracking-widest mb-6 px-4">
+                                <h2 className="font-mono text-xs text-textMuted uppercase tracking-widest mb-6 px-4">
                                     All Case Studies
                                 </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -194,10 +175,10 @@ export default function Work() {
             {/* CTA */}
             <section className="max-w-4xl mx-auto text-center relative z-10 bg-surfaceAlt border border-accent-border rounded-[3rem] p-16 overflow-hidden shadow-sm">
                 <h2 className="text-4xl md:text-5xl font-sans font-bold text-text mb-6">
-                    Ready to be the next <span className="text-accent font-drama italic font-normal">case study?</span>
+                    Let's build something like this <span className="text-accent font-drama italic font-normal">for you.</span>
                 </h2>
                 <p className="font-body text-textMuted mb-10 text-sm md:text-base max-w-xl mx-auto">
-                    Let's build you an intelligent marketing system that delivers measurable results.
+                    Tell us what you're working on. We'll show you what's possible.
                 </p>
                 <Link
                     to="/#contact"

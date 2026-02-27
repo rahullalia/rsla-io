@@ -161,12 +161,12 @@ export default function StartHere() {
                         {socials.map((social) => (
                             <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" className="group bg-accent-light border border-accent-border rounded-xl p-5 hover:border-accent/30 transition-colors">
                                 <h3 className="font-sans font-bold text-text mb-1 group-hover:text-accent transition-colors">{social.name}</h3>
-                                <p className="font-body text-textLight text-sm">{social.desc}</p>
+                                <p className="font-body text-textMuted text-sm">{social.desc}</p>
                             </a>
                         ))}
                         <Link to="/blog" className="group bg-accent-light border border-accent-border rounded-xl p-5 hover:border-accent/30 transition-colors">
                             <h3 className="font-sans font-bold text-text mb-1 group-hover:text-accent transition-colors">Blog</h3>
-                            <p className="font-body text-textLight text-sm">Long form, searchable, evergreen</p>
+                            <p className="font-body text-textMuted text-sm">Long form, searchable, evergreen</p>
                         </Link>
                     </div>
                 </div>

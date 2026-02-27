@@ -71,7 +71,7 @@ export default function CookieConsent() {
                     </p>
                     <button
                         onClick={decline}
-                        className="shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center -mr-2 -mt-2 text-textLight hover:text-text transition-colors"
+                        className="shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center -mr-2 -mt-2 text-textMuted hover:text-text transition-colors"
                         aria-label="Dismiss"
                     >
                         <X size={16} />

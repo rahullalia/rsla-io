@@ -101,6 +101,9 @@ export default function About() {
                 <div className="max-w-3xl mx-auto">
                     {/* Origin Story */}
                     <div className="about-section mb-16">
+                        <h2 className="font-sans font-bold text-2xl md:text-4xl text-text tracking-tight mb-6">
+                            How it started
+                        </h2>
                         <p className="font-body text-textMuted text-base md:text-lg leading-relaxed mb-6">
                             I started my career in marketing analytics. Numbers, dashboards, attribution models. I was the guy staring at spreadsheets while everyone else was making the creative decisions.
                         </p>
@@ -146,7 +149,7 @@ export default function About() {
                     {/* Why I Am Different */}
                     <div className="about-section mb-16">
                         <h2 className="font-sans font-bold text-2xl md:text-4xl text-text tracking-tight mb-6">
-                            Why I am different (honestly)
+                            Why I am different
                         </h2>
                         <p className="font-body text-textMuted text-base md:text-lg leading-relaxed mb-6">
                             I came from analytics. That matters.
@@ -187,7 +190,7 @@ export default function About() {
                             <p className="font-quote italic text-lg md:text-2xl text-text/80 leading-relaxed md:leading-loose">What a privilege to be tired from work you once begged the universe for. What a privilege to feel overwhelmed by growth you used to dream about. What a privilege to be challenged by a life you created on purpose. What a privilege to outgrow things you used to settle for.</p>
                         </blockquote>
                     </div>
-                    <cite className="block mt-6 md:mt-10 font-body text-sm text-textLight not-italic">
+                    <cite className="block mt-6 md:mt-10 font-body text-sm text-textMuted not-italic">
                         Aryan Sachdeva, via Medium
                     </cite>
                 </div>

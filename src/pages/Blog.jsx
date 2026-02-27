@@ -170,19 +170,19 @@ export default function Blog() {
                     <div className="flex flex-col sm:flex-row items-center gap-3 max-w-2xl mx-auto w-full">
                         {/* Search */}
                         <div className="relative flex-1 w-full">
-                            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-textLight" />
+                            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-textMuted" />
                             <input
                                 ref={searchInputRef}
                                 type="text"
                                 value={searchInput}
                                 onChange={(e) => handleSearchInput(e.target.value)}
                                 placeholder="Search articles..."
-                                className="w-full pl-11 pr-10 min-h-[44px] rounded-full bg-surfaceAlt border border-accent-border text-text font-mono text-sm placeholder:text-textLight focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                                className="w-full pl-11 pr-10 min-h-[44px] rounded-full bg-surfaceAlt border border-accent-border text-text font-mono text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
                             />
                             {searchInput && (
                                 <button
                                     onClick={clearSearch}
-                                    className="absolute right-1 top-1/2 -translate-y-1/2 min-h-[44px] min-w-[44px] flex items-center justify-center text-textLight hover:text-text transition-colors"
+                                    className="absolute right-1 top-1/2 -translate-y-1/2 min-h-[44px] min-w-[44px] flex items-center justify-center text-textMuted hover:text-text transition-colors"
                                     aria-label="Clear search"
                                 >
                                     <X size={14} />
@@ -205,14 +205,14 @@ export default function Blog() {
                                         </option>
                                     ))}
                                 </select>
-                                <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-textLight pointer-events-none" />
+                                <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-textMuted pointer-events-none" />
                             </div>
                         )}
                     </div>
 
                     {/* Active filter indicator */}
                     {(activeCategory || searchQuery) && !loading && (
-                        <div className="text-center font-mono text-xs text-textLight">
+                        <div className="text-center font-mono text-xs text-textMuted">
                             {posts.length} result{posts.length !== 1 ? 's' : ''}
                             {activeCategoryName && <> in <span className="text-accent">{activeCategoryName}</span></>}
                             {searchQuery && <> for "<span className="text-accent">{searchQuery}</span>"</>}
@@ -228,7 +228,7 @@ export default function Blog() {
                     </div>
                 ) : posts.length === 0 ? (
                     <div className="text-center py-20">
-                        <p className="font-mono text-textLight mb-4">
+                        <p className="font-mono text-textMuted mb-4">
                             {searchQuery || activeCategory
                                 ? 'No posts match your filters.'
                                 : 'No intel logged yet. Check back soon.'}
@@ -290,7 +290,7 @@ export default function Blog() {
                                                     {post.excerpt}
                                                 </p>
                                             )}
-                                            <div className="flex items-center justify-between font-mono text-xs text-textLight mt-auto pt-4 border-t border-accent-border">
+                                            <div className="flex items-center justify-between font-mono text-xs text-textMuted mt-auto pt-4 border-t border-accent-border">
                                                 <span>{post.author?.name || 'SYS.ADMIN'}</span>
                                                 <time>
                                                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -315,7 +315,7 @@ export default function Blog() {
                                 >
                                     &larr; PREV
                                 </button>
-                                <span className="text-textLight">
+                                <span className="text-textMuted">
                                     PG {currentPage} / {totalPages}
                                 </span>
                                 <button

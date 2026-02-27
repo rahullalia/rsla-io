@@ -90,9 +90,6 @@ export default function ServicesV2() {
                                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 font-mono text-sm font-bold bg-accent-medium text-accent">
                                     {s.num}
                                 </div>
-                                <span className="font-mono text-[10px] uppercase tracking-widest text-accent mb-3 block">
-                                    {s.tag}
-                                </span>
                                 <h3 className="font-sans font-bold text-xl mb-1 text-text">
                                     {s.title}{' '}
                                     <span className="font-drama italic font-normal">{s.accent}</span>

@@ -69,7 +69,7 @@ export default function Sid() {
                 {/* Name & title */}
                 <h1 className="font-sans font-bold text-2xl tracking-tight mb-1.5 text-text">Siddharth Rodrigues</h1>
                 <p className="font-sans text-accent text-sm font-bold mb-1">Co-Founder & CTO, RSL/A</p>
-                <p className="font-body text-textLight text-sm mb-8">Software Development & AI Systems Expert</p>
+                <p className="font-body text-textMuted text-sm mb-8">Software Development & AI Systems Expert</p>
 
                 {/* Contact actions */}
                 <div className="w-full flex flex-col gap-3 mb-8">
@@ -100,7 +100,7 @@ export default function Sid() {
                 {/* Email */}
                 <a
                     href="mailto:sid@rsla.io"
-                    className="font-mono text-xs tracking-wider text-textLight hover:text-accent transition-colors mb-5 inline-flex items-center min-h-[44px]"
+                    className="font-mono text-xs tracking-wider text-textMuted hover:text-accent transition-colors mb-5 inline-flex items-center min-h-[44px]"
                 >
                     sid@rsla.io
                 </a>
@@ -113,7 +113,7 @@ export default function Sid() {
                             href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="min-h-[44px] min-w-[44px] flex items-center justify-center text-textLight hover:text-accent transition-colors duration-300"
+                            className="min-h-[44px] min-w-[44px] flex items-center justify-center text-textMuted hover:text-accent transition-colors duration-300"
                             aria-label={social.name}
                         >
                             {social.icon}
@@ -125,7 +125,7 @@ export default function Sid() {
                 <div className="w-full border-t border-accent-border mb-6" />
 
                 {/* Footer */}
-                <Link to="/" className="font-mono text-[10px] uppercase tracking-widest text-textLight/50 hover:text-textLight transition-colors inline-flex items-center min-h-[44px] px-4">
+                <Link to="/" className="font-mono text-[10px] uppercase tracking-widest text-textMuted/70 hover:text-textMuted transition-colors inline-flex items-center min-h-[44px] px-4">
                     Powered by RSL/A
                 </Link>
             </div>

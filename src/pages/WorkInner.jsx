@@ -175,7 +175,7 @@ export default function WorkInner() {
             <div className="max-w-3xl mx-auto relative z-10">
 
                 {/* Back link */}
-                <Link to="/work" className="inline-flex items-center gap-2 min-h-[44px] text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider mb-12">
+                <Link to="/work" className="inline-flex items-center gap-2 min-h-[44px] text-textMuted hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider mb-12">
                     Back to Case Studies
                 </Link>
 
@@ -187,7 +187,7 @@ export default function WorkInner() {
                             {caseStudy.tag}
                         </span>
                         {metaItems.length > 0 && (
-                            <span className="font-mono text-xs text-textLight">
+                            <span className="font-mono text-xs text-textMuted">
                                 {metaItems.join(' / ')}
                             </span>
                         )}
@@ -304,7 +304,7 @@ export default function WorkInner() {
                     {caseStudy.content ? (
                         <PortableText value={caseStudy.content} components={PortableTextComponents} />
                     ) : (
-                        <p className="text-textLight font-mono italic text-center py-10">
+                        <p className="text-textMuted font-mono italic text-center py-10">
                             [Content formatting required in CMS]
                         </p>
                     )}

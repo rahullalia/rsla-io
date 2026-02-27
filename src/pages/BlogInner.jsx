@@ -139,7 +139,7 @@ export default function BlogInner() {
 
                 {/* Header Breadcrumb & Back */}
                 <div className="mb-12 flex flex-col items-start gap-4">
-                    <Link to="/blog" className="inline-flex items-center gap-2 min-h-[44px] text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider">
+                    <Link to="/blog" className="inline-flex items-center gap-2 min-h-[44px] text-textMuted hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider">
                         ← Back to Blog
                     </Link>
 
@@ -170,7 +170,7 @@ export default function BlogInner() {
                         )}
                         <div>
                             <div className="font-sans font-bold text-lg">{post.author?.name || 'SYS.ADMIN'}</div>
-                            <div className="font-mono text-sm text-textLight uppercase tracking-wider flex items-center gap-2">
+                            <div className="font-mono text-sm text-textMuted uppercase tracking-wider flex items-center gap-2">
                                 <span>{post.author?.role || 'Architect'}</span>
                                 <span>•</span>
                                 <time>
@@ -281,9 +281,9 @@ export default function BlogInner() {
                                                 {related.title}
                                             </h4>
                                             {related.excerpt && (
-                                                <p className="font-mono text-sm text-textLight line-clamp-2">{related.excerpt}</p>
+                                                <p className="font-mono text-sm text-textMuted line-clamp-2">{related.excerpt}</p>
                                             )}
-                                            <div className="mt-4 font-mono text-xs text-textLight flex items-center gap-2">
+                                            <div className="mt-4 font-mono text-xs text-textMuted flex items-center gap-2">
                                                 <time>
                                                     {new Date(related.publishedAt).toLocaleDateString('en-US', {
                                                         month: 'short', day: 'numeric', year: 'numeric'

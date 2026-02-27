@@ -90,13 +90,13 @@ export default function ProofSection() {
                         const inner = (
                             <>
                                 <div className="flex-1">
-                                    <span className="font-mono text-[10px] uppercase tracking-widest text-accent font-bold">{proof.type}</span>
+                                    <span className="font-mono text-xs md:text-sm uppercase tracking-widest text-accent font-bold">{proof.type}</span>
                                     <p className="font-body text-textMuted text-sm md:text-base leading-relaxed mt-2 max-w-xl">{proof.result}</p>
                                 </div>
                                 <div className="flex-shrink-0 flex items-center gap-3">
                                     <div className="font-quote italic font-normal text-5xl md:text-7xl text-accent leading-none">{proof.metric}</div>
                                     {proof.slug && (
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-textLight group-hover:text-accent group-hover:translate-x-1 transition-all">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-textMuted group-hover:text-accent group-hover:translate-x-1 transition-all">
                                             <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                                         </svg>
                                     )}

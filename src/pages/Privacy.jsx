@@ -10,7 +10,7 @@ export default function Privacy() {
                 noIndex
             />
             <div className="max-w-4xl mx-auto relative z-10">
-                <Link to="/" className="inline-flex items-center gap-2 min-h-[44px] text-textLight hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider mb-12">
+                <Link to="/" className="inline-flex items-center gap-2 min-h-[44px] text-textMuted hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider mb-12">
                     ← Back to Home
                 </Link>
 
@@ -345,7 +345,7 @@ export default function Privacy() {
                     </p>
                     <div className="mb-8 p-6 bg-surfaceAlt rounded-xl border border-accent-border">
                         <strong className="text-text font-sans tracking-widest text-lg">RSL/A</strong><br />
-                        <span className="text-textLight text-xs uppercase tracking-widest mt-2 block">Privacy Inquiries:</span>
+                        <span className="text-textMuted text-xs uppercase tracking-widest mt-2 block">Privacy Inquiries:</span>
                         <a href="mailto:team@rsla.io" className="text-accent hover:underline font-mono text-base mt-1 block">
                             team@rsla.io
                         </a>
@@ -354,7 +354,7 @@ export default function Privacy() {
                         We will respond to all privacy-related requests within 30 days (or sooner if required by applicable law). If you are not satisfied with our response, you have the right to lodge a complaint with the applicable data protection authority in your jurisdiction.
                     </p>
 
-                    <p className="mt-20 text-xs text-textLight uppercase tracking-widest border-t border-accent-border pt-6">
+                    <p className="mt-20 text-xs text-textMuted uppercase tracking-widest border-t border-accent-border pt-6">
                         Last updated: February 2026
                     </p>
                 </div>

@@ -104,10 +104,6 @@ export default function HowItWorksPage() {
                             {step.num}
                         </div>
 
-                        <span className="hiw-animate inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent border border-accent/30 rounded-full px-4 py-1.5 mb-6">
-                            {step.tag}
-                        </span>
-
                         <h2 className="hiw-animate font-sans font-bold text-2xl md:text-4xl text-text tracking-tight mb-8">
                             {step.title}
                         </h2>

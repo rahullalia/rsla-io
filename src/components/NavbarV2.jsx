@@ -12,6 +12,7 @@ import { Menu, X } from 'lucide-react';
 const navItems = [
     { name: 'Home', to: '/' },
     { name: 'About', to: '/about' },
+    { name: 'Services', to: '/services' },
     { name: 'Work', to: '/work' },
     { name: 'Blog', to: '/blog' },
 ];

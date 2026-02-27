@@ -64,7 +64,7 @@ export default function FaqSection() {
                                 </span>
                                 <ChevronDown
                                     size={18}
-                                    className={`shrink-0 text-textLight transition-transform duration-300 ${
+                                    className={`shrink-0 text-textMuted transition-transform duration-300 ${
                                         openIndex === i ? 'rotate-180' : ''
                                     }`}
                                 />

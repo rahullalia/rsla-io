@@ -54,7 +54,7 @@ export default function InlineNewsletterCta() {
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={status === 'submitting'}
                         required
-                        className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-mono text-sm placeholder:text-textLight focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                        className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-mono text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
                     />
                     <button
                         type="submit"

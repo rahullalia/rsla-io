@@ -94,7 +94,7 @@ export default function Insider() {
                             </svg>
                         </div>
                         <p className="font-sans font-bold text-lg text-text mb-1">You're in.</p>
-                        <p className="font-body text-sm text-textLight">Check your inbox to confirm your subscription.</p>
+                        <p className="font-body text-sm text-textMuted">Check your inbox to confirm your subscription.</p>
                     </div>
                 ) : (
                     <>
@@ -106,7 +106,7 @@ export default function Insider() {
                                 placeholder="your@email.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="flex-1 px-5 py-3.5 rounded-full bg-surfaceAlt border border-accent-border text-text font-body text-sm placeholder:text-textLight focus:outline-none focus:border-accent/50 transition-colors"
+                                className="flex-1 px-5 py-3.5 rounded-full bg-surfaceAlt border border-accent-border text-text font-body text-sm placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
                             />
                             <button
                                 type="submit"
@@ -122,7 +122,7 @@ export default function Insider() {
                         )}
 
                         {/* Trust line */}
-                        <p className="font-body text-xs text-textLight">
+                        <p className="font-body text-xs text-textMuted">
                             No spam, unsubscribe anytime.{' '}
                             <Link to="/privacy-policy" className="underline underline-offset-2 hover:text-textMuted transition-colors">
                                 Privacy Policy

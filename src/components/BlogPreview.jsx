@@ -125,7 +125,7 @@ export default function BlogPreview() {
                                 <h3 className="font-sans font-bold text-lg text-text leading-snug mb-2 group-hover:text-accent transition-colors">
                                     {post.title}
                                 </h3>
-                                <time className="font-mono text-xs text-textLight">
+                                <time className="font-mono text-xs text-textMuted">
                                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
                                         month: 'short',
                                         day: 'numeric',

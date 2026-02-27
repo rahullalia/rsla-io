@@ -76,7 +76,7 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={status === 'submitting'}
                     required
-                    className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-mono text-sm placeholder:text-textLight focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                    className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-mono text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
                 />
                 <button
                     type="submit"
@@ -127,7 +127,7 @@ export const PortableTextComponents = {
                         />
                     </div>
                     {value.caption && (
-                        <figcaption className="text-center text-sm font-mono text-textLight mt-4 italic">
+                        <figcaption className="text-center text-sm font-mono text-textMuted mt-4 italic">
                             {value.caption}
                         </figcaption>
                     )}
@@ -155,7 +155,7 @@ export const PortableTextComponents = {
                         />
                     </div>
                     {(value.caption || value.credit) && (
-                        <figcaption className="text-center text-sm font-mono text-textLight mt-4 italic">
+                        <figcaption className="text-center text-sm font-mono text-textMuted mt-4 italic">
                             {value.caption}{value.credit ? ` — ${value.credit}` : ''}
                         </figcaption>
                     )}
@@ -210,7 +210,7 @@ export const PortableTextComponents = {
                         />
                     </div>
                     {caption && (
-                        <figcaption className="text-center text-sm font-mono text-textLight mt-4 italic">
+                        <figcaption className="text-center text-sm font-mono text-textMuted mt-4 italic">
                             {caption}
                         </figcaption>
                     )}
@@ -240,7 +240,7 @@ export const PortableTextComponents = {
                     {stats.map((stat, idx) => (
                         <div key={idx} className="bg-surfaceAlt border border-accent-border rounded-2xl p-6 text-center shadow-sm">
                             <div className="text-4xl font-bold font-sans text-accent mb-2">{stat.value}</div>
-                            <div className="text-xs font-mono text-textLight uppercase tracking-widest">{stat.label}</div>
+                            <div className="text-xs font-mono text-textMuted uppercase tracking-widest">{stat.label}</div>
                         </div>
                     ))}
                 </div>
