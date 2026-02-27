@@ -6,8 +6,6 @@ import Seo from '../components/Seo';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const tags = ['MARKETING ANALYTICS', 'SELF-TAUGHT BUILDER', 'BUILDER SINCE 2022'];
-
 export default function About() {
     const pageRef = useRef(null);
 
@@ -27,18 +25,6 @@ export default function About() {
                     scrollTrigger: {
                         trigger: '.about-body',
                         start: 'top 75%',
-                        once: true,
-                    }
-                }
-            );
-
-            gsap.fromTo('.about-tag',
-                { y: 20, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '.about-tags',
-                        start: 'top 85%',
                         once: true,
                     }
                 }
@@ -157,15 +143,6 @@ export default function About() {
                         <p className="font-body text-textMuted text-base md:text-lg leading-relaxed">
                             Most people in this space show you a demo and call it done. I show you a dashboard. Real numbers. What the AI system did this week, how many leads it handled, how many meetings it booked, what the conversion rate was. Because if you cannot measure it, it is just a toy. And founders do not need toys. They need infrastructure.
                         </p>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="about-tags about-section flex flex-wrap gap-3 mb-12">
-                        {tags.map((tag) => (
-                            <span key={tag} className="about-tag inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent border border-accent/30 rounded-full px-4 py-1.5">
-                                {tag}
-                            </span>
-                        ))}
                     </div>
 
                     {/* CTA */}

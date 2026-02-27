@@ -28,9 +28,9 @@ export default function HeroV2() {
 
     return (
         <AuroraBackground>
-            <div ref={containerRef} className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-start justify-end h-[100dvh] pb-24 md:pb-32">
+            <div ref={containerRef} className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-start justify-end h-[100dvh] pb-44 md:pb-32">
                 {/* Headline */}
-                <h1 className="font-sans font-bold text-text text-3xl sm:text-4xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1] max-w-4xl mb-6">
+                <h1 className="font-sans font-bold text-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1] max-w-4xl mb-6">
                     <TextAnimate
                         animation="blurInUp"
                         by="word"
@@ -44,7 +44,7 @@ export default function HeroV2() {
                         <TextAnimate
                             animation="blurInUp"
                             by="word"
-                            delay={0.08}
+                            delay={0.88}
                             startOnView={false}
                             as="span"
                         >
@@ -54,15 +54,15 @@ export default function HeroV2() {
                 </h1>
 
                 {/* CTAs */}
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-3 sm:gap-4">
                     <a href="#contact" className="hero-cta">
-                        <InteractiveHoverButton className="font-sans font-bold text-base px-8 py-4 rounded-full">
+                        <InteractiveHoverButton className="font-sans font-bold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 rounded-full">
                             Build My System
                         </InteractiveHoverButton>
                     </a>
                     <Link
                         to="/work"
-                        className="hero-cta inline-flex items-center px-8 py-4 rounded-full font-sans font-bold text-base text-text border border-accent-border-strong hover:border-accent/30 hover:bg-accent-light transition-all"
+                        className="hero-cta inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-full font-sans font-bold text-sm sm:text-base text-text border border-accent-border-strong hover:border-accent/30 hover:bg-accent-light transition-all"
                     >
                         See What We've Built
                     </Link>
