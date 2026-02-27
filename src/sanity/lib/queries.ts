@@ -137,7 +137,14 @@ export const caseStudyBySlugQuery = groq`
     annualSavings,
     publishedAt,
     content,
-    "seo": seo,
+    seo {
+      metaTitle,
+      metaDescription,
+      keywords,
+      socialImage {
+        asset->
+      }
+    },
     clientName,
     industry,
     timeframe,
@@ -544,7 +551,14 @@ export const caseStudyBySlugV2Query = groq`
     annualSavings,
     publishedAt,
     content,
-    "seo": seo,
+    seo {
+      metaTitle,
+      metaDescription,
+      keywords,
+      socialImage {
+        asset->
+      }
+    },
     clientName,
     industry,
     timeframe,

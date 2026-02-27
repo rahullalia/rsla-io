@@ -147,13 +147,17 @@ export default function WorkInner() {
         caseStudy.servicesUsed.forEach(s => metaItems.push(SERVICE_LABELS[s] || s));
     }
 
+    const seoTitle = caseStudy.seo?.metaTitle ? `${caseStudy.seo.metaTitle} | RSL/A` : `${caseStudy.title} | RSL/A`;
+    const seoDescription = caseStudy.seo?.metaDescription || caseStudy.tldr || caseStudy.description || '';
+    const seoImage = caseStudy.seo?.socialImage?.asset?.url || 'https://rsla.io/og-image.png';
+
     return (
         <article className="min-h-screen bg-surface text-text pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
             <Seo
-                title={`${caseStudy.title} | RSL/A`}
-                description={caseStudy.tldr || caseStudy.description || ''}
+                title={seoTitle}
+                description={seoDescription}
                 canonical={`https://rsla.io/work/${slug}`}
-                ogImage="https://rsla.io/og-image.png"
+                ogImage={seoImage}
                 jsonLd={{
                     '@context': 'https://schema.org',
                     '@type': 'Article',
