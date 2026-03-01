@@ -72,7 +72,6 @@ src/
     NotFound.jsx       # 404 catch-all (noindex)
   sanity/
     lib/               # Sanity client, image helper, GROQ queries
-brand/                 # Brand reference docs
 public/
   images/rahul.png     # Profile photo
   rahul.vcf            # vCard for /rahul page
@@ -207,13 +206,17 @@ vercel.json            # Vite SPA routing config
 
 ## Brand Reference
 
-All brand docs in `/brand/`:
+All brand docs live in `../theBrand/` (the central brand folder for all RSL/A projects):
 - `brain.md` - Quick-reference brand context
 - `brandIdentityGuide.md` - Core identity, mission, voice
 - `rslaHomePageCopy.md` - Homepage section copy
 - `rslaPagesCopy.md` - All other page copy
 - `rslaUiUxPlaybook.md` - UI/UX specs, animations, performance budget
 - `rslaWebsiteStrategy.md` - Website architecture and strategy
+- `llmArchitecture.md` - LLM/agentic search optimization strategy
+- `llmApiReference.ts` - Markdown API reference implementation
+- `insiderNewsletterTemplate.html` - Newsletter email template
+- `insiderConfirmationEmail.html` - Confirmation email template
 
 ---
 
@@ -401,6 +404,17 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - Replaced blog category pills (17) with dropdown select
   - Search + dropdown on same row (desktop), stacked (mobile)
   - ChevronDown icon, rounded-full, matches site design system
+
+### 2026-02-27: About Cleanup, Confetti CSP Fix, Hero Mobile Polish
+- Removed About page tag badges (tags array, GSAP `.about-tag` animation, render block)
+- Fixed confetti on /booking-confirmed: `canvas-confetti` creates Web Worker from `blob:` URL, CSP was blocking it
+  - Added `blob:` to `script-src` and new `worker-src 'self' blob:` directive in vercel.json
+- Hero mobile polish:
+  - Heading bumped from `text-3xl` to `text-4xl` on mobile (was undersized vs buttons)
+  - "seconds." TextAnimate delay changed from 0.08 to 0.88 (sequences after 10-word main headline)
+  - Button padding reduced on mobile: `px-6 py-3 text-sm` (scales up at `sm` breakpoint)
+  - Mobile bottom padding: `pb-44` (was `pb-24`) to show aurora above headline
+  - Desktop unchanged at `pb-32`
 
 ---
 

@@ -74,13 +74,15 @@ The official RSL/A website. Blue-gray light theme with Aurora background hero, M
 
 ## Brand Reference
 
-All brand docs in `/brand/`:
+All brand docs live in `../theBrand/` (central brand folder):
 - `brain.md` - Quick-reference brand context
 - `brandIdentityGuide.md` - Core identity, mission, voice
 - `rslaHomePageCopy.md` - Homepage copywriting
 - `rslaPagesCopy.md` - All other page copy
 - `rslaUiUxPlaybook.md` - UI/UX specs, animations, performance budget
 - `rslaWebsiteStrategy.md` - Website architecture and strategy
+- `llmArchitecture.md` - LLM/agentic search optimization
+- `llmApiReference.ts` - Markdown API reference code
 
 ## Commands
 
