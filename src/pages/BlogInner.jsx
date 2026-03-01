@@ -35,7 +35,7 @@ export default function BlogInner() {
                 let caseStudy = fetchedPost.relatedCaseStudies?.[0] || null;
 
                 if (!caseStudy) {
-                    const categorySlugs = fetchedPost.categories?.map((c) => c.slug.current) || [];
+                    const categorySlugs = fetchedPost.categories?.map((c) => c.slug?.current).filter(Boolean) || [];
                     const BLOG_SLUG_TO_CASE_CATEGORY = {
                         'ai-automation': ['AI Automation'],
                         'marketing-automation': ['Marketing', 'AI Automation'],

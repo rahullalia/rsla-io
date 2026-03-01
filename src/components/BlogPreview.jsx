@@ -112,9 +112,9 @@ export default function BlogPreview() {
                             <div className="p-6">
                                 {post.categories?.length > 0 && (
                                     <div className="flex gap-2 mb-3">
-                                        {post.categories.slice(0, 2).map((cat) => (
+                                        {post.categories.slice(0, 2).map((cat, idx) => (
                                             <span
-                                                key={cat.slug.current}
+                                                key={cat.slug?.current || idx}
                                                 className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-accent-light text-accent border border-accent-medium"
                                             >
                                                 {cat.name}
