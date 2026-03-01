@@ -2,6 +2,11 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "functions": {
+    "api/llm/[slug].mjs": {
+      "runtime": "@vercel/node@5.6.9"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -56,6 +61,19 @@
         { "key": "Content-Disposition", "value": "attachment" },
         { "key": "Cache-Control", "value": "public, max-age=2592000" }
       ]
+    },
+    {
+      "source": "/api/llm/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, s-maxage=3600, stale-while-revalidate=86400" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
+    {
+      "source": "/llms.txt",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=86400" }
+      ]
     }
   ],
   "redirects": [
@@ -70,6 +88,6 @@
     { "source": "/blog/gemini-vs-chatgpt-for-business", "destination": "/blog/gemini-vs-chatgpt-vs-claude-for-business", "statusCode": 301 }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

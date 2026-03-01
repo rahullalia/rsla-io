@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://rsla.io/sitemap.xml
+
+# LLM-readable content index (https://llmstxt.org)
+# https://rsla.io/llms.txt
