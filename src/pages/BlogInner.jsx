@@ -104,7 +104,7 @@ export default function BlogInner() {
         );
     }
 
-    const imageUrl = post.featuredImage?.asset ? urlForImage(post.featuredImage.asset)?.width(1200).height(1200).url() : null;
+    const imageUrl = post.featuredImage?.asset ? urlForImage(post.featuredImage.asset)?.width(1600).height(900).url() : null;
 
     const seoDescription = post.seo?.metaDescription || post.excerpt || (post.body?.[0]?.children?.[0]?.text || '').slice(0, 160);
     const seoTitle = post.seo?.metaTitle ? `${post.seo.metaTitle} | RSL/A` : `${post.title} | RSL/A`;
@@ -254,7 +254,7 @@ export default function BlogInner() {
 
                 {/* Hero Image */}
                 {imageUrl && (
-                    <div className="max-w-2xl mx-auto aspect-square rounded-[2rem] overflow-hidden mb-16 shadow-lg border border-accent-border bg-surfaceAlt">
+                    <div className="w-full aspect-video rounded-[2rem] overflow-hidden mb-16 shadow-lg border border-accent-border bg-surfaceAlt">
                         <img
                             src={imageUrl}
                             alt={post.featuredImage?.alt || post.title}
@@ -279,7 +279,7 @@ export default function BlogInner() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {post.relatedPosts.map((related) => {
                                 const relatedImg = related.featuredImage?.asset
-                                    ? urlForImage(related.featuredImage.asset)?.width(400).height(400).url()
+                                    ? urlForImage(related.featuredImage.asset)?.width(400).height(260).url()
                                     : null;
                                 return (
                                     <Link
@@ -288,7 +288,7 @@ export default function BlogInner() {
                                         className="group flex flex-col bg-surfaceAlt rounded-[1.5rem] border border-accent-border overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                                     >
                                         {relatedImg && (
-                                            <div className="aspect-square overflow-hidden bg-surfaceAlt">
+                                            <div className="aspect-[3/2] overflow-hidden bg-surfaceAlt">
                                                 <img
                                                     src={relatedImg}
                                                     alt={related.featuredImage?.alt || related.title}

@@ -249,7 +249,7 @@ export default function Blog() {
                     <>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
                             {posts.map((post) => {
-                                const imageUrl = post.featuredImage?.asset ? urlForImage(post.featuredImage)?.width(600).height(600).url() : '';
+                                const imageUrl = post.featuredImage?.asset ? urlForImage(post.featuredImage)?.width(600).height(400).url() : '';
 
                                 return (
                                     <Link
@@ -258,7 +258,7 @@ export default function Blog() {
                                         className="group flex flex-col h-full bg-surfaceAlt rounded-[2rem] border border-accent-border overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
                                     >
                                         {imageUrl && (
-                                            <div className="relative aspect-square overflow-hidden bg-surfaceAlt">
+                                            <div className="relative aspect-[3/2] overflow-hidden bg-surfaceAlt">
                                                 <img
                                                     src={imageUrl}
                                                     alt={post.featuredImage?.alt || post.title}
