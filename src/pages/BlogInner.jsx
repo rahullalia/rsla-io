@@ -254,7 +254,7 @@ export default function BlogInner() {
 
                 {/* Hero Image */}
                 {imageUrl && (
-                    <div className="max-w-lg mx-auto aspect-square rounded-[2rem] overflow-hidden mb-16 shadow-lg border border-accent-border bg-surfaceAlt">
+                    <div className="max-w-2xl mx-auto aspect-square rounded-[2rem] overflow-hidden mb-16 shadow-lg border border-accent-border bg-surfaceAlt">
                         <img
                             src={imageUrl}
                             alt={post.featuredImage?.alt || post.title}
