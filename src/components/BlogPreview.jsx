@@ -100,9 +100,9 @@ export default function BlogPreview() {
                             className="blog-card group bg-surface rounded-2xl border border-accent-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow"
                         >
                             {post.featuredImage?.asset && (
-                                <div className="aspect-[16/10] overflow-hidden">
+                                <div className="aspect-square overflow-hidden">
                                     <img
-                                        src={urlFor(post.featuredImage).width(600).height(375).url()}
+                                        src={urlFor(post.featuredImage).width(600).height(600).url()}
                                         alt={post.featuredImage.alt || post.title}
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         loading="lazy"

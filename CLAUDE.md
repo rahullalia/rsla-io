@@ -79,9 +79,16 @@ public/
   apple-touch-icon.png # 180x180 from logomark.svg
   icon-192.png         # PWA icon
   icon-512.png         # PWA icon
+api/
+  llm/[slug].mjs       # Vercel serverless function: returns markdown for any blog/case study
+  lib/portableTextToMarkdown.mjs  # Portable Text to markdown converter
+scripts/
+  generateSitemap.mjs  # Build-time sitemap generator
+  generateRssFeed.mjs  # Build-time RSS feed generator
+  generateLlmsTxt.mjs  # Build-time llms.txt generator (AI search index)
 PLAN.md                # Build plan (phases 1-5 done)
 TODO.md                # Remaining tasks and wishlist
-vercel.json            # Vite SPA routing config
+vercel.json            # Vite SPA routing + serverless function config
 ```
 
 ---
@@ -109,6 +116,8 @@ vercel.json            # Vite SPA routing config
 | /disclaimer | Disclaimer | No | Full |
 | /accessibility | Accessibility | No | Full |
 | * (404) | NotFound | No | Full |
+| /api/llm/:slug | Serverless Function | N/A | N/A |
+| /llms.txt | Static (build-time) | N/A | N/A |
 
 **Chromeless pages** (no navbar/footer): controlled by `chromelessRoutes` array in App.jsx.
 **noIndex pages**: controlled per-page via `<Seo noIndex />` component prop.
@@ -225,7 +234,7 @@ All brand docs live in `../theBrand/` (the central brand folder for all RSL/A pr
 ```bash
 npm install                    # Install dependencies
 npm run dev                    # Start dev server (Vite)
-npm run build                  # Production build (includes sitemap + RSS generation)
+npm run build                  # Production build (includes sitemap + RSS + llms.txt generation)
 ```
 
 **Sanity Studio commands (run from rslaStudio/ repo, not here):**
@@ -405,6 +414,16 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
   - Search + dropdown on same row (desktop), stacked (mobile)
   - ChevronDown icon, rounded-full, matches site design system
 
+### 2026-02-28: LLM Search Optimization (AEO)
+- Added `llms.txt` and Markdown API for AI search optimization
+- **llms.txt:** Build-time generated at `rsla.io/llms.txt` by `scripts/generateLlmsTxt.mjs`. Lists RSL/A summary, services, all 38 blog posts and 8 case studies with links to markdown API.
+- **Markdown API:** Vercel serverless function at `rsla.io/api/llm/[slug]`. Returns clean markdown for any blog post or case study slug. Tries blogPostV2 first, then caseStudy. 1-hour edge cache.
+- **Portable Text converter:** `api/lib/portableTextToMarkdown.mjs`. Handles headings, lists, bold/italic/code/strikethrough, links, images (alt text), code blocks, callouts, stats, testimonials, tech stacks. Skips CTA buttons, video embeds, gated resources.
+- **Vercel config:** Required explicit `functions` block in vercel.json (`"runtime": "@vercel/node@5.6.9"`) because `framework: "vite"` doesn't auto-detect `api/` directory. Also changed SPA rewrite from `/(.*) → /index.html` to `/((?!api/).*) → /index.html` to prevent catch-all from intercepting API routes.
+- **robots.txt:** Added comment pointing to llms.txt.
+- **Build script:** Updated to include `&& node scripts/generateLlmsTxt.mjs`.
+- Architecture doc updated: `theBrand/llmArchitecture.md` (items 1 and 2 complete, semantic HTML audit remaining).
+
 ### 2026-02-27: About Cleanup, Confetti CSP Fix, Hero Mobile Polish
 - Removed About page tag badges (tags array, GSAP `.about-tag` animation, render block)
 - Fixed confetti on /booking-confirmed: `canvas-confetti` creates Web Worker from `blob:` URL, CSP was blocking it
@@ -420,4 +439,4 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 
 ## Last Updated
 
-2026-02-27
+2026-02-28
