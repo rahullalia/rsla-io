@@ -36,7 +36,7 @@ async function generateLlmsTxt() {
   const lines = [
     '# RSL/A',
     '',
-    '> RSL/A is a marketing automation and AI implementation agency for service businesses. We build lead generation systems, CRM infrastructure (GoHighLevel), paid acquisition campaigns, local SEO, and custom AI automations that replace manual operations with intelligent workflows.',
+    '> RSL/A shows founders how to put AI to work in their business, then builds it for them. We design and implement AI lead generation systems, automation infrastructure, CRM operations, and smart websites that replace manual work with intelligent systems.',
     '',
     '## Services',
     '',
