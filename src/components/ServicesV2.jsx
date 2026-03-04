@@ -66,6 +66,7 @@ export default function ServicesV2() {
         return () => ctx.revert();
     }, []);
 
+
     return (
         <section ref={sectionRef} className="py-20 md:py-32 bg-accent-light px-6 md:px-12">
             <div className="max-w-6xl mx-auto">
@@ -119,6 +120,7 @@ export default function ServicesV2() {
                         </div>
                     ))}
                 </div>
+
             </div>
         </section>
     );

@@ -4,7 +4,7 @@
  * GSAP ScrollTrigger stagger entrance.
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -51,12 +51,11 @@ function Avatar({ name }) {
     );
 }
 
-function TestimonialCard({ name, role, body, featured = false }) {
+function TestimonialCard({ name, role, body, featured = false, isHiddenOnMobile = false }) {
     return (
         <div
-            className={`testimonial-card bg-surface rounded-2xl p-6 sm:p-8 border border-accent-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow ${
-                featured ? 'lg:row-span-2' : ''
-            }`}
+            className={`testimonial-card bg-surface rounded-2xl p-6 sm:p-8 border border-accent-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow ${featured ? 'lg:row-span-2' : ''
+                } ${isHiddenOnMobile ? 'hidden sm:block' : ''}`}
         >
             <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
                 <p className={`font-body leading-relaxed text-text ${featured ? 'text-lg sm:text-xl' : 'text-sm sm:text-base'}`}>
@@ -76,6 +75,7 @@ function TestimonialCard({ name, role, body, featured = false }) {
 
 export default function Testimonials() {
     const sectionRef = useRef(null);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -99,6 +99,11 @@ export default function Testimonials() {
         return () => ctx.revert();
     }, []);
 
+    // Recalculate ScrollTrigger positions when expanded state changes to prevent overlapping sections
+    useEffect(() => {
+        ScrollTrigger.refresh();
+    }, [isExpanded]);
+
     return (
         <section ref={sectionRef} className="py-20 md:py-32 bg-surfaceAlt px-6 md:px-12">
             <div className="max-w-6xl mx-auto space-y-12">
@@ -112,10 +117,35 @@ export default function Testimonials() {
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
-                    {testimonials.map((t) => (
-                        <TestimonialCard key={t.name} {...t} />
+                    {testimonials.map((t, index) => (
+                        <TestimonialCard
+                            key={t.name}
+                            {...t}
+                            isHiddenOnMobile={!isExpanded && index > 0}
+                        />
                     ))}
                 </div>
+
+                {!isExpanded && (
+                    <div className="flex justify-center sm:hidden mt-8">
+                        <button
+                            onClick={() => setIsExpanded(true)}
+                            className="text-sm font-sans font-medium text-accent hover:text-accent-hover transition-colors px-6 py-2 rounded-full border border-accent-border bg-surface shadow-sm"
+                        >
+                            Read More Testimonials
+                        </button>
+                    </div>
+                )}
+                {isExpanded && (
+                    <div className="flex justify-center sm:hidden mt-8">
+                        <button
+                            onClick={() => setIsExpanded(false)}
+                            className="text-sm font-sans font-medium text-accent hover:text-accent-hover transition-colors px-6 py-2 rounded-full border border-accent-border bg-surface shadow-sm"
+                        >
+                            Show Less
+                        </button>
+                    </div>
+                )}
             </div>
         </section>
     );

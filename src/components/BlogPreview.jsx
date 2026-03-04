@@ -57,6 +57,7 @@ export default function BlogPreview() {
         return () => ctx.revert();
     }, [posts]);
 
+
     if (posts.length === 0) return null;
 
     return (
