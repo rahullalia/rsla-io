@@ -1,5 +1,5 @@
 import { ElementType, memo } from "react"
-import { AnimatePresence, motion, MotionProps, Variants } from "motion/react"
+import { motion, MotionProps, Variants } from "motion/react"
 
 import { cn } from "@/lib/utils"
 
@@ -387,36 +387,33 @@ const TextAnimateBase = ({
       : { container: defaultContainerVariants, item: defaultItemVariants }
 
   return (
-    <AnimatePresence mode="popLayout">
-      <MotionComponent
-        variants={finalVariants.container as Variants}
-        initial="hidden"
-        whileInView={startOnView ? "show" : undefined}
-        animate={startOnView ? undefined : "show"}
-        exit="exit"
-        className={cn("whitespace-pre-wrap", className)}
-        viewport={{ once }}
-        aria-label={accessible ? children : undefined}
-        {...props}
-      >
-        {accessible && <span className="sr-only">{children}</span>}
-        {segments.map((segment, i) => (
-          <motion.span
-            key={`${by}-${segment}-${i}`}
-            variants={finalVariants.item}
-            custom={i * staggerTimings[by]}
-            className={cn(
-              by === "line" ? "block" : "inline-block whitespace-pre",
-              by === "character" && "",
-              segmentClassName
-            )}
-            aria-hidden={accessible ? true : undefined}
-          >
-            {segment}
-          </motion.span>
-        ))}
-      </MotionComponent>
-    </AnimatePresence>
+    <MotionComponent
+      variants={finalVariants.container as Variants}
+      initial="hidden"
+      whileInView={startOnView ? "show" : undefined}
+      animate={startOnView ? undefined : "show"}
+      className={cn("whitespace-pre-wrap", className)}
+      viewport={{ once }}
+      aria-label={accessible ? children : undefined}
+      {...props}
+    >
+      {accessible && <span className="sr-only">{children}</span>}
+      {segments.map((segment, i) => (
+        <motion.span
+          key={`${by}-${segment}-${i}`}
+          variants={finalVariants.item}
+          custom={i * staggerTimings[by]}
+          className={cn(
+            by === "line" ? "block" : "inline-block whitespace-pre",
+            by === "character" && "",
+            segmentClassName
+          )}
+          aria-hidden={accessible ? true : undefined}
+        >
+          {segment}
+        </motion.span>
+      ))}
+    </MotionComponent>
   )
 }
 
