@@ -184,19 +184,20 @@ export default function BlogInner() {
                         </TextAnimate>
                     </h1>
 
-                    <div className="flex items-center gap-4 py-6 border-y border-accent-border">
+                    <div className="flex items-start gap-4 py-6 border-y border-accent-border">
                         {post.author?.image?.asset && (
                             <img
                                 src={urlForImage(post.author.image.asset)?.width(100).height(100).url()}
                                 alt={post.author.name}
-                                className="w-12 h-12 rounded-full object-cover"
+                                className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                             />
                         )}
-                        <div>
+                        <div className="min-w-0">
                             <div className="font-sans font-bold text-lg">{post.author?.name || 'SYS.ADMIN'}</div>
-                            <div className="font-mono text-sm text-textMuted uppercase tracking-wider flex items-center gap-2">
-                                <span>{post.author?.role || 'Architect'}</span>
-                                <span>•</span>
+                            <div className="font-mono text-xs text-textMuted uppercase tracking-wider mt-1">
+                                {post.author?.role || 'Architect'}
+                            </div>
+                            <div className="font-mono text-xs text-textMuted uppercase tracking-wider mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
                                 <time>
                                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
                                         month: 'short', day: 'numeric', year: 'numeric'
