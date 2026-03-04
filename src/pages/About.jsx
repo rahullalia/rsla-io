@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { TextAnimate } from '@/components/ui/text-animate';
 import Seo from '../components/Seo';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -73,11 +74,12 @@ export default function About() {
                     ],
                 }}
             />
-            {/* Hero */}
             <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">
                 <div className="about-hero-content max-w-4xl mx-auto text-center">
                     <h1 className="font-drama italic font-normal text-3xl md:text-5xl lg:text-6xl text-text tracking-tight mb-6 leading-snug">
-                        "What a privilege to be tired from work you once begged the universe for..."
+                        <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                            "What a privilege to be tired from work you once begged the universe for..."
+                        </TextAnimate>
                     </h1>
                 </div>
             </section>

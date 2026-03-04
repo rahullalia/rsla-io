@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Seo from '../components/Seo';
 import { ShineBorder } from '../components/ui/shine-border';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 export default function BookCall() {
     useEffect(() => {
@@ -30,7 +31,13 @@ export default function BookCall() {
                 </span>
 
                 <h1 className="text-3xl md:text-5xl font-sans font-bold mb-4 tracking-tight text-text">
-                    Book Your <span className="font-drama italic font-normal">Session.</span>
+                    <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                        Book Your
+                    </TextAnimate>{' '}
+                    <span className="font-drama italic font-normal">
+                        <TextAnimate animation="blurInUp" by="word" delay={0.3} startOnView={false} as="span">
+                            Session.
+                        </TextAnimate></span>
                 </h1>
                 <p className="font-body text-textMuted mb-10 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
                     Pick a time that works for you. Whether it's onboarding, a strategy check-in, or a support call, we'll make sure you're covered.

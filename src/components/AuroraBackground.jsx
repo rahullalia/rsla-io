@@ -4,11 +4,36 @@
  * No Framer Motion. Uses Tailwind animate-aurora keyframe.
  */
 
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cn } from '@/lib/utils';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function AuroraBackground({ children, className, showRadialGradient = true }) {
+    const bgRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.to('.aurora-gradient-layer', {
+                yPercent: 30, // Move down 30% of its height on scroll
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: bgRef.current,
+                    start: 'top top',
+                    end: 'bottom top', // when bottom of viewport hits top of viewport
+                    scrub: true,
+                }
+            });
+        }, bgRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
         <div
+            ref={bgRef}
             className={cn(
                 'relative flex flex-col h-[100dvh] items-center justify-center bg-background text-text transition-colors',
                 className
@@ -17,7 +42,7 @@ export default function AuroraBackground({ children, className, showRadialGradie
             <div className="absolute inset-0 overflow-hidden">
                 <div
                     className={cn(
-                        `[--white-gradient:repeating-linear-gradient(100deg,_#F8FAFC_0%,_#F8FAFC_7%,_transparent_10%,_transparent_12%,_#F8FAFC_16%)]
+                        `aurora-gradient-layer [--white-gradient:repeating-linear-gradient(100deg,_#F8FAFC_0%,_#F8FAFC_7%,_transparent_10%,_transparent_12%,_#F8FAFC_16%)]
                         [--aurora:repeating-linear-gradient(100deg,_#0070F3_10%,_#00C2FF_15%,_#38bdf8_20%,_#93c5fd_25%,_#0070F3_30%)]
                         [background-image:var(--white-gradient),var(--aurora)]
                         [background-size:300%,_200%]
@@ -30,7 +55,7 @@ export default function AuroraBackground({ children, className, showRadialGradie
                         pointer-events-none
                         absolute -inset-[10px] opacity-50 will-change-transform`,
                         showRadialGradient &&
-                            '[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]'
+                        '[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]'
                     )}
                 />
             </div>

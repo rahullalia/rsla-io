@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MagicCard } from './ui/magic-card';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,43 +25,51 @@ const steps = [
 
 export default function HowItWorks() {
     const sectionRef = useRef(null);
+    const scrollContainerRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.fromTo('.hiw-step',
-                { y: 50, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top 70%',
-                        once: true,
-                    }
+            const sections = gsap.utils.toArray('.hiw-card');
+
+            gsap.to(sections, {
+                xPercent: -100 * (sections.length - 1),
+                ease: 'none', // Important for smooth scrolling
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    pin: true,
+                    scrub: 1, // Smooth scrub
+                    snap: 1 / (sections.length - 1), // Optional: snaps to closest step
+                    end: () => "+=" + scrollContainerRef.current.offsetWidth
                 }
-            );
+            });
         }, sectionRef);
         return () => ctx.revert();
     }, []);
 
     return (
-        <section ref={sectionRef} className="w-full bg-sand py-24 md:py-32">
-            <div className="max-w-7xl mx-auto px-6 md:px-12">
-                <div className="text-center mb-16 md:mb-20">
-                    <span className="font-mono text-accent text-xs uppercase tracking-widest font-bold">The Process</span>
-                    <h2 className="font-sans font-bold text-3xl md:text-5xl text-text tracking-tight mt-4">
-                        How it <span className="font-drama italic font-normal">works.</span>
-                    </h2>
-                </div>
+        <section ref={sectionRef} className="w-full h-screen bg-sand flex items-center overflow-hidden relative">
+            {/* Header Content - Fixed inside pinned section */}
+            <div className="absolute top-16 md:top-24 left-6 md:left-12 z-10 w-full mb-8 pointer-events-none">
+                <span className="font-mono text-accent text-xs uppercase tracking-widest font-bold">The Process</span>
+                <h2 className="font-sans font-bold text-3xl md:text-5xl text-text tracking-tight mt-4">
+                    How it <span className="font-drama italic font-normal">works.</span>
+                </h2>
+            </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                    {steps.map((step) => (
-                        <div key={step.num} className="hiw-step text-center md:text-left">
-                            <div className="font-drama italic font-normal text-6xl text-accent mb-4">{step.num}</div>
-                            <h3 className="font-sans font-bold text-xl md:text-2xl text-text mb-3">{step.title}</h3>
-                            <p className="font-body text-textMuted text-sm md:text-base leading-relaxed">{step.desc}</p>
-                        </div>
-                    ))}
-                </div>
+            {/* Scrolling Container */}
+            <div ref={scrollContainerRef} className="flex h-full w-[300vw] items-center pt-24 md:pt-0">
+                {steps.map((step) => (
+                    <div key={step.num} className="hiw-card w-screen h-full flex-shrink-0 flex items-center justify-center p-6 md:p-12">
+                        <MagicCard
+                            className="w-full max-w-lg cursor-pointer flex-col overflow-hidden bg-background shadow-2xl p-8 md:p-12 border-border/50 text-text rounded-2xl"
+                            gradientColor="rgba(0, 112, 243, 0.1)"
+                        >
+                            <div className="font-drama italic font-normal text-6xl text-accent flex-shrink-0 mb-6">{step.num}</div>
+                            <h3 className="font-sans font-bold text-2xl md:text-3xl mb-4">{step.title}</h3>
+                            <p className="font-body text-textMuted text-base md:text-lg leading-relaxed">{step.desc}</p>
+                        </MagicCard>
+                    </div>
+                ))}
             </div>
         </section>
     );

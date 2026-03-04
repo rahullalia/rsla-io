@@ -17,7 +17,7 @@ export default function CtaWithGlow({
     title = 'Ready to put AI to work?',
     subtitle = "Book a free strategy call. No pitch deck, no pressure. Just a conversation about what's possible.",
     buttonText = 'Book a Call',
-    buttonTo = '/book-a-call',
+    buttonTo = '/#contact',
     className,
 }) {
     const sectionRef = useRef(null);

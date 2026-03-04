@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 export default function Privacy() {
     return (
@@ -15,7 +16,9 @@ export default function Privacy() {
                 </Link>
 
                 <h1 className="text-4xl md:text-5xl font-sans font-bold mb-10 tracking-tight text-text">
-                    Privacy Policy
+                    <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                        Privacy Policy
+                    </TextAnimate>
                 </h1>
 
                 <div className="prose-container max-w-none font-mono text-sm md:text-base leading-relaxed text-textMuted">

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
 import { FlickeringGrid } from '../components/ui/flickering-grid';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 const KIT_FORM_ID = import.meta.env.VITE_KIT_FORM_ID;
 const KIT_API_KEY = import.meta.env.VITE_KIT_API_KEY;
@@ -66,9 +67,14 @@ export default function Insider() {
                     The RSL/A Insider
                 </span>
 
-                {/* Headline */}
                 <h1 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-4 leading-tight text-text">
-                    Automate smarter <span className="font-drama italic font-normal">every week.</span>
+                    <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                        Automate smarter
+                    </TextAnimate>{' '}
+                    <span className="font-drama italic font-normal">
+                        <TextAnimate animation="blurInUp" by="word" delay={0.3} startOnView={false} as="span">
+                            every week.
+                        </TextAnimate></span>
                 </h1>
 
                 {/* Subhead */}

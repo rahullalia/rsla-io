@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Seo from '../components/Seo';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,7 +89,13 @@ export default function HowItWorksPage() {
             <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">
                 <div className="hiw-hero-content max-w-4xl mx-auto text-center">
                     <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-text tracking-tight mb-6 leading-tight">
-                        From "I think I need this" to <span className="font-drama italic font-normal">running.</span>
+                        <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                            From "I think I need this" to
+                        </TextAnimate>{' '}
+                        <span className="font-drama italic font-normal">
+                            <TextAnimate animation="blurInUp" by="word" delay={0.6} startOnView={false} as="span">
+                                running.
+                            </TextAnimate></span>
                     </h1>
                     <p className="font-body text-textMuted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                         Here is exactly how it works. No surprises, no scope creep, no six month timelines.

@@ -16,6 +16,7 @@ import {
 import { urlForImage } from '../sanity/lib/image';
 import Seo from '../components/Seo';
 import BlogCardSkeleton from '../components/skeletons/BlogCardSkeleton';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 const POSTS_PER_PAGE = 9;
 
@@ -157,7 +158,14 @@ export default function Blog() {
             <div className="max-w-7xl mx-auto relative z-10">
                 <header className="mb-12 text-center">
                     <h1 className="text-5xl md:text-7xl font-sans font-bold mb-6 tracking-tighter">
-                        The <span className="text-accent italic font-drama pr-2">Archive.</span>
+                        <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                            The
+                        </TextAnimate>{' '}
+                        <span className="text-accent italic font-drama pr-2">
+                            <TextAnimate animation="blurInUp" by="word" delay={0.4} startOnView={false} as="span">
+                                Archive.
+                            </TextAnimate>
+                        </span>
                     </h1>
                     <p className="font-mono text-textMuted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                         Insights on marketing automation, AI systems, local SEO, and strategies to scale your operations without overhead.

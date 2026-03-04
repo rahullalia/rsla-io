@@ -5,6 +5,7 @@ import { caseStudiesQuery } from '../sanity/lib/queries';
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Seo from '../components/Seo';
 import CaseStudyCardSkeleton from '../components/skeletons/CaseStudyCardSkeleton';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 // Reusable inline card component 
 const CaseStudyCard = ({ data }) => (
@@ -95,7 +96,14 @@ export default function Work() {
             {/* Hero Section */}
             <section className="mb-20 text-center max-w-4xl mx-auto relative z-10">
                 <h1 className="text-5xl md:text-7xl font-sans font-bold mb-6 tracking-tighter">
-                    Proven <span className="text-accent italic font-drama">Performance.</span>
+                    <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                        Proven
+                    </TextAnimate>{' '}
+                    <span className="text-accent italic font-drama">
+                        <TextAnimate animation="blurInUp" by="word" delay={0.4} startOnView={false} as="span">
+                            Performance.
+                        </TextAnimate>
+                    </span>
                 </h1>
                 <p className="font-mono text-textMuted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                     We don't sell promises. We sell engineered outcomes. Here is the proof.

@@ -6,6 +6,7 @@ import { caseStudyBySlugQuery, caseStudyBySlugV2Query, relatedCaseStudiesQuery }
 import { urlForImage } from '../sanity/lib/image';
 import { PortableTextComponents } from '../components/blog/PortableTextRenderer';
 import Seo from '../components/Seo';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 // Local CaseStudyCard component
 const CaseStudyCard = ({ slug, tag, title, description, metrics }) => (
@@ -198,7 +199,9 @@ export default function WorkInner() {
                     </div>
 
                     <h1 className="text-4xl md:text-6xl font-sans font-bold leading-tight tracking-tight text-text mb-6">
-                        {caseStudy.title}
+                        <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                            {caseStudy.title}
+                        </TextAnimate>
                     </h1>
                     <p className="text-xl md:text-2xl text-textMuted font-quote italic">
                         {caseStudy.description}

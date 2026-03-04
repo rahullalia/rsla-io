@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
 import confetti from 'canvas-confetti';
 import { FlickeringGrid } from '../components/ui/flickering-grid';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 export default function BookingConfirmed() {
     useEffect(() => {
@@ -91,7 +92,9 @@ export default function BookingConfirmed() {
                 </div>
 
                 <h1 className="font-sans font-bold text-4xl md:text-5xl tracking-tight mb-4 text-text">
-                    You're all set.
+                    <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                        You're all set.
+                    </TextAnimate>
                 </h1>
 
                 <p className="font-body text-lg md:text-xl text-textMuted mb-3">

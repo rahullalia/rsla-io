@@ -105,7 +105,7 @@ export default function NavbarV2() {
 
     const handleCtaClick = () => {
         setMobileOpen(false);
-        if (pagesWithContact.includes(location.pathname)) {
+        if (location.pathname === '/') {
             document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
         } else {
             navigate('/#contact');
@@ -120,9 +120,8 @@ export default function NavbarV2() {
                     {/* Logo — fades out on scroll since it sits outside the pill */}
                     <Link
                         to="/"
-                        className={`shrink-0 transition-all duration-300 ${
-                            scrolled ? 'opacity-0 pointer-events-none -translate-y-1' : 'opacity-100'
-                        }`}
+                        className={`shrink-0 transition-all duration-300 ${scrolled ? 'opacity-0 pointer-events-none -translate-y-1' : 'opacity-100'
+                            }`}
                     >
                         <img
                             src="/images/logo/logomark.svg"
@@ -136,11 +135,10 @@ export default function NavbarV2() {
                     {/* Pill */}
                     <div
                         ref={pillRef}
-                        className={`relative flex items-center gap-1 py-1.5 px-1.5 rounded-full transition-all duration-500 ${
-                            scrolled
+                        className={`relative flex items-center gap-1 py-1.5 px-1.5 rounded-full transition-all duration-500 ${scrolled
                                 ? 'bg-surface/90 border border-accent-border shadow-md shadow-black/5 backdrop-blur-lg'
                                 : 'bg-surface/60 border border-accent-border/50 backdrop-blur-md'
-                        }`}
+                            }`}
                     >
                         {/* Lamp indicator */}
                         <div
@@ -161,11 +159,10 @@ export default function NavbarV2() {
                                 key={item.to}
                                 to={item.to}
                                 ref={(el) => { navRefs.current[i] = el; }}
-                                className={`relative z-10 px-5 py-2 rounded-full font-mono text-sm uppercase tracking-wider transition-colors ${
-                                    activeIndex === i
+                                className={`relative z-10 px-5 py-2 rounded-full font-mono text-sm uppercase tracking-wider transition-colors ${activeIndex === i
                                         ? 'text-accent font-bold'
                                         : 'text-text/60 hover:text-text'
-                                }`}
+                                    }`}
                             >
                                 {item.name}
                             </Link>
@@ -183,9 +180,8 @@ export default function NavbarV2() {
             </nav>
 
             {/* Mobile navbar — top bar */}
-            <nav className={`fixed top-0 left-0 right-0 z-50 md:hidden transition-all duration-300 ${
-                scrolled ? 'bg-surface/95 backdrop-blur-lg shadow-sm' : 'bg-transparent'
-            }`}>
+            <nav className={`fixed top-0 left-0 right-0 z-50 md:hidden transition-all duration-300 ${scrolled ? 'bg-surface/95 backdrop-blur-lg shadow-sm' : 'bg-transparent'
+                }`}>
                 <div className="flex items-center justify-between px-5 py-4">
                     <Link to="/" className="shrink-0 inline-flex items-center min-h-[44px] min-w-[44px] justify-center">
                         <img
@@ -219,11 +215,10 @@ export default function NavbarV2() {
                         <Link
                             key={item.to}
                             to={item.to}
-                            className={`font-sans text-3xl font-bold tracking-tight py-3 transition-colors ${
-                                location.pathname === item.to || (item.to !== '/' && location.pathname.startsWith(item.to))
+                            className={`font-sans text-3xl font-bold tracking-tight py-3 transition-colors ${location.pathname === item.to || (item.to !== '/' && location.pathname.startsWith(item.to))
                                     ? 'text-accent'
                                     : 'text-text/60 hover:text-text'
-                            }`}
+                                }`}
                         >
                             {item.name}
                         </Link>

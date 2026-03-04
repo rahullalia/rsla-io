@@ -16,7 +16,7 @@ const navLinks = [
 ];
 
 const socials = [
-    { label: 'Instagram', href: 'https://www.instagram.com/rahulslalia/' },
+    { label: 'Instagram', href: 'https://www.instagram.com/rahul.lalia/' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/rahullalia/' },
     { label: 'YouTube', href: 'https://www.youtube.com/@rahul_lalia' },
     { label: 'TikTok', href: 'https://www.tiktok.com/@rahul_lalia' },

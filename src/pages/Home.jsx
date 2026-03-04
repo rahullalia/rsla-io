@@ -3,7 +3,9 @@ import Seo from '../components/Seo';
 import HeroV2 from '../components/HeroV2';
 
 // Lazy-load below-fold sections
+const SystemArchitecture = lazy(() => import('../components/SystemArchitecture'));
 const ServicesV2 = lazy(() => import('../components/ServicesV2'));
+const HowItWorks = lazy(() => import('../components/HowItWorks'));
 const StatsSection = lazy(() => import('../components/StatsSection'));
 const ProofSection = lazy(() => import('../components/ProofSection'));
 const Testimonials = lazy(() => import('../components/Testimonials'));
@@ -36,7 +38,7 @@ export default function Home() {
                             jobTitle: 'Founder & CEO',
                         },
                         sameAs: [
-                            'https://www.instagram.com/rahulslalia/',
+                            'https://www.instagram.com/rahul.lalia/',
                             'https://www.linkedin.com/in/rahullalia/',
                             'https://www.youtube.com/@rahul_lalia',
                             'https://www.tiktok.com/@rahul_lalia',
@@ -54,7 +56,9 @@ export default function Home() {
             />
             <HeroV2 />
             <Suspense fallback={null}>
+                <SystemArchitecture />
                 <ServicesV2 />
+                <HowItWorks />
                 <StatsSection />
                 <ProofSection />
                 <Testimonials />

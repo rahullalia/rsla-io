@@ -19,6 +19,19 @@ We systematically audited all inner pages to ensure they matched the new premium
 *   `src/pages/Disclaimer.jsx`
 *   `src/pages/Accessibility.jsx`
 
+Then, in a follow-up phase, we applied the same `TextAnimate` upgrade to the headers of all remaining static inner pages, ensuring 100% consistency across the build:
+*   `src/pages/HowItWorksPage.jsx`
+*   `src/pages/StartHere.jsx`
+*   `src/pages/BookCall.jsx`
+*   `src/pages/BookingConfirmed.jsx`
+*   `src/pages/Rahul.jsx`
+*   `src/pages/Sid.jsx`
+*   `src/pages/Insider.jsx`
+
+Finally, we wrapped the dynamic headings (`{post.title}` and `{caseStudy.title}`) in the CMS templates:
+*   `src/pages/BlogInner.jsx`
+*   `src/pages/WorkInner.jsx`
+
 ## 3. Important Context & Bug Fixes
 *   **Vite HMR/Import Alias Bug:** Initially, adding `TextAnimate` to the inner pages caused a fatal React Error Boundary crash (`Something went wrong. Please refresh the page.`). 
     *   **The Cause:** Using relative imports (`../components/ui/text-animate`) for the component misaligned with how it was imported elsewhere, breaking Vite's HMR cache.

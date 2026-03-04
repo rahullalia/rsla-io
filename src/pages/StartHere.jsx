@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Seo from '../components/Seo';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +35,7 @@ const learnTiers = [
 const socials = [
     { name: 'LinkedIn', url: 'https://linkedin.com/in/rahul_lalia', desc: 'Where most of my thinking happens' },
     { name: 'YouTube', url: 'https://youtube.com/@rahul_lalia', desc: 'Deeper walkthroughs and builds' },
-    { name: 'Instagram', url: 'https://instagram.com/rahul_lalia', desc: 'Behind the scenes' },
+    { name: 'Instagram', url: 'https://www.instagram.com/rahul.lalia', desc: 'Behind the scenes' },
     { name: 'TikTok', url: 'https://tiktok.com/@rahul_lalia', desc: 'Quick takes' },
     { name: 'X', url: 'https://x.com/rahul_lalia', desc: 'Shorter thoughts' },
 ];
@@ -98,7 +99,13 @@ export default function StartHere() {
             <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">
                 <div className="start-hero-content max-w-4xl mx-auto text-center">
                     <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-text tracking-tight mb-6 leading-tight">
-                        New here? Start <span className="font-drama italic font-normal">here.</span>
+                        <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                            New here? Start
+                        </TextAnimate>{' '}
+                        <span className="font-drama italic font-normal">
+                            <TextAnimate animation="blurInUp" by="word" delay={0.4} startOnView={false} as="span">
+                                here.
+                            </TextAnimate></span>
                     </h1>
                     <p className="font-body text-textMuted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                         I am Rahul. I build AI systems for founders. But before you hire anyone (including me), you should understand what AI can actually do for your business. Here is the stuff I would send a friend who asked me "should I be using AI in my business?"

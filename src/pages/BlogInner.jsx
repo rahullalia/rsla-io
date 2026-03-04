@@ -7,6 +7,7 @@ import { urlForImage } from '../sanity/lib/image';
 import { PortableTextComponents, slugify } from '../components/blog/PortableTextRenderer';
 import Seo from '../components/Seo';
 import InlineNewsletterCta from '../components/blog/InlineNewsletterCta';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 export default function BlogInner() {
     const { slug } = useParams();
@@ -178,7 +179,9 @@ export default function BlogInner() {
                 {/* Article Header */}
                 <header className="mb-16">
                     <h1 className="text-4xl md:text-6xl font-sans font-bold leading-tight tracking-tight text-text mb-8">
-                        {post.title}
+                        <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
+                            {post.title}
+                        </TextAnimate>
                     </h1>
 
                     <div className="flex items-center gap-4 py-6 border-y border-accent-border">
