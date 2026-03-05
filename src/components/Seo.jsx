@@ -22,7 +22,7 @@ function setOrCreateLink(rel, href) {
 
 const JSON_LD_ID = 'seo-jsonld';
 
-export default function Seo({ title, description, canonical, noIndex, ogImage, jsonLd, keywords }) {
+export default function Seo({ title, description, canonical, noIndex, ogImage, ogType, jsonLd, keywords }) {
     useEffect(() => {
         // Title
         if (title) {
@@ -49,8 +49,11 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, j
         if (canonical) {
             setOrCreateMeta('property', 'og:url', canonical);
         }
+        setOrCreateMeta('property', 'og:type', ogType || 'website');
         const resolvedOgImage = ogImage || 'https://rsla.io/og-image.png';
         setOrCreateMeta('property', 'og:image', resolvedOgImage);
+        setOrCreateMeta('name', 'twitter:card', 'summary_large_image');
+        setOrCreateMeta('name', 'twitter:site', '@rahul_lalia');
         setOrCreateMeta('name', 'twitter:image', resolvedOgImage);
 
         // Twitter tags
@@ -98,7 +101,7 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, j
             }
             document.querySelectorAll('script[data-seo-jsonld]').forEach(el => el.remove());
         };
-    }, [title, description, canonical, noIndex, ogImage, jsonLd, keywords]);
+    }, [title, description, canonical, noIndex, ogImage, ogType, jsonLd, keywords]);
 
     return null;
 }

@@ -154,6 +154,7 @@ export default function BlogInner() {
                 description={seoDescription}
                 canonical={`https://rsla.io/blog/${slug}`}
                 ogImage={seoImage}
+                ogType="article"
                 keywords={seoKeywords}
                 jsonLd={jsonLdSchemas}
             />

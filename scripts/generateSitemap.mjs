@@ -20,6 +20,7 @@ const staticRoutes = [
   { path: '/services', priority: '0.9' },
   { path: '/how-it-works', priority: '0.8' },
   { path: '/start-here', priority: '0.8' },
+  { path: '/book-a-call', priority: '0.9' },
   { path: '/work', priority: '0.8' },
   { path: '/blog', priority: '0.8' },
 ];
@@ -70,14 +71,14 @@ async function generateSitemap() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
-  .map(
-    ({ loc, lastmod, priority }) => `  <url>
+      .map(
+        ({ loc, lastmod, priority }) => `  <url>
     <loc>${loc}</loc>
     <lastmod>${lastmod}</lastmod>
     <priority>${priority}</priority>
   </url>`
-  )
-  .join('\n')}
+      )
+      .join('\n')}
 </urlset>`;
 
   const outputPath = resolve(__dirname, '../dist/sitemap.xml');

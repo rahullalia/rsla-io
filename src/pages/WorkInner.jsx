@@ -159,6 +159,7 @@ export default function WorkInner() {
                 description={seoDescription}
                 canonical={`https://rsla.io/work/${slug}`}
                 ogImage={seoImage}
+                ogType="article"
                 jsonLd={{
                     '@context': 'https://schema.org',
                     '@type': 'Article',
