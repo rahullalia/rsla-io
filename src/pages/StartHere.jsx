@@ -85,6 +85,7 @@ export default function StartHere() {
             <Seo
                 title="Start Here | RSL/A"
                 description="Ready to put AI to work in your business? Start here. Book a call and see what RSL/A can build for you."
+                keywords="hire AI automation agency, AI for my business, book AI consultation, business automation help"
                 canonical="https://rsla.io/start-here"
                 jsonLd={{
                     '@context': 'https://schema.org',

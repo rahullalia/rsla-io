@@ -52,6 +52,7 @@ export default function About() {
             <Seo
                 title="About | RSL/A"
                 description="Meet Rahul Lalia, founder of RSL/A. Five years in marketing, automation, and business infrastructure, building systems that actually run businesses."
+                keywords="Rahul Lalia, RSL/A founder, AI automation expert, marketing automation consultant, business systems builder"
                 canonical="https://rsla.io/about"
                 jsonLd={{
                     '@context': 'https://schema.org',

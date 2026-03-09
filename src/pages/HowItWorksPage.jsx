@@ -72,6 +72,7 @@ export default function HowItWorksPage() {
             <Seo
                 title="How It Works | RSL/A"
                 description="Our process from first call to live systems. Discovery, strategy, build, and launch in weeks, not months."
+                keywords="AI implementation process, business automation setup, AI system onboarding, marketing automation timeline"
                 canonical="https://rsla.io/how-it-works"
                 jsonLd={{
                     '@context': 'https://schema.org',

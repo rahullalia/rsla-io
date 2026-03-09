@@ -22,6 +22,7 @@ export default function Home() {
             <Seo
                 title="RSL/A | Intelligent Marketing Systems"
                 description="We show founders how to put AI to work, then build it for them. AI lead generation, automations, and smart operations for scaling businesses."
+                keywords="AI for business, AI automation agency, AI lead generation, marketing automation, business automation, AI systems for founders, intelligent marketing"
                 canonical="https://rsla.io"
                 jsonLd={[
                     {

@@ -145,6 +145,7 @@ export default function Blog() {
             <Seo
                 title="Blog | RSL/A"
                 description="Insights on marketing automation, AI systems, local SEO, and business growth strategies from RSL/A."
+                keywords="AI automation blog, marketing automation insights, business AI strategies, AI for small business"
                 canonical="https://rsla.io/blog"
                 jsonLd={{
                     '@context': 'https://schema.org',

@@ -120,6 +120,7 @@ export default function Services() {
             <Seo
                 title="Services | RSL/A"
                 description="AI automation, paid advertising, CRM implementation, and local SEO. Real systems that generate leads, book calls, and run your operations."
+                keywords="AI lead generation, AI automation services, CRM implementation, business operations automation, paid advertising AI, marketing AI systems"
                 canonical="https://rsla.io/services"
                 jsonLd={{
                     '@context': 'https://schema.org',
