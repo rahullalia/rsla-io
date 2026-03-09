@@ -37,9 +37,9 @@ async function generateSitemap() {
     } | order(publishedAt desc)`
   );
 
-  // Fetch all case study slugs (V1 + V2)
+  // Fetch all published V2 case study slugs
   const caseSlugs = await client.fetch(
-    `*[_type in ["caseStudy", "caseStudyV2"] && defined(slug.current)]{
+    `*[_type == "caseStudyV2" && status == "published" && defined(slug.current)]{
       "slug": slug.current,
       publishedAt
     } | order(publishedAt desc)`
