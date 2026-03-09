@@ -553,7 +553,7 @@ async function main() {
       }
     `),
     client.fetch(`
-      *[_type == "caseStudy" && defined(slug.current)] | order(priority asc) {
+      *[_type == "caseStudyV2" && status == "published" && defined(slug.current)] | order(priority asc) {
         title,
         "slug": slug.current,
         tag,
