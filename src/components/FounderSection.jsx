@@ -54,7 +54,7 @@ export default function FounderSection() {
                     </div>
 
                     <div className="founder-text mt-10 border-t border-accent-border pt-8">
-                        <p className="font-drama italic font-normal text-xl text-text mb-1">Rahul Lalia</p>
+                        <p className="font-drama italic font-bold text-xl text-text mb-1">Rahul Lalia</p>
                         <p className="font-mono text-xs uppercase tracking-widest text-textMuted">Founder, RSL/A</p>
                     </div>
 

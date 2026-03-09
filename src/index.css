@@ -191,10 +191,6 @@
   font-display: swap;
 }
 
-/* Case study inner pages: swap Playfair for Cormorant Garamond */
-.case-study-prose .font-drama {
-  font-family: 'Cormorant Garamond', serif;
-}
 
 @layer base {
   body {

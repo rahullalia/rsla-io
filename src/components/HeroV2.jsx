@@ -40,7 +40,7 @@ export default function HeroV2() {
                     >
                         Your business is doing manually what AI could do in
                     </TextAnimate>{' '}
-                    <span className="font-drama italic font-normal text-accent">
+                    <span className="font-drama italic font-bold text-accent">
                         <TextAnimate
                             animation="blurInUp"
                             by="word"

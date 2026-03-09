@@ -66,7 +66,7 @@ export default function SystemArchitecture() {
             <div className="w-full md:w-1/2 p-6 md:p-12 lg:p-24 z-10 text-center md:text-left pt-32 md:pt-0">
                 <span className="font-mono text-accent text-xs uppercase tracking-widest font-bold">The Architecture</span>
                 <h2 className="font-sans font-bold text-3xl md:text-5xl lg:text-6xl text-text tracking-tight mt-4 mb-6">
-                    Constructing the <span className="font-drama italic font-normal text-accent">System.</span>
+                    Constructing the <span className="font-drama italic font-bold text-accent">System.</span>
                 </h2>
                 <p className="font-body text-textMuted text-base md:text-lg max-w-lg mx-auto md:mx-0">
                     A multi-layered ecosystem designed for uncompromising scale, speed, and automation. Assembled layer by layer as you scroll.

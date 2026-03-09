@@ -161,7 +161,7 @@ export default function Blog() {
                         <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                             The
                         </TextAnimate>{' '}
-                        <span className="text-accent italic font-drama pr-2">
+                        <span className="text-accent italic font-bold font-drama pr-2">
                             <TextAnimate animation="blurInUp" by="word" delay={0.4} startOnView={false} as="span">
                                 Archive.
                             </TextAnimate>

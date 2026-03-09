@@ -102,7 +102,7 @@ export default function StartHere() {
                         <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                             New here? Start
                         </TextAnimate>{' '}
-                        <span className="font-drama italic font-normal">
+                        <span className="font-drama italic font-bold text-accent">
                             <TextAnimate animation="blurInUp" by="word" delay={0.4} startOnView={false} as="span">
                                 here.
                             </TextAnimate></span>

@@ -34,7 +34,7 @@ export default function BookCall() {
                     <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                         Book Your
                     </TextAnimate>{' '}
-                    <span className="font-drama italic font-normal">
+                    <span className="font-drama italic font-bold text-accent">
                         <TextAnimate animation="blurInUp" by="word" delay={0.3} startOnView={false} as="span">
                             Session.
                         </TextAnimate></span>

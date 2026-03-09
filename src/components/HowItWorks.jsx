@@ -52,7 +52,7 @@ export default function HowItWorks() {
             <div className="absolute top-16 md:top-24 left-6 md:left-12 z-10 w-full mb-8 pointer-events-none">
                 <span className="font-mono text-accent text-xs uppercase tracking-widest font-bold">The Process</span>
                 <h2 className="font-sans font-bold text-3xl md:text-5xl text-text tracking-tight mt-4">
-                    How it <span className="font-drama italic font-normal">works.</span>
+                    How it <span className="font-drama italic font-bold text-accent">works.</span>
                 </h2>
             </div>
 
@@ -64,7 +64,7 @@ export default function HowItWorks() {
                             className="w-full max-w-lg cursor-pointer flex-col overflow-hidden bg-background shadow-2xl p-8 md:p-12 border-border/50 text-text rounded-2xl"
                             gradientColor="rgba(0, 112, 243, 0.1)"
                         >
-                            <div className="font-drama italic font-normal text-6xl text-accent flex-shrink-0 mb-6">{step.num}</div>
+                            <div className="font-drama italic font-bold text-6xl text-accent flex-shrink-0 mb-6">{step.num}</div>
                             <h3 className="font-sans font-bold text-2xl md:text-3xl mb-4">{step.title}</h3>
                             <p className="font-body text-textMuted text-base md:text-lg leading-relaxed">{step.desc}</p>
                         </MagicCard>

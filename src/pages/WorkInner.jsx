@@ -204,7 +204,7 @@ export default function WorkInner() {
                             {caseStudy.title}
                         </TextAnimate>
                     </h1>
-                    <p className="text-xl md:text-2xl text-textMuted font-quote italic">
+                    <p className="text-xl md:text-2xl text-textMuted font-drama italic font-bold">
                         {caseStudy.description}
                     </p>
                 </header>

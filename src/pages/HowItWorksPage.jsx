@@ -92,7 +92,7 @@ export default function HowItWorksPage() {
                         <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                             From "I think I need this" to
                         </TextAnimate>{' '}
-                        <span className="font-drama italic font-normal">
+                        <span className="font-drama italic font-bold text-accent">
                             <TextAnimate animation="blurInUp" by="word" delay={0.6} startOnView={false} as="span">
                                 running.
                             </TextAnimate></span>
@@ -107,7 +107,7 @@ export default function HowItWorksPage() {
             {steps.map((step, i) => (
                 <section key={step.num} className={`hiw-expanded-step ${i % 2 === 0 ? 'bg-surfaceAlt' : 'bg-surface'} py-20 md:py-28 px-6 md:px-12`}>
                     <div className="max-w-3xl mx-auto">
-                        <div className="hiw-animate font-drama italic font-normal text-6xl md:text-8xl text-accent mb-4">
+                        <div className="hiw-animate font-drama italic font-bold text-6xl md:text-8xl text-accent mb-4">
                             {step.num}
                         </div>
 

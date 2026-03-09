@@ -20,7 +20,7 @@ export default function BookingSection() {
                 <div className="relative z-10">
                     <span className="font-mono text-xs uppercase tracking-wider text-accent">Book a Call</span>
                     <h2 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-3 md:mb-4 mt-3 text-text">
-                        Let's <span className="font-drama italic font-normal">talk.</span>
+                        Let's <span className="font-drama italic font-bold text-accent">talk.</span>
                     </h2>
                     <p className="font-body text-textMuted mb-8 md:mb-10 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
                         Book a free call. We'll look at your business, find the manual work that AI should be handling, and show you exactly what the system looks like. No pitch deck. Just a screen share and honest answers.

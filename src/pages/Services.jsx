@@ -149,7 +149,7 @@ export default function Services() {
                         <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                             Everything we build runs on
                         </TextAnimate>{' '}
-                        <span className="font-drama italic font-normal">
+                        <span className="font-drama italic font-bold text-accent">
                             <TextAnimate animation="blurInUp" by="word" delay={0.6} startOnView={false} as="span">
                                 AI.
                             </TextAnimate>
@@ -170,7 +170,7 @@ export default function Services() {
                         </span>
 
                         <h2 className={`svc-animate font-sans font-bold text-2xl md:text-4xl lg:text-5xl ${service.text} tracking-tight mb-8 leading-tight`}>
-                            {service.title} <span className="font-drama italic font-normal">{service.accent}</span>
+                            {service.title} <span className="font-drama italic font-bold text-accent">{service.accent}</span>
                         </h2>
 
                         <div className={`svc-animate mb-8`}>

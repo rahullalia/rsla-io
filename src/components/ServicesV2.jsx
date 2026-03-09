@@ -93,7 +93,7 @@ export default function ServicesV2() {
                                 </div>
                                 <h3 className="font-sans font-bold text-xl mb-1 text-text">
                                     {s.title}{' '}
-                                    <span className="font-drama italic font-normal">{s.accent}</span>
+                                    <span className="font-drama italic font-bold text-accent">{s.accent}</span>
                                 </h3>
                                 <p className="font-body text-sm leading-relaxed text-textMuted mb-6 flex-1">
                                     {s.body}

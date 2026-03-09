@@ -99,7 +99,7 @@ export default function Work() {
                     <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                         Proven
                     </TextAnimate>{' '}
-                    <span className="text-accent italic font-drama">
+                    <span className="text-accent italic font-bold font-drama">
                         <TextAnimate animation="blurInUp" by="word" delay={0.4} startOnView={false} as="span">
                             Performance.
                         </TextAnimate>
@@ -183,7 +183,7 @@ export default function Work() {
             {/* CTA */}
             <section className="max-w-4xl mx-auto text-center relative z-10 bg-surfaceAlt border border-accent-border rounded-[3rem] p-16 overflow-hidden shadow-sm">
                 <h2 className="text-4xl md:text-5xl font-sans font-bold text-text mb-6">
-                    Let's build something like this <span className="text-accent font-drama italic font-normal">for you.</span>
+                    Let's build something like this <span className="text-accent font-drama italic font-bold">for you.</span>
                 </h2>
                 <p className="font-body text-textMuted mb-10 text-sm md:text-base max-w-xl mx-auto">
                     Tell us what you're working on. We'll show you what's possible.
