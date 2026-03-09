@@ -92,6 +92,15 @@ export default function Work() {
                     url: 'https://rsla.io/work',
                     description: 'Real results from real clients. See how RSL/A uses AI automation, paid ads, and CRM systems to drive measurable growth.',
                     isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: 'https://rsla.io' },
+                    mainEntity: {
+                        '@type': 'ItemList',
+                        itemListElement: caseStudies.map((cs, i) => ({
+                            '@type': 'ListItem',
+                            position: i + 1,
+                            url: `https://rsla.io/work/${cs.slug}`,
+                            name: cs.title,
+                        })),
+                    },
                 }}
             />
             {/* Hero Section */}

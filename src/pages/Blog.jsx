@@ -154,6 +154,15 @@ export default function Blog() {
                     url: 'https://rsla.io/blog',
                     description: 'Insights on marketing automation, AI systems, local SEO, and business growth strategies from RSL/A.',
                     isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: 'https://rsla.io' },
+                    mainEntity: {
+                        '@type': 'ItemList',
+                        itemListElement: posts.map((p, i) => ({
+                            '@type': 'ListItem',
+                            position: i + 1,
+                            url: `https://rsla.io/blog/${p.slug}`,
+                            name: p.title,
+                        })),
+                    },
                 }}
             />
             <div className="max-w-7xl mx-auto relative z-10">
