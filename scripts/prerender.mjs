@@ -40,7 +40,7 @@ function esc(str) {
     .replace(/>/g, '&gt;');
 }
 
-function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage }) {
+function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage, keywords }) {
   let p = tmpl;
 
   p = p.replace(/<title>.*?<\/title>/, `<title>${esc(title)}</title>`);
@@ -48,6 +48,14 @@ function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage }) 
     /<meta name="description" content="[^"]*" \/>/,
     `<meta name="description" content="${esc(description)}" />`
   );
+
+  if (keywords) {
+    if (p.includes('<meta name="keywords"')) {
+      p = p.replace(/<meta name="keywords" content="[^"]*" \/>/, `<meta name="keywords" content="${esc(keywords)}" />`);
+    } else {
+      p = p.replace('</head>', `<meta name="keywords" content="${esc(keywords)}" />\n</head>`);
+    }
+  }
 
   p = p.replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(title)}" />`);
   p = p.replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(description)}" />`);
@@ -102,6 +110,7 @@ function homeContent() {
     title: 'RSL/A | Intelligent Marketing Systems',
     description: 'We show founders how to put AI to work, then build it for them. AI lead generation, automations, and smart operations for scaling businesses.',
     canonical: SITE,
+    keywords: 'AI for business, AI automation agency, AI lead generation, marketing automation, business automation, AI systems for founders, intelligent marketing',
     jsonLd: [
       {
         '@context': 'https://schema.org', '@type': 'Organization',
@@ -118,6 +127,16 @@ function homeContent() {
         ],
       },
       { '@context': 'https://schema.org', '@type': 'WebSite', name: 'RSL/A', alternateName: ['RSLA', 'RSL/A', 'RSL A'], url: SITE },
+      {
+        '@context': 'https://schema.org', '@type': 'FAQPage',
+        mainEntity: [
+          { '@type': 'Question', name: 'What types of businesses do you work with?', acceptedAnswer: { '@type': 'Answer', text: 'We work with service-based businesses, local operators, and B2B companies doing $500K+ in revenue who want to systematize their marketing and operations. If you rely on leads, appointments, or repeat customers to grow, we can help.' } },
+          { '@type': 'Question', name: 'How long does it take to see results?', acceptedAnswer: { '@type': 'Answer', text: 'Most clients see measurable results within 30 to 60 days. Ad campaigns typically start generating leads within the first week. Automation systems go live in 2 to 3 weeks. Full CRM and operations buildouts take 4 to 6 weeks depending on complexity.' } },
+          { '@type': 'Question', name: 'Do you lock clients into long-term contracts?', acceptedAnswer: { '@type': 'Answer', text: 'No. We work on a month-to-month basis after the initial setup period. We believe in earning your business every month. If we are not delivering, you should not be stuck.' } },
+          { '@type': 'Question', name: 'What platforms do you use?', acceptedAnswer: { '@type': 'Answer', text: 'We primarily use GoHighLevel for CRM and automation, Meta and Google for paid ads, and custom AI tools built on OpenAI, Make, and Zapier. We pick the right tool for the job, not the one that pays us the most.' } },
+          { '@type': 'Question', name: 'How is RSL/A different from other marketing agencies?', acceptedAnswer: { '@type': 'Answer', text: 'We do not just run ads. We build the entire system: lead generation, automated follow-up, CRM, booking, and reporting. Most agencies hand you leads and call it a day. We make sure those leads turn into revenue.' } },
+        ],
+      },
     ],
     html: `<main>
 <h1>Your business is doing manually what AI could do in seconds.</h1>
@@ -175,6 +194,7 @@ function aboutContent() {
     title: 'About | RSL/A',
     description: 'Meet Rahul Lalia, founder of RSL/A. Five years in marketing, automation, and business infrastructure, building systems that actually run businesses.',
     canonical: `${SITE}/about`,
+    keywords: 'Rahul Lalia, RSL/A founder, AI automation expert, marketing automation consultant, business systems builder',
     jsonLd: {
       '@context': 'https://schema.org', '@type': 'Person',
       name: 'Rahul Lalia', jobTitle: 'Founder & CEO',
@@ -227,6 +247,7 @@ function servicesContent() {
     title: 'Services | RSL/A',
     description: 'AI automation, paid advertising, CRM implementation, and local SEO. Real systems that generate leads, book calls, and run your operations.',
     canonical: `${SITE}/services`,
+    keywords: 'AI lead generation, AI automation services, CRM implementation, business operations automation, paid advertising AI, marketing AI systems',
     jsonLd: {
       '@context': 'https://schema.org', '@type': 'ProfessionalService',
       name: 'RSL/A', url: `${SITE}/services`,
@@ -304,6 +325,7 @@ function howItWorksContent() {
     title: 'How It Works | RSL/A',
     description: 'Our process from first call to live systems. Discovery, strategy, build, and launch in weeks, not months.',
     canonical: `${SITE}/how-it-works`,
+    keywords: 'AI implementation process, business automation setup, AI system onboarding, marketing automation timeline',
     jsonLd: {
       '@context': 'https://schema.org', '@type': 'HowTo',
       name: 'How RSL/A Works',
@@ -342,6 +364,7 @@ function startHereContent() {
     title: 'Start Here | RSL/A',
     description: 'Ready to put AI to work in your business? Start here. Book a call and see what RSL/A can build for you.',
     canonical: `${SITE}/start-here`,
+    keywords: 'hire AI automation agency, AI for my business, book AI consultation, business automation help',
     jsonLd: {
       '@context': 'https://schema.org', '@type': 'WebPage',
       name: 'Start Here', url: `${SITE}/start-here`,
@@ -398,6 +421,15 @@ function blogListingContent(posts) {
       '@context': 'https://schema.org', '@type': 'CollectionPage',
       name: 'Blog', url: `${SITE}/blog`,
       isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: SITE },
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: posts.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${SITE}/blog/${p.slug}`,
+          name: p.title,
+        })),
+      },
     },
     html: `<main>
 <h1>The Archive</h1>
@@ -426,6 +458,15 @@ function workListingContent(caseStudies) {
       '@context': 'https://schema.org', '@type': 'CollectionPage',
       name: 'Case Studies', url: `${SITE}/work`,
       isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: SITE },
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: caseStudies.map((cs, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${SITE}/work/${cs.slug}`,
+          name: cs.title,
+        })),
+      },
     },
     html: `<main>
 <h1>Proven Performance</h1>
