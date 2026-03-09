@@ -53,6 +53,17 @@ export default function Home() {
                         alternateName: ['RSLA', 'RSL/A', 'RSL A'],
                         url: 'https://rsla.io',
                     },
+                    {
+                        '@context': 'https://schema.org',
+                        '@type': 'FAQPage',
+                        mainEntity: [
+                            { '@type': 'Question', name: 'What types of businesses do you work with?', acceptedAnswer: { '@type': 'Answer', text: 'We work with service-based businesses, local operators, and B2B companies doing $500K+ in revenue who want to systematize their marketing and operations. If you rely on leads, appointments, or repeat customers to grow, we can help.' } },
+                            { '@type': 'Question', name: 'How long does it take to see results?', acceptedAnswer: { '@type': 'Answer', text: 'Most clients see measurable results within 30 to 60 days. Ad campaigns typically start generating leads within the first week. Automation systems go live in 2 to 3 weeks. Full CRM and operations buildouts take 4 to 6 weeks depending on complexity.' } },
+                            { '@type': 'Question', name: 'Do you lock clients into long-term contracts?', acceptedAnswer: { '@type': 'Answer', text: 'No. We work on a month-to-month basis after the initial setup period. We believe in earning your business every month. If we are not delivering, you should not be stuck.' } },
+                            { '@type': 'Question', name: 'What platforms do you use?', acceptedAnswer: { '@type': 'Answer', text: 'We primarily use GoHighLevel for CRM and automation, Meta and Google for paid ads, and custom AI tools built on OpenAI, Make, and Zapier. We pick the right tool for the job, not the one that pays us the most.' } },
+                            { '@type': 'Question', name: 'How is RSL/A different from other marketing agencies?', acceptedAnswer: { '@type': 'Answer', text: 'We do not just run ads. We build the entire system: lead generation, automated follow-up, CRM, booking, and reporting. Most agencies hand you leads and call it a day. We make sure those leads turn into revenue.' } },
+                        ],
+                    },
                 ]}
             />
             <HeroV2 />
