@@ -44,7 +44,12 @@ export default function About() {
             );
         }, pageRef);
 
-        return () => ctx.revert();
+        const raf = requestAnimationFrame(() => ScrollTrigger.refresh());
+
+        return () => {
+            cancelAnimationFrame(raf);
+            ctx.revert();
+        };
     }, []);
 
     return (
