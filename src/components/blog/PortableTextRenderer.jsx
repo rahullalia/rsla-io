@@ -6,8 +6,7 @@ const KIT_FORM_ID = '9130465';
 const KIT_API_KEY = import.meta.env.VITE_KIT_API_KEY;
 
 function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
-    const alreadyUnlocked = typeof window !== 'undefined' && localStorage.getItem('rsla_resource_unlocked');
-    const [status, setStatus] = useState(alreadyUnlocked ? 'unlocked' : 'idle'); // idle | submitting | unlocked | error
+    const [status, setStatus] = useState('idle'); // idle | submitting | unlocked | error
     const [email, setEmail] = useState('');
 
     const triggerDownload = (url) => {
@@ -31,7 +30,6 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
                 body: JSON.stringify({ api_key: KIT_API_KEY, email }),
             });
             if (res.ok) {
-                localStorage.setItem('rsla_resource_unlocked', '1');
                 setStatus('unlocked');
                 triggerDownload(downloadUrl);
             } else {
