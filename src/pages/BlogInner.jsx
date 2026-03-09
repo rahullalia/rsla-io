@@ -52,14 +52,14 @@ export default function BlogInner() {
                         'real-estate': ['Marketing'],
                         'home-services': ['CRM & Operations'],
                         'hvac': ['CRM & Operations'],
-                        'contractors': ['CRM & Operations'],
-                        'small-business': ['Marketing', 'AI Automation'],
-                        'hair-stylists': ['Marketing'],
-                        'ai-lead-generation': ['AI Lead Generation', 'Marketing'],
-                        'ai-automations': ['AI Automations', 'AI Automation'],
-                        'ai-operations': ['AI Operations', 'CRM & Operations'],
-                        'tools-and-tech': ['AI Automation', 'Development'],
-                        'founder-diaries': ['AI Lead Generation', 'Marketing'],
+                        'contractors': ['AI Operations'],
+                        'small-business': ['AI Lead Generation', 'AI Automations'],
+                        'hair-stylists': ['AI Lead Generation'],
+                        'ai-lead-generation': ['AI Lead Generation'],
+                        'ai-automations': ['AI Automations'],
+                        'ai-operations': ['AI Operations'],
+                        'tools-and-tech': ['AI Automations', 'AI Operations'],
+                        'founder-diaries': ['AI Lead Generation'],
                     };
 
                     const categoryNames = [...new Set(categorySlugs.flatMap((s) => BLOG_SLUG_TO_CASE_CATEGORY[s] || []))];

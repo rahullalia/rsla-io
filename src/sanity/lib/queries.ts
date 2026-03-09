@@ -186,7 +186,7 @@ export const caseStudyBySlugQuery = groq`
 
 // Get related case studies by category (fallback when relatedCases is empty)
 export const relatedCaseStudiesQuery = groq`
-  *[_type == "caseStudy" && slug.current != $slug && category == $category] | order(priority asc) [0...3] {
+  *[_type == "caseStudyV2" && slug.current != $slug && category == $category] | order(priority asc) [0...3] {
     title,
     "slug": slug.current,
     tag,
@@ -198,7 +198,7 @@ export const relatedCaseStudiesQuery = groq`
 // Get a related case study for a blog post (match by mapped category names)
 // Pass $categoryNames (array of case study category display names mapped from blog slugs)
 export const relatedCaseStudyForBlogQuery = groq`
-  *[_type == "caseStudy" && category in $categoryNames] | order(featured desc, priority asc) [0] {
+  *[_type == "caseStudyV2" && category in $categoryNames] | order(featured desc, priority asc) [0] {
     title,
     "slug": slug.current,
     tag,
@@ -209,7 +209,7 @@ export const relatedCaseStudyForBlogQuery = groq`
 
 // Fallback: get most recent featured case study (when no category match)
 export const featuredCaseStudyFallbackQuery = groq`
-  *[_type == "caseStudy" && featured == true] | order(priority asc) [0] {
+  *[_type == "caseStudyV2" && featured == true] | order(priority asc) [0] {
     title,
     "slug": slug.current,
     tag,
@@ -519,7 +519,7 @@ export const blogPostsSearchByCategoryCountQuery = groq`
 
 // Get all V2 case studies (ordered by priority)
 export const caseStudiesV2Query = groq`
-  *[_type == "caseStudyV2"] | order(priority asc) {
+  *[_type == "caseStudyV2" && status == "published"] | order(priority asc) {
     title,
     "slug": slug.current,
     tag,

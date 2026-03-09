@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { client } from '../sanity/lib/client';
-import { caseStudiesQuery } from '../sanity/lib/queries';
+import { caseStudiesV2Query } from '../sanity/lib/queries';
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Seo from '../components/Seo';
 import CaseStudyCardSkeleton from '../components/skeletons/CaseStudyCardSkeleton';
@@ -45,7 +45,7 @@ const CaseStudyCard = ({ data }) => (
     </Link>
 );
 
-const categories = ["all", "AI Automation", "Marketing", "CRM & Operations", "Development"];
+const categories = ["all", "AI Automations", "AI Lead Generation", "AI Operations", "AI Digital Presence"];
 
 export default function Work() {
     const [caseStudies, setCaseStudies] = useState([]);
@@ -57,8 +57,8 @@ export default function Work() {
         const fetchWorks = async () => {
             setLoading(true);
             try {
-                const results = await client.fetch(caseStudiesQuery);
-                if (isMounted) setCaseStudies(results);
+                const results = await client.fetch(caseStudiesV2Query);
+                if (isMounted) setCaseStudies(results || []);
             } catch (error) {
                 console.error("Error fetching case studies:", error);
             } finally {
