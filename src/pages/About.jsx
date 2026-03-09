@@ -1,11 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TextAnimate } from '@/components/ui/text-animate';
 import Seo from '../components/Seo';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
     const pageRef = useRef(null);
@@ -20,36 +17,17 @@ export default function About() {
             );
 
             gsap.fromTo('.about-section',
-                { y: 50, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '.about-body',
-                        start: 'top 75%',
-                        once: true,
-                    }
-                }
+                { y: 30, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out', delay: 0.4 }
             );
 
             gsap.fromTo('.words-section blockquote p',
-                { y: 30, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '.words-section',
-                        start: 'top 70%',
-                        once: true,
-                    }
-                }
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out', delay: 0.3 }
             );
         }, pageRef);
 
-        const raf = requestAnimationFrame(() => ScrollTrigger.refresh());
-
-        return () => {
-            cancelAnimationFrame(raf);
-            ctx.revert();
-        };
+        return () => ctx.revert();
     }, []);
 
     return (
