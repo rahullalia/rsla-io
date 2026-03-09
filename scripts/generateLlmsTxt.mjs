@@ -26,7 +26,7 @@ async function generateLlmsTxt() {
   );
 
   const caseStudies = await client.fetch(
-    `*[_type in ["caseStudy", "caseStudyV2"] && defined(slug.current)] | order(priority asc) {
+    `*[_type == "caseStudyV2" && status == "published" && defined(slug.current)] | order(priority asc) {
       title,
       "slug": slug.current,
       description
