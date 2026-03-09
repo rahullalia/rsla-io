@@ -21,7 +21,7 @@ export default function Home() {
         <>
             <Seo
                 title="RSL/A | Intelligent Marketing Systems"
-                description="We architect intelligent marketing systems. Paid Ads, AI Automation, and Smart Infrastructure for scaling businesses."
+                description="We show founders how to put AI to work, then build it for them. AI lead generation, automations, and smart operations for scaling businesses."
                 canonical="https://rsla.io"
                 jsonLd={[
                     {
@@ -31,7 +31,7 @@ export default function Home() {
                         alternateName: ['RSLA', 'RSL/A', 'RSL A', 'RSL/A Agency'],
                         url: 'https://rsla.io',
                         logo: 'https://rsla.io/images/logo/lockup-nobg.webp',
-                        description: 'We architect intelligent marketing systems. Paid Ads, AI Automation, and Smart Infrastructure for scaling businesses.',
+                        description: 'We show founders how to put AI to work, then build it for them. AI lead generation, automations, and smart operations for scaling businesses.',
                         founder: {
                             '@type': 'Person',
                             name: 'Rahul Lalia',
