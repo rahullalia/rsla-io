@@ -15,6 +15,7 @@ const BookingSection = lazy(() => import('../components/BookingSection'));
 const FaqSection = lazy(() => import('../components/FaqSection'));
 const CtaWithGlow = lazy(() => import('../components/CtaWithGlow'));
 const MarqueeV2 = lazy(() => import('../components/MarqueeV2'));
+const LogoMarquee = lazy(() => import('../components/LogoMarquee'));
 
 export default function Home() {
     return (
@@ -68,6 +69,7 @@ export default function Home() {
             />
             <HeroV2 />
             <Suspense fallback={null}>
+                <LogoMarquee />
                 <SystemArchitecture />
                 <ServicesV2 />
                 <HowItWorks />
