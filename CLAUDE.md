@@ -6,7 +6,7 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Aurora background
 
 **Positioning:** "I show founders how to put AI to work, then I build it for them."
 
-**Status:** Live at rsla.io. All TODO items complete (P0 through P4). Only careers page remains (when ready).
+**Status:** Live at rsla.io. All TODO items complete (P0 through P4). Pre-rendered pages for AI tool visibility. Only careers page remains (when ready).
 
 **Deployed:** `rsla.io` via Vercel (auto-deploys from `main` branch)
 **GitHub:** `rahullalia/new-rslaWebsite`
@@ -21,13 +21,15 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Aurora background
 | Framework | React 19 + Vite |
 | Styling | Tailwind CSS v3.4 + shadcn/ui utilities |
 | Animation | GSAP 3 + ScrollTrigger, Motion (for Magic UI components only) |
-| UI Components | Magic UI (MagicCard, TextAnimate, Marquee, NumberTicker, ShineBorder, InteractiveHoverButton) |
+| UI Components | Magic UI (MagicCard, TextAnimate, NumberTicker, ShineBorder, InteractiveHoverButton) |
+| Logo Marquee | Pure CSS (translateX(-50%) + duplicate content, not Magic UI Marquee) |
 | Hero Background | Aurora Background (CSS keyframe, adapted from Aceternity) |
 | CMS | Sanity (Project: `yz25oyux`, Dataset: `production`) |
 | Icons | Lucide React |
 | Rich Text | @portabletext/react |
 | SEO | Custom Seo.jsx component (no dependencies) |
 | Error Monitoring | Sentry (@sentry/react, ErrorBoundary, browser tracing, replay-on-error) |
+| Pre-rendering | Build-time HTML injection (scripts/prerender.mjs + marked) |
 
 ---
 
@@ -83,6 +85,7 @@ api/
   llm/[slug].mjs       # Vercel serverless function: returns markdown for any blog/case study
   lib/portableTextToMarkdown.mjs  # Portable Text to markdown converter
 scripts/
+  prerender.mjs        # Build-time HTML injection for AI tool visibility
   generateSitemap.mjs  # Build-time sitemap generator
   generateRssFeed.mjs  # Build-time RSS feed generator
   generateLlmsTxt.mjs  # Build-time llms.txt generator (AI search index)
@@ -132,9 +135,11 @@ vercel.json            # Vite SPA routing + serverless function config
 - **Studio:** `studio.rsla.io` (repo: `rahullalia/rslaStudio`, path: `~/lalia/1-Projects/rsl-a/rslaStudio/`)
 - **Schemas:** Owned by Studio repo (source of truth). Website repo has no schemas.
 - **Schemas deployed:** blogPost, blogPostV2, caseStudy, caseStudyV2, author, category, blogGenerationJob
-- **All content is V1 types:** 40 blog posts (`blogPost`), 12 case studies (`caseStudy`). V2 types exist but have 0 documents.
+- **Blog content:** 60 published V2 blog posts (`blogPostV2`). V1 blog posts (`blogPost`) are legacy.
+- **Case study content:** 11 published V2 case studies (`caseStudyV2`). V1 case studies (`caseStudy`) are legacy. Website queries V2 only.
+- **V2 case study categories:** "AI Automations", "AI Lead Generation", "AI Operations", "AI Digital Presence"
 - **Legacy project:** `36wenybq` (content migrated to new project, 2026-02-22; old studio at `admin.rsla.io`)
-- **Content:** 40 blog posts, 12 case studies, 17 categories, 1 author (Rahul Lalia), 177 images
+- **Content:** 60 blog posts, 11 case studies, 19 categories, 1 author (Rahul Lalia)
 - **Client config:** projectId/dataset hardcoded in `src/sanity/lib/client.ts` (env vars don't resolve during Vercel build)
 - **Token:** `VITE_SANITY_API_TOKEN` in `.env.local` (only needed for draft content, not CDN reads)
 
@@ -435,8 +440,44 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
   - Mobile bottom padding: `pb-44` (was `pb-24`) to show aurora above headline
   - Desktop unchanged at `pb-32`
 
+### 2026-03-03: Pre-render Pages for AI Tool Visibility
+- Created `scripts/prerender.mjs`: build-time HTML injection into all indexed pages
+  - Reads built `dist/index.html` as template, replaces meta tags + injects semantic HTML into `<div id="root">`
+  - 5 static pages (Home, About, Services, How It Works, Start Here) with hardcoded content from JSX
+  - 2 listing pages (Blog, Work) fetched from Sanity at build time
+  - 42 blog posts + 8 case studies: full body converted via `portableTextToMarkdown` + `marked`
+  - Total: 57 pre-rendered pages
+  - Vercel serves filesystem files before rewrites, so pre-rendered pages get served directly
+  - React `createRoot().render()` replaces injected content when JS loads — no user-visible change
+- Added `marked` v17 as devDependency (Portable Text markdown to HTML conversion)
+- Updated build script: `vite build && node scripts/prerender.mjs && ...` (runs before sitemap/RSS/llms.txt)
+- Updated positioning text across public-facing files:
+  - `index.html`: description, keywords, OG, Twitter tags — "We show founders how to put AI to work"
+  - `generateLlmsTxt.mjs`: intro paragraph updated, removed "GHL implementation agency" language
+- Verified via WebFetch: all pages return full readable content to non-JS clients
+
+### 2026-03-08: V2 Case Studies, Gated Resource Fix, Query Migration
+- **Work page switched to V2 case studies only**: `Work.jsx` now imports `caseStudiesV2Query` instead of `caseStudiesQuery`. Category filters updated to V2 values: "AI Automations", "AI Lead Generation", "AI Operations", "AI Digital Presence"
+- **All case study queries migrated to V2**: `relatedCaseStudiesQuery`, `relatedCaseStudyForBlogQuery`, `featuredCaseStudyFallbackQuery` in `queries.ts` now query `caseStudyV2` instead of `caseStudy`
+- **BlogInner category mapping updated**: `BLOG_SLUG_TO_CASE_CATEGORY` values changed from V1 categories ("Marketing", "CRM & Operations", "AI Automation") to V2 categories
+- **V2 listing query filtered by status**: Added `status == "published"` to `caseStudiesV2Query` so drafts don't appear
+- **Gated resource email gate**: Removed localStorage persistence from `GatedResourceBlock` in `PortableTextRenderer.jsx`. Every download now requires email input, even for returning visitors. No `rsla_resource_unlocked` key in localStorage.
+- **New blueprint downloads added**: `public/downloads/case-studies/ai-content-generator/blueprint.json` and `public/downloads/case-studies/email-autoresponder/blueprint.json`
+- **11 V2 case studies now live on /work page** (was 8 V1 case studies before)
+
+### 2026-03-10: Logo Marquee Safari Fix
+
+- **Replaced Magic UI Marquee with pure CSS marquee** — Magic UI's `justify-around` + 4x repeat caused huge gaps and broken animation on Safari mobile
+- New approach: two copies of content in `w-max` flex track, `translateX(-50%)`, dual rows (14 + 13 logos)
+- Added `marquee-scroll` and `marquee-reverse` keyframes to tailwind.config.js (kept old Magic UI `marquee`/`marquee-vertical` keyframes for other potential uses)
+- **SVG cleanup**: Rebuilt YouTube SVG from scratch (removed Inkscape bloat), added explicit `width`/`height` to ChatGPT, Stripe, Gemini SVGs, converted TikTok SVG from mm to px units
+- **Removed `loading="lazy"`** from marquee logos — second copy starts off-screen, Safari lazy-loading prevented them from rendering, causing visible gaps mid-animation
+- **GPU compositing**: `translate3d` + `will-change: transform` for smooth Safari rendering
+- Wider fade masks (8%/92%) for smoother edge transitions
+- `src/components/ui/marquee.tsx` still exists but is no longer used by LogoMarquee (may be used elsewhere)
+
 ---
 
 ## Last Updated
 
-2026-02-28
+2026-03-10

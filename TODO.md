@@ -37,6 +37,7 @@
 - [~] Pricing page — not needed, custom quotes only
 - [~] FAQ page — not needed, FAQ section lives on homepage
 - [ ] Careers page (when ready)
+- [x] Fix logo marquee Safari mobile overlap (replaced Magic UI Marquee with pure CSS, fixed SVGs, removed lazy loading)
 
 ## P4: Infrastructure (Background) ✓
 
@@ -44,6 +45,8 @@
 - [x] Add error monitoring (Sentry SDK installed, ErrorBoundary in main.jsx, DSN via VITE_SENTRY_DSN env var)
 - [x] Set up uptime monitoring (Vercel Speed Insights, external monitor TBD)
 - [x] Configure Vercel Edge caching headers (immutable 1yr for /assets + /fonts, 30d for images, 7d for OG image)
+- [x] Pre-render all indexed pages for AI tool visibility (57 pages via scripts/prerender.mjs)
+- [x] Update public-facing positioning text (index.html, llms.txt) to current brand message
 
 ---
 
