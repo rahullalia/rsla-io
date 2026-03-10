@@ -46,7 +46,6 @@ function LogoItem({ name, file }) {
                 width="80"
                 height="40"
                 className="h-7 md:h-10 w-auto max-w-[80px] md:max-w-[120px] object-contain opacity-75 hover:opacity-100 transition-opacity duration-200"
-                loading="lazy"
             />
         </div>
     );
@@ -60,7 +59,7 @@ function MarqueeTrack({ logos, reverse = false, duration = '35s' }) {
     return (
         <div className="overflow-hidden">
             <div
-                className={`flex w-max ${reverse ? 'animate-marquee-reverse' : 'animate-marquee-scroll'}`}
+                className={`flex w-max will-change-transform ${reverse ? 'animate-marquee-reverse' : 'animate-marquee-scroll'}`}
                 style={style}
             >
                 {logos.map((logo) => <LogoItem key={`a-${logo.name}`} {...logo} />)}
