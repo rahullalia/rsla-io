@@ -1,18 +1,16 @@
 /**
- * LogoMarquee — "We integrate with" single-row logo strip.
+ * LogoMarquee — "We integrate with" dual-row logo strip.
+ * Pure CSS marquee — no Magic UI. Two copies of content, translateX(-50%).
+ * Row 1 scrolls left, Row 2 scrolls right.
  */
 
-import { Marquee } from '@/components/ui/marquee';
-
-const logos = [
+const row1 = [
     { name: 'Anthropic',     file: 'anthropic.svg'  },
     { name: 'Claude',        file: 'claude.svg'      },
-    { name: 'ChatGPT',       file: 'chatgpt.svg'     },
     { name: 'Make',          file: 'make.png'        },
     { name: 'n8n',           file: 'n8n.svg'         },
     { name: 'Zapier',        file: 'zapier.svg'      },
     { name: 'Notion',        file: 'notion.svg'      },
-    { name: 'Stripe',        file: 'stripe.svg'      },
     { name: 'Vercel',        file: 'vercel.svg'      },
     { name: 'GitHub',        file: 'github.svg'      },
     { name: 'Supabase',      file: 'supabase.svg'    },
@@ -21,6 +19,11 @@ const logos = [
     { name: 'Slack',         file: 'slack.svg'       },
     { name: 'Google Ads',    file: 'googleads.svg'   },
     { name: 'LinkedIn',      file: 'linkedin.svg'    },
+];
+
+const row2 = [
+    { name: 'ChatGPT',       file: 'chatgpt.svg'     },
+    { name: 'Stripe',        file: 'stripe.svg'      },
     { name: 'VS Code',       file: 'vscode.svg'      },
     { name: 'Google Gemini', file: 'gemini.svg'      },
     { name: 'Sanity',        file: 'sanity.svg'      },
@@ -36,13 +39,33 @@ const logos = [
 
 function LogoItem({ name, file }) {
     return (
-        <div className="flex shrink-0 items-center justify-center mx-5 md:mx-8">
+        <div className="shrink-0 flex items-center justify-center px-5 md:px-8">
             <img
                 src={`/images/logos/${file}`}
                 alt={name}
-                className="h-7 md:h-10 w-auto max-w-[80px] md:max-w-[120px] object-contain opacity-75 hover:opacity-100 transition-opacity duration-200"
+                width="80"
+                height="40"
+                className="h-7 md:h-10 w-auto max-w-[80px] md:max-w-[120px] object-contain opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
                 loading="lazy"
             />
+        </div>
+    );
+}
+
+function MarqueeTrack({ logos, reverse = false, duration = '35s' }) {
+    const style = {
+        '--marquee-duration': duration,
+    };
+
+    return (
+        <div className="overflow-hidden">
+            <div
+                className={`flex w-max ${reverse ? 'animate-marquee-reverse' : 'animate-marquee-scroll'}`}
+                style={style}
+            >
+                {logos.map((logo) => <LogoItem key={`a-${logo.name}`} {...logo} />)}
+                {logos.map((logo) => <LogoItem key={`b-${logo.name}`} {...logo} />)}
+            </div>
         </div>
     );
 }
@@ -53,10 +76,9 @@ export default function LogoMarquee() {
             <p className="text-center font-mono text-xs uppercase tracking-widest text-textMuted mb-6 md:mb-8">
                 We integrate with
             </p>
-            <div className="relative [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-                <Marquee pauseOnHover className="[--duration:50s] md:[--duration:65s]">
-                    {logos.map((logo) => <LogoItem key={logo.name} {...logo} />)}
-                </Marquee>
+            <div className="relative flex flex-col gap-5 md:gap-7 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+                <MarqueeTrack logos={row1} duration="30s" />
+                <MarqueeTrack logos={row2} reverse duration="35s" />
             </div>
         </section>
     );

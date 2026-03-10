@@ -12,6 +12,8 @@ export default {
         aurora: "aurora 60s linear infinite",
         marquee: "marquee var(--duration) infinite linear",
         "marquee-vertical": "marquee-vertical var(--duration) infinite linear",
+        "marquee-scroll": "marquee-scroll var(--marquee-duration) linear infinite",
+        "marquee-reverse": "marquee-scroll var(--marquee-duration) linear infinite reverse",
         shine: "shine var(--duration) infinite linear",
       },
       keyframes: {
@@ -30,6 +32,10 @@ export default {
         "marquee-vertical": {
           from: { transform: "translateY(0)" },
           to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
+        "marquee-scroll": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
         shine: {
           "0%": { backgroundPosition: "0% 0%" },
