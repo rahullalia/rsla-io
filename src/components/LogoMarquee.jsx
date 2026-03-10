@@ -44,7 +44,7 @@ function LogoItem({ name, file }) {
             <img
                 src={`/images/logos/${file}`}
                 alt={name}
-                className="h-7 md:h-10 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity duration-200"
+                className="h-7 md:h-10 w-auto max-w-[80px] md:max-w-[120px] object-contain opacity-75 hover:opacity-100 transition-opacity duration-200"
                 loading="lazy"
             />
         </div>
