@@ -1,17 +1,18 @@
 /**
- * LogoMarquee — "We integrate with" dual-row logo strip.
- * Row 1 scrolls left, Row 2 scrolls right. surfaceAlt background.
+ * LogoMarquee — "We integrate with" single-row logo strip.
  */
 
 import { Marquee } from '@/components/ui/marquee';
 
-const row1 = [
+const logos = [
     { name: 'Anthropic',     file: 'anthropic.svg'  },
     { name: 'Claude',        file: 'claude.svg'      },
+    { name: 'ChatGPT',       file: 'chatgpt.svg'     },
     { name: 'Make',          file: 'make.png'        },
     { name: 'n8n',           file: 'n8n.svg'         },
     { name: 'Zapier',        file: 'zapier.svg'      },
     { name: 'Notion',        file: 'notion.svg'      },
+    { name: 'Stripe',        file: 'stripe.svg'      },
     { name: 'Vercel',        file: 'vercel.svg'      },
     { name: 'GitHub',        file: 'github.svg'      },
     { name: 'Supabase',      file: 'supabase.svg'    },
@@ -20,11 +21,6 @@ const row1 = [
     { name: 'Slack',         file: 'slack.svg'       },
     { name: 'Google Ads',    file: 'googleads.svg'   },
     { name: 'LinkedIn',      file: 'linkedin.svg'    },
-];
-
-const row2 = [
-    { name: 'ChatGPT',       file: 'chatgpt.svg'     },
-    { name: 'Stripe',        file: 'stripe.svg'      },
     { name: 'VS Code',       file: 'vscode.svg'      },
     { name: 'Google Gemini', file: 'gemini.svg'      },
     { name: 'Sanity',        file: 'sanity.svg'      },
@@ -57,12 +53,9 @@ export default function LogoMarquee() {
             <p className="text-center font-mono text-xs uppercase tracking-widest text-textMuted mb-6 md:mb-8">
                 We integrate with
             </p>
-            <div className="relative flex flex-col gap-6 md:gap-8 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-                <Marquee pauseOnHover className="[--duration:35s] md:[--duration:45s]">
-                    {row1.map((logo) => <LogoItem key={logo.name} {...logo} />)}
-                </Marquee>
-                <Marquee pauseOnHover reverse className="[--duration:42s] md:[--duration:55s]">
-                    {row2.map((logo) => <LogoItem key={logo.name} {...logo} />)}
+            <div className="relative [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] md:[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+                <Marquee pauseOnHover className="[--duration:50s] md:[--duration:65s]">
+                    {logos.map((logo) => <LogoItem key={logo.name} {...logo} />)}
                 </Marquee>
             </div>
         </section>
