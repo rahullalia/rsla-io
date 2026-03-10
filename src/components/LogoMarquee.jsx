@@ -40,7 +40,7 @@ const row2 = [
 
 function LogoItem({ name, file }) {
     return (
-        <div className="flex items-center justify-center mx-5 md:mx-8">
+        <div className="flex shrink-0 items-center justify-center mx-5 md:mx-8">
             <img
                 src={`/images/logos/${file}`}
                 alt={name}
