@@ -77,7 +77,7 @@ function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage, ke
     p = p.replace('</head>', `${scripts}\n</head>`);
   }
 
-  p = p.replace('<div id="root"></div>', `<div id="root">${html}</div>`);
+  p = p.replace('<div id="root"></div>', `<div id="root"><div id="prerender">${html}</div></div>`);
 
   return p;
 }
