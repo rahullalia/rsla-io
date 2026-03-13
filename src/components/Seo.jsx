@@ -71,7 +71,7 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, o
 
         // Robots
         if (noIndex) {
-            setOrCreateMeta('name', 'robots', 'noindex, nofollow');
+            setOrCreateMeta('name', 'robots', 'noindex, follow');
         } else {
             const robotsMeta = document.querySelector('meta[name="robots"]');
             if (robotsMeta) {

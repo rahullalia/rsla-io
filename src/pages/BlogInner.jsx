@@ -157,6 +157,7 @@ export default function BlogInner() {
                 ogType="article"
                 keywords={seoKeywords}
                 jsonLd={jsonLdSchemas}
+                noIndex={post?.status === 'archived'}
             />
             <div className="max-w-4xl mx-auto relative z-10 block">
 
