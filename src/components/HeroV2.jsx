@@ -55,14 +55,14 @@ export default function HeroV2() {
 
                 {/* CTAs */}
                 <div className="flex flex-wrap gap-3 sm:gap-4">
-                    <a href="#contact" className="hero-cta">
+                    <a href="#contact" className="hero-cta opacity-0">
                         <InteractiveHoverButton className="font-sans font-bold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 rounded-full">
                             Build My System
                         </InteractiveHoverButton>
                     </a>
                     <Link
                         to="/work"
-                        className="hero-cta inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-full font-sans font-bold text-sm sm:text-base text-text border border-accent-border-strong hover:border-accent/30 hover:bg-accent-light transition-all"
+                        className="hero-cta opacity-0 inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-full font-sans font-bold text-sm sm:text-base text-text border border-accent-border-strong hover:border-accent/30 hover:bg-accent-light transition-all"
                     >
                         See What We've Built
                     </Link>
