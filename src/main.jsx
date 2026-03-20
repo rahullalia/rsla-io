@@ -11,18 +11,21 @@ import * as Sentry from '@sentry/react'
 /**
  * ResilientErrorBoundary
  *
- * GSAP ScrollTrigger's `pin: true` rearranges DOM nodes during scroll.
- * When React unmounts a pinned section during route changes,
- * its reconciler can throw: "Failed to execute 'removeChild' on 'Node': 
- * The node to be removed is not a child of this node."
+ * Handles three categories of runtime errors:
  *
- * This error is cosmetic — the user is navigating away anyway.
- * This boundary catches it and auto-recovers instead of showing a crash screen.
+ * 1. DOM desync (GSAP ScrollTrigger pin cleanup during route changes)
+ *    → Auto-recover silently, kill ScrollTriggers
+ *
+ * 2. Chunk loading failures (lazy import network errors after retries exhausted)
+ *    → Force page reload to get fresh chunk references
+ *
+ * 3. Everything else (real application errors)
+ *    → Report to Sentry, show retry UI instead of permanent blank page
  */
 class ResilientErrorBoundary extends Component {
   constructor(props) {
     super(props)
-    this.state = { hasError: false }
+    this.state = { hasError: false, errorType: null }
   }
 
   static getDerivedStateFromError() {
@@ -30,27 +33,48 @@ class ResilientErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
+    const msg = error?.message || ''
+
     const isDomDesync =
-      error?.message?.includes('removeChild') ||
-      error?.message?.includes('insertBefore') ||
-      error?.message?.includes('appendChild')
+      msg.includes('removeChild') ||
+      msg.includes('insertBefore') ||
+      msg.includes('appendChild')
+
+    const isChunkError =
+      msg.includes('Failed to fetch dynamically imported module') ||
+      msg.includes('Loading chunk') ||
+      msg.includes('Loading CSS chunk') ||
+      msg.includes('error loading dynamically imported module') ||
+      error?.name === 'ChunkLoadError'
 
     if (isDomDesync) {
-      // Harmless DOM desync from GSAP pin cleanup — auto-recover
-      console.warn('[ResilientErrorBoundary] Caught DOM desync during transition, auto-recovering.', error.message)
-      // Kill all remaining ScrollTriggers to prevent cascading issues
+      console.warn('[ErrorBoundary] DOM desync during transition, auto-recovering.', msg)
       ScrollTrigger.getAll().forEach(st => st.kill())
-      // Reset state on next tick so the app re-renders cleanly
-      setTimeout(() => this.setState({ hasError: false }), 0)
+      setTimeout(() => this.setState({ hasError: false, errorType: null }), 0)
+    } else if (isChunkError) {
+      console.warn('[ErrorBoundary] Chunk load failure, reloading page.', msg)
+      window.location.reload()
     } else {
-      // A real error — report to Sentry
+      this.setState({ errorType: 'app' })
       Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo?.componentStack } } })
     }
   }
 
   render() {
     if (this.state.hasError) {
-      // Show nothing briefly while auto-recovering (not the crash screen)
+      if (this.state.errorType === 'app') {
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', fontFamily: 'Inter, system-ui, sans-serif', color: '#0F172A', padding: '24px', textAlign: 'center' }}>
+            <p style={{ fontSize: '1.125rem', marginBottom: '16px' }}>Something went wrong loading this page.</p>
+            <button
+              onClick={() => window.location.reload()}
+              style={{ padding: '12px 24px', background: '#0066E0', color: '#fff', border: 'none', borderRadius: '9999px', fontSize: '0.875rem', cursor: 'pointer' }}
+            >
+              Refresh Page
+            </button>
+          </div>
+        )
+      }
       return null
     }
     return this.props.children

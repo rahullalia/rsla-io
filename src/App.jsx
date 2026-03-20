@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import NavbarV2 from './components/NavbarV2';
@@ -8,6 +8,29 @@ import ScrollToTop from './components/ScrollToTop';
 
 // Homepage loads eagerly (critical path)
 import Home from './pages/Home';
+
+// Retry wrapper for lazy imports — retries up to 3 times on network failure
+// (handles flaky mobile connections and post-deploy chunk invalidation)
+function lazyRetry(importFn) {
+  return lazy(() =>
+    new Promise((resolve, reject) => {
+      const attempt = (remaining) => {
+        importFn()
+          .then(resolve)
+          .catch((err) => {
+            if (remaining <= 0) {
+              // After retries exhausted, force reload to get fresh chunk references
+              // (handles deploy-time chunk hash changes)
+              window.location.reload();
+              return;
+            }
+            setTimeout(() => attempt(remaining - 1), 1500);
+          });
+      };
+      attempt(3);
+    })
+  );
+}
 
 // Scroll to top on route change, or to hash anchor if present (e.g. /#contact)
 // Also proactively kills GSAP ScrollTriggers to prevent DOM desync during unmount.
@@ -35,25 +58,34 @@ function useScrollToTop() {
   }, [pathname, hash]);
 }
 
-// Everything else lazy-loaded
-const About = lazy(() => import('./pages/About'));
-const Services = lazy(() => import('./pages/Services'));
-const HowItWorksPage = lazy(() => import('./pages/HowItWorksPage'));
-const StartHere = lazy(() => import('./pages/StartHere'));
-const Work = lazy(() => import('./pages/Work'));
-const WorkInner = lazy(() => import('./pages/WorkInner'));
-const Blog = lazy(() => import('./pages/Blog'));
-const BlogInner = lazy(() => import('./pages/BlogInner'));
-const Privacy = lazy(() => import('./pages/Privacy'));
-const Terms = lazy(() => import('./pages/Terms'));
-const BookCall = lazy(() => import('./pages/BookCall'));
-const BookingConfirmed = lazy(() => import('./pages/BookingConfirmed'));
-const Rahul = lazy(() => import('./pages/Rahul'));
-const Sid = lazy(() => import('./pages/Sid'));
-const Disclaimer = lazy(() => import('./pages/Disclaimer'));
-const Accessibility = lazy(() => import('./pages/Accessibility'));
-const Insider = lazy(() => import('./pages/Insider'));
-const NotFound = lazy(() => import('./pages/NotFound'));
+// Minimal loading indicator shown while lazy chunks download
+function PageLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="w-8 h-8 border-2 border-accent/20 border-t-accent rounded-full animate-spin" />
+    </div>
+  );
+}
+
+// Everything else lazy-loaded with retry
+const About = lazyRetry(() => import('./pages/About'));
+const Services = lazyRetry(() => import('./pages/Services'));
+const HowItWorksPage = lazyRetry(() => import('./pages/HowItWorksPage'));
+const StartHere = lazyRetry(() => import('./pages/StartHere'));
+const Work = lazyRetry(() => import('./pages/Work'));
+const WorkInner = lazyRetry(() => import('./pages/WorkInner'));
+const Blog = lazyRetry(() => import('./pages/Blog'));
+const BlogInner = lazyRetry(() => import('./pages/BlogInner'));
+const Privacy = lazyRetry(() => import('./pages/Privacy'));
+const Terms = lazyRetry(() => import('./pages/Terms'));
+const BookCall = lazyRetry(() => import('./pages/BookCall'));
+const BookingConfirmed = lazyRetry(() => import('./pages/BookingConfirmed'));
+const Rahul = lazyRetry(() => import('./pages/Rahul'));
+const Sid = lazyRetry(() => import('./pages/Sid'));
+const Disclaimer = lazyRetry(() => import('./pages/Disclaimer'));
+const Accessibility = lazyRetry(() => import('./pages/Accessibility'));
+const Insider = lazyRetry(() => import('./pages/Insider'));
+const NotFound = lazyRetry(() => import('./pages/NotFound'));
 
 const chromelessRoutes = ['/rahul', '/sid', '/booking-confirmed'];
 
@@ -64,9 +96,16 @@ function App() {
   const location = useLocation();
   useScrollToTop();
   const hideChrome = chromelessRoutes.includes(location.pathname);
-  const [pageReady, setPageReady] = useState(false);
+  const isInitialLoad = useRef(true);
+  const [pageReady, setPageReady] = useState(true);
 
   useEffect(() => {
+    // Skip fade on initial page load — show content immediately
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
+    }
+    // Fade transition only on client-side navigation
     setPageReady(false);
     const frame = requestAnimationFrame(() => setPageReady(true));
     return () => cancelAnimationFrame(frame);
@@ -77,7 +116,7 @@ function App() {
       {!hideChrome && <NavbarV2 />}
 
       <div className={`transition-opacity duration-300 ease-out ${pageReady ? 'opacity-100' : 'opacity-0'}`}>
-        <Suspense fallback={null}>
+        <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
