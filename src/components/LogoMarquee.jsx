@@ -69,7 +69,7 @@ export default function LogoMarquee() {
     return (
         <section className="w-full bg-surfaceAlt border-y border-accent-border py-8 md:py-10">
             <p className="text-center font-mono text-xs uppercase tracking-widest text-textMuted mb-6 md:mb-8">
-                We integrate with
+                We have worked with
             </p>
             <div className="relative [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
                 <MarqueeTrack logos={logos} duration="45s" />
