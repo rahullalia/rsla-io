@@ -1,6 +1,5 @@
 import { lazy, Suspense, useEffect, useState, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import NavbarV2 from './components/NavbarV2';
 import FooterV2 from './components/FooterV2';
 import CookieConsent, { initConsent } from './components/CookieConsent';
@@ -37,9 +36,11 @@ function lazyRetry(importFn) {
 function useScrollToTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
-    // Kill all active ScrollTriggers BEFORE React unmounts pinned components.
-    // This prevents the "removeChild" DOM desync error.
-    ScrollTrigger.getAll().forEach(st => st.kill());
+    // NOTE: Do NOT kill ScrollTriggers here. Each page component cleans up
+    // its own GSAP context via ctx.revert() in useEffect cleanup. Killing
+    // them here destroys the NEW page's ScrollTriggers (child effects fire
+    // before parent effects). ResilientErrorBoundary handles any remaining
+    // DOM desync from GSAP pins during unmount.
 
     if (hash) {
       const id = hash.replace('#', '');
