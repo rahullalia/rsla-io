@@ -62,7 +62,7 @@ export default function HeroV2() {
                     </a>
                     <Link
                         to="/work"
-                        className="hero-cta opacity-0 inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-full font-sans font-bold text-sm sm:text-base text-text border border-accent-border-strong hover:border-accent/30 hover:bg-accent-light transition-all"
+                        className="hero-cta opacity-0 inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-full font-sans font-bold text-sm sm:text-base text-text border border-accent-border-strong hover:border-accent/30 hover:bg-accent-light transition-colors"
                     >
                         See What We've Built
                     </Link>
