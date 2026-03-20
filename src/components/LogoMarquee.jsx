@@ -1,10 +1,9 @@
 /**
- * LogoMarquee — "We integrate with" dual-row logo strip.
- * Pure CSS marquee — no Magic UI. Two copies of content, translateX(-50%).
- * Row 1 scrolls left, Row 2 scrolls right.
+ * LogoMarquee — "We integrate with" single-row logo strip.
+ * Pure CSS marquee — two copies of content, translateX(-50%), infinite loop.
  */
 
-const row1 = [
+const logos = [
     { name: 'Anthropic',     file: 'anthropic.svg'  },
     { name: 'Claude',        file: 'claude.svg'      },
     { name: 'Make',          file: 'make.png'        },
@@ -19,9 +18,6 @@ const row1 = [
     { name: 'Slack',         file: 'slack.svg'       },
     { name: 'Google Ads',    file: 'googleads.svg'   },
     { name: 'LinkedIn',      file: 'linkedin.svg'    },
-];
-
-const row2 = [
     { name: 'ChatGPT',       file: 'chatgpt.svg'     },
     { name: 'Stripe',        file: 'stripe.svg'      },
     { name: 'VS Code',       file: 'vscode.svg'      },
@@ -75,9 +71,8 @@ export default function LogoMarquee() {
             <p className="text-center font-mono text-xs uppercase tracking-widest text-textMuted mb-6 md:mb-8">
                 We integrate with
             </p>
-            <div className="relative flex flex-col gap-5 md:gap-7 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-                <MarqueeTrack logos={row1} duration="30s" />
-                <MarqueeTrack logos={row2} reverse duration="35s" />
+            <div className="relative [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+                <MarqueeTrack logos={logos} duration="45s" />
             </div>
         </section>
     );
