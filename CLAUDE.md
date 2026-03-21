@@ -537,6 +537,12 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - **Keyword research** — 370+ keywords scraped from Google Autocomplete across 45+ seed phrases. Organized into industry, service, tool, and comparison clusters.
 - **Google Search Console** — user submitted sitemap and requested indexing for /ai-for/real-estate.
 
+### 2026-03-21: White Screen Fix (requestIdleCallback + Build Resilience)
+- **Root cause:** `requestIdleCallback` is undefined in Chrome on iOS (CriOS uses WebKit). The bare call in `main.jsx` line 10 (Sentry deferred init) threw a ReferenceError before `createRoot().render()`, causing a permanent white screen on all iOS Chrome users.
+- **Fix:** Added fallback in `main.jsx`: `const ric = typeof requestIdleCallback === 'function' ? requestIdleCallback : (cb) => setTimeout(cb, 1)` — uses `setTimeout` when `requestIdleCallback` is unavailable.
+- **Build resilience:** Made all 4 post-build scripts (`prerender.mjs`, `generateSitemap.mjs`, `generateRssFeed.mjs`, `generateLlmsTxt.mjs`) non-fatal. Previously, any Sanity API timeout during build caused `process.exit(1)`, killing the entire Vercel deployment. Now they log a warning and continue — the SPA works without pre-rendered HTML.
+- **Diagnostic technique:** Added temporary inline error capture script to `index.html` (global `window.onerror` + `unhandledrejection` listeners) that displayed actual JS errors when React failed to mount. Removed after root cause identified.
+
 ---
 
 ## Last Updated
