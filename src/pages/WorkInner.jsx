@@ -205,7 +205,7 @@ export default function WorkInner() {
                             {caseStudy.title}
                         </TextAnimate>
                     </h1>
-                    <p className="text-xl md:text-2xl text-textMuted font-drama italic font-normal mb-6">
+                    <p className="text-xl md:text-2xl text-textMuted font-sans font-medium mb-6">
                         {caseStudy.description}
                     </p>
                     <ShareBar title={caseStudy.title} url={`https://rsla.io/work/${slug}`} />

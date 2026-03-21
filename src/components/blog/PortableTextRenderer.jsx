@@ -296,8 +296,8 @@ export const PortableTextComponents = {
 
             return (
                 <div className="my-12 p-8 rounded-[1.5rem] bg-surfaceAlt border border-accent-border relative">
-                    <span className="text-6xl text-accent/20 font-drama absolute top-4 left-6 leading-none">"</span>
-                    <blockquote className="text-xl md:text-2xl text-textMuted font-drama italic leading-relaxed pl-8 pt-4">
+                    <span className="text-6xl text-accent/20 font-sans absolute top-4 left-6 leading-none">"</span>
+                    <blockquote className="text-xl md:text-2xl text-textMuted font-sans italic leading-relaxed pl-8 pt-4">
                         {quote}
                     </blockquote>
                     {(author || role) && (
@@ -373,7 +373,7 @@ export const PortableTextComponents = {
         h4: ({ children }) => <h4 className="text-base md:text-lg text-text mt-8 mb-3 font-sans font-medium">{children}</h4>,
         normal: ({ children }) => <p className="text-base md:text-lg leading-relaxed text-textMuted mb-6 font-body">{children}</p>,
         blockquote: ({ children }) => (
-            <blockquote className="border-l-2 border-accent pl-6 my-10 italic text-xl text-textMuted font-drama leading-relaxed">
+            <blockquote className="border-l-2 border-accent pl-6 my-10 italic text-xl text-textMuted font-sans leading-relaxed">
                 {children}
             </blockquote>
         ),

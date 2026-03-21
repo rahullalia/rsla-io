@@ -236,7 +236,7 @@ export default function BlogInner() {
 
                 {/* Pull Quote (V2) */}
                 {post.pullQuote && (
-                    <blockquote className="border-l-4 border-accent pl-8 my-12 italic text-2xl md:text-3xl text-textMuted font-drama leading-relaxed">
+                    <blockquote className="border-l-4 border-accent pl-8 my-12 italic text-2xl md:text-3xl text-textMuted font-sans leading-relaxed">
                         {post.pullQuote}
                     </blockquote>
                 )}
