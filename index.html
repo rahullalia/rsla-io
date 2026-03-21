@@ -42,31 +42,37 @@
 
   <div id="root"></div>
   <noscript><p style="text-align:center;padding:40px;font-family:system-ui">JavaScript is required to load this site.</p></noscript>
+  <!-- Catch JS errors before React mounts -->
+  <script>
+    window.__errors = [];
+    window.addEventListener('error', function(e) {
+      window.__errors.push('ERROR: ' + (e.message || '') + ' at ' + (e.filename || '').split('/').pop() + ':' + e.lineno);
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+      window.__errors.push('REJECT: ' + (e.reason && (e.reason.message || e.reason)));
+    });
+  </script>
   <script>document.getElementById('prerender')?.remove()</script>
   <script type="module" src="/src/main.jsx"></script>
-  <!-- Diagnostic: show message if React fails to mount within 8 seconds -->
+  <!-- Diagnostic: show errors if React fails to mount within 6 seconds -->
   <script>
     setTimeout(function() {
       var root = document.getElementById('root');
       if (root && root.children.length === 0) {
+        var errors = window.__errors || [];
         root.innerHTML = '<div style="text-align:center;padding:60px 24px;font-family:system-ui;color:#0F172A">'
           + '<h1 style="font-size:24px;margin-bottom:16px">RSL/A</h1>'
           + '<p style="margin-bottom:12px">The app failed to load.</p>'
-          + '<p style="font-size:14px;color:#64748B;margin-bottom:24px" id="diag-info">Checking...</p>'
+          + '<pre style="text-align:left;font-size:11px;color:#dc2626;background:#fef2f2;padding:16px;border-radius:12px;overflow-x:auto;max-width:100%;white-space:pre-wrap;word-break:break-all;margin-bottom:16px" id="diag-errors">'
+          + (errors.length ? errors.join('\n') : 'No errors captured')
+          + '</pre>'
+          + '<p style="font-size:12px;color:#64748B;margin-bottom:24px" id="diag-info"></p>'
           + '<button onclick="location.reload()" style="padding:12px 24px;background:#0066E0;color:#fff;border:none;border-radius:9999px;font-size:14px;cursor:pointer">Reload Page</button>'
           + '</div>';
-        // Log diagnostic info
-        var info = [];
-        info.push('URL: ' + location.href);
-        info.push('UA: ' + navigator.userAgent.slice(0, 80));
-        var scripts = document.querySelectorAll('script[src]');
-        for (var i = 0; i < scripts.length; i++) {
-          info.push('Script: ' + scripts[i].src.split('/').pop());
-        }
         var diagEl = document.getElementById('diag-info');
-        if (diagEl) diagEl.textContent = info.join(' | ');
+        if (diagEl) diagEl.textContent = navigator.userAgent.slice(0, 120);
       }
-    }, 8000);
+    }, 6000);
   </script>
 </body>
 
