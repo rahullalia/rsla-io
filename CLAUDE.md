@@ -504,6 +504,11 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - **Sentry SDK deferred** — moved from synchronous import in main.jsx to `requestIdleCallback` + dynamic `import('./sentry')`. Error boundary also uses dynamic import. Sentry no longer blocks first paint.
 - **Code splitting improved** — added `sentry` to manualChunks in vite.config.js. Main bundle dropped from 562KB → 310KB (45% smaller). Sentry (435KB) now in separate lazy-loaded chunk. Total dist: 7.1MB → 5.0MB.
 - **Total savings**: ~1.8MB font weight, ~2.5MB deleted dead images, ~480KB logo optimization, 252KB off critical-path JS, ~30-50 fewer HTTP requests from deferred GHL iframe.
+- **Share bar added** to BlogInner and WorkInner — LinkedIn, X, Email, Copy Link buttons. Blog: right-aligned in author row (desktop), below on mobile. Case study: below description in header.
+- **OG image replaced** — RSL/A lockup SVG centered on #0a0a0a black, 92% fill, 1200x630, 15KB (was 140KB). Source: `rsla-lockup.svg`.
+- **Decorative font swapped on blog/case study pages** — `font-drama` (Playfair Display) replaced with `font-sans` (Satoshi) for pull quotes, blockquotes, testimonials, and case study descriptions. Rest of site keeps Playfair for accent words.
+- **npm audit fix** — patched flatted (prototype pollution) and minimatch (ReDoS), 0 vulnerabilities.
+- **IndustryPage route staged** — `/ai-for/:slug` route added to App.jsx, IndustryPage.jsx component (WIP, not yet content-populated).
 
 ---
 

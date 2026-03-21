@@ -37,7 +37,10 @@
 - [~] Pricing page — not needed, custom quotes only
 - [~] FAQ page — not needed, FAQ section lives on homepage
 - [ ] Careers page (when ready)
+- [ ] Industry pages — route `/ai-for/:slug` wired, `IndustryPage.jsx` created (WIP, needs content + Sanity schema)
 - [x] Fix logo marquee Safari mobile overlap (replaced Magic UI Marquee with pure CSS, fixed SVGs, removed lazy loading)
+- [x] Share bar on blog posts and case studies (LinkedIn, X, Email, Copy Link)
+- [x] OG image — RSL/A lockup on black, 92% fill, 15KB
 
 ## P4: Infrastructure (Background) ✓
 
@@ -48,6 +51,8 @@
 - [x] Pre-render all indexed pages for AI tool visibility (57 pages via scripts/prerender.mjs)
 - [x] Update public-facing positioning text (index.html, llms.txt) to current brand message
 - [x] Fix pre-rendered HTML flash (FOUC) — inline script removes #prerender div before first paint
+- [x] Performance pass: WOFF2 fonts, WebP images, split Suspense, deferred Sentry, dist 7.1MB → 5.0MB
+- [x] npm audit: 0 vulnerabilities
 
 ---
 
