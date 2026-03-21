@@ -570,6 +570,75 @@ ${takeawaysHtml ? `<section><h2>Key Takeaways</h2><ol>${takeawaysHtml}</ol></sec
   };
 }
 
+// ── Industry Pages (pSEO) ─────────────────────────────────────────────────────
+
+function industryPageContent(ip) {
+  const title = ip.seoTitle || `AI Automation for ${ip.industry} | RSL/A`;
+  const description = ip.seoDescription || `AI automation systems built for ${ip.industry.toLowerCase()}.`;
+  const canonical = `${SITE}/ai-for/${ip.slug}`;
+
+  const statsHtml = (ip.costStats || []).map(s =>
+    `<li><strong>${esc(s.value)}</strong> ${esc(s.label)}</li>`
+  ).join('');
+
+  const transformHtml = (ip.transformations || []).map(t =>
+    `<tr><td>${esc(t.before)}</td><td>${esc(t.after)}</td></tr>`
+  ).join('');
+
+  const faqHtml = (ip.faq || []).map(f =>
+    `<dt>${esc(f.question)}</dt><dd>${esc(f.answer)}</dd>`
+  ).join('');
+
+  const jsonLd = [{
+    '@context': 'https://schema.org', '@type': 'Service',
+    name: `AI Automation for ${ip.industry}`,
+    description,
+    provider: { '@type': 'Organization', name: 'RSL/A', url: SITE },
+    serviceType: 'AI Automation',
+  }];
+
+  if (ip.faq?.length) {
+    jsonLd.push({
+      '@context': 'https://schema.org', '@type': 'FAQPage',
+      mainEntity: ip.faq.map(f => ({
+        '@type': 'Question', name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    });
+  }
+
+  return {
+    route: `/ai-for/${ip.slug}`,
+    title,
+    description,
+    canonical,
+    keywords: ip.seoKeywords,
+    jsonLd,
+    html: `<main>
+<h1>${esc(ip.heroQuestion)}</h1>
+<p>${esc(ip.heroSubtitle)}</p>
+
+${ip.costHeadline ? `<section><h2>${esc(ip.costHeadline)}</h2>
+${statsHtml ? `<ul>${statsHtml}</ul>` : ''}
+${ip.painParagraph ? `<p>${esc(ip.painParagraph)}</p>` : ''}
+</section>` : ''}
+
+${transformHtml ? `<section><h2>${esc(ip.solutionHeadline || 'What changes when AI handles your follow up')}</h2>
+<table><thead><tr><th>Before</th><th>After</th></tr></thead><tbody>${transformHtml}</tbody></table>
+</section>` : ''}
+
+${ip.proofNumber ? `<section><h2>${esc(ip.proofNumber)} ${esc(ip.proofLine || '')}</h2>
+${ip.proofTimeframe ? `<p>${esc(ip.proofTimeframe)}</p>` : ''}
+${ip.proofDetail ? `<p>${esc(ip.proofDetail)}</p>` : ''}
+</section>` : ''}
+
+${faqHtml ? `<section><h2>Frequently Asked Questions</h2><dl>${faqHtml}</dl></section>` : ''}
+
+<p><a href="/book-a-call">Book a Free Call</a></p>
+</main>`,
+  };
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -578,7 +647,7 @@ async function main() {
   const template = readFileSync(resolve(DIST, 'index.html'), 'utf-8');
 
   // Fetch all dynamic content from Sanity
-  const [blogPosts, caseStudies] = await Promise.all([
+  const [blogPosts, caseStudies, industryPages] = await Promise.all([
     client.fetch(`
       *[_type == "blogPostV2" && status == "published" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) {
         title,
@@ -615,6 +684,27 @@ async function main() {
         featuredImage { asset-> },
         seo { metaTitle, metaDescription, keywords, socialImage { asset-> } },
         faqSchema
+      }
+    `),
+    client.fetch(`
+      *[_type == "industryPage" && status == "published" && defined(slug.current)] | order(industry asc) {
+        industry,
+        "slug": slug.current,
+        heroQuestion,
+        heroSubtitle,
+        costHeadline,
+        costStats,
+        painParagraph,
+        solutionHeadline,
+        transformations,
+        proofNumber,
+        proofLine,
+        proofTimeframe,
+        proofDetail,
+        faq,
+        seoTitle,
+        seoDescription,
+        seoKeywords
       }
     `),
   ]);
@@ -657,7 +747,14 @@ async function main() {
     count++;
   }
 
-  console.log(`Pre-rendered ${count} pages (${staticPages.length} static, 2 listings, ${blogPosts.length} blog posts, ${caseStudies.length} case studies)`);
+  // Individual industry pages (pSEO)
+  for (const ip of industryPages) {
+    const page = industryPageContent(ip);
+    writePage(page.route, inject(template, page));
+    count++;
+  }
+
+  console.log(`Pre-rendered ${count} pages (${staticPages.length} static, 2 listings, ${blogPosts.length} blog posts, ${caseStudies.length} case studies, ${industryPages.length} industry pages)`);
 }
 
 main().catch((err) => {
