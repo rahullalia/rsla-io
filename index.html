@@ -41,8 +41,33 @@
   <div class="noise-overlay"></div>
 
   <div id="root"></div>
+  <noscript><p style="text-align:center;padding:40px;font-family:system-ui">JavaScript is required to load this site.</p></noscript>
   <script>document.getElementById('prerender')?.remove()</script>
   <script type="module" src="/src/main.jsx"></script>
+  <!-- Diagnostic: show message if React fails to mount within 8 seconds -->
+  <script>
+    setTimeout(function() {
+      var root = document.getElementById('root');
+      if (root && root.children.length === 0) {
+        root.innerHTML = '<div style="text-align:center;padding:60px 24px;font-family:system-ui;color:#0F172A">'
+          + '<h1 style="font-size:24px;margin-bottom:16px">RSL/A</h1>'
+          + '<p style="margin-bottom:12px">The app failed to load.</p>'
+          + '<p style="font-size:14px;color:#64748B;margin-bottom:24px" id="diag-info">Checking...</p>'
+          + '<button onclick="location.reload()" style="padding:12px 24px;background:#0066E0;color:#fff;border:none;border-radius:9999px;font-size:14px;cursor:pointer">Reload Page</button>'
+          + '</div>';
+        // Log diagnostic info
+        var info = [];
+        info.push('URL: ' + location.href);
+        info.push('UA: ' + navigator.userAgent.slice(0, 80));
+        var scripts = document.querySelectorAll('script[src]');
+        for (var i = 0; i < scripts.length; i++) {
+          info.push('Script: ' + scripts[i].src.split('/').pop());
+        }
+        var diagEl = document.getElementById('diag-info');
+        if (diagEl) diagEl.textContent = info.join(' | ');
+      }
+    }, 8000);
+  </script>
 </body>
 
 </html>
