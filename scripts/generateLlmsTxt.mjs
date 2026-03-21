@@ -84,6 +84,5 @@ async function generateLlmsTxt() {
 }
 
 generateLlmsTxt().catch((err) => {
-  console.error('Failed to generate llms.txt:', err);
-  process.exit(1);
+  console.warn('llms.txt generation skipped (non-fatal):', err.message || err);
 });

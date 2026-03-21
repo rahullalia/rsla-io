@@ -758,6 +758,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('Pre-render failed:', err);
-  process.exit(1);
+  console.warn('Pre-render skipped (non-fatal):', err.message || err);
+  console.warn('Site will work as a normal SPA without pre-rendered HTML.');
 });

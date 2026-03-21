@@ -79,6 +79,5 @@ ${items.join('\n')}
 }
 
 generateRssFeed().catch((err) => {
-  console.error('Failed to generate RSS feed:', err);
-  process.exit(1);
+  console.warn('RSS feed generation skipped (non-fatal):', err.message || err);
 });

@@ -87,6 +87,5 @@ ${urls
 }
 
 generateSitemap().catch((err) => {
-  console.error('Failed to generate sitemap:', err);
-  process.exit(1);
+  console.warn('Sitemap generation skipped (non-fatal):', err.message || err);
 });
