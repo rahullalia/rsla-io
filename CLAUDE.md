@@ -510,8 +510,35 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - **npm audit fix** — patched flatted (prototype pollution) and minimatch (ReDoS), 0 vulnerabilities.
 - **IndustryPage route staged** — `/ai-for/:slug` route added to App.jsx, IndustryPage.jsx component (WIP, not yet content-populated).
 
+### 2026-03-20: Bug Fixes (Page Loading, ScrollTrigger, Hero CTA)
+
+- **Fixed blank page on first visit** — lazy chunk import failures caused permanent blank pages. Added `lazyRetry()` wrapper (3 retries, 1.5s backoff, then page reload). Added `<PageLoader />` spinner as Suspense fallback. Fixed `pageReady` opacity transition to start `true` on initial load (was `false`, causing invisible content).
+- **Fixed invisible page content (ScrollTrigger kill bug)** — `useScrollToTop` in App.jsx killed ALL ScrollTriggers on route change, including the NEW page's triggers (child effects fire before parent). Removed the blanket kill. Each page cleans up its own GSAP context via `ctx.revert()`. ResilientErrorBoundary catches remaining DOM desync.
+- **Fixed error boundary** — now handles 3 error types: DOM desync (auto-recover), chunk load errors (auto-reload), app errors (retry button instead of permanent blank page).
+- **Fixed hero CTA button flash** — buttons rendered at full opacity before GSAP `useEffect` set them to `opacity:0`. Added `opacity-0` CSS class so they start hidden before first paint.
+- **Fixed hero secondary CTA stuck animation** — `transition-all` on "See What We've Built" button fought with GSAP opacity animation. Changed to `transition-colors`.
+
+### 2026-03-20: Logo Marquee Updates
+
+- **Merged to single row** — was two rows (row1 left, row2 right). Second row had visible gap on right side. Now one continuous row, 27 logos, 45s duration.
+- **Heading changed** — "We integrate with" → "We have worked with"
+- **Logo order optimized** — lesser-known logos first (positions 1-6), high-profile logos (Anthropic, Claude, Meta, ChatGPT, Stripe, Gemini, Antigravity, GitHub) land in viewport when user scrolls to section (~positions 7-14).
+
+### 2026-03-20: Programmatic SEO (pSEO) — Full Pipeline
+
+- **Sanity schema created** — `industryPage` document type in rslaStudio with 6 field groups: Hero, Pain & Stats, Before/After, Proof (optional), FAQ, SEO. Deployed to Sanity cloud, added to Studio desk structure.
+- **8 industry pages live** — real-estate, healthcare, accounting, contractors, ecommerce, restaurants, dental, insurance. Each with researched industry stats (MIT, WAV Group, NAR, BLS, etc.), written in Rahul's voice (voiceDna.md), unique pain points and before/after transformations.
+- **Template design** — Hormozi/Acquisition.com inspired: dark hero, question headlines, font-extrabold (800 weight), font-light (300) body, before/after comparisons, big proof stat, objection-handling FAQ, mid-page CTA. No booking embed on industry pages (links to /book-a-call instead).
+- **Sanity integration** — IndustryPage.jsx fetches from Sanity via `industryPageBySlugQuery`. Proof section and case study link are optional (only render when data exists).
+- **Pre-rendering** — `prerender.mjs` updated to fetch and pre-render all published industryPage documents. 53 total pre-rendered pages (was 45).
+- **GROQ queries added** — `industryPageBySlugQuery` and `industryPagesQuery` in queries.ts.
+- **Services page grid** — "Industries We Serve" section added to bottom of /services. Fetches from Sanity, auto-grows as new pages are published. 2-col mobile, 3-col tablet, 4-col desktop.
+- **Case studies linked** — Real estate → salon-marketing-automation-roi ($600→$36K), Contractors → field-service-operations-automation (Housecall Pro), Restaurants → local-seo-reputation-management (14→132 reviews). Healthcare, accounting, dental, insurance, e-commerce have no proof sections.
+- **Keyword research** — 370+ keywords scraped from Google Autocomplete across 45+ seed phrases. Organized into industry, service, tool, and comparison clusters.
+- **Google Search Console** — user submitted sitemap and requested indexing for /ai-for/real-estate.
+
 ---
 
 ## Last Updated
 
-2026-03-20
+2026-03-21
