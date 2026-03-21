@@ -8,6 +8,7 @@ import { PortableTextComponents, slugify } from '../components/blog/PortableText
 import Seo from '../components/Seo';
 import InlineNewsletterCta from '../components/blog/InlineNewsletterCta';
 import { TextAnimate } from '@/components/ui/text-animate';
+import ShareBar from '../components/ShareBar';
 
 export default function BlogInner() {
     const { slug } = useParams();
@@ -186,41 +187,50 @@ export default function BlogInner() {
                         </TextAnimate>
                     </h1>
 
-                    <div className="flex items-start gap-4 py-6 border-y border-accent-border">
-                        {post.author?.image?.asset && (
-                            <img
-                                src={urlForImage(post.author.image.asset)?.width(100).height(100).url()}
-                                alt={post.author.name}
-                                className="w-12 h-12 rounded-full object-cover flex-shrink-0"
-                            />
-                        )}
-                        <div className="min-w-0">
-                            <div className="font-sans font-bold text-lg">{post.author?.name || 'SYS.ADMIN'}</div>
-                            <div className="font-mono text-xs text-textMuted uppercase tracking-wider mt-1">
-                                {post.author?.role || 'Architect'}
-                            </div>
-                            <div className="font-mono text-xs text-textMuted uppercase tracking-wider mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
-                                <time>
-                                    {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                                        month: 'short', day: 'numeric', year: 'numeric'
-                                    })}
-                                </time>
-                                {post.readingTime && (
-                                    <>
-                                        <span>•</span>
-                                        <span>{post.readingTime} min read</span>
-                                    </>
-                                )}
-                                {post.updatedAt && (
-                                    <>
-                                        <span>•</span>
-                                        <span>Updated {new Date(post.updatedAt).toLocaleDateString('en-US', {
+                    <div className="flex items-start justify-between gap-4 py-6 border-y border-accent-border">
+                        <div className="flex items-start gap-4">
+                            {post.author?.image?.asset && (
+                                <img
+                                    src={urlForImage(post.author.image.asset)?.width(100).height(100).url()}
+                                    alt={post.author.name}
+                                    className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                                />
+                            )}
+                            <div className="min-w-0">
+                                <div className="font-sans font-bold text-lg">{post.author?.name || 'SYS.ADMIN'}</div>
+                                <div className="font-mono text-xs text-textMuted uppercase tracking-wider mt-1">
+                                    {post.author?.role || 'Architect'}
+                                </div>
+                                <div className="font-mono text-xs text-textMuted uppercase tracking-wider mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+                                    <time>
+                                        {new Date(post.publishedAt).toLocaleDateString('en-US', {
                                             month: 'short', day: 'numeric', year: 'numeric'
-                                        })}</span>
-                                    </>
-                                )}
+                                        })}
+                                    </time>
+                                    {post.readingTime && (
+                                        <>
+                                            <span>•</span>
+                                            <span>{post.readingTime} min read</span>
+                                        </>
+                                    )}
+                                    {post.updatedAt && (
+                                        <>
+                                            <span>•</span>
+                                            <span>Updated {new Date(post.updatedAt).toLocaleDateString('en-US', {
+                                                month: 'short', day: 'numeric', year: 'numeric'
+                                            })}</span>
+                                        </>
+                                    )}
+                                </div>
                             </div>
                         </div>
+                        <div className="hidden sm:block flex-shrink-0 pt-1">
+                            <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} />
+                        </div>
+                    </div>
+                    {/* Mobile share bar */}
+                    <div className="sm:hidden mt-4">
+                        <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} />
                     </div>
                 </header>
 

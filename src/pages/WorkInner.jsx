@@ -7,6 +7,7 @@ import { urlForImage } from '../sanity/lib/image';
 import { PortableTextComponents } from '../components/blog/PortableTextRenderer';
 import Seo from '../components/Seo';
 import { TextAnimate } from '@/components/ui/text-animate';
+import ShareBar from '../components/ShareBar';
 
 // Local CaseStudyCard component
 const CaseStudyCard = ({ slug, tag, title, description, metrics }) => (
@@ -204,9 +205,10 @@ export default function WorkInner() {
                             {caseStudy.title}
                         </TextAnimate>
                     </h1>
-                    <p className="text-xl md:text-2xl text-textMuted font-drama italic font-normal">
+                    <p className="text-xl md:text-2xl text-textMuted font-drama italic font-normal mb-6">
                         {caseStudy.description}
                     </p>
+                    <ShareBar title={caseStudy.title} url={`https://rsla.io/work/${slug}`} />
                 </header>
 
                 {/* Featured Image (V2) */}
