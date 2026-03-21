@@ -4,8 +4,9 @@
  * Dark footer (#0A0A0A) anchoring the light site.
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { client } from '../sanity/lib/client';
 
 const navLinks = [
     { label: 'About', to: '/about' },
@@ -23,9 +24,16 @@ const socials = [
     { label: 'X', href: 'https://x.com/rahul_lalia' },
 ];
 
+const INDUSTRIES_QUERY = `*[_type == "industryPage" && status == "published"] | order(industry asc) { industry, "slug": slug.current }`;
+
 export default function FooterV2() {
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState('idle'); // idle | submitting | success | error
+    const [industries, setIndustries] = useState([]);
+
+    useEffect(() => {
+        client.fetch(INDUSTRIES_QUERY).then(setIndustries);
+    }, []);
 
     const handleSubscribe = async (e) => {
         e.preventDefault();
@@ -54,7 +62,7 @@ export default function FooterV2() {
         <footer className="bg-[#0A0A0A] text-white px-6 md:px-12">
             <div className="max-w-7xl mx-auto py-16">
                 {/* Main grid */}
-                <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-12 mb-12">
+                <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-10 mb-12">
                     {/* Brand */}
                     <div className="flex flex-col gap-4">
                         <Link to="/" className="inline-block">
@@ -104,6 +112,37 @@ export default function FooterV2() {
                             ))}
                         </ul>
                     </div>
+
+                    {/* Solutions */}
+                    {industries.length > 0 && (
+                        <div>
+                            <p className="font-sans font-bold text-sm uppercase tracking-wider mb-4 text-white/80">
+                                Solutions
+                            </p>
+                            <ul className="flex flex-col gap-0.5">
+                                {industries.slice(0, 6).map((ind) => (
+                                    <li key={ind.slug}>
+                                        <Link
+                                            to={`/ai-for/${ind.slug}`}
+                                            className="font-body text-sm text-white/50 hover:text-white transition-colors inline-flex items-center min-h-[44px]"
+                                        >
+                                            AI for {ind.industry}
+                                        </Link>
+                                    </li>
+                                ))}
+                                {industries.length > 6 && (
+                                    <li>
+                                        <Link
+                                            to="/services"
+                                            className="font-body text-sm text-accent hover:text-white transition-colors inline-flex items-center min-h-[44px]"
+                                        >
+                                            View all →
+                                        </Link>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
+                    )}
 
                     {/* Follow */}
                     <div>
