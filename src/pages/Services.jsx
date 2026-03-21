@@ -1,7 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TextAnimate } from '@/components/ui/text-animate';
+import { client } from '../sanity/lib/client';
 import Seo from '../components/Seo';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -85,8 +87,15 @@ const services = [
     },
 ];
 
+const INDUSTRIES_QUERY = `*[_type == "industryPage" && status == "published"] | order(industry asc) { industry, "slug": slug.current, heroQuestion }`;
+
 export default function Services() {
     const pageRef = useRef(null);
+    const [industries, setIndustries] = useState([]);
+
+    useEffect(() => {
+        client.fetch(INDUSTRIES_QUERY).then(setIndustries);
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -207,6 +216,34 @@ export default function Services() {
                     </div>
                 </section>
             ))}
+
+            {/* Industries We Serve */}
+            {industries.length > 0 && (
+                <section className="ind-grid-section bg-surface py-20 md:py-28 px-6 md:px-12">
+                    <div className="max-w-4xl mx-auto">
+                        <span className="svc-animate inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent mb-4">
+                            Industries
+                        </span>
+                        <h2 className="svc-animate font-sans font-bold text-2xl md:text-4xl text-text tracking-tight mb-10">
+                            We build AI systems for <span className="font-drama italic font-bold text-accent">your industry.</span>
+                        </h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                            {industries.map((ind) => (
+                                <Link
+                                    key={ind.slug}
+                                    to={`/ai-for/${ind.slug}`}
+                                    className="svc-animate group flex items-center justify-between gap-2 bg-surfaceAlt rounded-xl px-4 py-4 md:px-5 md:py-5 hover:bg-accent/[0.04] hover:border-accent/20 border border-accent-border transition-all duration-200"
+                                >
+                                    <span className="font-sans font-semibold text-sm md:text-base text-text group-hover:text-accent transition-colors">
+                                        {ind.industry}
+                                    </span>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-textLight group-hover:text-accent group-hover:translate-x-0.5 transition-all shrink-0"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" /></svg>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
 
         </main>
     );
