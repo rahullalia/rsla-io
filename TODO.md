@@ -47,6 +47,7 @@
 - [x] Configure Vercel Edge caching headers (immutable 1yr for /assets + /fonts, 30d for images, 7d for OG image)
 - [x] Pre-render all indexed pages for AI tool visibility (57 pages via scripts/prerender.mjs)
 - [x] Update public-facing positioning text (index.html, llms.txt) to current brand message
+- [x] Fix pre-rendered HTML flash (FOUC) — inline script removes #prerender div before first paint
 
 ---
 

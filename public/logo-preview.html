@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Logo Preview — We Integrate With</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0F172A; color: #fff; font-family: sans-serif; padding: 40px 24px; }
+  h1 { text-align: center; font-size: 1.5rem; margin-bottom: 8px; }
+  .sub { text-align: center; color: #64748B; font-size: 0.85rem; margin-bottom: 40px; }
+  .section-label { font-size: 0.7rem; letter-spacing: 0.1em; color: #64748B; text-transform: uppercase; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .card { background: #fff; border-radius: 12px; padding: 20px 16px 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .card.dark { background: #1E1E2E; }
+  .logo-wrap { width: 80px; height: 60px; display: flex; align-items: center; justify-content: center; }
+  .logo-wrap img { max-width: 80px; max-height: 56px; object-fit: contain; }
+  .card-name { font-size: 0.7rem; color: #64748B; text-align: center; }
+  .card.dark .card-name { color: #94A3B8; }
+  .grayscale .logo-wrap img { filter: grayscale(1); opacity: 0.6; }
+  .grayscale .card { background: #1E293B; }
+  hr { border: none; border-top: 1px solid #1E293B; margin: 32px 0; }
+</style>
+</head>
+<body>
+  <h1>Logo Preview — We Integrate With</h1>
+  <p class="sub">20 logos · Full color + grayscale preview · /public/images/logos/</p>
+
+  <div class="section-label">Full Color</div>
+  <div class="grid" id="full-color"></div>
+
+  <hr />
+
+  <div class="section-label">Grayscale (how they'll appear in the marquee)</div>
+  <div class="grid grayscale" id="grayscale"></div>
+
+  <script>
+    const logos = [
+      { name: 'Anthropic',        file: 'anthropic.svg',    dark: false },
+      { name: 'Make',             file: 'make.png',         dark: false },
+      { name: 'n8n',              file: 'n8n.svg',          dark: false },
+      { name: 'Zapier',           file: 'zapier.svg',       dark: false },
+      { name: 'Notion',           file: 'notion.svg',       dark: false },
+      { name: 'Vercel',           file: 'vercel.svg',       dark: false },
+      { name: 'GitHub',           file: 'github.svg',       dark: false },
+      { name: 'Supabase',         file: 'supabase.svg',     dark: false },
+      { name: 'Airtable',         file: 'airtable.svg',     dark: false },
+      { name: 'GoHighLevel',      file: 'gohighlevel.png',  dark: false },
+      { name: 'Stripe',           file: 'stripe.svg',       dark: false },
+      { name: 'VS Code',          file: 'vscode.svg',       dark: false },
+      { name: 'Google Gemini',    file: 'gemini.svg',       dark: false },
+      { name: 'Sanity',           file: 'sanity.svg',       dark: false },
+      { name: 'Kit',              file: 'kit.svg',          dark: false },
+      { name: 'Upstash Redis',    file: 'redis.png',        dark: false },
+      { name: 'Resend',           file: 'resend.svg',       dark: false },
+      { name: 'Antigravity',      file: 'antigravity.png',  dark: true  },
+      { name: 'Instantly',        file: 'instantly.png',    dark: true  },
+      { name: 'Meta',             file: 'meta.svg',         dark: false },
+    ];
+
+    function buildGrid(containerId) {
+      const container = document.getElementById(containerId);
+      logos.forEach(({ name, file, dark }) => {
+        const card = document.createElement('div');
+        card.className = 'card' + (dark ? ' dark' : '');
+        card.innerHTML = `
+          <div class="logo-wrap">
+            <img src="/images/logos/${file}" alt="${name}" />
+          </div>
+          <div class="card-name">${name}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    buildGrid('full-color');
+    buildGrid('grayscale');
+  </script>
+</body>
+</html>

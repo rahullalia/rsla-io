@@ -86,6 +86,7 @@ const Sid = lazyRetry(() => import('./pages/Sid'));
 const Disclaimer = lazyRetry(() => import('./pages/Disclaimer'));
 const Accessibility = lazyRetry(() => import('./pages/Accessibility'));
 const Insider = lazyRetry(() => import('./pages/Insider'));
+const IndustryPage = lazyRetry(() => import('./pages/IndustryPage'));
 const NotFound = lazyRetry(() => import('./pages/NotFound'));
 
 const chromelessRoutes = ['/rahul', '/sid', '/booking-confirmed'];
@@ -141,6 +142,9 @@ function App() {
             <Route path="/rahul" element={<Rahul />} />
             <Route path="/sid" element={<Sid />} />
             <Route path="/insider" element={<Insider />} />
+
+            {/* Programmatic SEO — Industry Pages */}
+            <Route path="/ai-for/:slug" element={<IndustryPage />} />
 
             {/* 404 Catch-All */}
             <Route path="*" element={<NotFound />} />
