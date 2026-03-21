@@ -7,7 +7,8 @@ import App from './App.jsx'
 
 // Defer Sentry init — not needed for first paint
 if (import.meta.env.PROD) {
-  requestIdleCallback(() => import('./sentry'), { timeout: 3000 })
+  const ric = typeof requestIdleCallback === 'function' ? requestIdleCallback : (cb) => setTimeout(cb, 1)
+  ric(() => import('./sentry'), { timeout: 3000 })
 }
 
 /**
