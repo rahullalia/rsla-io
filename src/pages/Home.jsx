@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import Seo from '../components/Seo';
 import HeroV2 from '../components/HeroV2';
 
@@ -16,6 +16,23 @@ const FaqSection = lazy(() => import('../components/FaqSection'));
 const CtaWithGlow = lazy(() => import('../components/CtaWithGlow'));
 const MarqueeV2 = lazy(() => import('../components/MarqueeV2'));
 const LogoMarquee = lazy(() => import('../components/LogoMarquee'));
+
+/** Renders children only after the sentinel enters the viewport */
+function LazyOnView({ children, rootMargin = '200px' }) {
+    const ref = useRef(null);
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const io = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) { setVisible(true); io.disconnect(); } },
+            { rootMargin },
+        );
+        io.observe(el);
+        return () => io.disconnect();
+    }, [rootMargin]);
+    return <div ref={ref}>{visible ? children : null}</div>;
+}
 
 export default function Home() {
     return (
@@ -68,21 +85,35 @@ export default function Home() {
                 ]}
             />
             <HeroV2 />
+
+            {/* Near-fold: loads immediately after hero */}
             <Suspense fallback={null}>
                 <LogoMarquee />
                 <SystemArchitecture />
                 <ServicesV2 />
                 <HowItWorks />
                 <StatsSection />
-                <ProofSection />
-                <Testimonials />
-                <FounderSection />
-                <BlogPreview />
-                <BookingSection />
-                <FaqSection />
-                <CtaWithGlow />
-                <MarqueeV2 />
             </Suspense>
+
+            {/* Mid-page: loads when approaching viewport */}
+            <LazyOnView rootMargin="400px">
+                <Suspense fallback={null}>
+                    <ProofSection />
+                    <Testimonials />
+                    <FounderSection />
+                    <BlogPreview />
+                </Suspense>
+            </LazyOnView>
+
+            {/* Bottom: booking iframe + footer sections — loads only when near */}
+            <LazyOnView rootMargin="200px">
+                <Suspense fallback={null}>
+                    <BookingSection />
+                    <FaqSection />
+                    <CtaWithGlow />
+                    <MarqueeV2 />
+                </Suspense>
+            </LazyOnView>
         </>
     );
 }

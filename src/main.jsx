@@ -2,11 +2,13 @@ import { StrictMode, Component } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import './sentry'
 import './index.css'
 import App from './App.jsx'
 
-import * as Sentry from '@sentry/react'
+// Defer Sentry init — not needed for first paint
+if (import.meta.env.PROD) {
+  requestIdleCallback(() => import('./sentry'), { timeout: 3000 })
+}
 
 /**
  * ResilientErrorBoundary
@@ -56,7 +58,9 @@ class ResilientErrorBoundary extends Component {
       window.location.reload()
     } else {
       this.setState({ errorType: 'app' })
-      Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo?.componentStack } } })
+      import('@sentry/react').then(Sentry => {
+        Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo?.componentStack } } })
+      }).catch(() => {})
     }
   }
 

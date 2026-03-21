@@ -19,10 +19,12 @@ export default defineConfig({
       external: [],
       output: {
         manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
           gsap: ['gsap', '@gsap/react'],
           sanity: ['@sanity/client', '@sanity/image-url', '@portabletext/react'],
           router: ['react-router-dom'],
           motion: ['motion'],
+          sentry: ['@sentry/react'],
         },
       },
     },

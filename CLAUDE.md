@@ -29,6 +29,7 @@ New rsla.io website. React 19 + Vite SPA with GSAP animations, Aurora background
 | Rich Text | @portabletext/react |
 | SEO | Custom Seo.jsx component (no dependencies) |
 | Error Monitoring | Sentry (@sentry/react, ErrorBoundary, browser tracing, replay-on-error) |
+| Fonts | Self-hosted WOFF2 (5 families: Satoshi, Inter, Space Grotesk, Playfair Display, Cormorant Garamond) |
 | Pre-rendering | Build-time HTML injection (scripts/prerender.mjs + marked) |
 
 ---
@@ -138,7 +139,7 @@ vercel.json            # Vite SPA routing + serverless function config
 - **Blog content:** 60 published V2 blog posts (`blogPostV2`). V1 blog posts (`blogPost`) are legacy.
 - **Case study content:** 11 published V2 case studies (`caseStudyV2`). V1 case studies (`caseStudy`) are legacy. Website queries V2 only.
 - **V2 case study categories:** "AI Automations", "AI Lead Generation", "AI Operations", "AI Digital Presence"
-- **Legacy project:** `36wenybq` (content migrated to new project, 2026-02-22; old studio at `admin.rsla.io`)
+- **Old studio:** `admin.rsla.io` (content migrated to `yz25oyux`, 2026-02-22)
 - **Content:** 60 blog posts, 11 case studies, 19 categories, 1 author (Rahul Lalia)
 - **Client config:** projectId/dataset hardcoded in `src/sanity/lib/client.ts` (env vars don't resolve during Vercel build)
 - **Token:** `VITE_SANITY_API_TOKEN` in `.env.local` (only needed for draft content, not CDN reads)
@@ -367,7 +368,7 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - Removed schemas from website repo (Studio is now source of truth)
 - Removed 5 Studio-only deps: sanity, @sanity/vision, @sanity/code-input, groq, styled-components
 - Committed missing `generateRssFeed.mjs` (was breaking Vercel build)
-- Old studio remains at `admin.rsla.io` (project `36wenybq`)
+- Old studio remains at `admin.rsla.io` (content fully migrated to `yz25oyux`)
 
 ### 2026-02-27: Case Study Fixes — Images, Videos, Downloads
 - Fixed /work page only showing 3 case studies (was filtering to `featured: true` only)
@@ -476,8 +477,36 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - Wider fade masks (8%/92%) for smoother edge transitions
 - `src/components/ui/marquee.tsx` still exists but is no longer used by LogoMarquee (may be used elsewhere)
 
+### 2026-03-12: Pre-render Flash Fix
+
+- **Fixed FOUC (flash of unstyled content)** from pre-rendered HTML showing briefly before React mounts
+- Pre-rendered content was injected directly into `<div id="root">` with no hiding mechanism
+- Browsers rendered the raw semantic HTML (plain text wall) for a fraction of a second before React replaced it
+- **Fix**: Wrapped pre-rendered HTML in `<div id="prerender">` (no CSS hiding) + added inline `<script>` to `index.html` that removes the div before first paint
+- Inline script: `document.getElementById('prerender')?.remove()` — runs synchronously, blocks rendering, zero flash
+- **No `display:none`** — researched LLM crawler behavior; Googlebot renders CSS and devalues hidden content; future crawlers (Perplexity Atlas, Crawl4AI) may also strip it
+- LLM crawlers (GPTBot, ClaudeBot, PerplexityBot) fetch raw HTML without executing JS or CSS, so they still see the full pre-rendered content
+- Files modified: `scripts/prerender.mjs` (line 80), `index.html` (inline script before module script)
+- 70 pre-rendered pages (5 static, 2 listings, 52 blog posts, 11 case studies)
+
+### 2026-03-20: Performance Optimization
+
+- **Marquee logo PNGs converted to WebP** — 5 logos (antigravity 285KB, instantly 163KB, gohighlevel 35KB, make 13KB, redis 11KB) converted to WebP. Total: 507KB → 102KB (saved 405KB, 80% reduction). Updated LogoMarquee.jsx references.
+- **All fonts converted from OTF/TTF to WOFF2** — 23 font files across 5 families. Total: 2,854KB → 1,066KB (saved 1.8MB, 63% reduction). Updated all @font-face declarations in index.css and preload links in index.html. Old OTF/TTF files deleted.
+- **Removed 4 unused Satoshi font weights** — Light (300), Light Italic (300i), Black (900), Black Italic (900i) had zero usage in codebase. Declarations removed from index.css, files deleted.
+- **Homepage Suspense boundaries split into 3 groups** — was 1 boundary loading all 13 sections immediately. Now:
+  - Near-fold (immediate): LogoMarquee, SystemArchitecture, ServicesV2, HowItWorks, StatsSection
+  - Mid-page (IntersectionObserver, 400px rootMargin): ProofSection, Testimonials, FounderSection, BlogPreview
+  - Bottom (IntersectionObserver, 200px rootMargin): BookingSection, FaqSection, CtaWithGlow, MarqueeV2
+  - BookingSection GHL iframe no longer loads until user scrolls near it (was the single biggest request multiplier, ~30-50 requests alone)
+- **Marquee logos resized for display dimensions** — images were 640-2000px wide, displayed at 80-120px. Resized to max 240px (2x retina). Total: 102KB → 25KB.
+- **Deleted dead weight PNGs** — rahul.png (801KB), lockup-bg.png (362KB), lockup-nobg.png (338KB), and 5 original marquee PNGs. All had zero code references (WebP versions already in use). Saved 2MB of deployed assets.
+- **Sentry SDK deferred** — moved from synchronous import in main.jsx to `requestIdleCallback` + dynamic `import('./sentry')`. Error boundary also uses dynamic import. Sentry no longer blocks first paint.
+- **Code splitting improved** — added `sentry` to manualChunks in vite.config.js. Main bundle dropped from 562KB → 310KB (45% smaller). Sentry (435KB) now in separate lazy-loaded chunk. Total dist: 7.1MB → 5.0MB.
+- **Total savings**: ~1.8MB font weight, ~2.5MB deleted dead images, ~480KB logo optimization, 252KB off critical-path JS, ~30-50 fewer HTTP requests from deferred GHL iframe.
+
 ---
 
 ## Last Updated
 
-2026-03-10
+2026-03-20
