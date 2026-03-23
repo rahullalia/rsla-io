@@ -281,9 +281,9 @@ export default function BlogInner() {
                 )}
             </header>
 
-            {/* Featured Image */}
+            {/* Featured Image — spans full grid width to bridge header and body */}
             {imageUrl && (
-                <div className="max-w-[720px] mx-auto px-6 mb-12">
+                <div className="max-w-5xl mx-auto px-6 mb-12">
                     <div className="w-full aspect-video rounded-2xl overflow-hidden bg-surfaceAlt border border-accent-border">
                         <img
                             src={imageUrl}
@@ -332,7 +332,7 @@ export default function BlogInner() {
                                             <a
                                                 href={`#${h.id}`}
                                                 aria-current={activeId === h.id ? 'true' : undefined}
-                                                className={`block text-sm leading-snug py-1.5 pl-3 border-l-2 transition-all ${
+                                                className={`block text-[15px] leading-snug py-1.5 pl-3 border-l-2 transition-all ${
                                                     activeId === h.id
                                                         ? 'border-accent text-accent font-medium'
                                                         : 'border-transparent text-textMuted hover:text-accent hover:border-accent'
