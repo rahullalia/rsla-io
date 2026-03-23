@@ -355,8 +355,8 @@ export const PortableTextComponents = {
             }
             const id = slugify(text);
             return (
-                <h2 id={id} className="mt-16 mb-6 scroll-mt-32">
-                    <span className="font-mono text-xs text-accent uppercase tracking-widest">{children}</span>
+                <h2 id={id} className="text-2xl font-body font-bold text-text mt-12 mb-4 scroll-mt-32">
+                    {children}
                 </h2>
             );
         },
@@ -368,12 +368,12 @@ export const PortableTextComponents = {
                 text = children;
             }
             const id = slugify(text);
-            return <h3 id={id} className="text-lg md:text-xl text-text mt-12 mb-4 font-sans font-semibold scroll-mt-32">{children}</h3>;
+            return <h3 id={id} className="text-lg text-text mt-8 mb-3 font-body font-semibold scroll-mt-32">{children}</h3>;
         },
         h4: ({ children }) => <h4 className="text-base md:text-lg text-text mt-8 mb-3 font-sans font-medium">{children}</h4>,
         normal: ({ children }) => <p className="text-base md:text-lg leading-relaxed text-textMuted mb-6 font-body">{children}</p>,
         blockquote: ({ children }) => (
-            <blockquote className="border-l-2 border-accent pl-6 my-10 italic text-xl text-textMuted font-sans leading-relaxed">
+            <blockquote className="border-l-[3px] border-accent pl-6 my-10 font-quote text-2xl lg:text-[28px] text-text leading-[1.4]">
                 {children}
             </blockquote>
         ),
