@@ -318,41 +318,47 @@ export default function BlogInner() {
                 </div>
             )}
 
-            {/* Main content — single column, ToC floats outside */}
-            <div className="max-w-[720px] mx-auto px-6 relative">
+            {/* Desktop ToC — fixed position, floats to the left of content */}
+            {headings.length > 0 && (
+                <aside className="hidden xl:block fixed top-32 w-[200px]" style={{ left: 'max(1.5rem, calc((100vw - 720px) / 2 - 200px - 2rem))' }}>
+                    <nav aria-label="Table of contents">
+                        <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-4">In this article</span>
+                        <ul className="space-y-1">
+                            {headings.map((h) => (
+                                <li key={h.id}>
+                                    <a
+                                        href={`#${h.id}`}
+                                        aria-current={activeId === h.id ? 'true' : undefined}
+                                        className={`block text-sm leading-snug py-1.5 pl-3 border-l-2 transition-all ${
+                                            activeId === h.id
+                                                ? 'border-accent text-accent font-medium'
+                                                : 'border-transparent text-textMuted hover:text-accent hover:border-accent'
+                                        }`}
+                                    >
+                                        {h.text}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
 
-                {/* Sidebar floating outside content column (desktop only) */}
-                <aside className="hidden xl:block absolute right-full top-0 mr-8 w-[180px]">
-                    <div className="sticky top-8">
-                        {headings.length > 0 && (
-                            <nav aria-label="Table of contents">
-                                <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-4">In this article</span>
-                                <ul className="space-y-1">
-                                    {headings.map((h) => (
-                                        <li key={h.id}>
-                                            <a
-                                                href={`#${h.id}`}
-                                                aria-current={activeId === h.id ? 'true' : undefined}
-                                                className={`block text-[13px] leading-snug py-1.5 pl-3 border-l-2 transition-all ${
-                                                    activeId === h.id
-                                                        ? 'border-accent text-accent font-medium'
-                                                        : 'border-transparent text-textMuted hover:text-accent hover:border-accent'
-                                                }`}
-                                            >
-                                                {h.text}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </nav>
-                        )}
-
-                        <div className={headings.length > 0 ? 'mt-8 pt-6 border-t border-accent-border' : ''}>
-                            <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-3">Share</span>
-                            <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} showLabel={false} />
-                        </div>
+                    <div className="mt-8 pt-6 border-t border-accent-border">
+                        <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-3">Share</span>
+                        <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} showLabel={false} />
                     </div>
                 </aside>
+            )}
+
+            {/* Share-only fixed sidebar when no ToC (desktop) */}
+            {headings.length === 0 && (
+                <aside className="hidden xl:block fixed top-32 w-[200px]" style={{ left: 'max(1.5rem, calc((100vw - 720px) / 2 - 200px - 2rem))' }}>
+                    <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-3">Share</span>
+                    <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} showLabel={false} />
+                </aside>
+            )}
+
+            {/* Main content — single consistent column */}
+            <div className="max-w-[720px] mx-auto px-6">
 
                 {/* Article Body */}
                 <div className="prose-container max-w-none">
