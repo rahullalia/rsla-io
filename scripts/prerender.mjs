@@ -483,15 +483,24 @@ function blogPostContent(post) {
   const canonical = `${SITE}/blog/${post.slug}`;
   const ogImage = post.seo?.socialImage?.asset?.url || post.featuredImage?.asset?.url || null;
 
-  const jsonLd = [{
-    '@context': 'https://schema.org', '@type': 'BlogPosting',
-    headline: post.title,
-    description,
-    datePublished: post.publishedAt,
-    author: { '@type': 'Person', name: post.author?.name || 'Rahul Lalia' },
-    publisher: { '@type': 'Organization', name: 'RSL/A', url: SITE },
-    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
-  }];
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org', '@type': 'BlogPosting',
+      headline: post.title,
+      description,
+      datePublished: post.publishedAt,
+      author: { '@type': 'Person', name: post.author?.name || 'Rahul Lalia' },
+      publisher: { '@type': 'Organization', name: 'RSL/A', url: SITE },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    },
+    {
+      '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Blog', item: `${SITE}/blog` },
+        { '@type': 'ListItem', position: 2, name: post.title },
+      ],
+    },
+  ];
 
   if (post.faqSchema?.length) {
     jsonLd.push({
@@ -505,7 +514,7 @@ function blogPostContent(post) {
 
   const bodyHtml = ptToHtml(post.body);
   const date = formatDate(post.publishedAt);
-  const cats = (post.categories || []).map(c => `<span>${esc(c.name)}</span>`).join(' ');
+  const firstCat = (post.categories || [])[0];
 
   return {
     route: `/blog/${post.slug}`,
@@ -515,9 +524,12 @@ function blogPostContent(post) {
     ogImage,
     jsonLd,
     html: `<main><article>
+<nav aria-label="Breadcrumb"><a href="/blog">Blog</a>${firstCat ? ` / ${esc(firstCat.name)}` : ''}</nav>
+<header>
 <h1>${esc(post.title)}</h1>
-<p>${date}${post.author?.name ? ` — By ${esc(post.author.name)}` : ''}${cats ? ` — ${cats}` : ''}</p>
-${post.excerpt ? `<p><em>${esc(post.excerpt)}</em></p>` : ''}
+<p><time datetime="${post.publishedAt}">${date}</time>${post.author?.name ? ` — By ${esc(post.author.name)}` : ''}</p>
+${post.pullQuote ? `<p><strong>TL;DR:</strong> ${esc(post.pullQuote)}</p>` : ''}
+</header>
 ${bodyHtml}
 </article></main>`,
   };
@@ -653,6 +665,7 @@ async function main() {
         title,
         "slug": slug.current,
         excerpt,
+        pullQuote,
         publishedAt,
         body,
         featuredImage { asset-> },
