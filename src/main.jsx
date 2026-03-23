@@ -25,67 +25,56 @@ if (import.meta.env.PROD) {
  * 3. Everything else (real application errors)
  *    → Report to Sentry, show retry UI instead of permanent blank page
  */
-// Shared chunk error detection — used in both getDerivedStateFromError and componentDidCatch
-function isChunkLoadError(error) {
-  const msg = error?.message || ''
-  return (
-    msg.includes('Failed to fetch dynamically imported module') ||
-    msg.includes('Loading chunk') ||
-    msg.includes('Loading CSS chunk') ||
-    msg.includes('error loading dynamically imported module') ||
-    msg.includes('The object can not be found here') ||
-    msg.includes('Importing a module script failed') ||
-    error?.name === 'ChunkLoadError'
-  )
-}
-
 class ResilientErrorBoundary extends Component {
   constructor(props) {
     super(props)
-    this.state = { hasError: false, errorType: null }
+    this.state = { hasError: false, showErrorUI: false }
   }
 
-  static getDerivedStateFromError(error) {
-    // Classify error during render phase so we can skip showing error UI
-    // for recoverable errors (chunk loads, DOM desync)
-    if (isChunkLoadError(error)) {
-      return { hasError: true, errorType: 'chunk' }
-    }
-    const msg = error?.message || ''
-    if (msg.includes('removeChild') || msg.includes('insertBefore') || msg.includes('appendChild')) {
-      return { hasError: true, errorType: 'desync' }
-    }
-    return { hasError: true, errorType: 'app' }
+  static getDerivedStateFromError() {
+    // Never show error UI immediately — always try to auto-recover first.
+    // componentDidCatch will either recover silently or escalate to showErrorUI.
+    return { hasError: true, showErrorUI: false }
   }
 
   componentDidCatch(error, errorInfo) {
-    const { errorType } = this.state
+    const msg = error?.message || ''
 
-    if (errorType === 'desync') {
-      console.warn('[ErrorBoundary] DOM desync, auto-recovering.', error?.message)
+    const isDomDesync =
+      msg.includes('removeChild') ||
+      msg.includes('insertBefore') ||
+      msg.includes('appendChild')
+
+    if (isDomDesync) {
+      console.warn('[ErrorBoundary] DOM desync, auto-recovering.', msg)
       ScrollTrigger.getAll().forEach(st => st.kill())
-      setTimeout(() => this.setState({ hasError: false, errorType: null }), 0)
-    } else if (errorType === 'chunk') {
-      console.warn('[ErrorBoundary] Chunk load failure, reloading.', error?.message)
-      const key = 'chunkError_reloaded'
-      if (!sessionStorage.getItem(key)) {
-        sessionStorage.setItem(key, '1')
-        window.location.reload()
-      } else {
-        this.setState({ errorType: 'app' })
-      }
-    } else {
-      import('@sentry/react').then(Sentry => {
-        Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo?.componentStack } } })
-      }).catch(() => {})
+      setTimeout(() => this.setState({ hasError: false, showErrorUI: false }), 0)
+      return
     }
+
+    // For ALL other errors: try a one-time reload to recover (handles stale
+    // chunks, Safari import errors, and transient rendering issues).
+    // Only show error UI if reload was already attempted.
+    const key = 'errorBoundary_reloaded'
+    if (!sessionStorage.getItem(key)) {
+      console.warn('[ErrorBoundary] Error during navigation, reloading.', msg)
+      sessionStorage.setItem(key, '1')
+      window.location.reload()
+      return
+    }
+
+    // Reload already attempted — show error UI as last resort
+    console.error('[ErrorBoundary] Persistent error after reload.', msg)
+    sessionStorage.removeItem(key)
+    this.setState({ showErrorUI: true })
+    import('@sentry/react').then(Sentry => {
+      Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo?.componentStack } } })
+    }).catch(() => {})
   }
 
   render() {
     if (this.state.hasError) {
-      // Only show error UI for real app errors — chunk and desync errors
-      // recover silently (no flash)
-      if (this.state.errorType === 'app') {
+      if (this.state.showErrorUI) {
         return (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', fontFamily: 'Inter, system-ui, sans-serif', color: '#0F172A', padding: '24px', textAlign: 'center' }}>
             <p style={{ fontSize: '1.125rem', marginBottom: '16px' }}>Something went wrong loading this page.</p>
@@ -98,7 +87,7 @@ class ResilientErrorBoundary extends Component {
           </div>
         )
       }
-      // Chunk errors and DOM desync: render nothing while recovering
+      // Auto-recovering — render nothing (no flash)
       return null
     }
     return this.props.children
