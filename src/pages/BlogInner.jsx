@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PortableText } from '@portabletext/react';
 import { client } from '../sanity/lib/client';
@@ -45,7 +45,6 @@ export default function BlogInner() {
     const [loading, setLoading] = useState(true);
     const [headings, setHeadings] = useState([]);
     const [showSidebar, setShowSidebar] = useState(false);
-    const bodyRef = useRef(null);
 
     useEffect(() => {
         let isMounted = true;
@@ -133,16 +132,13 @@ export default function BlogInner() {
         return () => { isMounted = false; };
     }, [slug]);
 
-    // Show/hide fixed sidebar based on whether body content is in view
+    // Show fixed sidebar once user scrolls past the header area
     useEffect(() => {
-        if (!bodyRef.current) return;
-        const observer = new IntersectionObserver(
-            ([entry]) => setShowSidebar(entry.isIntersecting),
-            { rootMargin: '0px 0px -20% 0px', threshold: 0 }
-        );
-        observer.observe(bodyRef.current);
-        return () => observer.disconnect();
-    }, [post]);
+        const handleScroll = () => setShowSidebar(window.scrollY > 400);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const headingIds = headings.map((h) => h.id);
     const activeId = useActiveHeading(headingIds);
@@ -371,7 +367,7 @@ export default function BlogInner() {
             )}
 
             {/* Main content — single consistent column */}
-            <div ref={bodyRef} className="max-w-[720px] mx-auto px-6">
+            <div className="max-w-[720px] mx-auto px-6">
 
                 {/* Article Body */}
                 <div className="prose-container max-w-none">
