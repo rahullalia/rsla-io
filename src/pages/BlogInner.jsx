@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PortableText } from '@portabletext/react';
 import { client } from '../sanity/lib/client';
@@ -44,6 +44,8 @@ export default function BlogInner() {
     const [relatedCaseStudy, setRelatedCaseStudy] = useState(null);
     const [loading, setLoading] = useState(true);
     const [headings, setHeadings] = useState([]);
+    const [showSidebar, setShowSidebar] = useState(false);
+    const bodyRef = useRef(null);
 
     useEffect(() => {
         let isMounted = true;
@@ -130,6 +132,17 @@ export default function BlogInner() {
 
         return () => { isMounted = false; };
     }, [slug]);
+
+    // Show/hide fixed sidebar based on whether body content is in view
+    useEffect(() => {
+        if (!bodyRef.current) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => setShowSidebar(entry.isIntersecting),
+            { rootMargin: '0px 0px -20% 0px', threshold: 0 }
+        );
+        observer.observe(bodyRef.current);
+        return () => observer.disconnect();
+    }, [post]);
 
     const headingIds = headings.map((h) => h.id);
     const activeId = useActiveHeading(headingIds);
@@ -320,7 +333,7 @@ export default function BlogInner() {
 
             {/* Desktop ToC — fixed position, floats to the left of content */}
             {headings.length > 0 && (
-                <aside className="hidden xl:block fixed top-32 w-[200px]" style={{ left: 'max(1.5rem, calc((100vw - 720px) / 2 - 200px - 2rem))' }}>
+                <aside className={`hidden xl:block fixed top-40 w-[200px] transition-opacity duration-300 ${showSidebar ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} style={{ left: 'max(1.5rem, calc((100vw - 720px) / 2 - 200px - 2rem))' }}>
                     <nav aria-label="Table of contents">
                         <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-4">In this article</span>
                         <ul className="space-y-1">
@@ -351,14 +364,14 @@ export default function BlogInner() {
 
             {/* Share-only fixed sidebar when no ToC (desktop) */}
             {headings.length === 0 && (
-                <aside className="hidden xl:block fixed top-32 w-[200px]" style={{ left: 'max(1.5rem, calc((100vw - 720px) / 2 - 200px - 2rem))' }}>
+                <aside className={`hidden xl:block fixed top-40 w-[200px] transition-opacity duration-300 ${showSidebar ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} style={{ left: 'max(1.5rem, calc((100vw - 720px) / 2 - 200px - 2rem))' }}>
                     <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-3">Share</span>
                     <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} showLabel={false} />
                 </aside>
             )}
 
             {/* Main content — single consistent column */}
-            <div className="max-w-[720px] mx-auto px-6">
+            <div ref={bodyRef} className="max-w-[720px] mx-auto px-6">
 
                 {/* Article Body */}
                 <div className="prose-container max-w-none">
