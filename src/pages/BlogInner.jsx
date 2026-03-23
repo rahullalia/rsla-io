@@ -297,9 +297,9 @@ export default function BlogInner() {
                 </div>
             )}
 
-            {/* Mobile ToC (visible < lg only) */}
+            {/* Mobile ToC (visible < xl only) */}
             {headings.length > 0 && (
-                <div className="lg:hidden max-w-[720px] mx-auto px-6 mb-8">
+                <div className="xl:hidden max-w-[720px] mx-auto px-6 mb-8">
                     <nav aria-label="Table of contents" className="bg-surfaceAlt border border-accent-border rounded-xl p-4">
                         <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-accent mb-3">In this article</span>
                         <ul className="space-y-1">
@@ -318,11 +318,11 @@ export default function BlogInner() {
                 </div>
             )}
 
-            {/* Main layout: sidebar + content */}
-            <div className="max-w-5xl mx-auto px-6 lg:grid lg:grid-cols-[200px_1fr] lg:gap-16">
+            {/* Main content — single column, ToC floats outside */}
+            <div className="max-w-[720px] mx-auto px-6 relative">
 
-                {/* Sidebar (desktop only) — always renders for share buttons, ToC conditional */}
-                <aside className="hidden lg:block relative">
+                {/* Sidebar floating outside content column (desktop only) */}
+                <aside className="hidden xl:block absolute right-full top-0 mr-8 w-[180px]">
                     <div className="sticky top-8">
                         {headings.length > 0 && (
                             <nav aria-label="Table of contents">
@@ -355,18 +355,16 @@ export default function BlogInner() {
                 </aside>
 
                 {/* Article Body */}
-                <div className="max-w-2xl">
-                    <div className="prose-container max-w-none">
-                        <PortableText value={post.body} components={PortableTextComponents} />
-                    </div>
+                <div className="prose-container max-w-none">
+                    <PortableText value={post.body} components={PortableTextComponents} />
+                </div>
 
-                    {/* Newsletter CTA */}
-                    <InlineNewsletterCta />
+                {/* Newsletter CTA */}
+                <InlineNewsletterCta />
 
-                    {/* Mobile share (visible < lg only, after content) */}
-                    <div className="lg:hidden mt-8 pt-6 border-t border-accent-border">
-                        <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} />
-                    </div>
+                {/* Mobile share (visible < xl only, after content) */}
+                <div className="xl:hidden mt-8 pt-6 border-t border-accent-border">
+                    <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} />
                 </div>
             </div>
 
