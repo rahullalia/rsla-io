@@ -30,7 +30,7 @@ const ICONS = {
     ),
 };
 
-export default function ShareBar({ title, url }) {
+export default function ShareBar({ title, url, showLabel = true }) {
     const [copied, setCopied] = useState(false);
 
     const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
@@ -75,7 +75,7 @@ export default function ShareBar({ title, url }) {
 
     return (
         <div className="flex items-center gap-1">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-textLight mr-2">Share</span>
+            {showLabel && <span className="font-mono text-[10px] uppercase tracking-widest text-textLight mr-2">Share</span>}
             {links.map(({ label, icon, href }) => (
                 <a
                     key={label}
