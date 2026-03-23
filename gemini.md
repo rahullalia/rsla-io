@@ -94,7 +94,19 @@ Finally, we wrapped the dynamic headings (`{post.title}` and `{caseStudy.title}`
 *   Service pages: voice agents, AI receptionist, chatbots, database reactivation
 *   Comparison pages: GHL vs HubSpot, GHL vs Salesforce, etc.
 *   `/solutions` directory page (optional)
-*   Footer "Solutions" column (optional)
+
+### Tool Pages Added (March 23, 2026)
+| Slug | Tool | Proof | Case Study |
+|------|------|-------|------------|
+| gohighlevel | GoHighLevel | 4-week SaaS build | adreviveai-saas-build |
+| n8n | n8n | — | — |
+| make | Make | — | — |
+| zapier | Zapier | — | — |
+
+### Footer Updated (March 23, 2026)
+*   "Solutions" column added to FooterV2.jsx. Shows first 6 industry pages alphabetically with "View all →" linking to /services. Footer grid changed from `lg:grid-cols-4` to `lg:grid-cols-5`.
+
+### Current Status: 12 pages live, 57 pre-rendered. Pausing pSEO to wait for Google indexation data (check around April 6 to 13).
 
 ### Adding a New Industry Page (no code changes needed)
 1. Go to studio.rsla.io → Industry Pages → Create new

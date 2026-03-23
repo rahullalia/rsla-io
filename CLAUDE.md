@@ -537,8 +537,19 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - **Keyword research** — 370+ keywords scraped from Google Autocomplete across 45+ seed phrases. Organized into industry, service, tool, and comparison clusters.
 - **Google Search Console** — user submitted sitemap and requested indexing for /ai-for/real-estate.
 
+### 2026-03-23: pSEO Tool Pages (Batch 2)
+
+- **4 tool pages added** — GoHighLevel, n8n, Make, Zapier. All researched with verified stats, written in Rahul's voice, published to Sanity.
+- **GoHighLevel page** links to `adreviveai-saas-build` case study (4-week SaaS build). Pain angle: "40 to 80 hours of setup that most business owners never finish."
+- **n8n page** — 95% cheaper than Zapier at scale, but 20-40 hour self-hosted setup. Pain: "the gap between installed and running."
+- **Make page** — 30x cheaper per operation than Zapier, but wrong polling intervals eat the budget. Pain: "43,000 operations consumed monthly just from a trigger polling every minute."
+- **Zapier page** — positioned as migration/optimization. Pain: "you are paying a success tax." Links to Make and n8n as alternatives.
+- **Footer updated** — "Solutions" column added to FooterV2. Shows first 6 industry pages alphabetically with "View all →" to /services. Grid updated from 4-col to 5-col on desktop.
+- **Total: 12 pSEO pages live**, 57 pre-rendered pages total.
+- **Decision: pause pSEO page creation** — wait 2 to 4 weeks for Google to crawl and index the 12 pages. Check indexation rate in Search Console before adding more. If 9+ out of 12 index, template works and we scale.
+
 ---
 
 ## Last Updated
 
-2026-03-21
+2026-03-23
