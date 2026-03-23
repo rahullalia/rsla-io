@@ -28,11 +28,11 @@ if (import.meta.env.PROD) {
 class ResilientErrorBoundary extends Component {
   constructor(props) {
     super(props)
-    this.state = { hasError: false, errorType: null }
+    this.state = { hasError: false, errorType: null, errorMsg: null }
   }
 
-  static getDerivedStateFromError() {
-    return { hasError: true }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, errorMsg: error?.message || 'Unknown error' }
   }
 
   componentDidCatch(error, errorInfo) {
@@ -53,12 +53,12 @@ class ResilientErrorBoundary extends Component {
     if (isDomDesync) {
       console.warn('[ErrorBoundary] DOM desync during transition, auto-recovering.', msg)
       ScrollTrigger.getAll().forEach(st => st.kill())
-      setTimeout(() => this.setState({ hasError: false, errorType: null }), 0)
+      setTimeout(() => this.setState({ hasError: false, errorType: null, errorMsg: null }), 0)
     } else if (isChunkError) {
       console.warn('[ErrorBoundary] Chunk load failure, reloading page.', msg)
       window.location.reload()
     } else {
-      this.setState({ errorType: 'app' })
+      this.setState({ errorType: 'app', errorMsg: msg })
       import('@sentry/react').then(Sentry => {
         Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo?.componentStack } } })
       }).catch(() => {})
@@ -77,6 +77,11 @@ class ResilientErrorBoundary extends Component {
             >
               Refresh Page
             </button>
+            {this.state.errorMsg && (
+              <p style={{ fontSize: '0.7rem', color: '#94A3B8', marginTop: '24px', maxWidth: '300px', wordBreak: 'break-word' }}>
+                Debug: {this.state.errorMsg}
+              </p>
+            )}
           </div>
         )
       }
