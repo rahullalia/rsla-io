@@ -40,12 +40,20 @@ export default function NavbarV2() {
 
     const activeIndex = getActiveIndex();
 
-    // Close mobile menu on route change
+    // Close mobile menu on route change — instant (no animation) to avoid
+    // GSAP race conditions with the new page mounting simultaneously.
     useEffect(() => {
+        if (mobileOpen && overlayRef.current) {
+            gsap.killTweensOf(overlayRef.current);
+            if (menuItemsRef.current) gsap.killTweensOf(menuItemsRef.current.children);
+            gsap.set(overlayRef.current, { display: 'none', opacity: 0 });
+            document.body.style.overflow = '';
+        }
         setMobileOpen(false);
     }, [location.pathname]);
 
-    // Animate mobile menu open/close
+    // Animate mobile menu open/close (only for hamburger button toggles,
+    // not for route-change closes which are handled instantly above)
     useEffect(() => {
         if (!overlayRef.current || !menuItemsRef.current) return;
 
@@ -62,11 +70,17 @@ export default function NavbarV2() {
             document.body.style.overflow = '';
             gsap.to(overlayRef.current, {
                 opacity: 0, duration: 0.2, ease: 'power2.in',
-                onComplete: () => gsap.set(overlayRef.current, { display: 'none' }),
+                onComplete: () => {
+                    if (overlayRef.current) gsap.set(overlayRef.current, { display: 'none' });
+                },
             });
         }
 
-        return () => { document.body.style.overflow = ''; };
+        return () => {
+            document.body.style.overflow = '';
+            if (overlayRef.current) gsap.killTweensOf(overlayRef.current);
+            if (menuItemsRef.current) gsap.killTweensOf(menuItemsRef.current.children);
+        };
     }, [mobileOpen]);
 
     // Scroll detection
