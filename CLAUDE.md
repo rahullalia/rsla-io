@@ -548,6 +548,24 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - **Total: 12 pSEO pages live**, 57 pre-rendered pages total.
 - **Decision: pause pSEO page creation** — wait 2 to 4 weeks for Google to crawl and index the 12 pages. Check indexation rate in Search Console before adding more. If 9+ out of 12 index, template works and we scale.
 
+### 2026-03-23: Blog Inner Page Revamp
+
+- **Complete layout rewrite** of BlogInner.jsx — editorial style, cleaner reading flow
+- **New layout structure**: Breadcrumb → Category pill → Title → Author line → TL;DR (plain text, no box) → Featured image → Body content
+- **Sticky floating ToC** — `position: fixed`, floats to the left of the 720px content column. Appears at `xl` breakpoint (1280px+). Fades in after 400px scroll, hidden at page top. Uses IntersectionObserver for active section highlighting.
+- **Single-column alignment** — title, TL;DR, featured image, and body all share one 720px column. ToC sits outside via `calc()` left positioning.
+- **Mobile**: ToC renders inline after featured image (xl:hidden), share bar after article body
+- **Font swap**: Cormorant Garamond replaced with Caveat (self-hosted WOFF2, ~49KB). Used for blockquotes/pull quotes only via `font-quote` class. `font-display: swap`, no preload.
+- **Heading hierarchy fixed**: H2s changed from tiny mono labels (`font-mono text-xs uppercase`) to real headings (`text-2xl font-body font-bold`). H3s: `text-lg font-semibold`.
+- **TL;DR** uses existing `pullQuote` Sanity field, rendered as plain text with accent label (no callout box)
+- **ShareBar** gained `showLabel` prop — BlogInner passes `showLabel={false}` (sidebar has its own label), WorkInner keeps default
+- **SEO additions**: BreadcrumbList JSON-LD schema, `<nav aria-label="Breadcrumb">`, `<time datetime>` attributes, proper `<header>` + `<article>` + `<aside>` semantic landmarks
+- **Removed**: TextAnimate on title, pull quote section (redundant with TL;DR), overflow-hidden on article wrapper, multiple category pills, border-y divider, Cormorant Garamond font files
+- **Prerender updated**: `prerender.mjs` now includes pullQuote in Sanity query, generates breadcrumb nav, header wrapper, TL;DR, and BreadcrumbList JSON-LD
+- **Design spec**: `docs/superpowers/specs/2026-03-23-blog-inner-revamp-design.md`
+- **Implementation plan**: `docs/superpowers/plans/2026-03-23-blog-inner-revamp.md`
+- **Mockups**: `.superpowers/brainstorm/78792-1774296503/blog-layout-v6.html` (final approved)
+
 ---
 
 ## Last Updated
