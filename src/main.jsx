@@ -48,6 +48,8 @@ class ResilientErrorBoundary extends Component {
       msg.includes('Loading chunk') ||
       msg.includes('Loading CSS chunk') ||
       msg.includes('error loading dynamically imported module') ||
+      msg.includes('The object can not be found here') ||
+      msg.includes('Importing a module script failed') ||
       error?.name === 'ChunkLoadError'
 
     if (isDomDesync) {
@@ -56,7 +58,13 @@ class ResilientErrorBoundary extends Component {
       setTimeout(() => this.setState({ hasError: false, errorType: null, errorMsg: null }), 0)
     } else if (isChunkError) {
       console.warn('[ErrorBoundary] Chunk load failure, reloading page.', msg)
-      window.location.reload()
+      const key = 'chunkError_reloaded'
+      if (!sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, '1')
+        window.location.reload()
+      } else {
+        this.setState({ errorType: 'app', errorMsg: msg })
+      }
     } else {
       this.setState({ errorType: 'app', errorMsg: msg })
       import('@sentry/react').then(Sentry => {
@@ -77,11 +85,6 @@ class ResilientErrorBoundary extends Component {
             >
               Refresh Page
             </button>
-            {this.state.errorMsg && (
-              <p style={{ fontSize: '0.7rem', color: '#94A3B8', marginTop: '24px', maxWidth: '300px', wordBreak: 'break-word' }}>
-                Debug: {this.state.errorMsg}
-              </p>
-            )}
           </div>
         )
       }
