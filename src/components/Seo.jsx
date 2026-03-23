@@ -88,7 +88,7 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, o
                 const script = document.createElement('script');
                 script.setAttribute('data-seo-jsonld', '');
                 script.type = 'application/ld+json';
-                script.textContent = JSON.stringify(schema);
+                script.textContent = JSON.stringify(schema).replace(/</g, '\\u003c');
                 document.head.appendChild(script);
             });
         }

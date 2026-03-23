@@ -9,6 +9,7 @@ export default function InlineNewsletterCta() {
         if (!email || status === 'submitting') return;
 
         setStatus('submitting');
+        let succeeded = false;
         try {
             const res = await fetch('https://api.convertkit.com/v3/forms/9130465/subscribe', {
                 method: 'POST',
@@ -18,13 +19,14 @@ export default function InlineNewsletterCta() {
             if (res.ok) {
                 setStatus('success');
                 setEmail('');
+                succeeded = true;
             } else {
                 setStatus('error');
             }
         } catch {
             setStatus('error');
         }
-        if (status !== 'success') setTimeout(() => setStatus('idle'), 4000);
+        if (!succeeded) setTimeout(() => setStatus('idle'), 4000);
     };
 
     if (status === 'success') {

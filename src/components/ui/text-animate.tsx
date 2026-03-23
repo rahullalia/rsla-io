@@ -1,7 +1,20 @@
-import { ElementType, memo } from "react"
+import { ElementType, memo, useMemo } from "react"
 import { motion, MotionProps, Variants } from "motion/react"
 
 import { cn } from "@/lib/utils"
+
+// Cache motion-wrapped components outside render to preserve React component
+// identity across renders. motion.create() inside render creates a new type
+// every render, breaking reconciliation (especially on mobile + StrictMode).
+const motionComponentCache = new Map<ElementType, ReturnType<typeof motion.create>>()
+function getMotionComponent(tag: ElementType) {
+  let cached = motionComponentCache.get(tag)
+  if (!cached) {
+    cached = typeof tag === "string" ? (motion as any)[tag] || motion.create(tag) : motion.create(tag)
+    motionComponentCache.set(tag, cached)
+  }
+  return cached
+}
 
 type AnimationType = "text" | "word" | "character" | "line"
 type AnimationVariant =
@@ -315,14 +328,13 @@ const TextAnimateBase = ({
   accessible = true,
   ...props
 }: TextAnimateProps) => {
+  const MotionComponent = getMotionComponent(Component)
+
   // Guard: TextAnimate requires a non-empty string child.
   // During lazy-loading or async data fetches, children may be undefined/null.
   if (!children || typeof children !== "string") {
-    const MotionComponent = motion.create(Component)
     return <MotionComponent className={className} {...props} />
   }
-
-  const MotionComponent = motion.create(Component)
 
   let segments: string[] = []
   switch (by) {

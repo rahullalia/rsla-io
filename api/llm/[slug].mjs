@@ -156,8 +156,8 @@ function buildCaseStudyMarkdown(data) {
 export default async function handler(req, res) {
   const { slug } = req.query;
 
-  if (!slug) {
-    return res.status(400).send('Missing slug parameter.');
+  if (!slug || !/^[a-z0-9][a-z0-9-]*$/.test(slug) || slug.length > 200) {
+    return res.status(400).send('Invalid slug.');
   }
 
   try {

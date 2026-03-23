@@ -94,7 +94,7 @@ export default function Services() {
     const [industries, setIndustries] = useState([]);
 
     useEffect(() => {
-        client.fetch(INDUSTRIES_QUERY).then(setIndustries);
+        client.fetch(INDUSTRIES_QUERY).then(setIndustries).catch(() => {});
     }, []);
 
     useEffect(() => {

@@ -375,7 +375,7 @@ export default function BlogInner() {
                 <div className="max-w-5xl mx-auto px-6 mt-20 mb-16">
                     <h3 className="text-2xl font-sans font-bold text-text mb-8">Read Next</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {post.relatedPosts.map((related) => {
+                        {post.relatedPosts.filter(r => r.slug?.current).map((related) => {
                             const relatedImg = related.featuredImage?.asset
                                 ? urlForImage(related.featuredImage.asset)?.width(400).height(260).url()
                                 : null;

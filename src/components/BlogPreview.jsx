@@ -31,7 +31,7 @@ export default function BlogPreview() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        client.fetch(query).then(setPosts);
+        client.fetch(query).then(setPosts).catch(() => {});
     }, []);
 
     useEffect(() => {
@@ -94,7 +94,7 @@ export default function BlogPreview() {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-6">
-                    {posts.map((post) => (
+                    {posts.filter(p => p.slug?.current).map((post) => (
                         <Link
                             key={post._id}
                             to={`/blog/${post.slug.current}`}

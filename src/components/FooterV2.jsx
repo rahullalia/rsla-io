@@ -32,7 +32,7 @@ export default function FooterV2() {
     const [industries, setIndustries] = useState([]);
 
     useEffect(() => {
-        client.fetch(INDUSTRIES_QUERY).then(setIndustries);
+        client.fetch(INDUSTRIES_QUERY).then(setIndustries).catch(() => {});
     }, []);
 
     const handleSubscribe = async (e) => {
@@ -51,11 +51,12 @@ export default function FooterV2() {
                 setEmail('');
             } else {
                 setStatus('error');
+                setTimeout(() => setStatus('idle'), 3000);
             }
         } catch {
             setStatus('error');
+            setTimeout(() => setStatus('idle'), 3000);
         }
-        setTimeout(() => setStatus('idle'), 3000);
     };
 
     return (

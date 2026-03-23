@@ -266,7 +266,7 @@ export default function Blog() {
                 ) : (
                     <>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-                            {posts.map((post) => {
+                            {posts.filter(p => p.slug?.current).map((post) => {
                                 const imageUrl = post.featuredImage?.asset ? urlForImage(post.featuredImage)?.width(600).height(400).url() : '';
 
                                 return (

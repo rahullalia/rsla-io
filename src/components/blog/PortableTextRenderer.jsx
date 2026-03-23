@@ -5,6 +5,8 @@ import { urlForImage } from '../../sanity/lib/image';
 const KIT_FORM_ID = '9130465';
 const KIT_API_KEY = import.meta.env.VITE_KIT_API_KEY;
 
+const isUnsafeUrl = (url) => /^(javascript|data|vbscript):/i.test(url);
+
 function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
     const [status, setStatus] = useState('idle'); // idle | submitting | unlocked | error
     const [email, setEmail] = useState('');
@@ -259,7 +261,7 @@ export const PortableTextComponents = {
         },
         ctaButton: ({ value }) => {
             const { text, url, style } = value;
-            if (!text || !url) return null;
+            if (!text || !url || isUnsafeUrl(url)) return null;
 
             const isInternal = url.startsWith('/');
             const Tag = isInternal ? Link : 'a';
@@ -286,7 +288,7 @@ export const PortableTextComponents = {
         },
         gatedResource: ({ value }) => {
             const { title, description, downloadUrl, buttonText } = value;
-            if (!title || !downloadUrl) return null;
+            if (!title || !downloadUrl || isUnsafeUrl(downloadUrl)) return null;
 
             return <GatedResourceBlock title={title} description={description} downloadUrl={downloadUrl} buttonText={buttonText} />;
         },
@@ -328,7 +330,7 @@ export const PortableTextComponents = {
                                     <li key={idx} className="flex items-baseline gap-3">
                                         <span className="text-accent">◆</span>
                                         <div>
-                                            {tool.url ? (
+                                            {tool.url && !isUnsafeUrl(tool.url) ? (
                                                 <a href={tool.url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-accent transition-colors underline decoration-white/30 underline-offset-4">
                                                     {tool.name}
                                                 </a>

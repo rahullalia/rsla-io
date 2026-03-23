@@ -18,9 +18,15 @@ function lazyRetry(importFn) {
           .then(resolve)
           .catch((err) => {
             if (remaining <= 0) {
-              // After retries exhausted, force reload to get fresh chunk references
-              // (handles deploy-time chunk hash changes)
-              window.location.reload();
+              // Prevent infinite reload loops: only reload once per session
+              const key = 'lazyRetry_reloaded';
+              if (!sessionStorage.getItem(key)) {
+                sessionStorage.setItem(key, '1');
+                window.location.reload();
+                return;
+              }
+              // Reload already attempted — reject so error boundary catches it
+              reject(err);
               return;
             }
             setTimeout(() => attempt(remaining - 1), 1500);

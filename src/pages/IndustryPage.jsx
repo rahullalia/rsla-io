@@ -20,12 +20,26 @@ export default function IndustryPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let isMounted = true;
         window.scrollTo(0, 0);
         setLoading(true);
-        client.fetch(industryPageBySlugQuery, { slug }).then((data) => {
-            setPage(data);
-            setLoading(false);
-        });
+
+        client.fetch(industryPageBySlugQuery, { slug })
+            .then((data) => {
+                if (isMounted) {
+                    setPage(data);
+                    setLoading(false);
+                }
+            })
+            .catch((err) => {
+                console.error('[IndustryPage] Sanity fetch failed:', err);
+                if (isMounted) {
+                    setPage(null);
+                    setLoading(false);
+                }
+            });
+
+        return () => { isMounted = false; };
     }, [slug]);
 
     useEffect(() => {
@@ -67,8 +81,9 @@ export default function IndustryPage() {
         );
     }
 
-    const seoTitle = page.seoTitle || `AI Automation for ${page.industry} | RSL/A`;
-    const seoDesc = page.seoDescription || `AI automation systems built for ${page.industry.toLowerCase()}. Respond to leads instantly, automate follow ups, and reactivate your database.`;
+    const industry = page.industry || 'Your Industry';
+    const seoTitle = page.seoTitle || `AI Automation for ${industry} | RSL/A`;
+    const seoDesc = page.seoDescription || `AI automation systems built for ${industry.toLowerCase()}. Respond to leads instantly, automate follow ups, and reactivate your database.`;
 
     return (
         <main ref={pageRef} className="min-h-screen">
