@@ -98,7 +98,7 @@ export default {
         body: ["Inter", "sans-serif"],
         mono: ['"Space Grotesk"', "sans-serif"],
         drama: ['"Playfair Display"', "serif"],
-        quote: ['"Cormorant Garamond"', "serif"],
+        quote: ["Caveat", "cursive"],
       },
       borderRadius: {
         lg: "var(--radius)",
