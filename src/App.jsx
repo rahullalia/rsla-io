@@ -18,14 +18,15 @@ function lazyRetry(importFn) {
           .then(resolve)
           .catch((err) => {
             if (remaining <= 0) {
-              // Prevent infinite reload loops: only reload once per session
+              // Prevent infinite reload loops: only reload if not attempted in last 10s
               const key = 'lazyRetry_reloaded';
-              if (!sessionStorage.getItem(key)) {
-                sessionStorage.setItem(key, '1');
+              const last = parseInt(sessionStorage.getItem(key) || '0', 10);
+              if (Date.now() - last > 10000) {
+                sessionStorage.setItem(key, String(Date.now()));
                 window.location.reload();
                 return;
               }
-              // Reload already attempted — reject so error boundary catches it
+              // Reload already attempted recently — reject so error boundary catches it
               reject(err);
               return;
             }

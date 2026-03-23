@@ -54,16 +54,19 @@ class ResilientErrorBoundary extends Component {
 
     // For ALL other errors: try a one-time reload to recover (handles stale
     // chunks, Safari import errors, and transient rendering issues).
-    // Only show error UI if reload was already attempted.
+    // Only show error UI if reload was already attempted within the last 10s.
     const key = 'errorBoundary_reloaded'
-    if (!sessionStorage.getItem(key)) {
+    const lastReload = parseInt(sessionStorage.getItem(key) || '0', 10)
+    const reloadedRecently = Date.now() - lastReload < 10000
+
+    if (!reloadedRecently) {
       console.warn('[ErrorBoundary] Error during navigation, reloading.', msg)
-      sessionStorage.setItem(key, '1')
+      sessionStorage.setItem(key, String(Date.now()))
       window.location.reload()
       return
     }
 
-    // Reload already attempted — show error UI as last resort
+    // Reload already attempted within 10s — show error UI as last resort
     console.error('[ErrorBoundary] Persistent error after reload.', msg)
     sessionStorage.removeItem(key)
     this.setState({ showErrorUI: true })
