@@ -44,8 +44,6 @@ export default function BlogInner() {
     const [relatedCaseStudy, setRelatedCaseStudy] = useState(null);
     const [loading, setLoading] = useState(true);
     const [headings, setHeadings] = useState([]);
-    const [showSidebar, setShowSidebar] = useState(false);
-
     useEffect(() => {
         let isMounted = true;
 
@@ -131,14 +129,6 @@ export default function BlogInner() {
 
         return () => { isMounted = false; };
     }, [slug]);
-
-    // Show fixed sidebar once user scrolls past the header area
-    useEffect(() => {
-        const handleScroll = () => setShowSidebar(window.scrollY > 400);
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
 
     const headingIds = headings.map((h) => h.id);
     const activeId = useActiveHeading(headingIds);
@@ -327,59 +317,55 @@ export default function BlogInner() {
                 </div>
             )}
 
-            {/* Desktop ToC — fixed position, floats to the left of content */}
-            {headings.length > 0 && (
-                <aside className={`hidden xl:block fixed top-40 w-[200px] transition-opacity duration-300 ${showSidebar ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} style={{ left: 'max(1.5rem, calc((100vw - 720px) / 2 - 200px - 2rem))' }}>
-                    <nav aria-label="Table of contents">
-                        <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-4">In this article</span>
-                        <ul className="space-y-1">
-                            {headings.map((h) => (
-                                <li key={h.id}>
-                                    <a
-                                        href={`#${h.id}`}
-                                        aria-current={activeId === h.id ? 'true' : undefined}
-                                        className={`block text-sm leading-snug py-1.5 pl-3 border-l-2 transition-all ${
-                                            activeId === h.id
-                                                ? 'border-accent text-accent font-medium'
-                                                : 'border-transparent text-textMuted hover:text-accent hover:border-accent'
-                                        }`}
-                                    >
-                                        {h.text}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
+            {/* Body section — grid with sticky ToC on desktop, single column on mobile */}
+            <div className="max-w-5xl mx-auto px-6 xl:grid xl:grid-cols-[200px_minmax(0,720px)] xl:gap-12 xl:justify-center">
 
-                    <div className="mt-8 pt-6 border-t border-accent-border">
-                        <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-3">Share</span>
-                        <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} showLabel={false} />
+                {/* Sidebar — sticky within this grid row, stops when grid ends */}
+                <aside className="hidden xl:block">
+                    <div className="sticky top-28">
+                        {headings.length > 0 && (
+                            <nav aria-label="Table of contents">
+                                <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-4">In this article</span>
+                                <ul className="space-y-1">
+                                    {headings.map((h) => (
+                                        <li key={h.id}>
+                                            <a
+                                                href={`#${h.id}`}
+                                                aria-current={activeId === h.id ? 'true' : undefined}
+                                                className={`block text-sm leading-snug py-1.5 pl-3 border-l-2 transition-all ${
+                                                    activeId === h.id
+                                                        ? 'border-accent text-accent font-medium'
+                                                        : 'border-transparent text-textMuted hover:text-accent hover:border-accent'
+                                                }`}
+                                            >
+                                                {h.text}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        )}
+
+                        <div className={headings.length > 0 ? 'mt-8 pt-6 border-t border-accent-border' : ''}>
+                            <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-3">Share</span>
+                            <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} showLabel={false} />
+                        </div>
                     </div>
                 </aside>
-            )}
 
-            {/* Share-only fixed sidebar when no ToC (desktop) */}
-            {headings.length === 0 && (
-                <aside className={`hidden xl:block fixed top-40 w-[200px] transition-opacity duration-300 ${showSidebar ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} style={{ left: 'max(1.5rem, calc((100vw - 720px) / 2 - 200px - 2rem))' }}>
-                    <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-3">Share</span>
-                    <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} showLabel={false} />
-                </aside>
-            )}
+                {/* Article Body — same 720px max as header/image above */}
+                <div className="max-w-[720px]">
+                    <div className="prose-container max-w-none">
+                        <PortableText value={post.body} components={PortableTextComponents} />
+                    </div>
 
-            {/* Main content — single consistent column */}
-            <div className="max-w-[720px] mx-auto px-6">
+                    {/* Newsletter CTA */}
+                    <InlineNewsletterCta />
 
-                {/* Article Body */}
-                <div className="prose-container max-w-none">
-                    <PortableText value={post.body} components={PortableTextComponents} />
-                </div>
-
-                {/* Newsletter CTA */}
-                <InlineNewsletterCta />
-
-                {/* Mobile share (visible < xl only, after content) */}
-                <div className="xl:hidden mt-8 pt-6 border-t border-accent-border">
-                    <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} />
+                    {/* Mobile share (visible < xl only, after content) */}
+                    <div className="xl:hidden mt-8 pt-6 border-t border-accent-border">
+                        <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} />
+                    </div>
                 </div>
             </div>
 
