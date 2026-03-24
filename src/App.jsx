@@ -98,6 +98,28 @@ const NotFound = lazyRetry(() => import('./pages/NotFound'));
 
 const chromelessRoutes = ['/rahul', '/sid', '/booking-confirmed'];
 
+// Preload main nav page chunks after initial paint so they're cached before
+// the user navigates. Eliminates Safari dynamic import errors during navigation.
+if (typeof requestIdleCallback === 'function') {
+  requestIdleCallback(() => {
+    import('./pages/About');
+    import('./pages/Services');
+    import('./pages/Work');
+    import('./pages/Blog');
+    import('./pages/HowItWorksPage');
+    import('./pages/StartHere');
+  }, { timeout: 5000 });
+} else {
+  setTimeout(() => {
+    import('./pages/About');
+    import('./pages/Services');
+    import('./pages/Work');
+    import('./pages/Blog');
+    import('./pages/HowItWorksPage');
+    import('./pages/StartHere');
+  }, 2000);
+}
+
 // Load GTM immediately if user already accepted cookies
 initConsent();
 
