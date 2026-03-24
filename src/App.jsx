@@ -5,35 +5,22 @@ import FooterV2 from './components/FooterV2';
 import CookieConsent, { initConsent } from './components/CookieConsent';
 import ScrollToTop from './components/ScrollToTop';
 
-// Homepage loads eagerly (critical path)
+// Main navigation pages loaded eagerly — eliminates Safari dynamic import
+// errors that caused "The object can not be found here." on mobile navigation.
 import Home from './pages/Home';
+import About from './pages/About';
+import Services from './pages/Services';
+import HowItWorksPage from './pages/HowItWorksPage';
+import StartHere from './pages/StartHere';
+import Work from './pages/Work';
+import Blog from './pages/Blog';
 
-// Retry wrapper for lazy imports — retries up to 3 times on network failure
-// (handles flaky mobile connections and post-deploy chunk invalidation)
+// Lazy wrapper for rarely-visited pages (not reachable from hamburger menu)
 function lazyRetry(importFn) {
   return lazy(() =>
-    new Promise((resolve, reject) => {
-      const attempt = (remaining) => {
-        importFn()
-          .then(resolve)
-          .catch((err) => {
-            if (remaining <= 0) {
-              // Prevent infinite reload loops: only reload if not attempted in last 10s
-              const key = 'lazyRetry_reloaded';
-              const last = parseInt(sessionStorage.getItem(key) || '0', 10);
-              if (Date.now() - last > 10000) {
-                sessionStorage.setItem(key, String(Date.now()));
-                window.location.reload();
-                return;
-              }
-              // Reload already attempted recently — reject so error boundary catches it
-              reject(err);
-              return;
-            }
-            setTimeout(() => attempt(remaining - 1), 1500);
-          });
-      };
-      attempt(3);
+    importFn().catch(() => {
+      window.location.reload();
+      return new Promise(() => {}); // never resolves — reload takes over
     })
   );
 }
@@ -75,14 +62,8 @@ function PageLoader() {
   );
 }
 
-// Everything else lazy-loaded with retry
-const About = lazyRetry(() => import('./pages/About'));
-const Services = lazyRetry(() => import('./pages/Services'));
-const HowItWorksPage = lazyRetry(() => import('./pages/HowItWorksPage'));
-const StartHere = lazyRetry(() => import('./pages/StartHere'));
-const Work = lazyRetry(() => import('./pages/Work'));
+// Rarely-visited pages stay lazy (not reachable from hamburger menu)
 const WorkInner = lazyRetry(() => import('./pages/WorkInner'));
-const Blog = lazyRetry(() => import('./pages/Blog'));
 const BlogInner = lazyRetry(() => import('./pages/BlogInner'));
 const Privacy = lazyRetry(() => import('./pages/Privacy'));
 const Terms = lazyRetry(() => import('./pages/Terms'));
@@ -97,28 +78,6 @@ const IndustryPage = lazyRetry(() => import('./pages/IndustryPage'));
 const NotFound = lazyRetry(() => import('./pages/NotFound'));
 
 const chromelessRoutes = ['/rahul', '/sid', '/booking-confirmed'];
-
-// Preload main nav page chunks after initial paint so they're cached before
-// the user navigates. Eliminates Safari dynamic import errors during navigation.
-if (typeof requestIdleCallback === 'function') {
-  requestIdleCallback(() => {
-    import('./pages/About');
-    import('./pages/Services');
-    import('./pages/Work');
-    import('./pages/Blog');
-    import('./pages/HowItWorksPage');
-    import('./pages/StartHere');
-  }, { timeout: 5000 });
-} else {
-  setTimeout(() => {
-    import('./pages/About');
-    import('./pages/Services');
-    import('./pages/Work');
-    import('./pages/Blog');
-    import('./pages/HowItWorksPage');
-    import('./pages/StartHere');
-  }, 2000);
-}
 
 // Load GTM immediately if user already accepted cookies
 initConsent();

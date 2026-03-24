@@ -14,70 +14,47 @@ if (import.meta.env.PROD) {
 /**
  * ResilientErrorBoundary
  *
- * Handles three categories of runtime errors:
- *
- * 1. DOM desync (GSAP ScrollTrigger pin cleanup during route changes)
- *    → Auto-recover silently, kill ScrollTriggers
- *
- * 2. Chunk loading failures (lazy import network errors after retries exhausted)
- *    → Force page reload to get fresh chunk references
- *
- * 3. Everything else (real application errors)
- *    → Report to Sentry, show retry UI instead of permanent blank page
+ * 1. DOM desync (GSAP pin cleanup) → auto-recover silently
+ * 2. Everything else → reload once, show error UI only if it persists
  */
 class ResilientErrorBoundary extends Component {
   constructor(props) {
     super(props)
-    this.state = { hasError: false, showErrorUI: false }
+    this.state = { hasError: false, permanent: false }
+    this._reloadAttempted = false
   }
 
   static getDerivedStateFromError() {
-    // Never show error UI immediately — always try to auto-recover first.
-    // componentDidCatch will either recover silently or escalate to showErrorUI.
-    return { hasError: true, showErrorUI: false }
+    return { hasError: true }
   }
 
   componentDidCatch(error, errorInfo) {
     const msg = error?.message || ''
 
-    const isDomDesync =
-      msg.includes('removeChild') ||
-      msg.includes('insertBefore') ||
-      msg.includes('appendChild')
-
-    if (isDomDesync) {
-      console.warn('[ErrorBoundary] DOM desync, auto-recovering.', msg)
+    // DOM desync from GSAP — auto-recover silently
+    if (msg.includes('removeChild') || msg.includes('insertBefore') || msg.includes('appendChild')) {
       ScrollTrigger.getAll().forEach(st => st.kill())
-      setTimeout(() => this.setState({ hasError: false, showErrorUI: false }), 0)
+      setTimeout(() => this.setState({ hasError: false, permanent: false }), 0)
       return
     }
 
-    // For ALL other errors: try a one-time reload to recover (handles stale
-    // chunks, Safari import errors, and transient rendering issues).
-    // Only show error UI if reload was already attempted within the last 10s.
-    const key = 'errorBoundary_reloaded'
-    const lastReload = parseInt(sessionStorage.getItem(key) || '0', 10)
-    const reloadedRecently = Date.now() - lastReload < 10000
-
-    if (!reloadedRecently) {
-      console.warn('[ErrorBoundary] Error during navigation, reloading.', msg)
-      sessionStorage.setItem(key, String(Date.now()))
-      window.location.reload()
-      return
-    }
-
-    // Reload already attempted within 10s — show error UI as last resort
-    console.error('[ErrorBoundary] Persistent error after reload.', msg)
-    sessionStorage.removeItem(key)
-    this.setState({ showErrorUI: true })
+    // Report to Sentry
     import('@sentry/react').then(Sentry => {
       Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo?.componentStack } } })
     }).catch(() => {})
+
+    // Try one reload — if already tried, show error UI
+    if (!this._reloadAttempted) {
+      this._reloadAttempted = true
+      window.location.reload()
+    } else {
+      this.setState({ permanent: true })
+    }
   }
 
   render() {
     if (this.state.hasError) {
-      if (this.state.showErrorUI) {
+      if (this.state.permanent) {
         return (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', fontFamily: 'Inter, system-ui, sans-serif', color: '#0F172A', padding: '24px', textAlign: 'center' }}>
             <p style={{ fontSize: '1.125rem', marginBottom: '16px' }}>Something went wrong loading this page.</p>
@@ -90,7 +67,6 @@ class ResilientErrorBoundary extends Component {
           </div>
         )
       }
-      // Auto-recovering — render nothing (no flash)
       return null
     }
     return this.props.children
