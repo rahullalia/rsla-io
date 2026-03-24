@@ -36,6 +36,9 @@ class ResilientErrorBoundary extends Component {
   componentDidCatch(error, errorInfo) {
     const msg = error?.message || ''
 
+    // Diagnostic — remove after debugging
+    console.warn('[ErrorBoundary]', msg, error)
+
     // Kill stale GSAP ScrollTriggers on any DOM-related error
     if (msg.includes('removeChild') || msg.includes('insertBefore') || msg.includes('appendChild')) {
       ScrollTrigger.getAll().forEach(st => st.kill())
