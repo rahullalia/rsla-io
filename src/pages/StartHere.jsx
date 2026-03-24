@@ -98,7 +98,7 @@ export default function StartHere() {
             />
             {/* Hero */}
             <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">
-                <div className="start-hero-content max-w-4xl mx-auto text-center">
+                <div className="start-hero-content opacity-0 max-w-4xl mx-auto text-center">
                     <h1 className="font-sans font-bold text-4xl md:text-6xl lg:text-7xl text-text tracking-tight mb-6 leading-tight">
                         <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                             New here? Start

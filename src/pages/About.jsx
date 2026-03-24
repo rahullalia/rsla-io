@@ -59,7 +59,7 @@ export default function About() {
                 }}
             />
             <section className="bg-surface pt-32 pb-20 md:pb-28 px-6 md:px-12">
-                <div className="about-hero-content max-w-4xl mx-auto text-center">
+                <div className="about-hero-content opacity-0 max-w-4xl mx-auto text-center">
                     <h1 className="font-drama italic font-bold text-3xl md:text-5xl lg:text-6xl text-text tracking-tight mb-6 leading-snug">
                         <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                             "What a privilege to be tired from work you once begged the universe for..."
@@ -72,7 +72,7 @@ export default function About() {
             <div className="about-body bg-surfaceAlt pt-20 pb-24 px-6 md:px-12">
                 <div className="max-w-3xl mx-auto">
                     {/* Origin Story */}
-                    <div className="about-section mb-16">
+                    <div className="about-section opacity-0 mb-16">
                         <h2 className="font-sans font-bold text-2xl md:text-4xl text-text tracking-tight mb-6">
                             How it started
                         </h2>
@@ -103,7 +103,7 @@ export default function About() {
                     </div>
 
                     {/* What I Actually Do */}
-                    <div className="about-section mb-16">
+                    <div className="about-section opacity-0 mb-16">
                         <h2 className="font-sans font-bold text-2xl md:text-4xl text-text tracking-tight mb-6">
                             What I actually do
                         </h2>
@@ -119,7 +119,7 @@ export default function About() {
                     </div>
 
                     {/* Why I Am Different */}
-                    <div className="about-section mb-16">
+                    <div className="about-section opacity-0 mb-16">
                         <h2 className="font-sans font-bold text-2xl md:text-4xl text-text tracking-tight mb-6">
                             Why I am different
                         </h2>
@@ -132,7 +132,7 @@ export default function About() {
                     </div>
 
                     {/* CTA */}
-                    <div className="about-section">
+                    <div className="about-section opacity-0">
                         <Link to="/work" className="link-underline inline-flex items-center gap-2 min-h-[44px] font-sans font-bold text-accent text-sm hover:text-text transition-colors group">
                             See what we have built
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
