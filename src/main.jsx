@@ -14,14 +14,19 @@ if (import.meta.env.PROD) {
 /**
  * ResilientErrorBoundary
  *
- * 1. DOM desync (GSAP pin cleanup) → auto-recover silently
- * 2. Everything else → reload once, show error UI only if it persists
+ * Always auto-recovers silently from transient errors (GSAP unmount,
+ * Safari import quirks, motion library cleanup). Never shows error UI
+ * unless the app is in a genuine crash loop (3+ errors within 3 seconds).
+ *
+ * Key design: NO window.location.reload(). Reload is async — JS keeps
+ * running after the call, giving React time to process a second error
+ * and flash the error UI before the reload takes effect.
  */
 class ResilientErrorBoundary extends Component {
   constructor(props) {
     super(props)
     this.state = { hasError: false, permanent: false }
-    this._reloadAttempted = false
+    this._errorTimestamps = []
   }
 
   static getDerivedStateFromError() {
@@ -31,24 +36,28 @@ class ResilientErrorBoundary extends Component {
   componentDidCatch(error, errorInfo) {
     const msg = error?.message || ''
 
-    // DOM desync from GSAP — auto-recover silently
+    // Kill stale GSAP ScrollTriggers on any DOM-related error
     if (msg.includes('removeChild') || msg.includes('insertBefore') || msg.includes('appendChild')) {
       ScrollTrigger.getAll().forEach(st => st.kill())
-      setTimeout(() => this.setState({ hasError: false, permanent: false }), 0)
-      return
     }
 
-    // Report to Sentry
+    // Report to Sentry (non-blocking)
     import('@sentry/react').then(Sentry => {
       Sentry.captureException(error, { contexts: { react: { componentStack: errorInfo?.componentStack } } })
     }).catch(() => {})
 
-    // Try one reload — if already tried, show error UI
-    if (!this._reloadAttempted) {
-      this._reloadAttempted = true
-      window.location.reload()
-    } else {
+    // Track error frequency — only show error UI for genuine crash loops
+    const now = Date.now()
+    this._errorTimestamps.push(now)
+    // Keep only errors from the last 3 seconds
+    this._errorTimestamps = this._errorTimestamps.filter(t => now - t < 3000)
+
+    if (this._errorTimestamps.length >= 3) {
+      // 3+ errors in 3 seconds = genuinely broken, show error UI
       this.setState({ permanent: true })
+    } else {
+      // Transient error (navigation, unmount, Safari quirk) — recover silently
+      setTimeout(() => this.setState({ hasError: false, permanent: false }), 0)
     }
   }
 
@@ -67,6 +76,7 @@ class ResilientErrorBoundary extends Component {
           </div>
         )
       }
+      // Transient error — render nothing briefly while auto-recovering
       return null
     }
     return this.props.children

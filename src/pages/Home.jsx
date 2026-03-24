@@ -2,20 +2,29 @@ import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import Seo from '../components/Seo';
 import HeroV2 from '../components/HeroV2';
 
-// Lazy-load below-fold sections
-const SystemArchitecture = lazy(() => import('../components/SystemArchitecture'));
-const ServicesV2 = lazy(() => import('../components/ServicesV2'));
-const HowItWorks = lazy(() => import('../components/HowItWorks'));
-const StatsSection = lazy(() => import('../components/StatsSection'));
-const ProofSection = lazy(() => import('../components/ProofSection'));
-const Testimonials = lazy(() => import('../components/Testimonials'));
-const FounderSection = lazy(() => import('../components/FounderSection'));
-const BlogPreview = lazy(() => import('../components/BlogPreview'));
-const BookingSection = lazy(() => import('../components/BookingSection'));
-const FaqSection = lazy(() => import('../components/FaqSection'));
-const CtaWithGlow = lazy(() => import('../components/CtaWithGlow'));
-const MarqueeV2 = lazy(() => import('../components/MarqueeV2'));
-const LogoMarquee = lazy(() => import('../components/LogoMarquee'));
+// Retry wrapper for lazy imports — handles Safari mobile import() failures
+function lazyRetry(importFn) {
+    return lazy(() =>
+        importFn().catch(() =>
+            new Promise(resolve => setTimeout(resolve, 200)).then(() => importFn())
+        )
+    );
+}
+
+// Lazy-load below-fold sections (with retry for Safari resilience)
+const SystemArchitecture = lazyRetry(() => import('../components/SystemArchitecture'));
+const ServicesV2 = lazyRetry(() => import('../components/ServicesV2'));
+const HowItWorks = lazyRetry(() => import('../components/HowItWorks'));
+const StatsSection = lazyRetry(() => import('../components/StatsSection'));
+const ProofSection = lazyRetry(() => import('../components/ProofSection'));
+const Testimonials = lazyRetry(() => import('../components/Testimonials'));
+const FounderSection = lazyRetry(() => import('../components/FounderSection'));
+const BlogPreview = lazyRetry(() => import('../components/BlogPreview'));
+const BookingSection = lazyRetry(() => import('../components/BookingSection'));
+const FaqSection = lazyRetry(() => import('../components/FaqSection'));
+const CtaWithGlow = lazyRetry(() => import('../components/CtaWithGlow'));
+const MarqueeV2 = lazyRetry(() => import('../components/MarqueeV2'));
+const LogoMarquee = lazyRetry(() => import('../components/LogoMarquee'));
 
 /** Renders children only after the sentinel enters the viewport */
 function LazyOnView({ children, rootMargin = '200px' }) {
