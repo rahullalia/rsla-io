@@ -253,218 +253,25 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 
 ## Session Log
 
-### 2026-02-24: Pages, SEO, Mobile Nav, Copy
-- Added 3 new pages: /booking-confirmed, /rahul (digital business card), /insider (newsletter signup)
-- Built Seo.jsx component, added per-page SEO to all 16 pages matching existing rsla.io metadata
-- Built mobile hamburger menu with full-screen overlay and auto-close
-- Replaced founder section placeholder with profile photo (/images/rahul.png)
-- Styled About page quote with drama font and inline opening quote mark
-- Refined all 3 service card copy (voice DNA aligned)
-- Redesigned dashboard visual (donut chart, pipeline bar, colored stats)
-- Made terminal animation loop continuously with realistic bot conversation
-- Removed Siddharth author from Sanity, reassigned 3 posts to Rahul
-- Updated .vcf with real vCard data
-- Committed, pushed, auto-deploying to Vercel
-- Created TODO.md with remaining tasks and wishlist
+<details>
+<summary>2026-02-24 to 2026-03-08: Initial Build (click to expand)</summary>
 
-### 2026-02-25: UI Component Implementation (Phase 7)
-- Initialized shadcn CLI (components.json, tsconfig.json with @ alias)
-- Updated Tailwind to blue-gray theme palette (slate-50 bg, slate-900 text, blue-tinted borders)
-- Installed 6 Magic UI components: InteractiveHoverButton, MagicCard, TextAnimate, Marquee, NumberTicker, ShineBorder
-- motion library pulled in as dep (used by MagicCard, TextAnimate, NumberTicker), split into separate chunk (93KB/31KB gzipped)
-- Converted 5 21st.dev components from Framer Motion/Next.js to GSAP/React Router:
-  - AuroraBackground (CSS aurora, replaces CanvasParticles)
-  - NavbarV2 (GSAP lamp indicator, desktop top + mobile bottom pill)
-  - CtaWithGlow (radial gradient glow, GSAP scroll entrance)
-  - Testimonials (plain HTML lifted cards, GSAP stagger)
-  - FooterV2 (light theme, Kit newsletter, plain HTML)
-- Built 7 new homepage sections: HeroV2, ServicesV2, StatsSection, Testimonials, BlogPreview, CtaWithGlow, MarqueeV2
-- Swapped NavbarV2 and FooterV2 into App.jsx (site-wide)
-- Removed from homepage: ProblemSection, HowItWorks, FounderSection, ProofSection (still available on their dedicated pages)
-- Build passes, bundle size: 326KB/108KB gzipped main chunk
-- UI_COMPONENTS.md updated as component decision tracker
-- Reference source code at ~/lalia/4-Resources/uiComponents/
+**Key decisions and gotchas from the initial build — the code is the source of truth for specifics.**
 
-### 2026-02-25: Homepage Polish & Fixes
-- FooterV2 switched to dark (#0A0A0A) — white/opacity text, bigger logo (h-20), email in brand column
-- InteractiveHoverButton: blue-filled (bg-accent text-white), white dot expand on hover
-- ServicesV2: replaced ShineBorder with card-beam CSS (rotating conic-gradient, 1px border via padding approach)
-- Testimonials: restored masonry grid (1 featured 2x2 + 4 regular = 5 cards, fills 8-cell grid)
-- CTA section: FlickeringGrid (Magic UI) background on dark #0A0A0A, InteractiveHoverButton CTA, removed `group` class that was triggering button hover on section enter
-- Marquee: added missing `marquee` + `marquee-vertical` keyframes to tailwind.config.js (was not animating)
-- ShineBorder: added `shine` keyframe to tailwind.config.js (was in @theme inline block, Tailwind v4 syntax ignored by v3.4)
-- Footer: removed Start Here from nav, updated newsletter subheading, moved email from bottom bar to brand column
-- Installed FlickeringGrid via `npx shadcn@latest add` from Magic UI
-- Visual QA pass: all homepage sections verified via Puppeteer screenshots
-- Installed puppeteer-core in /tmp for screenshot workflow
+- Kit API: use `api.convertkit.com/v3/forms/{id}/subscribe` (NOT `app.kit.com/forms/`). Form ID: 9130465. Env var: `VITE_KIT_API_KEY`
+- Vite + Vercel serverless: needs explicit `functions` block in vercel.json (`"runtime": "@vercel/node@5.6.9"`). SPA rewrite must exclude `/api/`: `/((?!api/).*) → /index.html`
+- CSP: whitelists GTM, Sanity CDN, GHL embed, Kit (api.convertkit.com), YouTube/Vimeo/Loom/Wistia, Sentry. `blob:` in script-src + `worker-src 'self' blob:` for canvas-confetti
+- Sentry: deferred via `requestIdleCallback` + dynamic import. 20% traces, 100% replay-on-error, prod-only. DSN via `VITE_SENTRY_DSN`
+- Case study images: double-nested `asset.asset._ref` in Sanity schema
+- Pre-rendering: `scripts/prerender.mjs` injects semantic HTML into `<div id="root">`. Vercel serves filesystem files before rewrites. React replaces on mount.
+- All V1 schemas (blogPost, caseStudy) are legacy. Website queries V2 only (blogPostV2, caseStudyV2)
+- Case study V2 categories: "AI Automations", "AI Lead Generation", "AI Operations", "AI Digital Presence"
+- Gated resources: every download requires email (no localStorage persistence)
+- Lighthouse baseline: Perf 96, A11y 95, BP 96, SEO 92
+- Accent color: #0066E0 (WCAG AA, changed from #0070F3)
+- font-quote = Caveat (blockquotes). font-drama = Playfair Display (accent words). font-sans = Satoshi (headlines)
 
-### 2026-02-25: Light Theme Propagation, Cookie Consent, SEO Hardening
-- Converted all pages to semantic color tokens (surface, surfaceAlt, text, textMuted, textLight, accent-border)
-- Converted Blog.jsx, BlogInner.jsx, Work.jsx, WorkInner.jsx, PortableTextRenderer.jsx, HowItWorks.jsx
-- Built CookieConsent.jsx: desktop inline pill bar + mobile stacked card, gates GTM loading
-  - GTM removed from index.html, loads dynamically only on "Accept All"
-  - localStorage persistence, 1.5s delay before showing, smooth exit animation
-- NavbarV2 logo fade: fades out on scroll (opacity-0, pointer-events-none) since logo sits outside pill nav
-- Legal pages: Privacy, Terms redesigned; Accessibility, Disclaimer added (done in separate Claude instance)
-- /sid digital business card page created (chromeless)
-- SEO hardening:
-  - Generated favicon.ico (32x32), apple-touch-icon.png (180x180), icon-192.png, icon-512.png from logomark.svg
-  - Added JSON-LD structured data to 6 indexed pages (About, Services, HowItWorks, StartHere, Work, Blog)
-  - Added noIndex to NotFound.jsx
-- Fixed Dependabot alerts: basic-ftp 5.1.0→5.2.0 (critical), rollup 4.58.0→4.59.0 (high)
-- Deleted 4 dead files from old website: Hero.jsx, MarqueeStrip.jsx, ProblemSection.jsx, vite.svg
-
-### 2026-02-25: Domain, 404 Redesign, Testimonials, Security, Audits
-- Connected rsla.io + www.rsla.io to Vercel (both domains verified)
-- Redesigned 404 page: FlickeringGrid background, TextAnimate blur-in, InteractiveHoverButton CTA, GSAP entrance
-- Replaced placeholder testimonials with 5 real client quotes (Sid S. featured, Curtis H., Chris K., Laiz C., Parminder S.)
-- Added WebSite JSON-LD schema to homepage (tells Google to show "RSL/A" instead of "rsla.io" in SERPs)
-- Seo.jsx updated to support array of JSON-LD schemas
-- Regenerated favicon.ico at 48x48 and 96x96 (Google requires minimum 48px for SERP display)
-- Lighthouse audit: Perf 96, Accessibility 95, Best Practices 96, SEO 92 (all green)
-- Security audit and fixes:
-  - Added security headers to vercel.json: CSP, X-Frame-Options (DENY), X-Content-Type-Options (nosniff), Referrer-Policy, Permissions-Policy, X-XSS-Protection
-  - CSP whitelists: GTM, Sanity CDN, GHL embed, ConvertKit, YouTube/Vimeo/Loom
-  - Sanitized PortableText link renderer to block javascript:/data:/vbscript: protocol URLs
-  - Added "Cookie Settings" link to footer for GDPR consent revocation
-- npm audit: 0 vulnerabilities
-- Reorganized TODO.md into P0 to P4 priority tiers
-
-### 2026-02-25: P0 Fixes, Font Preloading, QA Sign-off
-- Connected rsla.io + www.rsla.io domains to Vercel (both verified)
-- P0 Lighthouse fixes:
-  - Accent color: #0070F3 to #0066E0 (WCAG AA contrast)
-  - Footer: h5 tags to p (heading hierarchy)
-  - Cookie banner: "Learn more" to "Privacy Policy" (descriptive link text)
-  - Logo imgs: added width/height attributes (CLS prevention)
-  - Canonical: added fallback `<link rel="canonical">` to index.html for non-JS crawlers
-- Preloaded critical above-fold fonts: Satoshi Bold, Space Grotesk Regular, Inter Regular
-- Visual QA pass: all pages approved by Rahul (responsive browser testing)
-- Mobile nav: hamburger/pill approved on all screen sizes
-- Booking iframe: responsive, approved
-- Marquee: keeping service text labels for now, may add logos later
-- All P0 items complete
-
-### 2026-02-26: P4 Infrastructure
-- Installed @sentry/react with ErrorBoundary in main.jsx, browser tracing, session replay on errors
-- Sentry config: 20% trace sampling, 0% session replay, 100% replay on error, prod-only
-- DSN via VITE_SENTRY_DSN env var (set in Vercel dashboard), Sentry project: `rsla-website`
-- Added Edge caching headers to vercel.json:
-  - /assets/* + /fonts/*: 1 year, immutable (Vite content-hashed)
-  - /images/* + root PNGs: 30 days + stale-while-revalidate
-  - /og-image.png: 7 days
-- Confirmed Vercel preview deployments already enabled (every PR gets preview URL)
-- Updated CSP: added *.sentry.io, *.ingest.sentry.io, fast.wistia.net
-- Sentry test event confirmed working (RSLA-WEBSITE-1), test message removed
-- All P0 through P4 items complete
-
-### 2026-02-26: Sanity Studio Deployment & Cleanup
-- Created standalone Sanity Studio at `~/lalia/1-Projects/rsl-a/rslaStudio/`
-- GitHub repo: `rahullalia/rslaStudio` (private), auto-deploys to Vercel
-- Live at `studio.rsla.io` with RSL/A favicon
-- Desk structure: V1 types primary (where all content lives), V2 under submenu for new content
-- Confirmed migration integrity: all case study images intact (double-nested `asset.asset._ref`)
-- Removed stale `readingTime` field from 7 case studies via Sanity API
-- Removed schemas from website repo (Studio is now source of truth)
-- Removed 5 Studio-only deps: sanity, @sanity/vision, @sanity/code-input, groq, styled-components
-- Committed missing `generateRssFeed.mjs` (was breaking Vercel build)
-- Old studio remains at `admin.rsla.io` (content fully migrated to `yz25oyux`)
-
-### 2026-02-27: Case Study Fixes — Images, Videos, Downloads
-- Fixed /work page only showing 3 case studies (was filtering to `featured: true` only)
-  - Now shows "Featured Intelligence" (3) + "All Case Studies" (5) sections
-- Added `caseStudyImage` handler to PortableTextRenderer (double-nested `asset.asset._ref`)
-  - Supports alt, caption, credit, and size (small/medium/large/full) fields
-- Added Wistia video embed support to `videoEmbed` handler
-  - Parses `rsla.wistia.com/medias/` URLs → `fast.wistia.net/embed/iframe/`
-  - Added `fast.wistia.net` to CSP `frame-src`
-  - Vertical orientation renders 9:16 aspect ratio
-- Added email gate to `gatedResource` blocks
-  - Subscribes to Kit form 7558498, auto-triggers download on success
-  - localStorage remembers returning visitors (skip email gate)
-  - Kit returns 302 on success — checks `res.ok || res.redirected`
-- Added `app.kit.com` to CSP `connect-src` (Kit rebranded from api.convertkit.com)
-- Added blueprint download files to `public/downloads/`
-  - `case-studies/email-ice-breaker/blueprint.json` (125KB)
-  - `proposal-generator-blueprint.json` (85KB)
-- Added `Content-Disposition: attachment` header for `/downloads/*` in vercel.json
-
-### 2026-02-27: Kit Fix, Case Study Redesign, Sanity Content Updates
-- Fixed Kit subscription across entire site (was broken, emails never reaching Kit)
-  - Wrong endpoint: `app.kit.com/forms/` is browser-only (redirects to bot guard), switched to `api.convertkit.com/v3/forms/{id}/subscribe`
-  - Wrong form ID: 7558498 → 9130465
-  - Fixed in: PortableTextRenderer (GatedResourceBlock), InlineNewsletterCta, FooterV2
-  - API key via `import.meta.env.VITE_KIT_API_KEY` (env var `VITE_KIT_API_KEY` set in Vercel)
-  - Insider.jsx was already correct (v3 API with env vars)
-- Redesigned case study inner pages (WorkInner.jsx) — editorial flow
-  - Max-width narrowed from 4xl to 3xl
-  - Metrics: flat row with border-y, no background/rounded box
-  - TL;DR: left accent border (border-l-2), no card
-  - Surfaced 3 unused schema fields: problemStatement, solutionApproach, resultsOutcome
-  - Before/After: kept as cards (tightened to rounded-xl)
-  - Key Takeaways: numbered list, no box
-  - Meta badges (industry/timeframe/services): merged inline with tag pill
-  - Body content wrapped in `case-study-prose` class for font scoping
-- Restyled PortableText headings for case studies
-  - H2: mono uppercase accent label (font-mono text-xs text-accent uppercase tracking-widest)
-  - H3: text-lg/xl font-semibold (down from text-4xl/5xl)
-  - Removed all emojis from callout, tech stack, gated resource blocks
-- Added Cormorant Garamond font for case study pages only
-  - WorkInner description uses font-quote (Cormorant Garamond) instead of font-drama (Playfair Display)
-  - CSS override: `.case-study-prose .font-drama { font-family: 'Cormorant Garamond', serif; }` in index.css
-  - Homepage ProofSection also updated to font-quote for metric numbers and heading
-- Replaced "Executive Axiom" with "Rahul Lalia" in Sanity content
-  - 8 testimonial blocks across 5 case studies (author field, role stays "RSL/A")
-  - All 5 documents published via Sanity MCP
-- Replaced blog category pills (17) with dropdown select
-  - Search + dropdown on same row (desktop), stacked (mobile)
-  - ChevronDown icon, rounded-full, matches site design system
-
-### 2026-02-28: LLM Search Optimization (AEO)
-- Added `llms.txt` and Markdown API for AI search optimization
-- **llms.txt:** Build-time generated at `rsla.io/llms.txt` by `scripts/generateLlmsTxt.mjs`. Lists RSL/A summary, services, all 38 blog posts and 8 case studies with links to markdown API.
-- **Markdown API:** Vercel serverless function at `rsla.io/api/llm/[slug]`. Returns clean markdown for any blog post or case study slug. Tries blogPostV2 first, then caseStudy. 1-hour edge cache.
-- **Portable Text converter:** `api/lib/portableTextToMarkdown.mjs`. Handles headings, lists, bold/italic/code/strikethrough, links, images (alt text), code blocks, callouts, stats, testimonials, tech stacks. Skips CTA buttons, video embeds, gated resources.
-- **Vercel config:** Required explicit `functions` block in vercel.json (`"runtime": "@vercel/node@5.6.9"`) because `framework: "vite"` doesn't auto-detect `api/` directory. Also changed SPA rewrite from `/(.*) → /index.html` to `/((?!api/).*) → /index.html` to prevent catch-all from intercepting API routes.
-- **robots.txt:** Added comment pointing to llms.txt.
-- **Build script:** Updated to include `&& node scripts/generateLlmsTxt.mjs`.
-- Architecture doc updated: `theBrand/llmArchitecture.md` (items 1 and 2 complete, semantic HTML audit remaining).
-
-### 2026-02-27: About Cleanup, Confetti CSP Fix, Hero Mobile Polish
-- Removed About page tag badges (tags array, GSAP `.about-tag` animation, render block)
-- Fixed confetti on /booking-confirmed: `canvas-confetti` creates Web Worker from `blob:` URL, CSP was blocking it
-  - Added `blob:` to `script-src` and new `worker-src 'self' blob:` directive in vercel.json
-- Hero mobile polish:
-  - Heading bumped from `text-3xl` to `text-4xl` on mobile (was undersized vs buttons)
-  - "seconds." TextAnimate delay changed from 0.08 to 0.88 (sequences after 10-word main headline)
-  - Button padding reduced on mobile: `px-6 py-3 text-sm` (scales up at `sm` breakpoint)
-  - Mobile bottom padding: `pb-44` (was `pb-24`) to show aurora above headline
-  - Desktop unchanged at `pb-32`
-
-### 2026-03-03: Pre-render Pages for AI Tool Visibility
-- Created `scripts/prerender.mjs`: build-time HTML injection into all indexed pages
-  - Reads built `dist/index.html` as template, replaces meta tags + injects semantic HTML into `<div id="root">`
-  - 5 static pages (Home, About, Services, How It Works, Start Here) with hardcoded content from JSX
-  - 2 listing pages (Blog, Work) fetched from Sanity at build time
-  - 42 blog posts + 8 case studies: full body converted via `portableTextToMarkdown` + `marked`
-  - Total: 57 pre-rendered pages
-  - Vercel serves filesystem files before rewrites, so pre-rendered pages get served directly
-  - React `createRoot().render()` replaces injected content when JS loads — no user-visible change
-- Added `marked` v17 as devDependency (Portable Text markdown to HTML conversion)
-- Updated build script: `vite build && node scripts/prerender.mjs && ...` (runs before sitemap/RSS/llms.txt)
-- Updated positioning text across public-facing files:
-  - `index.html`: description, keywords, OG, Twitter tags — "We show founders how to put AI to work"
-  - `generateLlmsTxt.mjs`: intro paragraph updated, removed "GHL implementation agency" language
-- Verified via WebFetch: all pages return full readable content to non-JS clients
-
-### 2026-03-08: V2 Case Studies, Gated Resource Fix, Query Migration
-- **Work page switched to V2 case studies only**: `Work.jsx` now imports `caseStudiesV2Query` instead of `caseStudiesQuery`. Category filters updated to V2 values: "AI Automations", "AI Lead Generation", "AI Operations", "AI Digital Presence"
-- **All case study queries migrated to V2**: `relatedCaseStudiesQuery`, `relatedCaseStudyForBlogQuery`, `featuredCaseStudyFallbackQuery` in `queries.ts` now query `caseStudyV2` instead of `caseStudy`
-- **BlogInner category mapping updated**: `BLOG_SLUG_TO_CASE_CATEGORY` values changed from V1 categories ("Marketing", "CRM & Operations", "AI Automation") to V2 categories
-- **V2 listing query filtered by status**: Added `status == "published"` to `caseStudiesV2Query` so drafts don't appear
-- **Gated resource email gate**: Removed localStorage persistence from `GatedResourceBlock` in `PortableTextRenderer.jsx`. Every download now requires email input, even for returning visitors. No `rsla_resource_unlocked` key in localStorage.
-- **New blueprint downloads added**: `public/downloads/case-studies/ai-content-generator/blueprint.json` and `public/downloads/case-studies/email-autoresponder/blueprint.json`
-- **11 V2 case studies now live on /work page** (was 8 V1 case studies before)
+</details>
 
 ### 2026-03-10: Logo Marquee Safari Fix
 
@@ -566,8 +373,19 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - **Implementation plan**: `docs/superpowers/plans/2026-03-23-blog-inner-revamp.md`
 - **Mockups**: `.superpowers/brainstorm/78792-1774296503/blog-layout-v6.html` (final approved)
 
+### 2026-03-24: Mobile Navigation Error Flash Fix
+
+- **Rewrote `ResilientErrorBoundary` in `main.jsx`** — eliminated "Something went wrong" flash on mobile Safari navigation
+  - **Root cause**: `window.location.reload()` is async — JS keeps running after the call, giving React time to process a second error and set `permanent: true`, flashing the error UI before reload completes
+  - **Fix**: Removed `window.location.reload()` entirely. Now uses silent auto-recovery (`setTimeout → setState({ hasError: false })`) with timestamp-based crash loop detection (3+ errors in 3 seconds = genuine crash, show error UI)
+  - Old approach: `_reloadAttempted` boolean flag → race condition on second error
+  - New approach: `_errorTimestamps` array → frequency-based detection, no race
+- **Added `lazyRetry()` to Home.jsx internal lazy imports** — all 13 bare `lazy()` calls now retry once after 200ms on failure, preventing Safari `import()` errors from reaching the error boundary
+- **Fixed GSAP animation flash on nav pages** — GSAP `fromTo()` runs in `useEffect` (after first paint), so animated hero containers flashed at full opacity for one frame before GSAP set them to `opacity: 0`. Added `opacity-0` CSS class to hero containers on About, Services, HowItWorks, StartHere so they start hidden from first paint.
+- **Pattern established**: Any element animated by GSAP `fromTo` starting at `opacity: 0` needs `opacity-0` CSS class to prevent first-paint flash. Same pattern already used on hero CTA buttons.
+
 ---
 
 ## Last Updated
 
-2026-03-23
+2026-03-24

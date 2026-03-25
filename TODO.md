@@ -12,12 +12,14 @@
 - [x] Add "Solutions" column to footer — DONE
 - [x] Add tool pages: GoHighLevel, n8n, Make, Zapier — DONE (4 pages live)
 
-## P1: Bug Fixes — Completed This Session
+## P1: Bug Fixes
 
 - [x] Fix blank page on first visit (lazy chunk retry + error boundary recovery)
 - [x] Fix invisible page content after navigation (ScrollTrigger kill bug in useScrollToTop)
 - [x] Fix hero CTA buttons flashing before GSAP entrance animation
 - [x] Fix secondary hero CTA "stuck" during load (transition-all fighting GSAP)
+- [x] Fix "Something went wrong" error flash on mobile Safari navigation (error boundary rewrite, removed reload race condition)
+- [x] Fix GSAP hero content flash on nav pages (opacity-0 CSS on About, Services, HowItWorks, StartHere)
 
 ## P2: Logo Marquee — Completed This Session
 

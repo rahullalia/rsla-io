@@ -153,9 +153,16 @@ export default function Privacy() {
                                 <tr><td className="py-3 pr-4 text-text">GitHub</td><td className="py-3">Code hosting and version control</td></tr>
                                 <tr><td className="py-3 pr-4 text-text">Supabase</td><td className="py-3">Database and backend services</td></tr>
                                 <tr><td className="py-3 pr-4 text-text">Calendly / GHL Calendar</td><td className="py-3">Appointment scheduling</td></tr>
+                                <tr><td className="py-3 pr-4 text-text">Instagram Messaging API (Meta)</td><td className="py-3">Automated DM responses to followers who interact with our Instagram content. Collects Instagram user IDs, message content, and email addresses voluntarily provided through DM conversations.</td></tr>
                             </tbody>
                         </table>
                     </div>
+                    <h3 className="text-lg mt-8 mb-4 font-sans font-semibold text-text">Instagram DM Automation</h3>
+                    <p className="mb-8">
+                        We operate an automated messaging system that sends direct messages to Instagram users who interact with our content (such as commenting a keyword on a post or replying to a story). When you interact with our Instagram account in this way, we may collect your Instagram user ID, username, message content, and any information you voluntarily provide in the DM conversation (such as your email address). This data is stored securely and used solely to deliver the requested resource and track engagement with our content. You can request deletion of your data at any time by contacting{' '}
+                        <a href="mailto:team@rsla.io" className="text-accent hover:underline decoration-accent/50 underline-offset-4">team@rsla.io</a>.
+                    </p>
+
                     <p className="mb-8">
                         This list is not exhaustive. We may use additional tools and services as our business evolves. Each provider processes your data according to their own privacy policies, which we encourage you to review.
                     </p>

@@ -1,5 +1,5 @@
 /**
- * Pre-render static HTML for all indexed pages.
+ * Pre-render static HTML for all pages (indexed and non-indexed).
  *
  * Runs after `vite build`. For each page:
  * 1. Reads the built dist/index.html as template (has all hashed script/link tags)
@@ -403,6 +403,456 @@ function startHereContent() {
   };
 }
 
+// ── Previously-Unrendered Pages (legal, contact, utility) ─────────────────────
+
+function privacyContent() {
+  return {
+    title: 'Privacy Policy | RSL/A',
+    description: 'RSL/A privacy policy. How we collect, use, and protect your information.',
+    canonical: `${SITE}/privacy-policy`,
+    html: `<main>
+<h1>Privacy Policy</h1>
+<p><strong>Effective Date:</strong> February 2026</p>
+<p>This Privacy Policy ("Policy") describes how RSL/A ("Company," "we," "us," or "our") collects, uses, shares, and protects your personal information when you visit our website at rsla.io (the "Site"), engage our services, or interact with us through any channel, including email, SMS, social media, or third-party platforms.</p>
+<p>We operate primarily in the United States and Canada and serve clients internationally. This Policy is designed to comply with applicable privacy laws including the California Consumer Privacy Act (CCPA/CPRA), the Canadian Personal Information Protection and Electronic Documents Act (PIPEDA), and other applicable data protection regulations worldwide.</p>
+<p>By using our Site, engaging our services, or providing us with your personal information, you acknowledge that you have read and understood this Policy and consent to the collection, use, and disclosure of your information as described herein.</p>
+
+<h2>1. Information We Collect</h2>
+<h3>1.1 Information You Provide Directly</h3>
+<p>When you use our Site, submit inquiries, book a call, subscribe to our newsletter, engage our services, or communicate with us, you may voluntarily provide:</p>
+<ul>
+<li><strong>Contact Information:</strong> Name, email address, phone number, mailing address, company name, job title.</li>
+<li><strong>Payment and Billing Information:</strong> Credit or debit card details, billing address, and transaction records, processed securely through third-party payment processors (we do not store full card numbers on our servers).</li>
+<li><strong>Business Information:</strong> Industry, marketing goals, budget, website URLs, brand assets, login credentials for platforms you grant us access to.</li>
+<li><strong>Communications:</strong> Content of emails, SMS messages, chat messages, phone calls, and any files or documents you share with us.</li>
+<li><strong>Newsletter and Marketing Preferences:</strong> Email address and communication preferences when you subscribe to our mailing list or opt in to marketing communications.</li>
+<li><strong>User-Generated Content:</strong> Testimonials, reviews, feedback, or other content you submit to us or authorize us to use.</li>
+</ul>
+<h3>1.2 Information Collected Automatically</h3>
+<p>When you visit our Site, certain information is collected automatically through cookies, pixels, and similar tracking technologies:</p>
+<ul>
+<li><strong>Device and Browser Information:</strong> IP address, browser type and version, operating system, device type, screen resolution, and language preferences.</li>
+<li><strong>Usage Data:</strong> Pages visited, time spent on each page, referring URL, links clicked, scroll depth, and navigation paths.</li>
+<li><strong>Location Data:</strong> Approximate geographic location derived from your IP address.</li>
+<li><strong>Cookies and Tracking Technologies:</strong> We use first-party and third-party cookies, web beacons, and pixels. See Section 10 (Cookie Policy) for full details.</li>
+</ul>
+<h3>1.3 Information from Third Parties</h3>
+<p>We may receive information about you from third-party sources, including:</p>
+<ul>
+<li>Analytics providers (such as Google Analytics)</li>
+<li>Advertising platforms (such as Google Ads and Meta)</li>
+<li>CRM and marketing automation platforms</li>
+<li>Publicly available sources (business directories, social media profiles, public records)</li>
+<li>Referral partners or other clients who provide your contact information with your knowledge</li>
+</ul>
+
+<h2>2. How We Use Your Information</h2>
+<p>We use the information we collect for the following purposes:</p>
+<ul>
+<li><strong>Service Delivery:</strong> To provide, manage, and deliver the services you engage us for.</li>
+<li><strong>Communication:</strong> To respond to inquiries, send project updates, schedule calls, and provide customer support.</li>
+<li><strong>Billing and Payments:</strong> To process transactions, issue invoices, and maintain financial records.</li>
+<li><strong>Marketing:</strong> To send promotional emails, newsletters, and marketing materials. You can opt out at any time.</li>
+<li><strong>SMS and Text Messaging:</strong> To send appointment reminders, service updates, and promotional messages (with your express consent).</li>
+<li><strong>Analytics and Improvement:</strong> To analyze Site usage, measure campaign performance, and improve our services.</li>
+<li><strong>AI Processing:</strong> To use artificial intelligence tools to generate content, analyze data, build automations, and optimize deliverables on your behalf.</li>
+<li><strong>Legal Compliance:</strong> To comply with applicable laws, regulations, legal processes, and enforceable governmental requests.</li>
+<li><strong>Security:</strong> To detect, prevent, and address fraud, abuse, security risks, and technical issues.</li>
+</ul>
+
+<h2>3. How We Share Your Information</h2>
+<p><strong>We do not sell, rent, or trade your personal information to third parties for their own marketing purposes.</strong></p>
+<p>We may share your information in the following circumstances:</p>
+<ul>
+<li><strong>Service Providers and Vendors:</strong> We share information with third-party platforms and tools that help us deliver our services.</li>
+<li><strong>AI and Machine Learning Providers:</strong> Information may be processed by AI service providers (such as Anthropic and OpenAI).</li>
+<li><strong>Payment Processors:</strong> Payment information is transmitted directly to our payment processor (Stripe).</li>
+<li><strong>Analytics Providers:</strong> We share usage data with analytics services (such as Google Analytics).</li>
+<li><strong>Legal Requirements:</strong> We may disclose your information if required by law.</li>
+<li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets.</li>
+<li><strong>With Your Consent:</strong> We may share your information for any other purpose with your explicit consent.</li>
+</ul>
+
+<h2>4. Artificial Intelligence and Automation</h2>
+<p>We use artificial intelligence ("AI") and machine learning tools as a core part of how we deliver services. This includes content generation, data analysis, workflow automation, chatbot interactions, and campaign optimization.</p>
+<p>AI providers we use include, but are not limited to, Anthropic (Claude) and OpenAI (ChatGPT). Your information may be processed through these platforms to fulfill the services you have engaged us for.</p>
+<p>We take reasonable steps to limit the personal information shared with AI providers to what is necessary for the task at hand.</p>
+<p>AI-generated outputs are reviewed by our team before delivery. We do not guarantee that AI-generated content is free from errors.</p>
+
+<h2>5. Third-Party Services and Platforms</h2>
+<p>We use the following third-party services to operate our business and deliver services:</p>
+<ul>
+<li>Stripe — Payment processing and billing</li>
+<li>GoHighLevel — CRM, SMS messaging, email marketing, booking, and automation</li>
+<li>Kit (ConvertKit) — Email newsletter and subscriber management</li>
+<li>Google Analytics — Website analytics and usage tracking</li>
+<li>Google Ads — Advertising and conversion tracking</li>
+<li>Meta (Facebook/Instagram) — Advertising and conversion tracking</li>
+<li>Vercel — Website hosting and deployment</li>
+<li>Sanity — Content management system</li>
+<li>Anthropic (Claude) — AI content generation, data analysis, and automation</li>
+<li>OpenAI (ChatGPT) — AI content generation, data analysis, and automation</li>
+<li>Notion — Project management and internal documentation</li>
+<li>GitHub — Code hosting and version control</li>
+<li>Supabase — Database and backend services</li>
+<li>Calendly / GHL Calendar — Appointment scheduling</li>
+<li>Instagram Messaging API (Meta) — Automated DM responses to followers who interact with our Instagram content. Collects Instagram user IDs, message content, and email addresses voluntarily provided through DM conversations.</li>
+</ul>
+<h3>Instagram DM Automation</h3>
+<p>We operate an automated messaging system that sends direct messages to Instagram users who interact with our content (such as commenting a keyword on a post or replying to a story). When you interact with our Instagram account in this way, we may collect your Instagram user ID, username, message content, and any information you voluntarily provide in the DM conversation (such as your email address). This data is stored securely and used solely to deliver the requested resource and track engagement with our content. You can request deletion of your data at any time by contacting <a href="mailto:team@rsla.io">team@rsla.io</a>.</p>
+
+<h2>6. SMS and Text Messaging</h2>
+<p>By providing your phone number and opting in to receive text messages from RSL/A, you expressly consent to receive recurring SMS and MMS messages. Consent is not a condition of purchasing any goods or services. You can opt out at any time by replying STOP. Reply HELP for assistance. Your mobile phone number and SMS consent data will not be shared with or sold to third parties for marketing purposes.</p>
+
+<h2>7. Data Retention</h2>
+<ul>
+<li><strong>Client Data:</strong> Retained for the duration of the business relationship and for up to 3 years after.</li>
+<li><strong>Billing Records:</strong> Retained for up to 7 years as required by tax and accounting regulations.</li>
+<li><strong>Marketing Data:</strong> Retained until you opt out or request deletion.</li>
+<li><strong>Website Analytics:</strong> Retained according to the data retention settings of the analytics provider.</li>
+<li><strong>SMS Consent Records:</strong> Retained for as long as you remain opted in, plus a reasonable period afterward.</li>
+</ul>
+
+<h2>8. Data Security</h2>
+<p>We implement reasonable administrative, technical, and physical safeguards to protect your personal information, including HTTPS/TLS encryption, PCI-DSS compliant payment processing via Stripe, access controls, and regular review of data handling practices.</p>
+
+<h2>9. Children's Privacy</h2>
+<p>Our Site and services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. Contact us at team@rsla.io if you believe a child has provided us with personal information.</p>
+
+<h2>10. Cookie Policy</h2>
+<p>We use strictly necessary cookies, performance and analytics cookies, functional cookies, and marketing and advertising cookies. Non-essential cookies require your affirmative consent before they are placed on your device. You can manage cookies through our cookie consent banner or your browser settings.</p>
+
+<h2>11. Your Privacy Rights</h2>
+<h3>11.1 Rights for All Users</h3>
+<p>Access, correction, deletion, opt-out of marketing, and withdrawal of consent.</p>
+<h3>11.2 California Residents (CCPA/CPRA)</h3>
+<p>Right to know, right to delete, right to correct, right to opt-out of sale or sharing, right to non-discrimination, and right to limit use of sensitive personal information. We do not sell your personal information.</p>
+<h3>11.3 Canadian Residents (PIPEDA)</h3>
+<p>Right to know, access, correct, withdraw consent, and file complaints with the Office of the Privacy Commissioner of Canada.</p>
+<h3>11.4 European Economic Area, UK, and Other International Users</h3>
+<p>Data portability, restriction of processing, right to object, and right to lodge a complaint with your local data protection authority.</p>
+
+<h2>12. Do Not Track Signals</h2>
+<p>Our Site does not currently respond to DNT browser signals, but we respect your cookie preferences as set through our cookie consent banner.</p>
+
+<h2>13. Third-Party Links</h2>
+<p>Our Site may contain links to third-party websites. We are not responsible for the privacy practices or content of those sites.</p>
+
+<h2>14. Changes to This Policy</h2>
+<p>We may update this Privacy Policy from time to time. We will update the "Effective Date" at the top of this page when we make material changes.</p>
+
+<h2>15. Contact Us</h2>
+<p>RSL/A — Privacy Inquiries: <a href="mailto:team@rsla.io">team@rsla.io</a></p>
+<p>Last updated: February 2026</p>
+</main>`,
+  };
+}
+
+function termsContent() {
+  return {
+    title: 'Terms & Conditions | RSL/A',
+    description: 'RSL/A terms and conditions for services and website usage.',
+    canonical: `${SITE}/terms`,
+    html: `<main>
+<h1>Terms &amp; Conditions</h1>
+<p><strong>Effective Date:</strong> February 2026</p>
+<p>These Terms and Conditions ("Terms") govern your access to and use of the website, services, and products provided by RSL/A ("Company," "we," "us," or "our"). By accessing or using our website at rsla.io (the "Site") or engaging our services, you agree to be bound by these Terms.</p>
+<p>These Terms should be read together with our <a href="/privacy-policy">Privacy Policy</a>.</p>
+
+<h2>1. Acceptance of Terms</h2>
+<p>By accessing or using the Site, submitting any inquiry, booking a call, subscribing to our newsletter, or engaging our services, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy.</p>
+
+<h2>2. Definitions</h2>
+<ul>
+<li><strong>"Services"</strong> means any professional services provided by RSL/A, including marketing, automation, website development, CRM implementation, local SEO, paid advertising, AI automation, content creation, and consulting.</li>
+<li><strong>"Client"</strong> or <strong>"you"</strong> means any individual or entity that accesses the Site, submits an inquiry, or engages our Services.</li>
+<li><strong>"Deliverables"</strong> means the final work product created specifically for you as part of an engagement.</li>
+<li><strong>"Service Agreement"</strong> means any separate proposal, statement of work, contract, or written agreement for a specific engagement.</li>
+<li><strong>"Content"</strong> means all text, images, graphics, videos, code, data, and other materials available on or through the Site.</li>
+</ul>
+
+<h2>3. Services Provided</h2>
+<p>RSL/A provides marketing, automation, website development, CRM implementation, local SEO, paid advertising, AI automation, content creation, and related professional services. The specific scope, timeline, deliverables, and pricing will be outlined in a separate Service Agreement.</p>
+
+<h2>4. Client Responsibilities</h2>
+<p>Provide accurate information, respond to requests in a reasonable timeframe, ensure materials do not infringe on third-party rights, maintain confidentiality of shared credentials, and comply with all applicable laws.</p>
+
+<h2>5. Payment Terms</h2>
+<p>All fees specified in the applicable Service Agreement. Setup fees and deposits are due before work commences. Monthly retainers are billed in advance. Payments processed via Stripe in USD. Late payments incur 1.5% per month.</p>
+
+<h2>6. No Refund Policy</h2>
+<p>ALL SALES ARE FINAL. RSL/A DOES NOT OFFER REFUNDS UNDER ANY CIRCUMSTANCES. All payments are non-refundable, including setup fees, deposits, monthly retainers, and project fees.</p>
+
+<h2>7. Cancellation and Termination</h2>
+<p>Monthly retainer Services may be cancelled with 30 days written notice. Project-based Services may be cancelled at any time with written notice, but no refund will be issued for work already completed or fees already paid. We may terminate any engagement immediately for breach of Terms, non-payment, or unethical conduct.</p>
+
+<h2>8. No Guarantees and Disclaimer of Warranties</h2>
+<p>WE DO NOT GUARANTEE ANY SPECIFIC RESULTS, OUTCOMES, OR RETURN ON INVESTMENT FROM OUR SERVICES. THE SITE AND ALL SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND.</p>
+
+<h2>9. Use of Artificial Intelligence</h2>
+<p>We use AI tools including Anthropic (Claude), OpenAI (ChatGPT), and others to generate content, analyze data, build automations, and deliver Services. By engaging our Services, you acknowledge and consent to the use of AI tools. AI-generated outputs are reviewed by our team but are not guaranteed to be error-free.</p>
+
+<h2>10. Intellectual Property</h2>
+<p>Upon receipt of full payment, you will own the final Deliverables created specifically for you. We retain ownership of all pre-existing materials, templates, frameworks, methodologies, processes, tools, and the RSL/A brand. We reserve the right to display completed work in our portfolio and case studies unless otherwise agreed in writing.</p>
+
+<h2>11. Confidentiality</h2>
+<p>Both parties agree to keep confidential any proprietary or sensitive information disclosed during the course of an engagement. Confidentiality obligations survive termination for 2 years.</p>
+
+<h2>12. Indemnification</h2>
+<p>You agree to indemnify and hold harmless RSL/A from claims arising from your use of the Site or Services, breach of these Terms, or infringement of third-party rights.</p>
+
+<h2>13. Limitation of Liability</h2>
+<p>RSL/A SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES. OUR TOTAL AGGREGATE LIABILITY SHALL NOT EXCEED THE TOTAL AMOUNT PAID BY YOU IN THE THREE MONTHS PRECEDING THE EVENT.</p>
+
+<h2>14. Force Majeure</h2>
+<p>Neither party shall be liable for failure or delay due to circumstances beyond their reasonable control.</p>
+
+<h2>15. Acceptable Use of the Site</h2>
+<p>Do not use the Site for unlawful purposes, attempt unauthorized access, use automated scrapers without consent, interfere with Site integrity, upload malware, or copy Site content without permission.</p>
+
+<h2>16. Third-Party Platforms and Services</h2>
+<p>Our Services may involve third-party platforms including GoHighLevel, Stripe, Vercel, Sanity, Google Analytics, and Meta. We are not responsible for their availability, performance, or policies.</p>
+
+<h2>17. SMS and Text Messaging</h2>
+<p>By opting in, you consent to receive recurring automated text messages. Consent is not a condition of purchase. Reply STOP to opt out. Reply HELP for assistance. Standard message and data rates may apply.</p>
+
+<h2>18. Dispute Resolution</h2>
+<p>Informal resolution first (30 days). If unresolved, binding arbitration under AAA rules in the State of New York. Class action waiver applies.</p>
+
+<h2>19. Governing Law</h2>
+<p>These Terms shall be governed by the laws of the State of New York, United States.</p>
+
+<h2>20. Severability</h2>
+<p>If any provision is found invalid, the remaining provisions continue in full force and effect.</p>
+
+<h2>21. Entire Agreement</h2>
+<p>These Terms, together with our Privacy Policy and any applicable Service Agreement, constitute the entire agreement between you and RSL/A.</p>
+
+<h2>22. Amendments</h2>
+<p>We reserve the right to modify these Terms at any time. Continued use constitutes acceptance.</p>
+
+<h2>23. Contact Information</h2>
+<p>RSL/A — Legal Inquiries: <a href="mailto:team@rsla.io">team@rsla.io</a></p>
+<p>Last updated: February 2026</p>
+</main>`,
+  };
+}
+
+function disclaimerContent() {
+  return {
+    title: 'Disclaimer | RSL/A',
+    description: 'RSL/A disclaimer regarding website content, services, results, and professional advice.',
+    canonical: `${SITE}/disclaimer`,
+    html: `<main>
+<h1>Disclaimer</h1>
+<p><strong>Effective Date:</strong> February 2026</p>
+<p>This Disclaimer applies to the website at rsla.io (the "Site"), all content published on it, and any services provided by RSL/A ("Company," "we," "us," or "our").</p>
+
+<h2>1. General Information Only</h2>
+<p>The content on this Site is provided for general informational and educational purposes only. Nothing on this Site constitutes professional advice, whether legal, financial, tax, medical, or otherwise.</p>
+
+<h2>2. No Guarantees of Results</h2>
+<p>We do not guarantee any specific results, outcomes, or return on investment from our services or from applying the information shared on this Site. Any results, metrics, or performance data referenced in our content are specific to those particular clients and circumstances and should not be interpreted as a promise or guarantee of what you will achieve.</p>
+
+<h2>3. Case Studies and Testimonials</h2>
+<p>Case studies and testimonials represent the experiences of specific clients. They are not guarantees of future performance. Individual results will vary. We may have received compensation from the individuals featured, as they were paying clients.</p>
+
+<h2>4. Blog and Educational Content</h2>
+<p>Content may become outdated. Strategies that worked for one business may not work for another. Mention of specific tools or services does not constitute an endorsement.</p>
+
+<h2>5. AI-Generated Content</h2>
+<p>Some content on this Site may be created or assisted by artificial intelligence tools, including Anthropic (Claude) and OpenAI (ChatGPT). AI-generated content is reviewed by our team but we do not guarantee it is free from errors, inaccuracies, or omissions.</p>
+
+<h2>6. Third-Party Links, Tools, and References</h2>
+<p>This Site may contain links to third-party websites. We do not control, endorse, or assume responsibility for any third-party content.</p>
+
+<h2>7. Affiliate and Referral Disclosure</h2>
+<p>Some links on this Site may be affiliate or referral links. This does not affect the price you pay and does not influence our recommendations.</p>
+
+<h2>8. Not Professional Advice</h2>
+<p>Nothing on this Site should be construed as legal advice, financial or investment advice, tax advice, or medical or health advice. We provide marketing, automation, and technology services only.</p>
+
+<h2>9. Errors and Omissions</h2>
+<p>We do not warrant that the Site content is complete, correct, or current. We reserve the right to make corrections at any time without notice.</p>
+
+<h2>10. Limitation of Liability</h2>
+<p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, RSL/A SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM YOUR USE OF OR RELIANCE ON THE CONTENT OF THIS SITE.</p>
+
+<h2>11. Changes to This Disclaimer</h2>
+<p>We may update this Disclaimer from time to time. Continued use constitutes acceptance.</p>
+
+<h2>12. Contact Us</h2>
+<p>RSL/A — General Inquiries: <a href="mailto:team@rsla.io">team@rsla.io</a></p>
+<p>Last updated: February 2026</p>
+</main>`,
+  };
+}
+
+function accessibilityContent() {
+  return {
+    title: 'Accessibility Statement | RSL/A',
+    description: 'RSL/A commitment to digital accessibility and WCAG compliance.',
+    canonical: `${SITE}/accessibility`,
+    html: `<main>
+<h1>Accessibility Statement</h1>
+<p><strong>Effective Date:</strong> February 2026</p>
+<p>RSL/A is committed to making our website at rsla.io (the "Site") accessible to all users, including individuals with disabilities.</p>
+
+<h2>1. Our Commitment</h2>
+<p>We strive to conform to the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA, as published by the World Wide Web Consortium (W3C).</p>
+
+<h2>2. Accessibility Measures</h2>
+<ul>
+<li><strong>Semantic HTML:</strong> Proper heading structures, landmarks, and semantic elements.</li>
+<li><strong>Keyboard Navigation:</strong> Core navigation and interactive elements are keyboard-operable.</li>
+<li><strong>Color Contrast:</strong> Sufficient color contrast ratios to meet WCAG AA standards.</li>
+<li><strong>Alt Text:</strong> Descriptive alternative text for meaningful images.</li>
+<li><strong>Responsive Design:</strong> Works across devices and supports browser zoom up to 200%.</li>
+<li><strong>Focus Indicators:</strong> Visible focus indicators for keyboard users.</li>
+<li><strong>Link Purpose:</strong> Link purpose determinable from link text or context.</li>
+</ul>
+
+<h2>3. Known Limitations</h2>
+<ul>
+<li><strong>Third-Party Embeds:</strong> Some embedded content may not be fully accessible.</li>
+<li><strong>PDF Documents:</strong> Some downloadable documents may not be fully optimized for screen readers.</li>
+<li><strong>Animations:</strong> Some scroll-triggered animations may present challenges for users with motion sensitivities. We respect the prefers-reduced-motion media query where technically feasible.</li>
+<li><strong>Older Content:</strong> Some older content may not fully meet current accessibility standards.</li>
+</ul>
+
+<h2>4. Third-Party Content</h2>
+<p>We select third-party tools with accessibility in mind but cannot guarantee all third-party content meets WCAG 2.1 AA standards.</p>
+
+<h2>5. Feedback and Contact</h2>
+<p>RSL/A — Accessibility Feedback: <a href="mailto:team@rsla.io">team@rsla.io</a></p>
+<p>When reporting an accessibility issue, please include the URL, a description of the problem, and the assistive technology you are using.</p>
+
+<h2>6. Continuous Improvement</h2>
+<p>Accessibility is an ongoing effort. We regularly review our Site and update our practices as standards evolve.</p>
+
+<h2>7. Conformance Status</h2>
+<p>We aim to conform to WCAG 2.1 Level AA based on self-assessment, with plans for periodic third-party audits.</p>
+<p>Last updated: February 2026</p>
+</main>`,
+  };
+}
+
+function bookCallContent() {
+  return {
+    title: 'Book a Call | RSL/A',
+    description: 'Schedule a call with RSL/A. Existing clients can book onboarding, strategy, and support sessions.',
+    canonical: `${SITE}/book-a-call`,
+    html: `<main>
+<h1>Book Your Session</h1>
+<p>Pick a time that works for you. Whether it is onboarding, a strategy check-in, or a support call, we will make sure you are covered.</p>
+<p>To schedule a call, please visit this page in a browser with JavaScript enabled, or contact us directly at <a href="mailto:team@rsla.io">team@rsla.io</a>.</p>
+</main>`,
+  };
+}
+
+function bookingConfirmedContent() {
+  return {
+    title: 'Booking Confirmed | RSL/A',
+    description: 'Your call has been booked. Check your inbox for meeting details.',
+    canonical: `${SITE}/booking-confirmed`,
+    html: `<main>
+<h1>You are all set.</h1>
+<p>Your call has been booked.</p>
+<p>Check your inbox for a calendar invite with the meeting details.</p>
+<p><a href="/">Back to Home</a></p>
+</main>`,
+  };
+}
+
+function insiderContent() {
+  return {
+    title: 'Insider Newsletter | RSL/A',
+    description: 'Get weekly automation insights delivered to your inbox.',
+    canonical: `${SITE}/insider`,
+    html: `<main>
+<h1>Automate smarter every week.</h1>
+<p>Real automation strategies, case studies, and AI tools delivered straight to your inbox every week.</p>
+<ul>
+<li>Case studies saving clients $20K to $136K annually</li>
+<li>Actionable automation tips you can use today</li>
+<li>Tool recommendations from real implementations</li>
+</ul>
+<p>No spam, unsubscribe anytime. <a href="/privacy-policy">Privacy Policy</a></p>
+<p>To subscribe, please visit this page in a browser or contact us at <a href="mailto:team@rsla.io">team@rsla.io</a>.</p>
+</main>`,
+  };
+}
+
+function rahulContent() {
+  return {
+    title: 'Rahul Lalia | RSL/A',
+    description: 'Connect with Rahul Lalia, Founder & CEO of RSL/A.',
+    canonical: `${SITE}/rahul`,
+    html: `<main>
+<h1>Rahul Lalia</h1>
+<p>Founder &amp; CEO, RSL/A</p>
+<p>Marketing &amp; AI Automation Expert</p>
+<ul>
+<li><a href="/rahul.vcf">Save My Info (vCard)</a></li>
+<li><a href="tel:+16466413173">Call: +1 (646) 641-3173</a></li>
+<li><a href="mailto:lalia@rsla.io">Email: lalia@rsla.io</a></li>
+<li><a href="https://rsla.io">Website: rsla.io</a></li>
+</ul>
+<h2>Social</h2>
+<ul>
+<li><a href="https://www.linkedin.com/in/rahullalia/">LinkedIn</a></li>
+<li><a href="https://www.instagram.com/rahul.lalia/">Instagram</a></li>
+<li><a href="https://www.tiktok.com/@rahul_lalia">TikTok</a></li>
+<li><a href="https://www.youtube.com/@rahul_lalia">YouTube</a></li>
+<li><a href="https://github.com/rahullalia">GitHub</a></li>
+</ul>
+</main>`,
+  };
+}
+
+function sidContent() {
+  return {
+    title: 'Siddharth Rodrigues | RSL/A',
+    description: 'Connect with Siddharth Rodrigues, Co-Founder & CTO of RSL/A.',
+    canonical: `${SITE}/sid`,
+    html: `<main>
+<h1>Siddharth Rodrigues</h1>
+<p>Co-Founder &amp; CTO, RSL/A</p>
+<p>Software Development &amp; AI Systems Expert</p>
+<ul>
+<li><a href="/sid.vcf">Save My Info (vCard)</a></li>
+<li><a href="tel:+919356252711">Call: +91 93562 52711</a></li>
+<li><a href="mailto:sid@rsla.io">Email: sid@rsla.io</a></li>
+<li><a href="https://rsla.io">Website: rsla.io</a></li>
+</ul>
+<h2>Social</h2>
+<ul>
+<li><a href="https://www.linkedin.com/in/dorddis/">LinkedIn</a></li>
+<li><a href="https://github.com/dorddis/">GitHub</a></li>
+</ul>
+</main>`,
+  };
+}
+
+function notFoundContent() {
+  return {
+    title: 'Page Not Found | RSL/A',
+    description: 'This page does not exist.',
+    canonical: SITE,
+    html: `<main>
+<h1>404</h1>
+<h2>This page does not exist.</h2>
+<p>Whatever you were looking for is not here. It may have moved, or it might never have existed. Let us get you somewhere useful.</p>
+<ul>
+<li><a href="/">Back to Home</a></li>
+<li><a href="/work">Case Studies</a></li>
+<li><a href="/blog">Blog</a></li>
+<li><a href="/start-here">Start Here</a></li>
+</ul>
+</main>`,
+  };
+}
+
 // ── Dynamic Page Builders ─────────────────────────────────────────────────────
 
 function blogListingContent(posts) {
@@ -731,6 +1181,16 @@ async function main() {
     { route: '/services', ...servicesContent() },
     { route: '/how-it-works', ...howItWorksContent() },
     { route: '/start-here', ...startHereContent() },
+    { route: '/privacy-policy', ...privacyContent() },
+    { route: '/terms', ...termsContent() },
+    { route: '/disclaimer', ...disclaimerContent() },
+    { route: '/accessibility', ...accessibilityContent() },
+    { route: '/book-a-call', ...bookCallContent() },
+    { route: '/booking-confirmed', ...bookingConfirmedContent() },
+    { route: '/insider', ...insiderContent() },
+    { route: '/rahul', ...rahulContent() },
+    { route: '/sid', ...sidContent() },
+    { route: '/404', ...notFoundContent() },
   ];
 
   for (const page of staticPages) {
