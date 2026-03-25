@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PortableText } from '@portabletext/react';
 import { client } from '../sanity/lib/client';
-import { blogPostBySlugV2Query, relatedCaseStudyForBlogQuery, featuredCaseStudyFallbackQuery } from '../sanity/lib/queries';
+import { blogPostBySlugV2Query, relatedCaseStudyForBlogQuery, featuredCaseStudyFallbackQuery, relatedBlogPostsByCategoryQuery } from '../sanity/lib/queries';
 import { urlForImage } from '../sanity/lib/image';
 import { PortableTextComponents, slugify } from '../components/blog/PortableTextRenderer';
 import Seo from '../components/Seo';
@@ -116,6 +116,20 @@ export default function BlogInner() {
                 }
 
                 if (isMounted) setRelatedCaseStudy(caseStudy);
+
+                // Fetch category-based related posts if none were manually curated
+                if ((!fetchedPost.relatedPosts || fetchedPost.relatedPosts.length === 0) && isMounted) {
+                    const categorySlugsForRelated = fetchedPost.categories?.map((c) => c.slug?.current).filter(Boolean) || [];
+                    if (categorySlugsForRelated.length > 0) {
+                        const categoryRelated = await client.fetch(relatedBlogPostsByCategoryQuery, {
+                            currentId: fetchedPost._id,
+                            categorySlugs: categorySlugsForRelated,
+                        });
+                        if (isMounted && categoryRelated?.length > 0) {
+                            setPost(prev => ({ ...prev, relatedPosts: categoryRelated.slice(0, 3) }));
+                        }
+                    }
+                }
 
             } catch (error) {
                 console.error("Error fetching article:", error);
