@@ -40,6 +40,16 @@ function esc(str) {
     .replace(/>/g, '&gt;');
 }
 
+const siteNav = `<nav aria-label="Main navigation"><ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/services">Services</a></li>
+<li><a href="/how-it-works">How It Works</a></li>
+<li><a href="/work">Case Studies</a></li>
+<li><a href="/blog">Blog</a></li>
+<li><a href="/start-here">Start Here</a></li>
+</ul></nav>`;
+
 function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage, keywords }) {
   let p = tmpl;
 
@@ -77,7 +87,7 @@ function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage, ke
     p = p.replace('</head>', `${scripts}\n</head>`);
   }
 
-  p = p.replace('<div id="root"></div>', `<div id="root"><div id="prerender">${html}</div></div>`);
+  p = p.replace('<div id="root"></div>', `<div id="root"><div id="prerender">${siteNav}${html}</div></div>`);
 
   return p;
 }
@@ -860,7 +870,7 @@ function blogListingContent(posts) {
     const date = formatDate(p.publishedAt);
     const cats = (p.categories || []).map(c => c.name).join(', ');
     const excerpt = p.excerpt ? `<p>${esc(p.excerpt)}</p>` : '';
-    return `<li><article><h3><a href="/blog/${esc(p.slug)}">${esc(p.title)}</a></h3>${excerpt}<p>${date}${cats ? ` — ${esc(cats)}` : ''}</p></article></li>`;
+    return `<li><article><h2><a href="/blog/${esc(p.slug)}">${esc(p.title)}</a></h2>${excerpt}<p>${date}${cats ? ` — ${esc(cats)}` : ''}</p></article></li>`;
   }).join('\n');
 
   return {

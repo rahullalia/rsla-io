@@ -20,7 +20,6 @@ const staticRoutes = [
   { path: '/services', priority: '0.9' },
   { path: '/how-it-works', priority: '0.8' },
   { path: '/start-here', priority: '0.8' },
-  { path: '/book-a-call', priority: '0.9' },
   { path: '/work', priority: '0.8' },
   { path: '/blog', priority: '0.8' },
 ];
@@ -45,6 +44,13 @@ async function generateSitemap() {
     } | order(publishedAt desc)`
   );
 
+  // Fetch all published industry pages (pSEO)
+  const industrySlugs = await client.fetch(
+    `*[_type == "industryPage" && status == "published" && defined(slug.current)]{
+      "slug": slug.current
+    } | order(industry asc)`
+  );
+
   const today = new Date().toISOString().split('T')[0];
 
   const urls = [
@@ -66,6 +72,12 @@ async function generateSitemap() {
       lastmod: publishedAt ? publishedAt.split('T')[0] : today,
       priority: '0.7',
     })),
+    // Industry pages (pSEO)
+    ...industrySlugs.map(({ slug }) => ({
+      loc: `${SITE_URL}/ai-for/${slug}`,
+      lastmod: today,
+      priority: '0.7',
+    })),
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -83,7 +95,7 @@ ${urls
 
   const outputPath = resolve(__dirname, '../dist/sitemap.xml');
   writeFileSync(outputPath, xml, 'utf-8');
-  console.log(`Sitemap generated: ${urls.length} URLs (${staticRoutes.length} static, ${blogSlugs.length} blog, ${caseSlugs.length} case studies)`);
+  console.log(`Sitemap generated: ${urls.length} URLs (${staticRoutes.length} static, ${blogSlugs.length} blog, ${caseSlugs.length} case studies, ${industrySlugs.length} industry pages)`);
 }
 
 generateSitemap().catch((err) => {
