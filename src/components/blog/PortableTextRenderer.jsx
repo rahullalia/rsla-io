@@ -348,13 +348,8 @@ export const PortableTextComponents = {
         },
     },
     block: {
-        h2: ({ children }) => {
-            let text = '';
-            if (Array.isArray(children)) {
-                text = children.map(c => typeof c === 'string' ? c : (c.props?.text || '')).join('');
-            } else if (typeof children === 'string') {
-                text = children;
-            }
+        h2: ({ children, value }) => {
+            const text = (value?.children || []).map(c => c.text || '').join('');
             const id = slugify(text);
             return (
                 <h2 id={id} className="text-2xl font-body font-bold text-text mt-12 mb-4 scroll-mt-32">
@@ -362,13 +357,8 @@ export const PortableTextComponents = {
                 </h2>
             );
         },
-        h3: ({ children }) => {
-            let text = '';
-            if (Array.isArray(children)) {
-                text = children.map(c => typeof c === 'string' ? c : (c.props?.text || '')).join('');
-            } else if (typeof children === 'string') {
-                text = children;
-            }
+        h3: ({ children, value }) => {
+            const text = (value?.children || []).map(c => c.text || '').join('');
             const id = slugify(text);
             return <h3 id={id} className="text-lg text-text mt-8 mb-3 font-body font-semibold scroll-mt-32">{children}</h3>;
         },
