@@ -209,7 +209,22 @@ export default function BlogInner() {
         })),
     } : null;
 
-    const jsonLdSchemas = [blogPostingSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
+    // SoftwareApplication schema for GHL pricing/review posts
+    const softwareAppSchema = slug === 'go-high-level-pricing' ? {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: 'GoHighLevel',
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        offers: [
+            { '@type': 'Offer', name: 'Starter', price: '97', priceCurrency: 'USD', priceSpecification: { '@type': 'UnitPriceSpecification', price: '97', priceCurrency: 'USD', billingDuration: 'P1M' } },
+            { '@type': 'Offer', name: 'Unlimited', price: '297', priceCurrency: 'USD', priceSpecification: { '@type': 'UnitPriceSpecification', price: '297', priceCurrency: 'USD', billingDuration: 'P1M' } },
+            { '@type': 'Offer', name: 'SaaS Pro', price: '497', priceCurrency: 'USD', priceSpecification: { '@type': 'UnitPriceSpecification', price: '497', priceCurrency: 'USD', billingDuration: 'P1M' } },
+        ],
+        aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.5', bestRating: '5', ratingCount: '4200', reviewCount: '2100' },
+    } : null;
+
+    const jsonLdSchemas = [blogPostingSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : []), ...(softwareAppSchema ? [softwareAppSchema] : [])];
 
     return (
         <article className="min-h-screen bg-surface text-text pt-32 pb-24 relative">
