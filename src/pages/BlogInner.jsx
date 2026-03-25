@@ -19,7 +19,7 @@ function useActiveHeading(headingIds) {
             let current = headingIds[0];
             for (const id of headingIds) {
                 const el = document.getElementById(id);
-                if (el && el.getBoundingClientRect().top <= 120) {
+                if (el && el.getBoundingClientRect().top <= 140) {
                     current = id;
                 }
             }
