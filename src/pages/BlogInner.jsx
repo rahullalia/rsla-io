@@ -14,25 +14,21 @@ function useActiveHeading(headingIds) {
 
     useEffect(() => {
         if (!headingIds.length) return;
-        setActiveId(headingIds[0]);
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveId(entry.target.id);
-                    }
-                });
-            },
-            { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
-        );
+        const handleScroll = () => {
+            let current = headingIds[0];
+            for (const id of headingIds) {
+                const el = document.getElementById(id);
+                if (el && el.getBoundingClientRect().top <= 120) {
+                    current = id;
+                }
+            }
+            setActiveId(current);
+        };
 
-        headingIds.forEach((id) => {
-            const el = document.getElementById(id);
-            if (el) observer.observe(el);
-        });
-
-        return () => observer.disconnect();
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [headingIds]);
 
     return activeId;
