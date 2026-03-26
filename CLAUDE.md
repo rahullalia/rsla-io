@@ -90,10 +90,41 @@ scripts/
   generateSitemap.mjs  # Build-time sitemap generator
   generateRssFeed.mjs  # Build-time RSS feed generator
   generateLlmsTxt.mjs  # Build-time llms.txt generator (AI search index)
+content/
+  posts/               # Blog post markdown source files (rewrites + drafts)
+  scripts/             # Content production scripts (image gen, case study creation, content fixes)
+docs/
+  seo/                 # SEO research (keyword CSVs, content plans, triage data)
+  superpowers/         # Implementation plans and design specs
+.claude/
+  agents/              # Blog agents (researcher, writer, reviewer, seo)
 PLAN.md                # Build plan (phases 1-5 done)
 TODO.md                # Remaining tasks and wishlist
 vercel.json            # Vite SPA routing + serverless function config
 ```
+
+---
+
+## Content Production
+
+This repo is the home for all blog writing, case study drafting, SEO strategy, and content production. The Studio repo (`rslaStudio/`) only owns Sanity schemas.
+
+```
+content/
+  posts/             # 49 markdown files (31 rewrites, 12 batch drafts, 6 older rewrites)
+  scripts/           # 55 scripts for image generation, case study creation, content patching
+                     # Image gen scripts use Gemini API + imageStyles.mjs (11 hand-drawn styles)
+                     # Case study scripts create V2 documents via Sanity mutation API
+                     # mdToPortableText.mjs converts markdown to Sanity portable text
+docs/
+  seo/               # Claude/Anthropic keyword research (198 keywords, content plan, winners CSV)
+  seo/triage/        # GSC analysis + triage table from blog overhaul
+  superpowers/       # Blog overhaul plan (2026-03-12) + blog inner revamp (2026-03-23)
+.claude/
+  agents/            # 4 blog agents: researcher, writer, reviewer, seo
+```
+
+Blog writing skill: `/blogEngine` (lives in `4-Resources/skills/blogEngine/`, includes generic blog skill templates and references).
 
 ---
 
@@ -422,8 +453,51 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - **Key insight: sitemap only has 28 of 60 blog posts** — The other 32 have `publishedAt` in the future or missing. Sanity content audit needed.
 - **Key insight: Claude content outperforms GHL by clicks** — claude-code-vs-cowork-vs-claude-app (36 clicks, 15.9K impressions) vs go-high-level-pricing (8 clicks, 35K impressions).
 
+### 2026-03-25: Claude/Anthropic SEO Blog Pipeline + Post 0 Published
+
+- **Created `docs/seo/` folder** — Complete Claude/Anthropic keyword research and content plan
+  - `README.md` — Pipeline overview, Google Sheet tracker link, writing process
+  - `contentPlan.md` — 29 blog posts (Post 0 to 28), 5 tiers, ~53,000 monthly search volume, 6-month publishing schedule
+  - `keywordResearch.csv` — 198 keywords from SEMRush + AnswerThePublic
+  - `keywordWinners.csv` — 125 filtered/scored keywords with post type and priority
+- **Google Sheet tracker created** — [Claude Blog SEO Tracker](https://docs.google.com/spreadsheets/d/1BffZHKJRirOrj-fUPBh56l9KjIlh2Wo-5fyHY-Kd-Xw/edit) with status flow, all 29 posts listed
+- **Post 0 (Anchor Post) published** — "Anthropic has 5 different Claude products. Most people are using the wrong one."
+  - Slug: `anthropic-claude-products-guide`
+  - Sanity ID: `8b58542f-4ec8-4d7d-ad6a-6681aa99a404`
+  - Product tag: `[ALL PRODUCTS]`, Tier: Anchor
+  - Primary keywords: claude ai vs claude code, what is claude code (~8,120 combined volume)
+  - Interview-driven content (Rahul's real usage: Desktop for quick tasks, Code 80-90% daily, API for automations, doesn't use Co-Work)
+  - Mentions Ghostty terminal, expense vault LinkedIn post, car/driver/IDE analogy
+  - 4 internal links (MCP explainer, CLAUDE.md guide, Claude Code guide, Claude vs Cowork comparison)
+  - 5 external links (Claude Code docs, Anthropic pricing, MCP protocol, Ghostty, LinkedIn post)
+  - 3 inline images (Gemini 2.5 Flash): whiteboard comparison, process flow analogy, decision tree
+  - Featured image: Rahul's photo + Claude logo (user-provided)
+  - 5 FAQ schema items, full SEO metadata, social share image = featured image
+  - Categories: AI Development Tools + Tools and Tech
+  - Related posts: claude-code-vs-cowork-vs-claude-app, what-is-claude-code-guide, claude-code-vs-cursor-vs-github-copilot
+  - Google Sheet tracker updated, GSC indexed, site rebuilt (70 pre-rendered pages, 60 sitemap URLs)
+- **`content/scripts/patchPost0Body.mjs`** created — Script to construct full Portable Text body and patch via Sanity HTTP API (used because Sanity MCP markdown converter truncated the body)
+- **`content/blogImages/anthropic-claude-products-guide/`** created — 3 inline images stored locally
+- **Sanity gotcha: `create_documents_from_markdown`** truncates long markdown. For posts with 50+ blocks, use the HTTP mutation API directly with Portable Text JSON (see `patchPost0Body.mjs` as template).
+- **Sanity gotcha: category ID typo** in CLAUDE.md — "Tools and Tech" is `2af0440c-d8d1-4d95-9bff-0802f9dc900b` (900b not 500b)
+- **blogEngine workflow validated** — Interview → outline → draft → voice audit → Sanity creation → image generation → upload → publish → post-publish tasks. All gates passed.
+
+### 2026-03-25: Folder Reorganization (Studio/Website Split)
+
+- **Moved all content production from rslaStudio to rslaWebsite** — Studio is now schema-only
+- **posts/** (49 markdown files) moved to `content/posts/`
+- **55 content scripts** (image gen, case study creation, content fixes) moved to `content/scripts/`
+- **6 migration scripts** kept in Studio (migrateV1ToV2, migrateDraftsToV2, fixNullArrays, cleanRelatedPosts, archiveTriagePosts, deleteArchivedPosts)
+- **docs/triage/** (GSC analysis) moved to `docs/seo/triage/`
+- **docs/superpowers/** (blog overhaul plan/spec) merged into existing `docs/superpowers/`
+- **4 blog agents** (researcher, writer, reviewer, seo) moved to `.claude/agents/`
+- **14 blog skills + references + templates** moved to `4-Resources/skills/blogEngine/genericBlogSkill/`
+- **contentStrategy/** archived in Studio (`rslaStudio/archive/contentStrategy/`)
+- **generated-images/** (430MB, 259 files) stays in Studio (uploaded to Sanity CDN)
+- Studio CLAUDE.md, README.md, TODO.md rewritten for schema-only scope
+
 ---
 
 ## Last Updated
 
-2026-03-25
+2026-03-26

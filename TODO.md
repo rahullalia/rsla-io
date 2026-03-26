@@ -1,5 +1,23 @@
 # RSL/A Website — TODO
 
+## P0: Claude/Anthropic Blog Content Plan (29 posts, ~53K monthly volume)
+
+Full plan: `docs/seo/contentPlan.md` | Tracker: [Google Sheet](https://docs.google.com/spreadsheets/d/1BffZHKJRirOrj-fUPBh56l9KjIlh2Wo-5fyHY-Kd-Xw/edit)
+
+- [x] **Post 0 (Anchor):** Anthropic has 5 different Claude products. Most people are using the wrong one. — PUBLISHED 2026-03-25, slug: `anthropic-claude-products-guide`
+- [ ] **Post 1:** How to Install Claude Code in Under 3 Minutes (Mac, Windows, VS Code, CLI) — KD 23, 2,930 vol, Month 1
+- [ ] **Post 2:** Is Claude Actually Free? What You Get at Every Tier — KD 26, 6,890 vol, Month 1
+- [ ] **Post 4:** Can Claude Generate Images? The Honest Answer — KD 17, 2,170 vol, Month 1
+- [ ] **Post 7:** How to Make a Claude Project Public — KD 11, 1,140 vol, Month 1
+- [ ] **Post 22:** How to Download Files from Claude AI — KD 22, 880 vol, Month 1
+- [ ] Posts 3, 5, 8, 24, 25 — Month 2 (Claude Code deep dives)
+- [ ] Posts 9, 10, 13, 14 — Month 3 (opinion + comparison)
+- [ ] Posts 12, 15, 23, 6 — Month 4 (comparisons + pillar page)
+- [ ] Posts 11, 16, 17, 18 — Month 5 (use case / business)
+- [ ] Posts 19, 20, 21, 26, 27, 28 — Month 6 (industry + foundational)
+
+**Rules:** Every post links to Post 0 + Post 6. Interview Rahul before writing (6 questions). Use `/blogEngine` skill. Update Google Sheet after every post.
+
 ## P0: SEO — Next Actions (from SEMRush audit 2026-03-25)
 
 - [ ] **Domain redirects in Vercel** — Add rslmediahub.com, .net, .xyz, myrsla.com, connectrsl.com as 301 redirects to rsla.io in Vercel dashboard. Change nameservers in Hostinger to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`. (In progress — TXT verification pending for some domains)
