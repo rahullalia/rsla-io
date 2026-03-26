@@ -83,7 +83,7 @@ function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage, ke
 
   if (jsonLd) {
     const schemas = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
-    const scripts = schemas.map(s => `<script type="application/ld+json">${JSON.stringify(s)}</script>`).join('\n');
+    const scripts = schemas.map(s => `<script type="application/ld+json" data-seo-jsonld>${JSON.stringify(s)}</script>`).join('\n');
     p = p.replace('</head>', `${scripts}\n</head>`);
   }
 
