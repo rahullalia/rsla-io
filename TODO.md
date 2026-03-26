@@ -1,5 +1,17 @@
 # RSL/A Website — TODO
 
+## P0: SEO — Next Actions (from SEMRush audit 2026-03-25)
+
+- [ ] **Domain redirects in Vercel** — Add rslmediahub.com, .net, .xyz, myrsla.com, connectrsl.com as 301 redirects to rsla.io in Vercel dashboard. Change nameservers in Hostinger to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`. (In progress — TXT verification pending for some domains)
+- [ ] **Sanity blog audit** — 32 of 60 published blog posts have `publishedAt` in the future or missing, so they don't appear in sitemap or on the site. Need to audit all blogPostV2 documents and fix dates. This would take sitemap from 58 to ~90 URLs.
+- [ ] **More client backlinks** — Add "Website by RSL/A" dofollow footer link to: Freedom Drivers, Spice on a Slice, United Sikhs, any other client sites Rahul built. Fieldshare already done.
+- [ ] **Monitor CTR on GHL pricing page** — Check GSC in 2-3 weeks. Baseline: 0.02% CTR on 35K impressions. Target: 1%+ (350+ clicks/mo). New title/desc deployed 2026-03-25.
+- [ ] **Monitor salon CRM ranking** — Check GSC for "best crm for hair salons 2025 or 2026". Baseline: position 2.97. Target: #1. New meta deployed 2026-03-25.
+- [ ] **Re-run SEMRush audit in 4 weeks** (~April 22) — Measure: indexed pages (should jump), orphaned pages (should be 0), pages with 1 internal link (should drop from 42 to under 10), keyword positions.
+- [ ] **Commercial-intent landing pages** — Create content targeting: "AI automation agency", "GoHighLevel setup service", "marketing automation consultant". These are buying-intent keywords with zero current content. (Deferred — discuss in future session)
+- [ ] **Backlink outreach to GHL ecosystem** — Guest posts on ghlcentral.com, gohighimpact.co. Share content in GHL Facebook groups. (Deferred — manual relationship work)
+- [ ] **Request re-indexing in GSC** — Submit for re-indexing: /blog/go-high-level-pricing, /blog/best-crm-hair-stylists-salon-owners, /blog/go-high-level-new-features-2025, /blog/ai-lead-follow-up-system
+
 ## P0: Programmatic SEO — Next Actions
 
 - [ ] **WAIT: Check Google Search Console indexation** in 2 to 4 weeks (around April 6 to 13). Target: 9+ of 12 pages indexed. If under 60%, template needs more unique content before scaling.
@@ -20,6 +32,7 @@
 - [x] Fix secondary hero CTA "stuck" during load (transition-all fighting GSAP)
 - [x] Fix "Something went wrong" error flash on mobile Safari navigation (error boundary rewrite, removed reload race condition)
 - [x] Fix GSAP hero content flash on nav pages (opacity-0 CSS on About, Services, HowItWorks, StartHere)
+- [x] Fix blog ToC active heading not highlighting on scroll/click (ID mismatch + IntersectionObserver → scroll listener + threshold alignment)
 
 ## P2: Logo Marquee — Completed This Session
 
@@ -38,8 +51,14 @@
 
 - [x] Update Vercel CLI (48.10.11 → latest)
 - [x] Pre-render all indexed pages including industry pages (53 pages total)
+- [x] Pre-render ALL pages (legal, utility, contact) for non-JS crawlers — 68 total
 - [x] Performance pass: WOFF2 fonts, WebP images, split Suspense, deferred Sentry
 - [x] npm audit: 0 vulnerabilities
+- [ ] Add `localhost:5175` to Sanity CORS origins (local dev falls to non-whitelisted ports when 5173/5174 are in use)
+
+## P5: Privacy & Compliance
+
+- [x] Add Instagram Messaging API (Meta) to Privacy Policy Section 5 + DM Automation disclosure
 
 ## SERP Site Name
 
@@ -50,7 +69,24 @@
 
 ---
 
-## Completed (This Session)
+## Completed (SEMRush SEO Session — 2026-03-25)
+
+- [x] SEMRush full site audit analysis (CSVs, screenshots, on-page SEO checker)
+- [x] GSC performance data analysis (queries, pages, countries, devices)
+- [x] Sitemap: added 12 industry pages, removed noindex /book-a-call (47→58 URLs)
+- [x] Pre-rendered nav: site navigation added to all pre-rendered pages
+- [x] Fixed broken blog: ai-lead-follow-up-system (future-dated → published today)
+- [x] Fixed broken blog: answer-engine-optimization-aeo-guide (301 → aeo-for-local-businesses)
+- [x] Fixed broken external link on GHL pricing page (support → help.gohighlevel.com)
+- [x] Blog heading hierarchy: H3→H2 in pre-rendered blog listing
+- [x] Related Posts fallback: category-based auto-matching when no curated picks
+- [x] GHL pricing CTR optimization (title + meta + SoftwareApplication schema)
+- [x] Salon CRM post optimized for #1 push (title targets "hair salons" not "hair stylists")
+- [x] GHL changelog freshness signal (March 2026 in title/meta, updatedAt refreshed)
+- [x] Fieldshare dofollow footer backlink added
+- [x] SEO_ACTION_PLAN.md created with full prioritized analysis
+
+## Completed (Previous Sessions)
 
 <details>
 <summary>2026-03-20: Bug Fixes + Marquee + Programmatic SEO</summary>

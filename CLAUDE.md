@@ -384,8 +384,46 @@ npm run schema:deploy          # Deploy schemas to Sanity cloud
 - **Fixed GSAP animation flash on nav pages** — GSAP `fromTo()` runs in `useEffect` (after first paint), so animated hero containers flashed at full opacity for one frame before GSAP set them to `opacity: 0`. Added `opacity-0` CSS class to hero containers on About, Services, HowItWorks, StartHere so they start hidden from first paint.
 - **Pattern established**: Any element animated by GSAP `fromTo` starting at `opacity: 0` needs `opacity-0` CSS class to prevent first-paint flash. Same pattern already used on hero CTA buttons.
 
+### 2026-03-24: Universal Pre-rendering + Privacy Update
+
+- **Pre-rendered ALL pages** — previously only indexed pages were pre-rendered. Now every page returns real semantic HTML to non-JS clients (AI agents, compliance bots, crawlers).
+- **10 new pre-rendered pages**: privacy-policy, terms, disclaimer, accessibility, book-a-call, booking-confirmed, insider, rahul, sid, 404.
+- **Total: 68 pre-rendered pages** (15 static, 2 listings, 28 blog posts, 11 case studies, 12 industry pages).
+- **Motivation**: External audit revealed non-indexed pages appeared as empty homepage shell to non-JS clients. No security risk — all content is already public.
+- **Privacy Policy updated**: Added Instagram Messaging API (Meta) to Section 5 third-party services table + Instagram DM Automation disclosure paragraph (data collection: user ID, username, message content, voluntarily provided email).
+- Both JSX component (`src/pages/Privacy.jsx`) and pre-render content (`scripts/prerender.mjs`) updated in sync.
+
+### 2026-03-25: Blog ToC Active Heading Fix
+
+- **Fixed ToC heading ID mismatch** — `PortableTextRenderer.jsx` h2/h3 renderers extracted text from React `children` using `c.props?.text`, which returned empty string for styled spans (bold, italic, links). Now uses `value.children` (raw Sanity block data via @portabletext/react's `value` prop) — same source as BlogInner's ToC extraction, guaranteeing ID consistency.
+- **Replaced IntersectionObserver with scroll listener** — IntersectionObserver used a narrow detection zone (`rootMargin: '-80px 0px -60% 0px'`) that frequently missed headings during normal scrolling. New approach: `scroll` event listener walks all heading IDs and picks the last one with `getBoundingClientRect().top <= 140`. Simpler, reliable regardless of scroll speed/direction.
+- **Aligned scroll threshold with scroll-margin** — headings have `scroll-mt-32` (128px). Initial threshold of 120px was below the scroll-margin, so clicking a ToC link positioned the heading at 128px which was > 120px, highlighting the previous heading instead. Bumped to 140px.
+- **Pattern established**: When using `@portabletext/react` block renderers, always extract text from `value.children` (raw Sanity data), never from React `children` props — React element text lives in nested `props.children`, not `props.text`.
+- **Sanity CORS note**: `localhost:5175` is not in Sanity CORS origins (only 5173 whitelisted). Local dev testing failed on port 5175. Could add it via Sanity dashboard if needed.
+
+### 2026-03-25: SEMRush SEO Audit — Full Analysis + Fixes
+
+- **SEMRush site audit analyzed** — Site Health 98%, AI Search Health 94%, Authority Score 8 (low), Organic Traffic 15/mo, 119 keywords, 14 referring domains (essentially 0 dofollow)
+- **GSC data analyzed** — 130K impressions across 3 months. GHL pricing page: 35K impressions, 8 clicks (0.02% CTR). Claude content surprise winner: claude-code-vs-cowork gets 36 clicks (most of any page). Salon CRM at position 2.97.
+- **Sitemap fix** — Added 12 industry pages (`/ai-for/*`), removed noindex `/book-a-call`. 47 → 58 URLs. Script: `scripts/generateSitemap.mjs`
+- **Pre-rendered nav** — Added `<nav>` with links to all 7 main pages in every pre-rendered page. Fixes 3 orphaned sitemap pages (/about, /services unreachable without JS). Constant `siteNav` in `scripts/prerender.mjs`, prepended in `inject()` function.
+- **Blog heading hierarchy** — Changed pre-rendered blog listing post titles from `<h3>` to `<h2>`. Fixes H1→H3 skip flagged by SEMRush.
+- **Broken blog post: ai-lead-follow-up-system** — Was future-dated to 2026-04-07 in Sanity. Changed `publishedAt` to 2026-03-25 and published. Sanity doc ID: `9ed10488-c1ce-4dc1-9e8f-b783ca3aa297`
+- **Broken blog post: answer-engine-optimization-aeo-guide** — Slug doesn't exist in Sanity. Added 301 redirect in `vercel.json` to `/blog/aeo-for-local-businesses`.
+- **Broken external link** — GHL pricing post linked to `support.gohighlevel.com` (dead). Updated to `help.gohighlevel.com`. Sanity doc: `4h6ZovbNJGIiFWW2xZX1mi`, block key `eef833fab90e`, markDef key `57ce3dd66030`.
+- **Related Posts fallback** — `BlogInner.jsx` now fetches category-matched posts via `relatedBlogPostsByCategoryQuery` when `relatedPosts` is empty. Fixes 42 pages with only 1 internal link.
+- **GHL pricing CTR optimization** — New meta title: "GoHighLevel Pricing 2026: Which Plan Do You Actually Need? ($97/$297/$497)". New meta desc leads with social proof ("40+ GHL accounts") and teases hidden costs.
+- **SoftwareApplication schema** — Added to BlogInner.jsx for `slug === 'go-high-level-pricing'`. Shows GoHighLevel as BusinessApplication with 3 pricing tiers and 4.5/5 aggregate rating (4200 ratings). Enables rich SERP snippets.
+- **Salon CRM post optimization** — Meta title changed from "hair stylists" to "hair salons" (matching top GSC query at pos 2.97). Added social proof and expanded keywords.
+- **GHL changelog freshness** — Meta title updated to include "March 2026". Meta desc freshness signal. `updatedAt` set to 2026-03-25.
+- **Fieldshare backlink** — Dofollow footer credit added to fieldshare.io (WordPress, HTML widget). First real dofollow backlink.
+- **Domain redirects** — 5 domains (rslmediahub.com, .net, .xyz, myrsla.com, connectrsl.com) being added to Vercel project as 301 redirects to rsla.io. Nameservers need changing to `ns1.vercel-dns.com` / `ns2.vercel-dns.com` in Hostinger. In progress.
+- **SEO Action Plan saved** — Full analysis document at `SEO_ACTION_PLAN.md` with prioritized fixes, GSC insights, and content strategy recommendations.
+- **Key insight: sitemap only has 28 of 60 blog posts** — The other 32 have `publishedAt` in the future or missing. Sanity content audit needed.
+- **Key insight: Claude content outperforms GHL by clicks** — claude-code-vs-cowork-vs-claude-app (36 clicks, 15.9K impressions) vs go-high-level-pricing (8 clicks, 35K impressions).
+
 ---
 
 ## Last Updated
 
-2026-03-24
+2026-03-25
