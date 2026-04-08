@@ -33,7 +33,7 @@ export default function LeadMagnet() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || submitting) return;
+    if (!email || !firstName || submitting) return;
     setSubmitting(true);
     setError('');
 
@@ -142,6 +142,7 @@ export default function LeadMagnet() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md mx-auto mb-4">
           <input
             type="text"
+            required
             placeholder="First name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
