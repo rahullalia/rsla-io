@@ -96,19 +96,7 @@ export default function LeadMagnet() {
       <Seo
         title={pageTitle}
         description={pageDescription}
-        canonical={`https://rsla.io/r/${magnet.slug}`}
-        jsonLd={{
-          '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          name: magnet.title,
-          description: pageDescription,
-          url: `https://rsla.io/r/${magnet.slug}`,
-          publisher: {
-            '@type': 'Organization',
-            name: 'RSL/A',
-            url: 'https://rsla.io',
-          },
-        }}
+        noIndex
       />
 
       <FlickeringGrid
