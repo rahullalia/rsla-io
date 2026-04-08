@@ -51,6 +51,13 @@ async function generateSitemap() {
     } | order(industry asc)`
   );
 
+  // Fetch all published lead magnets
+  const leadMagnetSlugs = await client.fetch(
+    `*[_type == "leadMagnet" && status == "published" && defined(slug.current)]{
+      "slug": slug.current
+    }`
+  );
+
   const today = new Date().toISOString().split('T')[0];
 
   const urls = [
@@ -78,6 +85,12 @@ async function generateSitemap() {
       lastmod: today,
       priority: '0.7',
     })),
+    // Lead magnets
+    ...leadMagnetSlugs.map(({ slug }) => ({
+      loc: `${SITE_URL}/r/${slug}`,
+      lastmod: today,
+      priority: '0.5',
+    })),
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -95,7 +108,7 @@ ${urls
 
   const outputPath = resolve(__dirname, '../dist/sitemap.xml');
   writeFileSync(outputPath, xml, 'utf-8');
-  console.log(`Sitemap generated: ${urls.length} URLs (${staticRoutes.length} static, ${blogSlugs.length} blog, ${caseSlugs.length} case studies, ${industrySlugs.length} industry pages)`);
+  console.log(`Sitemap generated: ${urls.length} URLs (${staticRoutes.length} static, ${blogSlugs.length} blog, ${caseSlugs.length} case studies, ${industrySlugs.length} industry pages, ${leadMagnetSlugs.length} lead magnets)`);
 }
 
 generateSitemap().catch((err) => {

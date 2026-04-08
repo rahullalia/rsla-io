@@ -1111,6 +1111,31 @@ ${faqHtml ? `<section><h2>Frequently Asked Questions</h2><dl>${faqHtml}</dl></se
   };
 }
 
+function leadMagnetContent(lm) {
+  const title = lm.seoTitle || `${lm.title} | RSL/A`;
+  const description = lm.seoDescription || lm.description;
+  return {
+    route: `/r/${lm.slug}`,
+    title,
+    description,
+    canonical: `${SITE}/r/${lm.slug}`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: lm.title,
+      description,
+      url: `${SITE}/r/${lm.slug}`,
+      publisher: { '@type': 'Organization', name: 'RSL/A', url: SITE },
+    },
+    html: `<main>
+<h1>${esc(lm.title)}</h1>
+${lm.tagline ? `<p>${esc(lm.tagline)}</p>` : ''}
+<p>${esc(lm.description)}</p>
+<p>Enter your name and email to get instant access to this resource.</p>
+</main>`,
+  };
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -1119,7 +1144,7 @@ async function main() {
   const template = readFileSync(resolve(DIST, 'index.html'), 'utf-8');
 
   // Fetch all dynamic content from Sanity
-  const [blogPosts, caseStudies, industryPages] = await Promise.all([
+  const [blogPosts, caseStudies, industryPages, leadMagnets] = await Promise.all([
     client.fetch(`
       *[_type == "blogPostV2" && status == "published" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) {
         title,
@@ -1180,6 +1205,16 @@ async function main() {
         seoKeywords
       }
     `),
+    client.fetch(`
+      *[_type == "leadMagnet" && status == "published" && defined(slug.current)] {
+        title,
+        "slug": slug.current,
+        description,
+        tagline,
+        seoTitle,
+        seoDescription
+      }
+    `),
   ]);
 
   let count = 0;
@@ -1237,7 +1272,14 @@ async function main() {
     count++;
   }
 
-  console.log(`Pre-rendered ${count} pages (${staticPages.length} static, 2 listings, ${blogPosts.length} blog posts, ${caseStudies.length} case studies, ${industryPages.length} industry pages)`);
+  // Individual lead magnet pages
+  for (const lm of leadMagnets) {
+    const page = leadMagnetContent(lm);
+    writePage(page.route, inject(template, page));
+    count++;
+  }
+
+  console.log(`Pre-rendered ${count} pages (${staticPages.length} static, 2 listings, ${blogPosts.length} blog posts, ${caseStudies.length} case studies, ${industryPages.length} industry pages, ${leadMagnets.length} lead magnets)`);
 }
 
 main().catch((err) => {

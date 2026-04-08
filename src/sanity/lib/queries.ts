@@ -682,3 +682,33 @@ export const featuredCaseStudiesV2Query = groq`
     }
   }
 `;
+
+// ===== LEAD MAGNETS =====
+
+// Get single lead magnet by slug
+export const leadMagnetBySlugQuery = groq`
+  *[_type == "leadMagnet" && slug.current == $slug && status == "published"][0] {
+    title,
+    "slug": slug.current,
+    description,
+    benefits,
+    resourceUrl,
+    kitTagId,
+    ctaButtonText,
+    tagline,
+    seoTitle,
+    seoDescription
+  }
+`;
+
+// Get all published lead magnet slugs (for prerender + sitemap)
+export const leadMagnetSlugsQuery = groq`
+  *[_type == "leadMagnet" && status == "published" && defined(slug.current)] {
+    "slug": slug.current,
+    title,
+    description,
+    seoTitle,
+    seoDescription,
+    tagline
+  }
+`;

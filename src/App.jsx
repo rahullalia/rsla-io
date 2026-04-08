@@ -75,6 +75,7 @@ const Disclaimer = lazyRetry(() => import('./pages/Disclaimer'));
 const Accessibility = lazyRetry(() => import('./pages/Accessibility'));
 const Insider = lazyRetry(() => import('./pages/Insider'));
 const IndustryPage = lazyRetry(() => import('./pages/IndustryPage'));
+const LeadMagnet = lazyRetry(() => import('./pages/LeadMagnet'));
 const NotFound = lazyRetry(() => import('./pages/NotFound'));
 
 const chromelessRoutes = ['/rahul', '/sid', '/booking-confirmed'];
@@ -133,6 +134,9 @@ function App() {
 
             {/* Programmatic SEO — Industry Pages */}
             <Route path="/ai-for/:slug" element={<IndustryPage />} />
+
+            {/* Lead Magnets — Gated Resource Pages */}
+            <Route path="/r/:slug" element={<LeadMagnet />} />
 
             {/* 404 Catch-All */}
             <Route path="*" element={<NotFound />} />
