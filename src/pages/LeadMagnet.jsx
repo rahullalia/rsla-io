@@ -59,8 +59,14 @@ export default function LeadMagnet() {
 
       if (!res.ok) throw new Error('Subscription failed');
 
-      // Redirect to the resource
-      window.location.href = magnet.resourceUrl;
+      // Redirect to the resource — only allow https:// or same-origin paths
+      // to prevent javascript:/data:/protocol-relative redirect abuse via Sanity content
+      const url = magnet.resourceUrl || '';
+      const isSafeUrl = /^https:\/\//i.test(url) || /^\//.test(url);
+      if (!isSafeUrl) {
+        throw new Error('Invalid resource URL');
+      }
+      window.location.href = url;
     } catch {
       setError('Something went wrong. Try again.');
       setSubmitting(false);

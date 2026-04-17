@@ -43,6 +43,8 @@ export default function BookCall() {
                         scrolling="no"
                         id="client-booking-calendar"
                         title="Client Booking Calendar"
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                        referrerPolicy="no-referrer"
                         className="rounded-xl h-[750px] md:h-[1100px]"
                     />
                 </div>

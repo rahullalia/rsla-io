@@ -41,6 +41,8 @@ export default function DiscoveryCall() {
                         scrolling="no"
                         id="TVqOue0iVFx2OyOlu3bS_1776349784731"
                         title="Discovery Call Calendar"
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                        referrerPolicy="no-referrer"
                         className="rounded-xl h-[650px] md:h-[800px]"
                     />
                 </div>

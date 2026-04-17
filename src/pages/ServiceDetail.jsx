@@ -49,6 +49,16 @@ export default function ServiceDetail() {
                 title={`${service.title} | RSL/A`}
                 description={service.description}
                 canonical={`https://rsla.io/services/${slug}`}
+                keywords={`${service.title.toLowerCase()}, AI services, RSL/A, B2B AI systems`}
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'Service',
+                    name: service.title,
+                    description: service.description,
+                    provider: { '@type': 'Organization', name: 'RSL/A', url: 'https://rsla.io' },
+                    url: `https://rsla.io/services/${slug}`,
+                    areaServed: { '@type': 'Place', name: 'Worldwide' },
+                }}
             />
             <div className="max-w-4xl mx-auto">
                 <Link

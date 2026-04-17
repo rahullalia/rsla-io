@@ -48,7 +48,18 @@ const siteNav = `<nav aria-label="Main navigation"><ul>
 <li><a href="/blog">Blog</a></li>
 </ul></nav>`;
 
-function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage, keywords }) {
+// Escape JSON-LD for safe embedding inside <script> tags.
+// Prevents </script> breakout and HTML comment tricks even if content contains user-sourced strings.
+function escapeJsonLd(schema) {
+  return JSON.stringify(schema)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
+}
+
+function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage, keywords, noIndex }) {
   let p = tmpl;
 
   p = p.replace(/<title>.*?<\/title>/, `<title>${esc(title)}</title>`);
@@ -79,9 +90,20 @@ function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage, ke
 
   p = p.replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${esc(canonical)}" />`);
 
+  // Robots meta — emit noindex for pages flagged noIndex, remove any existing robots meta otherwise
+  if (noIndex) {
+    if (p.match(/<meta name="robots"[^>]*\/>/)) {
+      p = p.replace(/<meta name="robots"[^>]*\/>/, `<meta name="robots" content="noindex, follow" />`);
+    } else {
+      p = p.replace('</head>', `<meta name="robots" content="noindex, follow" />\n</head>`);
+    }
+  } else {
+    p = p.replace(/<meta name="robots"[^>]*\/>\s*/g, '');
+  }
+
   if (jsonLd) {
     const schemas = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
-    const scripts = schemas.map(s => `<script type="application/ld+json" data-seo-jsonld>${JSON.stringify(s)}</script>`).join('\n');
+    const scripts = schemas.map(s => `<script type="application/ld+json" data-seo-jsonld>${escapeJsonLd(s)}</script>`).join('\n');
     p = p.replace('</head>', `${scripts}\n</head>`);
   }
 
@@ -115,16 +137,16 @@ function ptToHtml(blocks) {
 
 function homeContent() {
   return {
-    title: 'RSL/A | Intelligent Marketing Systems',
-    description: 'We show founders how to put AI to work, then build it for them. AI lead generation, automations, and smart operations for scaling businesses.',
+    title: 'RSL/A | The trusted AI growth partner for B2B companies',
+    description: "We build your website, get it found on Google and ChatGPT, and automate what's slowing you down. Custom websites and AI systems for fast-moving B2B companies.",
     canonical: SITE,
-    keywords: 'AI for business, AI automation agency, AI lead generation, marketing automation, business automation, AI systems for founders, intelligent marketing',
+    keywords: 'AI growth partner, custom B2B website, AI website agency, SEO for B2B, AI automation, ChatGPT visibility',
     jsonLd: [
       {
         '@context': 'https://schema.org', '@type': 'Organization',
         name: 'RSL/A', alternateName: ['RSLA', 'RSL/A', 'RSL A', 'RSL/A Agency'],
         url: SITE, logo: `${SITE}/images/logo/lockup-nobg.webp`,
-        description: 'We show founders how to put AI to work, then build it for them. AI lead generation, automations, and smart operations for scaling businesses.',
+        description: "The trusted AI growth partner for fast-moving B2B companies. We build your website, get it found on Google and ChatGPT, and automate what's slowing you down.",
         founder: { '@type': 'Person', name: 'Rahul Lalia', jobTitle: 'Founder & CEO' },
         sameAs: [
           'https://www.instagram.com/rahulslalia/',
@@ -253,20 +275,22 @@ function aboutContent() {
 function servicesContent() {
   return {
     title: 'Services | RSL/A',
-    description: 'AI automation, paid advertising, CRM implementation, and local SEO. Real systems that generate leads, book calls, and run your operations.',
+    description: 'End-to-end AI systems that generate leads, close deals, and scale operations. Websites, search visibility, AI automations, CRM systems, and custom development.',
     canonical: `${SITE}/services`,
-    keywords: 'AI lead generation, AI automation services, CRM implementation, business operations automation, paid advertising AI, marketing AI systems',
+    keywords: 'AI services, custom websites, AI automation, CRM systems, search visibility, custom development, AI lead generation, B2B AI systems',
     jsonLd: {
       '@context': 'https://schema.org', '@type': 'ProfessionalService',
       name: 'RSL/A', url: `${SITE}/services`,
-      description: 'AI automation, paid advertising, CRM implementation, and local SEO. Real systems that generate leads, book calls, and run your operations.',
+      description: 'End-to-end AI systems that generate leads, close deals, and scale operations. Built and managed by a team that has done it across SMBs and enterprise.',
       provider: { '@type': 'Organization', name: 'RSL/A', url: SITE },
       hasOfferCatalog: {
-        '@type': 'OfferCatalog', name: 'Marketing & AI Services',
+        '@type': 'OfferCatalog', name: 'AI Services',
         itemListElement: [
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Lead Generation', description: 'Paid ads with AI optimization that generate qualified leads and book calls automatically.' } },
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Automations', description: 'Custom AI systems that automate lead nurture, follow-ups, CRM workflows, and business operations.' } },
-          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Operations', description: 'CRM infrastructure, dashboards, and intelligent reporting systems that run your business.' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Websites', description: 'New builds and full rebuilds. Fast, custom-designed, SEO-ready.' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Search Visibility', description: 'Rankings on Google, ChatGPT, Perplexity, and Claude.' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Automations', description: 'n8n, Make, and custom scripts that replace manual work.' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'CRM Systems', description: 'GoHighLevel pipelines, workflows, and integrations.' } },
+          { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Development', description: 'SaaS products, MVPs, internal tools, APIs.' } },
         ],
       },
     },
@@ -335,6 +359,7 @@ function privacyContent() {
     title: 'Privacy Policy | RSL/A',
     description: 'RSL/A privacy policy. How we collect, use, and protect your information.',
     canonical: `${SITE}/privacy-policy`,
+    noIndex: true,
     html: `<main>
 <h1>Privacy Policy</h1>
 <p><strong>Effective Date:</strong> February 2026</p>
@@ -478,6 +503,7 @@ function termsContent() {
     title: 'Terms & Conditions | RSL/A',
     description: 'RSL/A terms and conditions for services and website usage.',
     canonical: `${SITE}/terms`,
+    noIndex: true,
     html: `<main>
 <h1>Terms &amp; Conditions</h1>
 <p><strong>Effective Date:</strong> February 2026</p>
@@ -568,6 +594,7 @@ function disclaimerContent() {
     title: 'Disclaimer | RSL/A',
     description: 'RSL/A disclaimer regarding website content, services, results, and professional advice.',
     canonical: `${SITE}/disclaimer`,
+    noIndex: true,
     html: `<main>
 <h1>Disclaimer</h1>
 <p><strong>Effective Date:</strong> February 2026</p>
@@ -618,6 +645,7 @@ function accessibilityContent() {
     title: 'Accessibility Statement | RSL/A',
     description: 'RSL/A commitment to digital accessibility and WCAG compliance.',
     canonical: `${SITE}/accessibility`,
+    noIndex: true,
     html: `<main>
 <h1>Accessibility Statement</h1>
 <p><strong>Effective Date:</strong> February 2026</p>
@@ -667,6 +695,7 @@ function bookCallContent() {
     title: 'Book a Call | RSL/A',
     description: 'Schedule a call with RSL/A. Existing clients can book onboarding, strategy, and support sessions.',
     canonical: `${SITE}/book-a-call`,
+    noIndex: true,
     html: `<main>
 <h1>Book your session.</h1>
 <p>Pick a time that works for you. Whether it is onboarding, a strategy check-in, or a support call, we will make sure you are covered.</p>
@@ -759,6 +788,7 @@ function bookingConfirmedContent() {
     title: 'Booking Confirmed | RSL/A',
     description: 'Your call has been booked. Check your inbox for meeting details.',
     canonical: `${SITE}/booking-confirmed`,
+    noIndex: true,
     html: `<main>
 <h1>You are all set.</h1>
 <p>Your call has been booked.</p>
@@ -773,6 +803,7 @@ function insiderContent() {
     title: 'Insider Newsletter | RSL/A',
     description: 'Get weekly automation insights delivered to your inbox.',
     canonical: `${SITE}/insider`,
+    noIndex: true,
     html: `<main>
 <h1>Automate smarter every week.</h1>
 <p>Real automation strategies, case studies, and AI tools delivered straight to your inbox every week.</p>
@@ -792,6 +823,7 @@ function rahulContent() {
     title: 'Rahul Lalia | RSL/A',
     description: 'Connect with Rahul Lalia, Founder & CEO of RSL/A.',
     canonical: `${SITE}/rahul`,
+    noIndex: true,
     html: `<main>
 <h1>Rahul Lalia</h1>
 <p>Founder &amp; CEO, RSL/A</p>
@@ -819,6 +851,7 @@ function sidContent() {
     title: 'Siddharth Rodrigues | RSL/A',
     description: 'Connect with Siddharth Rodrigues, Co-Founder & CTO of RSL/A.',
     canonical: `${SITE}/sid`,
+    noIndex: true,
     html: `<main>
 <h1>Siddharth Rodrigues</h1>
 <p>Co-Founder &amp; CTO, RSL/A</p>
@@ -843,6 +876,7 @@ function notFoundContent() {
     title: 'Page Not Found | RSL/A',
     description: 'This page does not exist.',
     canonical: SITE,
+    noIndex: true,
     html: `<main>
 <h1>404</h1>
 <h2>This page does not exist.</h2>
@@ -885,7 +919,7 @@ function blogListingContent(posts) {
       },
     },
     html: `<main>
-<h1>The Archive</h1>
+<h1>Our blog.</h1>
 <p>Insights on marketing automation, AI systems, local SEO, and strategies to scale your operations without overhead.</p>
 <ul>${postItems}</ul>
 </main>`,
@@ -922,9 +956,9 @@ function workListingContent(caseStudies) {
       },
     },
     html: `<main>
-<h1>Proven Performance</h1>
+<h1>Our work.</h1>
 <p>We don't sell promises. We sell engineered outcomes. Here is the proof.</p>
-${featured.length ? `<section><h2>Featured Intelligence</h2><ul>${renderCsList(featured)}</ul></section>` : ''}
+${featured.length ? `<section><h2>Featured Case Studies</h2><ul>${renderCsList(featured)}</ul></section>` : ''}
 ${rest.length ? `<section><h2>All Case Studies</h2><ul>${renderCsList(rest)}</ul></section>` : ''}
 </main>`,
   };
