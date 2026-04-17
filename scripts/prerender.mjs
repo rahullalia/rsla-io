@@ -44,10 +44,8 @@ const siteNav = `<nav aria-label="Main navigation"><ul>
 <li><a href="/">Home</a></li>
 <li><a href="/about">About</a></li>
 <li><a href="/services">Services</a></li>
-<li><a href="/how-it-works">How It Works</a></li>
 <li><a href="/work">Case Studies</a></li>
 <li><a href="/blog">Blog</a></li>
-<li><a href="/start-here">Start Here</a></li>
 </ul></nav>`;
 
 function inject(tmpl, { title, description, canonical, jsonLd, html, ogImage, keywords }) {
@@ -150,7 +148,7 @@ function homeContent() {
     ],
     html: `<main>
 <h1>Your business is doing manually what AI could do in seconds.</h1>
-<p><a href="/start-here">Build My System</a> | <a href="/work">See What We've Built</a></p>
+<p><a href="/#contact">Let's Talk</a> | <a href="/work">See What We've Built</a></p>
 
 <section><h2>What We Build</h2>
 <article><h3>01 — Lead Gen: Leads that find you.</h3>
@@ -193,7 +191,7 @@ function homeContent() {
 </section>
 
 <section><h2>Ready to put AI to work?</h2>
-<p><a href="/start-here">Build My System</a></p>
+<p><a href="/#contact">Let's Talk</a></p>
 </section>
 </main>`,
   };
@@ -325,89 +323,6 @@ function servicesContent() {
 <li><strong>Performance tracking:</strong> You know exactly where visitors come from, what they do, and why they leave. No guessing.</li>
 <li><strong>Content engine:</strong> AI-assisted content creation for blogs, case studies, and landing pages that drive organic traffic consistently.</li>
 </ul>
-</section>
-</main>`,
-  };
-}
-
-function howItWorksContent() {
-  return {
-    title: 'How It Works | RSL/A',
-    description: 'Our process from first call to live systems. Discovery, strategy, build, and launch in weeks, not months.',
-    canonical: `${SITE}/how-it-works`,
-    keywords: 'AI implementation process, business automation setup, AI system onboarding, marketing automation timeline',
-    jsonLd: {
-      '@context': 'https://schema.org', '@type': 'HowTo',
-      name: 'How RSL/A Works',
-      description: 'Our process from first call to live systems. Discovery, strategy, build, and launch in weeks, not months.',
-      step: [
-        { '@type': 'HowToStep', position: 1, name: 'Free Discovery Call', text: 'Book a call. We screen share, look at your business, and tell you exactly where AI should be doing the work instead of you.' },
-        { '@type': 'HowToStep', position: 2, name: 'The Build', text: 'Your AI system gets designed, built, and tested. Lead generation, automations, operations. Everything we identified on the call.' },
-        { '@type': 'HowToStep', position: 3, name: 'Launch & Optimize', text: 'We launch your system, monitor performance, and optimize continuously. Your system gets smarter the longer it runs.' },
-      ],
-    },
-    html: `<main>
-<h1>From "I think I need this" to running.</h1>
-<p>Here is exactly how it works. No surprises, no scope creep, no six month timelines.</p>
-
-<section><h2>Step 01: Let's Talk (Free)</h2>
-<p>You book a call. We screen share. I look at your business and tell you exactly where AI should be doing the work instead of you.</p>
-<p>No pitch deck. No discovery questionnaire. Just me looking at your tools, your lead flow, and your operations, and pointing at the gaps.</p>
-<p>You walk away with a clear picture of what AI can do for your business. If you want to build it yourself after that, go for it. Seriously.</p>
-</section>
-
-<section><h2>Step 02: The Build</h2>
-<p>If you want us to build it, we get to work. Your AI system gets designed, built, and tested. Lead generation, automations, operations. Whatever we identified on the call.</p>
-<p>You do not need to learn anything technical. You do not need to manage the project. We handle everything and you see progress in real time.</p>
-</section>
-
-<section><h2>Step 03: The Handoff</h2>
-<p>We hand you a fully working AI system with a dashboard that shows you exactly what it is doing. Not a black box you do not understand. A system you own, with numbers you can read.</p>
-<p>We walk you through everything. And if you want ongoing optimization, we are here for that too.</p>
-</section>
-</main>`,
-  };
-}
-
-function startHereContent() {
-  return {
-    title: 'Start Here | RSL/A',
-    description: 'Ready to put AI to work in your business? Start here. Book a call and see what RSL/A can build for you.',
-    canonical: `${SITE}/start-here`,
-    keywords: 'hire AI automation agency, AI for my business, book AI consultation, business automation help',
-    jsonLd: {
-      '@context': 'https://schema.org', '@type': 'WebPage',
-      name: 'Start Here', url: `${SITE}/start-here`,
-      description: 'Ready to put AI to work in your business? Start here. Book a call and see what RSL/A can build for you.',
-      isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: SITE },
-    },
-    html: `<main>
-<h1>New here? Start here.</h1>
-<p>I am Rahul. I build AI systems for founders. But before you hire anyone (including me), you should understand what AI can actually do for your business. Here is the stuff I would send a friend who asked me "should I be using AI in my business?"</p>
-
-<section><h2>Pick your depth</h2>
-<ul>
-<li><strong>5 minutes — Read this:</strong> The short version of why most founders are doing manually what AI could handle in seconds. <a href="/blog">Read the blog</a></li>
-<li><strong>30 minutes — Watch this:</strong> I walk through a real AI system I built for a client. Start to finish. What it does, how it works, and the numbers. <a href="https://youtube.com/@rahul_lalia">Watch on YouTube</a></li>
-<li><strong>Specific problem — Book a free call:</strong> I will screen share, look at your business, and tell you exactly where AI fits. No pitch, just answers. <a href="/start-here#contact">Book a call</a></li>
-</ul>
-</section>
-
-<section><h2>Stay in the loop</h2>
-<p>I post regularly about AI for business. No fluff, no hype. Just what is working right now.</p>
-<ul>
-<li><a href="https://linkedin.com/in/rahul_lalia">LinkedIn</a> — Where most of my thinking happens</li>
-<li><a href="https://youtube.com/@rahul_lalia">YouTube</a> — Deeper walkthroughs and builds</li>
-<li><a href="https://instagram.com/rahul_lalia">Instagram</a> — Behind the scenes</li>
-<li><a href="https://tiktok.com/@rahul_lalia">TikTok</a> — Quick takes</li>
-<li><a href="https://x.com/rahul_lalia">X</a> — Shorter thoughts</li>
-<li><a href="/blog">Blog</a> — Long form, searchable, evergreen</li>
-</ul>
-</section>
-
-<section><h2>Ready to work together?</h2>
-<p>If you have already done the learning and want it built, here is how that works.</p>
-<p><a href="/how-it-works">See how it works</a></p>
 </section>
 </main>`,
   };
@@ -857,7 +772,6 @@ function notFoundContent() {
 <li><a href="/">Back to Home</a></li>
 <li><a href="/work">Case Studies</a></li>
 <li><a href="/blog">Blog</a></li>
-<li><a href="/start-here">Start Here</a></li>
 </ul>
 </main>`,
   };
@@ -1042,75 +956,6 @@ ${takeawaysHtml ? `<section><h2>Key Takeaways</h2><ol>${takeawaysHtml}</ol></sec
   };
 }
 
-// ── Industry Pages (pSEO) ─────────────────────────────────────────────────────
-
-function industryPageContent(ip) {
-  const title = ip.seoTitle || `AI Automation for ${ip.industry} | RSL/A`;
-  const description = ip.seoDescription || `AI automation systems built for ${ip.industry.toLowerCase()}.`;
-  const canonical = `${SITE}/ai-for/${ip.slug}`;
-
-  const statsHtml = (ip.costStats || []).map(s =>
-    `<li><strong>${esc(s.value)}</strong> ${esc(s.label)}</li>`
-  ).join('');
-
-  const transformHtml = (ip.transformations || []).map(t =>
-    `<tr><td>${esc(t.before)}</td><td>${esc(t.after)}</td></tr>`
-  ).join('');
-
-  const faqHtml = (ip.faq || []).map(f =>
-    `<dt>${esc(f.question)}</dt><dd>${esc(f.answer)}</dd>`
-  ).join('');
-
-  const jsonLd = [{
-    '@context': 'https://schema.org', '@type': 'Service',
-    name: `AI Automation for ${ip.industry}`,
-    description,
-    provider: { '@type': 'Organization', name: 'RSL/A', url: SITE },
-    serviceType: 'AI Automation',
-  }];
-
-  if (ip.faq?.length) {
-    jsonLd.push({
-      '@context': 'https://schema.org', '@type': 'FAQPage',
-      mainEntity: ip.faq.map(f => ({
-        '@type': 'Question', name: f.question,
-        acceptedAnswer: { '@type': 'Answer', text: f.answer },
-      })),
-    });
-  }
-
-  return {
-    route: `/ai-for/${ip.slug}`,
-    title,
-    description,
-    canonical,
-    keywords: ip.seoKeywords,
-    jsonLd,
-    html: `<main>
-<h1>${esc(ip.heroQuestion)}</h1>
-<p>${esc(ip.heroSubtitle)}</p>
-
-${ip.costHeadline ? `<section><h2>${esc(ip.costHeadline)}</h2>
-${statsHtml ? `<ul>${statsHtml}</ul>` : ''}
-${ip.painParagraph ? `<p>${esc(ip.painParagraph)}</p>` : ''}
-</section>` : ''}
-
-${transformHtml ? `<section><h2>${esc(ip.solutionHeadline || 'What changes when AI handles your follow up')}</h2>
-<table><thead><tr><th>Before</th><th>After</th></tr></thead><tbody>${transformHtml}</tbody></table>
-</section>` : ''}
-
-${ip.proofNumber ? `<section><h2>${esc(ip.proofNumber)} ${esc(ip.proofLine || '')}</h2>
-${ip.proofTimeframe ? `<p>${esc(ip.proofTimeframe)}</p>` : ''}
-${ip.proofDetail ? `<p>${esc(ip.proofDetail)}</p>` : ''}
-</section>` : ''}
-
-${faqHtml ? `<section><h2>Frequently Asked Questions</h2><dl>${faqHtml}</dl></section>` : ''}
-
-<p><a href="/book-a-call">Book a Free Call</a></p>
-</main>`,
-  };
-}
-
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -1119,7 +964,7 @@ async function main() {
   const template = readFileSync(resolve(DIST, 'index.html'), 'utf-8');
 
   // Fetch all dynamic content from Sanity
-  const [blogPosts, caseStudies, industryPages] = await Promise.all([
+  const [blogPosts, caseStudies] = await Promise.all([
     client.fetch(`
       *[_type == "blogPostV2" && status == "published" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) {
         title,
@@ -1159,27 +1004,6 @@ async function main() {
         faqSchema
       }
     `),
-    client.fetch(`
-      *[_type == "industryPage" && status == "published" && defined(slug.current)] | order(industry asc) {
-        industry,
-        "slug": slug.current,
-        heroQuestion,
-        heroSubtitle,
-        costHeadline,
-        costStats,
-        painParagraph,
-        solutionHeadline,
-        transformations,
-        proofNumber,
-        proofLine,
-        proofTimeframe,
-        proofDetail,
-        faq,
-        seoTitle,
-        seoDescription,
-        seoKeywords
-      }
-    `),
   ]);
 
   let count = 0;
@@ -1189,8 +1013,6 @@ async function main() {
     { route: '/', ...homeContent() },
     { route: '/about', ...aboutContent() },
     { route: '/services', ...servicesContent() },
-    { route: '/how-it-works', ...howItWorksContent() },
-    { route: '/start-here', ...startHereContent() },
     { route: '/privacy-policy', ...privacyContent() },
     { route: '/terms', ...termsContent() },
     { route: '/disclaimer', ...disclaimerContent() },
@@ -1230,14 +1052,7 @@ async function main() {
     count++;
   }
 
-  // Individual industry pages (pSEO)
-  for (const ip of industryPages) {
-    const page = industryPageContent(ip);
-    writePage(page.route, inject(template, page));
-    count++;
-  }
-
-  console.log(`Pre-rendered ${count} pages (${staticPages.length} static, 2 listings, ${blogPosts.length} blog posts, ${caseStudies.length} case studies, ${industryPages.length} industry pages)`);
+  console.log(`Pre-rendered ${count} pages (${staticPages.length} static, 2 listings, ${blogPosts.length} blog posts, ${caseStudies.length} case studies)`);
 }
 
 main().catch((err) => {

@@ -17,14 +17,14 @@ const CaseStudyCard = ({ slug, tag, title, description, metrics }) => (
     >
         <div className="p-8 flex flex-col flex-grow">
             <div className="mb-6 flex justify-between items-start">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-2 py-1 rounded-sm">
+                <span className="font-sans text-sm uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-2 py-1 rounded-sm">
                     {tag}
                 </span>
             </div>
-            <h3 className="font-sans font-bold text-2xl tracking-tight mb-3 group-hover:text-accent transition-colors">
+            <h3 className="font-sans font-semibold text-xl md:text-2xl tracking-tight mb-3 group-hover:text-accent transition-colors">
                 {title}
             </h3>
-            <p className="font-mono text-sm text-textMuted mb-8 flex-grow leading-relaxed">
+            <p className="font-sans text-sm text-textMuted mb-8 flex-grow leading-relaxed">
                 {description}
             </p>
             {metrics && metrics.length > 0 && (
@@ -32,7 +32,7 @@ const CaseStudyCard = ({ slug, tag, title, description, metrics }) => (
                     {metrics.slice(0, 2).map((metric, idx) => (
                         <div key={idx}>
                             <strong className="block text-xl font-bold font-sans text-text">{metric.value}</strong>
-                            <span className="font-mono text-[10px] uppercase tracking-wider text-accent">{metric.label}</span>
+                            <span className="font-sans text-sm uppercase tracking-wider text-accent">{metric.label}</span>
                         </div>
                     ))}
                 </div>
@@ -127,7 +127,7 @@ export default function WorkInner() {
     if (loading) {
         return (
             <div className="min-h-screen bg-surface pt-32 pb-24 flex items-center justify-center">
-                <div className="font-mono text-accent animate-pulse">[FETCHING_CASE_STUDY...]</div>
+                <div className="font-sans text-accent animate-pulse">[FETCHING_CASE_STUDY...]</div>
             </div>
         );
     }
@@ -135,8 +135,8 @@ export default function WorkInner() {
     if (!caseStudy) {
         return (
             <div className="min-h-screen bg-surface pt-32 pb-24 flex flex-col items-center justify-center">
-                <h1 className="text-4xl font-sans font-bold text-text mb-4">404 - Case Study Not Found</h1>
-                <Link to="/work" className="text-accent hover:underline font-mono">Back to Case Studies</Link>
+                <h1 className="text-3xl md:text-5xl font-sans font-bold text-text mb-4">404 - Case Study Not Found</h1>
+                <Link to="/work" className="text-accent hover:underline font-sans">Back to Case Studies</Link>
             </div>
         );
     }
@@ -182,7 +182,7 @@ export default function WorkInner() {
             <div className="max-w-3xl mx-auto relative z-10">
 
                 {/* Back link */}
-                <Link to="/work" className="inline-flex items-center gap-2 min-h-[44px] text-textMuted hover:text-accent font-mono text-sm transition-colors uppercase tracking-wider mb-12">
+                <Link to="/work" className="inline-flex items-center gap-2 min-h-[44px] text-textMuted hover:text-accent font-sans text-sm transition-colors uppercase tracking-wider mb-12">
                     Back to Case Studies
                 </Link>
 
@@ -190,22 +190,22 @@ export default function WorkInner() {
                 <header className="mb-16">
                     {/* Tag + meta inline */}
                     <div className="flex flex-wrap items-center gap-3 mb-6">
-                        <span className="font-mono text-xs uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-3 py-1 rounded-full">
+                        <span className="font-sans text-sm uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-3 py-1 rounded-full">
                             {caseStudy.tag}
                         </span>
                         {metaItems.length > 0 && (
-                            <span className="font-mono text-xs text-textMuted">
+                            <span className="font-sans text-sm text-textMuted">
                                 {metaItems.join(' / ')}
                             </span>
                         )}
                     </div>
 
-                    <h1 className="text-4xl md:text-6xl font-sans font-bold leading-tight tracking-tight text-text mb-6">
+                    <h1 className="text-3xl md:text-5xl font-sans font-bold leading-tight tracking-tight text-text mb-6">
                         <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                             {caseStudy.title}
                         </TextAnimate>
                     </h1>
-                    <p className="text-xl md:text-2xl text-textMuted font-sans font-medium mb-6">
+                    <p className="text-lg text-textMuted font-sans font-medium mb-6">
                         {caseStudy.description}
                     </p>
                     <ShareBar title={caseStudy.title} url={`https://rsla.io/work/${slug}`} />
@@ -230,7 +230,7 @@ export default function WorkInner() {
                                 <strong className="text-4xl md:text-5xl font-sans font-bold text-accent block mb-1">
                                     {metric.value}
                                 </strong>
-                                <span className="font-mono text-[10px] text-textMuted uppercase tracking-widest">
+                                <span className="font-sans text-sm text-textMuted uppercase tracking-widest">
                                     {metric.label}
                                 </span>
                             </div>
@@ -241,8 +241,8 @@ export default function WorkInner() {
                 {/* TL;DR — left border accent, no box */}
                 {caseStudy.tldr && (
                     <div className="border-l-2 border-accent pl-6 mb-16">
-                        <p className="font-mono text-[10px] text-accent uppercase tracking-widest mb-3">TL;DR</p>
-                        <p className="text-lg text-textMuted leading-relaxed font-body">
+                        <p className="font-sans text-sm text-accent uppercase tracking-widest mb-3">TL;DR</p>
+                        <p className="text-lg text-textMuted leading-relaxed font-sans">
                             {caseStudy.tldr}
                         </p>
                     </div>
@@ -251,8 +251,8 @@ export default function WorkInner() {
                 {/* Problem / Solution / Results — editorial flow */}
                 {caseStudy.problemStatement && (
                     <section className="mb-12">
-                        <h2 className="font-mono text-xs text-accent uppercase tracking-widest mb-4">The Problem</h2>
-                        <p className="text-lg text-text leading-relaxed font-body">
+                        <h2 className="font-sans text-sm text-text uppercase tracking-widest mb-4">The Problem</h2>
+                        <p className="text-lg text-text leading-relaxed font-sans">
                             {caseStudy.problemStatement}
                         </p>
                     </section>
@@ -260,8 +260,8 @@ export default function WorkInner() {
 
                 {caseStudy.solutionApproach && (
                     <section className="mb-12">
-                        <h2 className="font-mono text-xs text-accent uppercase tracking-widest mb-4">The Solution</h2>
-                        <p className="text-lg text-text leading-relaxed font-body">
+                        <h2 className="font-sans text-sm text-text uppercase tracking-widest mb-4">The Solution</h2>
+                        <p className="text-lg text-text leading-relaxed font-sans">
                             {caseStudy.solutionApproach}
                         </p>
                     </section>
@@ -269,8 +269,8 @@ export default function WorkInner() {
 
                 {caseStudy.resultsOutcome && (
                     <section className="mb-16">
-                        <h2 className="font-mono text-xs text-accent uppercase tracking-widest mb-4">The Results</h2>
-                        <p className="text-lg text-text leading-relaxed font-body">
+                        <h2 className="font-sans text-sm text-text uppercase tracking-widest mb-4">The Results</h2>
+                        <p className="text-lg text-text leading-relaxed font-sans">
                             {caseStudy.resultsOutcome}
                         </p>
                     </section>
@@ -281,14 +281,14 @@ export default function WorkInner() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                         {caseStudy.beforeAfter.before && (
                             <div className="p-6 rounded-xl border border-red-200 bg-red-50/50">
-                                <h3 className="text-xs font-bold font-mono text-red-500 uppercase tracking-widest mb-3">Before</h3>
-                                <p className="text-base text-textMuted leading-relaxed font-body">{caseStudy.beforeAfter.before}</p>
+                                <h3 className="text-sm font-bold font-sans text-red-500 uppercase tracking-widest mb-3">Before</h3>
+                                <p className="text-base text-textMuted leading-relaxed font-sans">{caseStudy.beforeAfter.before}</p>
                             </div>
                         )}
                         {caseStudy.beforeAfter.after && (
                             <div className="p-6 rounded-xl border border-green-200 bg-green-50/50">
-                                <h3 className="text-xs font-bold font-mono text-green-600 uppercase tracking-widest mb-3">After</h3>
-                                <p className="text-base text-textMuted leading-relaxed font-body">{caseStudy.beforeAfter.after}</p>
+                                <h3 className="text-sm font-bold font-sans text-green-600 uppercase tracking-widest mb-3">After</h3>
+                                <p className="text-base text-textMuted leading-relaxed font-sans">{caseStudy.beforeAfter.after}</p>
                             </div>
                         )}
                     </div>
@@ -297,11 +297,11 @@ export default function WorkInner() {
                 {/* Key Takeaways — simple numbered list, no box */}
                 {caseStudy.keyTakeaways && caseStudy.keyTakeaways.length > 0 && (
                     <section className="mb-16">
-                        <h2 className="font-mono text-xs text-accent uppercase tracking-widest mb-6">Key Takeaways</h2>
+                        <h2 className="font-sans text-sm text-text uppercase tracking-widest mb-6">Key Takeaways</h2>
                         <ol className="space-y-4">
                             {caseStudy.keyTakeaways.map((takeaway, idx) => (
-                                <li key={idx} className="flex items-start gap-4 text-text text-base leading-relaxed font-body">
-                                    <span className="text-accent font-bold font-mono text-sm leading-none pt-1 shrink-0">{String(idx + 1).padStart(2, '0')}</span>
+                                <li key={idx} className="flex items-start gap-4 text-text text-base leading-relaxed font-sans">
+                                    <span className="text-accent font-bold font-sans text-sm leading-none pt-1 shrink-0">{String(idx + 1).padStart(2, '0')}</span>
                                     <span>{takeaway}</span>
                                 </li>
                             ))}
@@ -314,7 +314,7 @@ export default function WorkInner() {
                     {caseStudy.content ? (
                         <PortableText value={caseStudy.content} components={PortableTextComponents} />
                     ) : (
-                        <p className="text-textMuted font-mono italic text-center py-10">
+                        <p className="text-textMuted font-sans italic text-center py-10">
                             [Content formatting required in CMS]
                         </p>
                     )}
@@ -323,7 +323,7 @@ export default function WorkInner() {
                 {/* Related Cases */}
                 {relatedCases.length > 0 && (
                     <aside className="mt-20">
-                        <h3 className="text-3xl font-sans font-bold text-text mb-10 text-center">
+                        <h3 className="text-xl md:text-2xl font-sans font-semibold text-text mb-10 text-center">
                             Similar Profiles
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -10,22 +10,22 @@ gsap.registerPlugin(ScrollTrigger);
 // Hardcoded fallback in case Sanity is unreachable
 const fallbackProofs = [
     {
-        slug: null,
-        type: 'Local Service Co.',
-        result: 'Optimized ad targeting turned $600 in spend into $36,000 closed revenue in 45 days.',
-        metric: '$36K',
+        slug: 'fieldshare-seo-website-rebrand',
+        type: 'SaaS · Oil & Gas',
+        result: 'Rebuilt the website and repositioned the brand around one core industry. Ranked #1 on Google for 20+ keywords in 6 months. The new site closed a mid-size operator on its own.',
+        metric: '20+',
+    },
+    {
+        slug: 'local-seo-reputation-management',
+        type: 'Local · Restaurant',
+        result: 'Built an NPS-driven review engine. 14 Google reviews to 132 in 60 days. $25K in new revenue. Now ranking #1 for local pizza searches.',
+        metric: '$25K',
     },
     {
         slug: null,
-        type: 'Consulting Firm',
-        result: 'Reactivated a dead database of 13,000 cold contacts and booked 42 appointments in one week.',
-        metric: '42',
-    },
-    {
-        slug: null,
-        type: 'E-Commerce Brand',
-        result: 'Custom chat infrastructure cut manual customer service hours by 80%.',
-        metric: '80%',
+        type: 'Beauty · Salon',
+        result: 'Two vacant salon rental rooms filled in months using our lead engine and automated follow-up. Owner stopped stressing about rent.',
+        metric: '2/2',
     },
 ];
 
@@ -80,9 +80,9 @@ export default function ProofSection() {
     return (
         <section ref={sectionRef} className="w-full bg-surfaceAlt py-24 md:py-32">
             <div className="max-w-6xl mx-auto px-6 md:px-12">
-                <span className="font-mono text-xs uppercase tracking-wider text-accent">Case Studies</span>
-                <h2 className="font-sans font-bold text-3xl md:text-5xl text-text tracking-tight mt-3 mb-16 md:mb-20">
-                    The <span className="font-drama italic font-bold text-accent">Proof</span>
+                <span className="font-sans text-sm uppercase tracking-wider text-accent">Case Studies</span>
+                <h2 className="font-sans font-extrabold text-2xl md:text-4xl text-text tracking-tight mt-3 mb-16 md:mb-20">
+                    <span className="text-text">The Proof</span>
                 </h2>
 
                 <div className="space-y-0">
@@ -90,11 +90,11 @@ export default function ProofSection() {
                         const inner = (
                             <>
                                 <div className="flex-1">
-                                    <span className="font-mono text-xs md:text-sm uppercase tracking-widest text-accent font-bold">{proof.type}</span>
-                                    <p className="font-body text-textMuted text-sm md:text-base leading-relaxed mt-2 max-w-xl">{proof.result}</p>
+                                    <span className="font-sans text-xs md:text-sm uppercase tracking-widest text-accent font-bold">{proof.type}</span>
+                                    <p className="font-sans text-textMuted text-lg leading-relaxed mt-2 max-w-xl">{proof.result}</p>
                                 </div>
                                 <div className="flex-shrink-0 flex items-center gap-3">
-                                    <div className="font-drama italic font-bold text-5xl md:text-7xl text-accent leading-none">{proof.metric}</div>
+                                    <div className="font-sans font-bold text-5xl md:text-7xl text-accent leading-none">{proof.metric}</div>
                                     {proof.slug && (
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-textMuted group-hover:text-accent group-hover:translate-x-1 transition-all">
                                             <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />

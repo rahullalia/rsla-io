@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import NavbarV2 from './components/NavbarV2';
+import NavbarV3 from './components/NavbarV3';
 import FooterV2 from './components/FooterV2';
 import CookieConsent, { initConsent } from './components/CookieConsent';
 import ScrollToTop from './components/ScrollToTop';
@@ -10,8 +10,6 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
-import HowItWorksPage from './pages/HowItWorksPage';
-import StartHere from './pages/StartHere';
 import Work from './pages/Work';
 import Blog from './pages/Blog';
 
@@ -63,10 +61,12 @@ function PageLoader() {
 }
 
 // Rarely-visited pages stay lazy (not reachable from hamburger menu)
+const ServiceDetail = lazyRetry(() => import('./pages/ServiceDetail'));
 const WorkInner = lazyRetry(() => import('./pages/WorkInner'));
 const BlogInner = lazyRetry(() => import('./pages/BlogInner'));
 const Privacy = lazyRetry(() => import('./pages/Privacy'));
 const Terms = lazyRetry(() => import('./pages/Terms'));
+const DiscoveryCall = lazyRetry(() => import('./pages/DiscoveryCall'));
 const BookCall = lazyRetry(() => import('./pages/BookCall'));
 const BookingConfirmed = lazyRetry(() => import('./pages/BookingConfirmed'));
 const Rahul = lazyRetry(() => import('./pages/Rahul'));
@@ -74,7 +74,6 @@ const Sid = lazyRetry(() => import('./pages/Sid'));
 const Disclaimer = lazyRetry(() => import('./pages/Disclaimer'));
 const Accessibility = lazyRetry(() => import('./pages/Accessibility'));
 const Insider = lazyRetry(() => import('./pages/Insider'));
-const IndustryPage = lazyRetry(() => import('./pages/IndustryPage'));
 const LeadMagnet = lazyRetry(() => import('./pages/LeadMagnet'));
 const NotFound = lazyRetry(() => import('./pages/NotFound'));
 
@@ -104,7 +103,7 @@ function App() {
 
   return (
     <main className="w-full bg-background min-h-screen text-text selection:bg-accent selection:text-white">
-      {!hideChrome && <NavbarV2 />}
+      {!hideChrome && <NavbarV3 />}
 
       <div className={`transition-opacity duration-300 ease-out ${pageReady ? 'opacity-100' : 'opacity-0'}`}>
         <Suspense fallback={<PageLoader />}>
@@ -112,8 +111,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/how-it-works" element={<HowItWorksPage />} />
-            <Route path="/start-here" element={<StartHere />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
 
             {/* Ported Routes */}
             <Route path="/blog" element={<Blog />} />
@@ -126,14 +124,12 @@ function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/accessibility" element={<Accessibility />} />
+            <Route path="/contact" element={<DiscoveryCall />} />
             <Route path="/book-a-call" element={<BookCall />} />
             <Route path="/booking-confirmed" element={<BookingConfirmed />} />
             <Route path="/rahul" element={<Rahul />} />
             <Route path="/sid" element={<Sid />} />
             <Route path="/insider" element={<Insider />} />
-
-            {/* Programmatic SEO — Industry Pages */}
-            <Route path="/ai-for/:slug" element={<IndustryPage />} />
 
             {/* Lead Magnets — Gated Resource Pages */}
             <Route path="/r/:slug" element={<LeadMagnet />} />

@@ -1,38 +1,40 @@
 /**
- * LogoMarquee — "We integrate with" single-row logo strip.
- * Pure CSS marquee — two copies of content, translateX(-50%), infinite loop.
+ * LogoMarquee — single-row seamless logo strip with label on the left.
+ * Layout: "Rahul and his team have worked with" label on the left column,
+ * one horizontal row of logos scrolling on the right.
+ *
+ * On mobile the label stacks above the marquee for readability.
  */
 
-// Order: lesser-known first (1-6), then high-profile logos land in viewport
-// when user scrolls to this section (~positions 7-14)
+import { Marquee } from '@/components/ui/marquee';
+
+// Order hand-shuffled so brand cousins never land next to each other:
+// Anthropic/Claude are 7 apart (max for 21-slot loop), Google's trio
+// (Google Ads + Gemini + Antigravity) each sit ~7 positions from the others,
+// and tool clusters (LLM chatbots, automation, dev, ads, email) are
+// interleaved instead of grouped.
 const logos = [
-    { name: 'Resend',        file: 'resend.svg'      },
-    { name: 'n8n',           file: 'n8n.svg'         },
-    { name: 'Sanity',        file: 'sanity.svg'      },
-    { name: 'Twilio',        file: 'twilio.svg'      },
-    { name: 'Upstash Redis', file: 'redis.webp'       },
-    { name: 'Instantly',     file: 'instantly.webp'   },
-    { name: 'Anthropic',     file: 'anthropic.svg'  },
-    { name: 'Claude',        file: 'claude.svg'      },
-    { name: 'Meta',          file: 'meta.svg'        },
-    { name: 'ChatGPT',       file: 'chatgpt.svg'     },
-    { name: 'Stripe',        file: 'stripe.svg'      },
-    { name: 'Google Gemini', file: 'gemini.svg'      },
-    { name: 'Antigravity',   file: 'antigravity.webp' },
-    { name: 'GitHub',        file: 'github.svg'      },
-    { name: 'Notion',        file: 'notion.svg'      },
-    { name: 'Slack',         file: 'slack.svg'       },
-    { name: 'Zapier',        file: 'zapier.svg'      },
+    { name: 'ChatGPT',       file: 'chatgpt.svg'      },
+    { name: 'Supabase',      file: 'supabase.svg'     },
     { name: 'Make',          file: 'make.webp'        },
-    { name: 'Google Ads',    file: 'googleads.svg'   },
-    { name: 'LinkedIn',      file: 'linkedin.svg'    },
-    { name: 'Vercel',        file: 'vercel.svg'      },
-    { name: 'Supabase',      file: 'supabase.svg'    },
+    { name: 'Antigravity',   file: 'antigravity.webp' },
+    { name: 'Sanity',        file: 'sanity.svg'       },
+    { name: 'Meta',          file: 'meta.svg'         },
+    { name: 'Anthropic',     file: 'anthropic.svg'    },
     { name: 'GoHighLevel',   file: 'gohighlevel.webp' },
-    { name: 'Airtable',      file: 'airtable.svg'    },
-    { name: 'VS Code',       file: 'vscode.svg'      },
-    { name: 'TikTok',        file: 'tiktok.svg'      },
-    { name: 'YouTube',       file: 'youtube.svg'     },
+    { name: 'Stripe',        file: 'stripe.svg'       },
+    { name: 'Resend',        file: 'resend.svg'       },
+    { name: 'Google Ads',    file: 'googleads.svg'    },
+    { name: 'Vercel',        file: 'vercel.svg'       },
+    { name: 'Notion',        file: 'notion.svg'       },
+    { name: 'Claude',        file: 'claude.svg'       },
+    { name: 'Zapier',        file: 'zapier.svg'       },
+    { name: 'GitHub',        file: 'github.svg'       },
+    { name: 'LinkedIn',      file: 'linkedin.svg'     },
+    { name: 'Google Gemini', file: 'gemini.svg'       },
+    { name: 'Instantly',     file: 'instantly.webp'   },
+    { name: 'n8n',           file: 'n8n.svg'          },
+    { name: 'Airtable',      file: 'airtable.svg'     },
 ];
 
 function LogoItem({ name, file }) {
@@ -49,32 +51,28 @@ function LogoItem({ name, file }) {
     );
 }
 
-function MarqueeTrack({ logos, reverse = false, duration = '35s' }) {
-    const style = {
-        '--marquee-duration': duration,
-    };
-
-    return (
-        <div className="overflow-hidden">
-            <div
-                className={`flex w-max will-change-transform ${reverse ? 'animate-marquee-reverse' : 'animate-marquee-scroll'}`}
-                style={style}
-            >
-                {logos.map((logo) => <LogoItem key={`a-${logo.name}`} {...logo} />)}
-                {logos.map((logo) => <LogoItem key={`b-${logo.name}`} {...logo} />)}
-            </div>
-        </div>
-    );
-}
-
 export default function LogoMarquee() {
     return (
-        <section className="w-full bg-surfaceAlt border-y border-accent-border py-8 md:py-10">
-            <p className="text-center font-mono text-xs uppercase tracking-widest text-textMuted mb-6 md:mb-8">
-                We have worked with
-            </p>
-            <div className="relative [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-                <MarqueeTrack logos={logos} duration="45s" />
+        <section className="w-full bg-surfaceAlt border-y border-accent-border py-10 md:py-12">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                {/* Left column: label */}
+                <div className="shrink-0 text-center md:text-left">
+                    <p className="font-sans text-xs md:text-sm uppercase tracking-wider text-textMuted whitespace-nowrap">
+                        Rahul and his team have worked with
+                    </p>
+                </div>
+
+                {/* Right column: single-row marquee */}
+                <div className="relative flex-1 min-w-0 overflow-hidden">
+                    <Marquee pauseOnHover className="[--duration:60s] py-0">
+                        {logos.map((logo) => (
+                            <LogoItem key={logo.name} {...logo} />
+                        ))}
+                    </Marquee>
+                    {/* Edge fade to blend into the section background */}
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-surfaceAlt to-transparent" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-surfaceAlt to-transparent" />
+                </div>
             </div>
         </section>
     );

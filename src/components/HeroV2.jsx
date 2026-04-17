@@ -1,71 +1,52 @@
 /**
- * HeroV2 — Aurora Background + TextAnimate headline + InteractiveHoverButton CTAs
- * Light theme version. Replaces dark Hero with CanvasParticles.
+ * HeroV2 — Aurora Background + static headline + InteractiveHoverButton CTAs.
+ * Entire hero content (headline + CTAs) fades in as one unit. No per-word stagger.
  */
 
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
 import AuroraBackground from './AuroraBackground';
-import { TextAnimate } from '@/components/ui/text-animate';
 import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
 
 export default function HeroV2() {
-    const containerRef = useRef(null);
+    const contentRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // CTAs fade up
             gsap.fromTo(
-                '.hero-cta',
+                contentRef.current,
                 { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out', delay: 1.2 }
+                { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' }
             );
-        }, containerRef);
-
+        }, contentRef);
         return () => ctx.revert();
     }, []);
 
     return (
         <AuroraBackground>
-            <div ref={containerRef} className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-start justify-end h-[100dvh] pb-44 md:pb-32">
-                {/* Headline */}
-                <h1 className="font-sans font-bold text-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1] max-w-4xl mb-6">
-                    <TextAnimate
-                        animation="blurInUp"
-                        by="word"
-                        delay={0.08}
-                        startOnView={false}
-                        as="span"
-                    >
-                        Your business is doing manually what AI could do in
-                    </TextAnimate>{' '}
-                    <span className="font-drama italic font-bold text-accent">
-                        <TextAnimate
-                            animation="blurInUp"
-                            by="word"
-                            delay={0.88}
-                            startOnView={false}
-                            as="span"
-                        >
-                            seconds.
-                        </TextAnimate>
-                    </span>
-                </h1>
+            <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-start justify-end h-[100dvh] pb-40 md:pb-28">
+                <div ref={contentRef} className="opacity-0">
+                    {/* Headline */}
+                    <h1 className="font-sans font-bold text-text text-4xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05] max-w-5xl mb-10">
+                        The trusted AI growth partner for fast-moving{' '}
+                        <span className="font-sans font-bold text-accent">B2B companies.</span>
+                    </h1>
 
-                {/* CTAs */}
-                <div className="flex flex-wrap gap-3 sm:gap-4">
-                    <a href="#contact" className="hero-cta opacity-0">
-                        <InteractiveHoverButton className="font-sans font-bold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 rounded-full">
-                            Build My System
-                        </InteractiveHoverButton>
-                    </a>
-                    <Link
-                        to="/work"
-                        className="hero-cta opacity-0 inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-full font-sans font-bold text-sm sm:text-base text-text border border-accent-border-strong hover:border-accent/30 hover:bg-accent-light transition-colors"
-                    >
-                        See What We've Built
-                    </Link>
+                    {/* CTAs */}
+                    <div className="flex flex-wrap gap-3 sm:gap-4">
+                        <Link to="/work">
+                            <InteractiveHoverButton className="font-sans font-bold text-base px-8 py-3">
+                                See the Work
+                            </InteractiveHoverButton>
+                        </Link>
+                        <Link
+                            to="/contact"
+                            className="inline-flex items-center px-8 py-3 rounded-xl font-sans font-bold text-base text-text border border-accent-border-strong hover:border-accent/30 hover:bg-accent-light transition-colors"
+                        >
+                            Let's Talk
+                        </Link>
+                    </div>
                 </div>
             </div>
         </AuroraBackground>

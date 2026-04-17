@@ -146,7 +146,7 @@ export default function BlogInner() {
     if (loading) {
         return (
             <div className="min-h-screen bg-surface pt-32 pb-24 flex items-center justify-center">
-                <div className="font-mono text-accent animate-pulse">[FETCHING_ARTICLE...]</div>
+                <div className="font-sans text-accent animate-pulse">[FETCHING_ARTICLE...]</div>
             </div>
         );
     }
@@ -154,8 +154,8 @@ export default function BlogInner() {
     if (!post) {
         return (
             <div className="min-h-screen bg-surface pt-32 pb-24 flex flex-col items-center justify-center">
-                <h1 className="text-4xl font-sans font-bold text-text mb-4">404 - Article Not Found</h1>
-                <Link to="/blog" className="text-accent hover:underline font-mono">← Back to Blog</Link>
+                <h1 className="text-3xl md:text-5xl font-sans font-bold text-text mb-4">404 - Article Not Found</h1>
+                <Link to="/blog" className="text-accent hover:underline font-sans">← Back to Blog</Link>
             </div>
         );
     }
@@ -242,13 +242,13 @@ export default function BlogInner() {
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="px-6 md:px-8 py-4 border-b border-accent-border">
                 <div className="max-w-5xl mx-auto flex items-center gap-2">
-                    <Link to="/blog" className="font-mono text-xs uppercase tracking-wider text-textMuted hover:text-accent transition-colors">
+                    <Link to="/blog" className="font-sans text-sm uppercase tracking-wider text-textMuted hover:text-accent transition-colors">
                         Blog
                     </Link>
                     {firstCategory && (
                         <>
                             <span className="text-textLight text-xs">/</span>
-                            <span className="font-mono text-xs uppercase tracking-wider text-textLight">
+                            <span className="font-sans text-sm uppercase tracking-wider text-textLight">
                                 {firstCategory.name}
                             </span>
                         </>
@@ -259,12 +259,12 @@ export default function BlogInner() {
             {/* Article Header — centered, narrow */}
             <header className="max-w-[720px] mx-auto px-6 pt-16">
                 {firstCategory && (
-                    <span className="inline-block font-mono text-[11px] uppercase tracking-widest text-accent bg-accent-light border border-accent-border-strong px-3 py-1 rounded-full mb-5">
+                    <span className="inline-block font-sans text-sm uppercase tracking-widest text-accent bg-accent-light border border-accent-border-strong px-3 py-1 rounded-full mb-5">
                         {firstCategory.name}
                     </span>
                 )}
 
-                <h1 className="text-4xl md:text-5xl font-sans font-bold leading-tight tracking-tight text-text mb-6">
+                <h1 className="text-3xl md:text-5xl font-sans font-bold leading-tight tracking-tight text-text mb-6">
                     {post.title}
                 </h1>
 
@@ -280,8 +280,8 @@ export default function BlogInner() {
                         />
                     )}
                     <div>
-                        <div className="font-body font-semibold text-sm text-text">{post.author?.name || 'Rahul Lalia'}</div>
-                        <div className="font-mono text-xs text-textMuted flex items-center gap-2">
+                        <div className="font-sans font-semibold text-sm text-text">{post.author?.name || 'Rahul Lalia'}</div>
+                        <div className="font-sans text-sm text-textMuted flex items-center gap-2">
                             <time dateTime={post.publishedAt}>
                                 {new Date(post.publishedAt).toLocaleDateString('en-US', {
                                     month: 'short', day: 'numeric', year: 'numeric'
@@ -300,8 +300,8 @@ export default function BlogInner() {
                 {/* TL;DR */}
                 {post.pullQuote && (
                     <div className="mb-8">
-                        <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-accent mb-2">TL;DR</span>
-                        <p className="text-base text-textMuted leading-relaxed font-body">{post.pullQuote}</p>
+                        <span className="block font-sans text-sm font-semibold uppercase tracking-wider text-accent mb-2">TL;DR</span>
+                        <p className="text-base text-textMuted leading-relaxed font-sans">{post.pullQuote}</p>
                     </div>
                 )}
             </header>
@@ -325,7 +325,7 @@ export default function BlogInner() {
             {headings.length > 0 && (
                 <div className="xl:hidden max-w-[720px] mx-auto px-6 mb-8">
                     <nav aria-label="Table of contents" className="bg-surfaceAlt border border-accent-border rounded-xl p-4">
-                        <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-accent mb-3">In this article</span>
+                        <span className="block font-sans text-sm font-semibold uppercase tracking-wider text-accent mb-3">In this article</span>
                         <ul className="space-y-1">
                             {headings.map((h) => (
                                 <li key={h.id}>
@@ -350,7 +350,7 @@ export default function BlogInner() {
                     <div className="sticky top-28">
                         {headings.length > 0 && (
                             <nav aria-label="Table of contents">
-                                <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-4">In this article</span>
+                                <span className="block font-sans text-sm font-semibold uppercase tracking-wider text-textLight mb-4">In this article</span>
                                 <ul className="space-y-1">
                                     {headings.map((h) => (
                                         <li key={h.id}>
@@ -372,7 +372,7 @@ export default function BlogInner() {
                         )}
 
                         <div className={headings.length > 0 ? 'mt-8 pt-6 border-t border-accent-border' : ''}>
-                            <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-textLight mb-3">Share</span>
+                            <span className="block font-sans text-sm font-semibold uppercase tracking-wider text-textLight mb-3">Share</span>
                             <ShareBar title={post.title} url={`https://rsla.io/blog/${slug}`} showLabel={false} />
                         </div>
                     </div>
@@ -397,7 +397,7 @@ export default function BlogInner() {
             {/* Related Posts */}
             {post.relatedPosts && post.relatedPosts.length > 0 && (
                 <div className="max-w-5xl mx-auto px-6 mt-20 mb-16">
-                    <h3 className="text-2xl font-sans font-bold text-text mb-8">Read Next</h3>
+                    <h3 className="text-xl md:text-2xl font-sans font-semibold text-text mb-8">Read Next</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         {post.relatedPosts.filter(r => r.slug?.current).map((related) => {
                             const relatedImg = related.featuredImage?.asset
@@ -420,10 +420,10 @@ export default function BlogInner() {
                                         </div>
                                     )}
                                     <div className="p-4">
-                                        <h4 className="font-body font-semibold text-[15px] tracking-tight mb-2 group-hover:text-accent transition-colors line-clamp-2">
+                                        <h4 className="font-sans font-semibold text-[15px] tracking-tight mb-2 group-hover:text-accent transition-colors line-clamp-2">
                                             {related.title}
                                         </h4>
-                                        <div className="font-mono text-xs text-textMuted flex items-center gap-2">
+                                        <div className="font-sans text-sm text-textMuted flex items-center gap-2">
                                             <time dateTime={related.publishedAt}>
                                                 {new Date(related.publishedAt).toLocaleDateString('en-US', {
                                                     month: 'short', day: 'numeric', year: 'numeric'
@@ -449,16 +449,16 @@ export default function BlogInner() {
                 <div className="max-w-5xl mx-auto px-6 mb-16">
                     <div className="bg-surfaceAlt border border-accent-border rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
                         <div className="max-w-xl">
-                            <span className="block font-mono text-xs font-semibold uppercase tracking-wider text-accent mb-2">See It In Action</span>
+                            <span className="block font-sans text-sm font-semibold uppercase tracking-wider text-accent mb-2">See It In Action</span>
                             <h4 className="text-xl font-sans font-bold text-text mb-2">{relatedCaseStudy.title}</h4>
-                            <p className="text-sm text-textMuted font-body leading-relaxed mb-6">{relatedCaseStudy.description}</p>
+                            <p className="text-sm text-textMuted font-sans leading-relaxed mb-6">{relatedCaseStudy.description}</p>
 
                             {relatedCaseStudy.metrics && relatedCaseStudy.metrics.length > 0 && (
                                 <div className="flex gap-6 mb-6 border-l-2 border-accent pl-6">
                                     {relatedCaseStudy.metrics.slice(0, 2).map((metric, idx) => (
                                         <div key={idx}>
                                             <strong className="block text-2xl font-bold text-text">{metric.value}</strong>
-                                            <span className="text-[10px] font-mono text-accent uppercase tracking-wider">{metric.label}</span>
+                                            <span className="text-sm font-sans text-accent uppercase tracking-wider">{metric.label}</span>
                                         </div>
                                     ))}
                                 </div>

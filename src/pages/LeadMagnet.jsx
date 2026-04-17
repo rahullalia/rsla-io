@@ -79,8 +79,8 @@ export default function LeadMagnet() {
     return (
       <main className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
         <Seo title="Not Found | RSL/A" description="This resource could not be found." noIndex />
-        <h1 className="font-sans font-bold text-3xl text-text mb-4">Resource not found</h1>
-        <p className="font-body text-textMuted mb-6">This link may have expired or been removed.</p>
+        <h1 className="font-sans font-bold text-3xl md:text-5xl text-text mb-4">Resource not found</h1>
+        <p className="font-sans text-textMuted mb-6">This link may have expired or been removed.</p>
         <Link to="/" className="font-sans font-bold text-sm text-accent hover:underline">
           Back to home
         </Link>
@@ -109,20 +109,13 @@ export default function LeadMagnet() {
       />
 
       <div className="relative z-10 max-w-lg w-full text-center">
-        {/* Tagline */}
-        {magnet.tagline && (
-          <span className="inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent border border-accent/30 rounded-full px-4 py-1.5 mb-8">
-            {magnet.tagline}
-          </span>
-        )}
-
         {/* Title */}
-        <h1 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-4 leading-tight text-text">
+        <h1 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-4 leading-[1.1] text-text">
           {magnet.title}
         </h1>
 
         {/* Description */}
-        <p className="font-body text-textMuted text-base md:text-lg mb-8 max-w-md mx-auto">
+        <p className="font-sans text-textMuted text-lg mb-8 max-w-md mx-auto">
           {magnet.description}
         </p>
 
@@ -132,7 +125,7 @@ export default function LeadMagnet() {
             {magnet.benefits.map((benefit) => (
               <div key={benefit} className="flex items-start gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                <p className="font-body text-sm text-textMuted">{benefit}</p>
+                <p className="font-sans text-sm text-textMuted">{benefit}</p>
               </div>
             ))}
           </div>
@@ -147,7 +140,7 @@ export default function LeadMagnet() {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             disabled={submitting}
-            className="w-full px-5 py-3.5 rounded-full bg-surfaceAlt border border-accent-border text-text font-body text-sm placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
+            className="w-full px-5 py-3 rounded-xl bg-surfaceAlt border border-accent-border text-text font-sans text-base placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
           />
           <input
             type="email"
@@ -156,23 +149,23 @@ export default function LeadMagnet() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={submitting}
-            className="w-full px-5 py-3.5 rounded-full bg-surfaceAlt border border-accent-border text-text font-body text-sm placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
+            className="w-full px-5 py-3 rounded-xl bg-surfaceAlt border border-accent-border text-text font-sans text-base placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
           />
           <button
             type="submit"
             disabled={submitting}
-            className="w-full px-6 py-3.5 rounded-full bg-accent text-white font-sans font-bold text-sm btn-neon hover:scale-[1.03] active:scale-95 transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-accent text-white px-6 py-3 font-sans font-bold text-base hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {submitting ? 'Sending...' : magnet.ctaButtonText || 'Get instant access'}
           </button>
         </form>
 
         {error && (
-          <p className="font-body text-sm text-coral mb-2">{error}</p>
+          <p className="font-sans text-sm text-coral mb-2">{error}</p>
         )}
 
         {/* Trust line */}
-        <p className="font-body text-xs text-textMuted">
+        <p className="font-sans text-sm text-textMuted">
           No spam, unsubscribe anytime.{' '}
           <Link to="/privacy-policy" className="underline underline-offset-2 hover:text-textMuted transition-colors">
             Privacy Policy

@@ -167,17 +167,12 @@ export default function Blog() {
             />
             <div className="max-w-7xl mx-auto relative z-10">
                 <header className="mb-12 text-center">
-                    <h1 className="text-5xl md:text-7xl font-sans font-bold mb-6 tracking-tighter">
+                    <h1 className="text-3xl md:text-5xl font-sans font-bold text-text mb-6 tracking-tight leading-[1.1]">
                         <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
-                            The
-                        </TextAnimate>{' '}
-                        <span className="text-accent italic font-bold font-drama pr-2">
-                            <TextAnimate animation="blurInUp" by="word" delay={0.4} startOnView={false} as="span">
-                                Archive.
-                            </TextAnimate>
-                        </span>
+                            Our blog.
+                        </TextAnimate>
                     </h1>
-                    <p className="font-mono text-textMuted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                    <p className="font-sans text-textMuted max-w-2xl mx-auto text-lg leading-relaxed">
                         Insights on marketing automation, AI systems, local SEO, and strategies to scale your operations without overhead.
                     </p>
                 </header>
@@ -195,7 +190,7 @@ export default function Blog() {
                                 value={searchInput}
                                 onChange={(e) => handleSearchInput(e.target.value)}
                                 placeholder="Search articles..."
-                                className="w-full pl-11 pr-10 min-h-[44px] rounded-full bg-surfaceAlt border border-accent-border text-text font-mono text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                                className="w-full pl-11 pr-10 min-h-[44px] rounded-full bg-surfaceAlt border border-accent-border text-text font-sans text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
                             />
                             {searchInput && (
                                 <button
@@ -214,7 +209,7 @@ export default function Blog() {
                                 <select
                                     value={activeCategory}
                                     onChange={(e) => handleCategoryClick(e.target.value)}
-                                    className="appearance-none w-full sm:w-auto min-h-[44px] pl-4 pr-10 rounded-full bg-surfaceAlt border border-accent-border text-text font-mono text-xs uppercase tracking-wider cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                                    className="appearance-none w-full sm:w-auto min-h-[44px] pl-4 pr-10 rounded-full bg-surfaceAlt border border-accent-border text-text font-sans text-sm uppercase tracking-wider cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
                                 >
                                     <option value="">All Topics</option>
                                     {categories.map((cat) => (
@@ -230,7 +225,7 @@ export default function Blog() {
 
                     {/* Active filter indicator */}
                     {(activeCategory || searchQuery) && !loading && (
-                        <div className="text-center font-mono text-xs text-textMuted">
+                        <div className="text-center font-sans text-sm text-textMuted">
                             {posts.length} result{posts.length !== 1 ? 's' : ''}
                             {activeCategoryName && <> in <span className="text-accent">{activeCategoryName}</span></>}
                             {searchQuery && <> for "<span className="text-accent">{searchQuery}</span>"</>}
@@ -246,7 +241,7 @@ export default function Blog() {
                     </div>
                 ) : posts.length === 0 ? (
                     <div className="text-center py-20">
-                        <p className="font-mono text-textMuted mb-4">
+                        <p className="font-sans text-textMuted mb-4">
                             {searchQuery || activeCategory
                                 ? 'No posts match your filters.'
                                 : 'No intel logged yet. Check back soon.'}
@@ -257,7 +252,7 @@ export default function Blog() {
                                     setSearchInput('');
                                     setSearchParams({}, { replace: true });
                                 }}
-                                className="font-mono text-sm text-accent hover:underline cursor-pointer inline-flex items-center min-h-[44px] px-4"
+                                className="font-sans text-sm text-accent hover:underline cursor-pointer inline-flex items-center min-h-[44px] px-4"
                             >
                                 Clear filters
                             </button>
@@ -289,12 +284,12 @@ export default function Blog() {
                                             {(post.categories?.length > 0 || post.featured) && (
                                                 <div className="flex flex-wrap gap-2 mb-4">
                                                     {post.featured && (
-                                                        <span className="font-mono text-[10px] uppercase tracking-wider text-text border border-text/20 bg-text/5 px-2 py-1 rounded-sm">
+                                                        <span className="font-sans text-sm uppercase tracking-wider text-text border border-text/20 bg-text/5 px-2 py-1 rounded-sm">
                                                             Pinned
                                                         </span>
                                                     )}
                                                     {post.categories?.slice(0, 2).map((category, idx) => (
-                                                        <span key={idx} className="font-mono text-[10px] uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-2 py-1 rounded-sm">
+                                                        <span key={idx} className="font-sans text-sm uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-2 py-1 rounded-sm">
                                                             {category.name}
                                                         </span>
                                                     ))}
@@ -304,11 +299,11 @@ export default function Blog() {
                                                 {post.title}
                                             </h2>
                                             {post.excerpt && (
-                                                <p className="font-mono text-sm text-textMuted line-clamp-3 mb-6 flex-grow leading-relaxed">
+                                                <p className="font-sans text-sm text-textMuted line-clamp-3 mb-6 flex-grow leading-relaxed">
                                                     {post.excerpt}
                                                 </p>
                                             )}
-                                            <div className="flex items-center justify-between font-mono text-xs text-textMuted mt-auto pt-4 border-t border-accent-border">
+                                            <div className="flex items-center justify-between font-sans text-sm text-textMuted mt-auto pt-4 border-t border-accent-border">
                                                 <span>{post.author?.name || 'SYS.ADMIN'}</span>
                                                 <time>
                                                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -325,7 +320,7 @@ export default function Blog() {
                         </div>
 
                         {totalPages > 1 && (
-                            <div className="flex justify-center items-center gap-4 font-mono text-sm">
+                            <div className="flex justify-center items-center gap-4 font-sans text-sm">
                                 <button
                                     onClick={() => updateParams({ page: currentPage > 2 ? String(currentPage - 1) : '' })}
                                     disabled={currentPage === 1}

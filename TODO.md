@@ -5,8 +5,9 @@
 Full plan: `docs/seo/contentPlan.md` | Tracker: [Google Sheet](https://docs.google.com/spreadsheets/d/1BffZHKJRirOrj-fUPBh56l9KjIlh2Wo-5fyHY-Kd-Xw/edit)
 
 - [x] **Post 0 (Anchor):** Anthropic has 5 different Claude products. Most people are using the wrong one. — PUBLISHED 2026-03-25, slug: `anthropic-claude-products-guide`
-- [ ] **Post 1:** How to Install Claude Code in Under 3 Minutes (Mac, Windows, VS Code, CLI) — KD 23, 2,930 vol, Month 1
-- [ ] **Post 2:** Is Claude Actually Free? What You Get at Every Tier — KD 26, 6,890 vol, Month 1
+- [x] **Drop Post:** Claude has been shipping nonstop. These are the features that actually changed how I work. — PUBLISHED 2026-03-26, slug: `claude-new-features-actually-worth-it` (combined rows 31-36)
+- [x] **Post 1:** How to install Claude Code in under 3 minutes (Mac, Windows, VS Code, CLI) — PUBLISHED 2026-03-26, slug: `how-to-install-claude-code`
+- [x] **Post 2:** Is Claude Actually Free? What You Get at Every Tier — PUBLISHED 2026-03-27, slug: `is-claude-free-pricing-every-tier`
 - [ ] **Post 4:** Can Claude Generate Images? The Honest Answer — KD 17, 2,170 vol, Month 1
 - [ ] **Post 7:** How to Make a Claude Project Public — KD 11, 1,140 vol, Month 1
 - [ ] **Post 22:** How to Download Files from Claude AI — KD 22, 880 vol, Month 1

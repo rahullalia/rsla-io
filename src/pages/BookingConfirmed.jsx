@@ -91,23 +91,23 @@ export default function BookingConfirmed() {
                     </div>
                 </div>
 
-                <h1 className="font-sans font-bold text-4xl md:text-5xl tracking-tight mb-4 text-text">
+                <h1 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-4 text-text">
                     <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                         You're all set.
                     </TextAnimate>
                 </h1>
 
-                <p className="font-body text-lg md:text-xl text-textMuted mb-3">
+                <p className="font-sans text-lg text-textMuted mb-3">
                     Your call has been booked.
                 </p>
 
-                <p className="font-body text-sm md:text-base text-textMuted mb-12">
+                <p className="font-sans text-sm text-textMuted mb-12">
                     Check your inbox for a calendar invite with the meeting details.
                 </p>
 
                 <Link
                     to="/"
-                    className="inline-block px-8 py-3.5 rounded-full bg-accent text-white font-sans font-bold text-sm hover:scale-[1.03] active:scale-95 transition-transform duration-300 btn-neon"
+                    className="inline-flex items-center gap-2 rounded-xl bg-accent text-white px-8 py-3 font-sans font-bold text-base hover:bg-accent/90 transition-colors"
                 >
                     Back to Home
                 </Link>

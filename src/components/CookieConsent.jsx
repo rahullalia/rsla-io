@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { X } from 'lucide-react';
+import { Cookie } from 'lucide-react';
 
 const CONSENT_KEY = 'rsla_cookie_consent';
 
@@ -31,7 +31,7 @@ export default function CookieConsent() {
     useEffect(() => {
         const consent = localStorage.getItem(CONSENT_KEY);
         if (!consent) {
-            const timer = setTimeout(() => setVisible(true), 1500);
+            const timer = setTimeout(() => setVisible(true), 2000);
             return () => clearTimeout(timer);
         }
     }, []);
@@ -56,64 +56,41 @@ export default function CookieConsent() {
 
     return (
         <div
-            className={`fixed bottom-0 inset-x-0 z-[9999] p-4 md:p-6 transition-all duration-300 ease-out ${
-                exiting ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'
+            className={`fixed bottom-6 left-6 right-6 md:left-6 md:right-auto z-[9999] transition-all duration-300 ease-out ${
+                exiting ? 'translate-y-8 opacity-0' : 'translate-y-0 opacity-100'
             }`}
             role="dialog"
             aria-label="Cookie consent"
         >
-            {/* Mobile: stacked card */}
-            <div className="md:hidden max-w-sm mx-auto bg-white/95 backdrop-blur-xl border border-accent-border rounded-2xl shadow-[0_-4px_30px_rgba(0,0,0,0.08)] p-5">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                    <p className="font-body text-xs text-textMuted leading-relaxed">
-                        We use cookies to improve your experience.{' '}
-                        <Link to="/privacy-policy" className="text-accent hover:underline">Privacy Policy</Link>
-                    </p>
-                    <button
-                        onClick={decline}
-                        className="shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center -mr-2 -mt-2 text-textMuted hover:text-text transition-colors"
-                        aria-label="Dismiss"
-                    >
-                        <X size={16} />
-                    </button>
+            <div className="bg-white border border-accent-border rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-5 md:p-6 max-w-sm">
+                <div className="flex items-start gap-3 mb-4">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 mt-0.5">
+                        <Cookie size={16} className="text-accent" />
+                    </div>
+                    <div>
+                        <p className="font-sans font-semibold text-sm text-text mb-1">
+                            We value your experience
+                        </p>
+                        <p className="font-sans text-sm text-textMuted leading-relaxed">
+                            Cookies help us tailor the site to what you actually need. We only use analytics to improve your experience. No ad tracking, no data sales. Ever.{' '}
+                            <Link to="/privacy-policy" className="text-accent hover:underline">Privacy Policy</Link>
+                        </p>
+                    </div>
                 </div>
-                <div className="flex items-center gap-2.5">
+
+                <div className="flex items-center gap-3 ml-11">
                     <button
                         onClick={accept}
-                        className="flex-1 min-h-[44px] bg-accent text-white text-xs font-sans font-bold rounded-full hover:bg-accent/90 active:scale-95 transition-all"
+                        className="px-6 py-2.5 bg-accent text-white font-sans font-bold text-sm rounded-xl hover:bg-accent/90 transition-colors shadow-sm"
                     >
-                        Accept All
+                        Got it, accept all
                     </button>
                     <button
                         onClick={decline}
-                        className="flex-1 min-h-[44px] bg-surfaceAlt text-textMuted text-xs font-sans font-bold rounded-full border border-accent-border hover:text-text active:scale-95 transition-all"
+                        className="px-4 py-2.5 font-sans text-sm text-textLight hover:text-textMuted transition-colors"
                     >
-                        Only Necessary
+                        Decline
                     </button>
-                </div>
-            </div>
-
-            {/* Desktop: sleek inline bar */}
-            <div className="hidden md:block max-w-4xl mx-auto">
-                <div className="bg-white/95 backdrop-blur-xl border border-accent-border rounded-full shadow-[0_-4px_30px_rgba(0,0,0,0.06)] px-8 py-3.5 flex items-center gap-6">
-                    <p className="font-body text-[13px] text-textMuted leading-snug flex-1">
-                        We use cookies to analyze site usage and improve your experience.{' '}
-                        <Link to="/privacy-policy" className="text-accent hover:underline">Privacy Policy</Link>
-                    </p>
-                    <div className="flex items-center gap-3 shrink-0">
-                        <button
-                            onClick={decline}
-                            className="px-5 py-2 text-[13px] font-sans font-bold text-textMuted hover:text-text rounded-full border border-accent-border hover:border-accent/20 transition-all"
-                        >
-                            Only Necessary
-                        </button>
-                        <button
-                            onClick={accept}
-                            className="px-5 py-2 bg-accent text-white text-[13px] font-sans font-bold rounded-full hover:bg-accent/90 transition-colors"
-                        >
-                            Accept All
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>

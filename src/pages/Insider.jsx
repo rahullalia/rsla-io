@@ -62,32 +62,23 @@ export default function Insider() {
             />
 
             <div className="relative z-10 max-w-lg w-full text-center">
-                {/* Tag */}
-                <span className="inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent border border-accent/30 rounded-full px-4 py-1.5 mb-8">
-                    The RSL/A Insider
-                </span>
-
-                <h1 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-4 leading-tight text-text">
+                <h1 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-4 leading-[1.1] text-text">
                     <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
-                        Automate smarter
-                    </TextAnimate>{' '}
-                    <span className="font-drama italic font-bold text-accent">
-                        <TextAnimate animation="blurInUp" by="word" delay={0.3} startOnView={false} as="span">
-                            every week.
-                        </TextAnimate></span>
+                        Automate smarter every week.
+                    </TextAnimate>
                 </h1>
 
                 {/* Subhead */}
-                <p className="font-body text-textMuted text-base md:text-lg mb-10 max-w-md mx-auto">
+                <p className="font-sans text-textMuted text-lg mb-10 max-w-md mx-auto">
                     Real automation strategies, case studies, and AI tools delivered straight to your inbox every week.
                 </p>
 
                 {/* Benefits */}
-                <div className="text-left max-w-sm mx-auto mb-10 space-y-3">
+                <div className="text-left max-w-md mx-auto mb-10 space-y-3">
                     {benefits.map((benefit) => (
                         <div key={benefit} className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                            <p className="font-body text-sm text-textMuted">{benefit}</p>
+                            <div className="w-2 h-2 rounded-full bg-accent mt-2.5 shrink-0" />
+                            <p className="font-sans text-base text-textMuted leading-relaxed">{benefit}</p>
                         </div>
                     ))}
                 </div>
@@ -99,8 +90,8 @@ export default function Insider() {
                                 <polyline points="20 6 9 17 4 12" />
                             </svg>
                         </div>
-                        <p className="font-sans font-bold text-lg text-text mb-1">You're in.</p>
-                        <p className="font-body text-sm text-textMuted">Check your inbox to confirm your subscription.</p>
+                        <p className="font-sans font-extrabold text-2xl text-text mb-2">You're in.</p>
+                        <p className="font-sans text-base text-textMuted">Check your inbox to confirm your subscription.</p>
                     </div>
                 ) : (
                     <>
@@ -112,23 +103,23 @@ export default function Insider() {
                                 placeholder="your@email.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="flex-1 px-5 py-3.5 rounded-full bg-surfaceAlt border border-accent-border text-text font-body text-sm placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
+                                className="flex-1 px-5 py-3 rounded-xl bg-surfaceAlt border border-accent-border text-text font-sans text-base placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
                             />
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="px-6 py-3.5 rounded-full bg-accent text-white font-sans font-bold text-sm btn-neon hover:scale-[1.03] active:scale-95 transition-transform duration-300 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent text-white px-6 py-3 font-sans font-bold text-base hover:bg-accent/90 transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                {loading ? 'Subscribing...' : 'Get weekly insights'}
+                                {loading ? 'Subscribing...' : 'Subscribe'}
                             </button>
                         </form>
 
                         {error && (
-                            <p className="font-body text-sm text-coral mb-2">{error}</p>
+                            <p className="font-sans text-sm text-coral mb-2">{error}</p>
                         )}
 
                         {/* Trust line */}
-                        <p className="font-body text-xs text-textMuted">
+                        <p className="font-sans text-sm text-textMuted">
                             No spam, unsubscribe anytime.{' '}
                             <Link to="/privacy-policy" className="underline underline-offset-2 hover:text-textMuted transition-colors">
                                 Privacy Policy

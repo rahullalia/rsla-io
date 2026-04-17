@@ -64,11 +64,11 @@ export default function SystemArchitecture() {
 
             {/* Left side text */}
             <div className="w-full md:w-1/2 p-6 md:p-12 lg:p-24 z-10 text-center md:text-left pt-32 md:pt-0">
-                <span className="font-mono text-accent text-xs uppercase tracking-widest font-bold">The Architecture</span>
-                <h2 className="font-sans font-bold text-3xl md:text-5xl lg:text-6xl text-text tracking-tight mt-4 mb-6">
-                    Constructing the <span className="font-drama italic font-bold text-accent">System.</span>
+                <span className="font-sans text-accent text-sm uppercase tracking-widest font-bold">The Architecture</span>
+                <h2 className="font-sans font-extrabold text-2xl md:text-4xl text-text tracking-tight mt-4 mb-6">
+                    Constructing the System.
                 </h2>
-                <p className="font-body text-textMuted text-base md:text-lg max-w-lg mx-auto md:mx-0">
+                <p className="font-sans text-textMuted text-lg max-w-lg mx-auto md:mx-0">
                     A multi-layered ecosystem designed for uncompromising scale, speed, and automation. Assembled layer by layer as you scroll.
                 </p>
             </div>
@@ -89,8 +89,8 @@ export default function SystemArchitecture() {
                                 zIndex: index
                             }}
                         >
-                            <h3 className="font-sans font-bold text-xl md:text-2xl text-text mb-2 drop-shadow-sm">{layer.title}</h3>
-                            <p className="font-body text-textMuted text-xs md:text-sm drop-shadow-sm">{layer.desc}</p>
+                            <h3 className="font-sans font-semibold text-xl md:text-2xl text-text mb-2 drop-shadow-sm">{layer.title}</h3>
+                            <p className="font-sans text-textMuted text-xs md:text-sm drop-shadow-sm">{layer.desc}</p>
 
                             {/* Glass reflection highlight */}
                             <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent rounded-t-2xl pointer-events-none" />

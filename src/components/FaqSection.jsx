@@ -43,8 +43,8 @@ export default function FaqSection() {
         <section className="py-20 md:py-32 bg-surfaceAlt px-6 md:px-12">
             <div className="max-w-3xl mx-auto">
                 <div className="mb-12 text-center">
-                    <span className="font-mono text-xs uppercase tracking-wider text-accent">FAQ</span>
-                    <h2 className="font-sans font-bold text-3xl md:text-4xl tracking-tight mt-3 text-text">
+                    <span className="font-sans text-sm uppercase tracking-wider text-accent">FAQ</span>
+                    <h2 className="font-sans font-extrabold text-2xl md:text-4xl tracking-tight mt-3 text-text">
                         Common questions
                     </h2>
                 </div>
@@ -75,7 +75,7 @@ export default function FaqSection() {
                                 }`}
                             >
                                 <div className="overflow-hidden">
-                                    <p className="px-6 pb-5 font-body text-sm text-textMuted leading-relaxed">
+                                    <p className="px-6 pb-5 font-sans text-sm text-textMuted leading-relaxed">
                                         {faq.a}
                                     </p>
                                 </div>

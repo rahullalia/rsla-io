@@ -58,14 +58,14 @@ function TestimonialCard({ name, role, body, featured = false, isHiddenOnMobile 
                 } ${isHiddenOnMobile ? 'hidden sm:block' : ''}`}
         >
             <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
-                <p className={`font-body leading-relaxed text-text ${featured ? 'text-lg sm:text-xl' : 'text-sm sm:text-base'}`}>
+                <p className={`font-sans leading-relaxed text-text ${featured ? 'text-lg sm:text-xl' : 'text-sm sm:text-base'}`}>
                     &ldquo;{body}&rdquo;
                 </p>
                 <div className="flex items-center gap-3">
                     <Avatar name={name} />
                     <div>
                         <cite className="font-sans font-medium text-sm text-text not-italic">{name}</cite>
-                        <span className="block font-body text-xs text-textMuted">{role}</span>
+                        <span className="block font-sans text-sm text-textMuted">{role}</span>
                     </div>
                 </div>
             </blockquote>
@@ -108,10 +108,10 @@ export default function Testimonials() {
         <section ref={sectionRef} className="py-20 md:py-32 bg-surfaceAlt px-6 md:px-12">
             <div className="max-w-6xl mx-auto space-y-12">
                 <div className="max-w-xl mx-auto text-center space-y-4">
-                    <span className="font-mono text-xs uppercase tracking-wider text-accent">
+                    <span className="font-sans text-sm uppercase tracking-wider text-accent">
                         What clients say
                     </span>
-                    <h2 className="font-sans font-bold text-3xl md:text-5xl tracking-tight text-text">
+                    <h2 className="font-sans font-extrabold text-2xl md:text-4xl tracking-tight text-text">
                         Real results, real businesses
                     </h2>
                 </div>

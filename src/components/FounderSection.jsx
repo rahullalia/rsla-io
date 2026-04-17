@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,10 +37,10 @@ export default function FounderSection() {
 
                 {/* Text */}
                 <div className="flex-1">
-                    <h2 className="founder-text font-sans font-bold text-3xl md:text-5xl text-text tracking-tight mb-8">
+                    <h2 className="founder-text font-sans font-extrabold text-2xl md:text-4xl text-text tracking-tight mb-8">
                         Hi. I'm Rahul.
                     </h2>
-                    <div className="space-y-6 font-body text-textMuted text-base md:text-lg leading-relaxed">
+                    <div className="space-y-6 font-sans text-textMuted text-lg leading-relaxed">
                         <p className="founder-text">
                             I have spent the better part of five years in the trenches of marketing, automation, and business infrastructure. Started in analytics. Got laid off. Built an agency from nothing. And along the way, I watched founders with real talent suffocate under work that never should have touched their hands.
                         </p>
@@ -54,14 +53,9 @@ export default function FounderSection() {
                     </div>
 
                     <div className="founder-text mt-10 border-t border-accent-border pt-8">
-                        <p className="font-drama italic font-bold text-xl text-text mb-1">Rahul Lalia</p>
-                        <p className="font-mono text-xs uppercase tracking-widest text-textMuted">Founder, RSL/A</p>
+                        <p className="font-sans font-bold text-xl text-text mb-1">Rahul Lalia</p>
+                        <p className="font-sans text-sm uppercase tracking-widest text-textMuted">Founder, RSL/A</p>
                     </div>
-
-                    <Link to="/blog" className="founder-text link-underline inline-flex items-center gap-2 mt-8 font-sans font-bold text-accent hover:text-accent/80 transition-colors group">
-                        Learn AI with me
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-                    </Link>
                 </div>
             </div>
         </section>

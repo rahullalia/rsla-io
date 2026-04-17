@@ -14,10 +14,10 @@ import { cn } from '@/lib/utils';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function CtaWithGlow({
-    title = 'Ready to put AI to work?',
-    subtitle = "Book a free strategy call. No pitch deck, no pressure. Just a conversation about what's possible.",
-    buttonText = 'Book a Call',
-    buttonTo = '/#contact',
+    title = 'Book a free 30-minute growth mapping call.',
+    subtitle = "We'll audit your funnel, find the bottlenecks, and show you exactly where AI moves the needle.",
+    buttonText = "Let's Talk",
+    buttonTo = '/contact',
     className,
 }) {
     const sectionRef = useRef(null);
@@ -47,7 +47,12 @@ export default function CtaWithGlow({
     return (
         <section
             ref={sectionRef}
-            className={cn('relative overflow-hidden py-24 sm:py-32 bg-[#0A0A0A]', className)}
+            className={cn(
+                'relative overflow-hidden py-24 sm:py-32 bg-[#121212]',
+                'border-b border-white/10',
+                'before:pointer-events-none before:absolute before:inset-x-0 before:bottom-0 before:h-24 before:bg-gradient-to-b before:from-transparent before:to-black/40 before:z-[2]',
+                className
+            )}
         >
             {/* FlickeringGrid background */}
             <FlickeringGrid
@@ -65,10 +70,10 @@ export default function CtaWithGlow({
             </div>
 
             <div className="cta-glow-content relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 text-center px-6 sm:gap-8">
-                <h2 className="font-sans font-bold text-3xl sm:text-5xl tracking-tight text-white">
+                <h2 className="font-sans font-extrabold text-2xl md:text-4xl tracking-tight text-white">
                     {title}
                 </h2>
-                <p className="font-body text-lg text-white/60 max-w-xl">
+                <p className="font-sans text-lg text-white/60 max-w-xl">
                     {subtitle}
                 </p>
                 <Link to={buttonTo}>

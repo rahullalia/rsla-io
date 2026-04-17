@@ -1,23 +1,57 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
-import { FlickeringGrid } from '@/components/ui/flickering-grid';
-import { TextAnimate } from '@/components/ui/text-animate';
-import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
 import Seo from '../components/Seo';
 
 export default function NotFound() {
     const containerRef = useRef(null);
+    const strikeRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.fromTo('.nf-content',
-                { y: 30, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.2 }
+            const tl = gsap.timeline({ delay: 0.3 });
+
+            // 404 number drops in
+            tl.fromTo('.nf-number',
+                { y: -40, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }
             );
-            gsap.fromTo('.nf-cta',
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.6 }
+
+            // "You broke something." appears
+            tl.fromTo('.nf-broke',
+                { opacity: 0, y: 10 },
+                { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' },
+                '+=0.2'
+            );
+
+            // Strikethrough draws across
+            tl.fromTo(strikeRef.current,
+                { scaleX: 0 },
+                { scaleX: 1, duration: 0.5, ease: 'power2.inOut' },
+                '+=0.8'
+            );
+
+            // Text fades to muted
+            tl.to('.nf-broke-text', { color: '#94A3B8', duration: 0.3 }, '<+=0.2');
+
+            // "Just kidding" appears
+            tl.fromTo('.nf-kidding',
+                { opacity: 0, y: 8 },
+                { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+                '+=0.1'
+            );
+
+            // Description + links fade in
+            tl.fromTo('.nf-desc',
+                { opacity: 0, y: 12 },
+                { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+                '+=0.3'
+            );
+
+            tl.fromTo('.nf-links',
+                { opacity: 0, y: 12 },
+                { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+                '-=0.2'
             );
         }, containerRef);
 
@@ -25,74 +59,45 @@ export default function NotFound() {
     }, []);
 
     return (
-        <main ref={containerRef} className="min-h-screen bg-surface relative overflow-hidden flex items-center justify-center">
+        <main ref={containerRef} className="min-h-screen bg-surface flex items-center justify-center px-6">
             <Seo title="Page Not Found | RSL/A" noIndex />
 
-            {/* Flickering grid background */}
-            <div className="absolute inset-0 z-0">
-                <FlickeringGrid
-                    className="w-full h-full"
-                    squareSize={4}
-                    gridGap={6}
-                    color="rgb(0, 112, 243)"
-                    maxOpacity={0.08}
-                    flickerChance={0.3}
-                />
-            </div>
+            <section className="w-full max-w-lg mx-auto">
+                {/* 404 */}
+                <p className="nf-number opacity-0 font-sans font-extrabold text-[8rem] md:text-[10rem] leading-none tracking-tighter text-accent/15 select-none">
+                    404
+                </p>
 
-            {/* Soft radial overlay */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(0,112,243,0.06),transparent_70%)] pointer-events-none z-[1]" />
-
-            <section className="relative z-10 px-6 py-32 w-full max-w-2xl mx-auto text-center">
-                {/* 404 Number */}
-                <div className="nf-content">
-                    <div className="mb-6">
-                        <TextAnimate
-                            as="h1"
-                            className="text-[10rem] md:text-[14rem] font-sans font-bold leading-none tracking-tighter text-accent/30"
-                            animation="blurIn"
-                            duration={0.8}
-                        >
-                            404
-                        </TextAnimate>
-                    </div>
-
-                    {/* Message */}
-                    <h2 className="text-3xl md:text-4xl font-sans font-bold text-text mb-4 tracking-tight">
-                        This page does not exist.
-                    </h2>
-                    <p className="font-body text-textMuted text-base leading-relaxed mb-12 max-w-md mx-auto">
-                        Whatever you were looking for is not here. It may have moved, or it might never have existed. Either way, let's get you somewhere useful.
-                    </p>
+                {/* You broke something (with strikethrough) */}
+                <div className="mt-2 mb-2 relative inline-block">
+                    <h1 className="nf-broke opacity-0 font-sans font-bold text-3xl md:text-5xl tracking-tight">
+                        <span className="nf-broke-text text-text">You broke something.</span>
+                    </h1>
+                    <div
+                        ref={strikeRef}
+                        className="absolute top-1/2 left-0 w-full h-[2px] bg-accent/60 origin-left"
+                        style={{ transform: 'scaleX(0)' }}
+                    />
                 </div>
 
-                {/* CTAs */}
-                <div className="nf-cta flex flex-col items-center gap-5">
-                    <Link to="/">
-                        <InteractiveHoverButton className="px-10 py-3.5 text-sm font-bold">
-                            Back to Home
-                        </InteractiveHoverButton>
+                {/* Just kidding */}
+                <h2 className="nf-kidding opacity-0 font-sans font-extrabold text-2xl md:text-4xl tracking-tight text-text mt-1">
+                    Just kidding. This page doesn't exist.
+                </h2>
+
+                {/* Description */}
+                <p className="nf-desc opacity-0 font-sans text-lg text-textMuted leading-relaxed mt-6 mb-10">
+                    Whatever you were looking for isn't here. But here's where the good stuff actually lives.
+                </p>
+
+                {/* Links */}
+                <div className="nf-links opacity-0">
+                    <Link
+                        to="/"
+                        className="inline-flex items-center px-6 py-2.5 rounded-xl font-sans font-bold text-sm text-text border border-accent-border hover:border-accent/30 hover:bg-accent-light transition-colors"
+                    >
+                        Back to Home
                     </Link>
-                    <div className="flex gap-4">
-                        <Link
-                            to="/work"
-                            className="px-6 min-h-[44px] inline-flex items-center text-textMuted hover:text-accent border border-accent/20 hover:border-accent/50 rounded-full font-sans font-bold text-sm transition-all duration-300"
-                        >
-                            Case Studies
-                        </Link>
-                        <Link
-                            to="/blog"
-                            className="px-6 min-h-[44px] inline-flex items-center text-textMuted hover:text-accent border border-accent/20 hover:border-accent/50 rounded-full font-sans font-bold text-sm transition-all duration-300"
-                        >
-                            Blog
-                        </Link>
-                        <Link
-                            to="/start-here"
-                            className="px-6 min-h-[44px] inline-flex items-center text-textMuted hover:text-accent border border-accent/20 hover:border-accent/50 rounded-full font-sans font-bold text-sm transition-all duration-300"
-                        >
-                            Start Here
-                        </Link>
-                    </div>
                 </div>
             </section>
         </main>

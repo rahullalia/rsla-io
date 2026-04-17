@@ -25,7 +25,7 @@ export default function MarqueeV2() {
                         key={label}
                         className="flex items-center gap-6 mx-3"
                     >
-                        <span className="font-mono text-sm md:text-base uppercase tracking-widest whitespace-nowrap text-accent">
+                        <span className="font-sans text-lg uppercase tracking-widest whitespace-nowrap text-accent">
                             {label}
                         </span>
                         <span className="text-cyan text-lg">·</span>

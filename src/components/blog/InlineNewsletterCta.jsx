@@ -33,7 +33,7 @@ export default function InlineNewsletterCta() {
         return (
             <div className="my-16 p-8 md:p-10 rounded-[2rem] bg-surfaceAlt border border-accent-border text-center">
                 <p className="font-sans font-bold text-2xl text-text mb-2">You're in.</p>
-                <p className="font-mono text-sm text-textMuted">Check your inbox for a confirmation.</p>
+                <p className="font-sans text-sm text-textMuted">Check your inbox for a confirmation.</p>
             </div>
         );
     }
@@ -41,11 +41,11 @@ export default function InlineNewsletterCta() {
     return (
         <div className="my-16 p-8 md:p-10 rounded-[2rem] bg-surfaceAlt border border-accent-border">
             <div className="max-w-lg mx-auto text-center">
-                <p className="font-mono text-accent text-xs uppercase tracking-widest mb-3">The Insider</p>
+                <p className="font-sans text-accent text-sm uppercase tracking-widest mb-3">The Insider</p>
                 <p className="font-sans font-bold text-2xl md:text-3xl text-text mb-2 tracking-tight">
                     Want more like this?
                 </p>
-                <p className="font-mono text-sm text-textMuted mb-6">
+                <p className="font-sans text-sm text-textMuted mb-6">
                     AI and marketing insights, weekly. No fluff.
                 </p>
                 <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
@@ -56,7 +56,7 @@ export default function InlineNewsletterCta() {
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={status === 'submitting'}
                         required
-                        className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-mono text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                        className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-sans text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
                     />
                     <button
                         type="submit"
@@ -67,7 +67,7 @@ export default function InlineNewsletterCta() {
                     </button>
                 </form>
                 {status === 'error' && (
-                    <p className="font-mono text-xs text-coral mt-3">Something went wrong. Try again.</p>
+                    <p className="font-sans text-sm text-coral mt-3">Something went wrong. Try again.</p>
                 )}
             </div>
         </div>

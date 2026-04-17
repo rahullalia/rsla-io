@@ -94,13 +94,13 @@ export default function Rahul() {
                     <img src="/images/rahul.webp" alt="Rahul Lalia" className="w-full h-full object-cover" />
                 </div>
 
-                <h1 className="font-sans font-bold text-2xl tracking-tight mb-1.5 text-text">
+                <h1 className="font-sans font-bold text-3xl md:text-5xl tracking-tight mb-1.5 text-text">
                     <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
                         Rahul Lalia
                     </TextAnimate>
                 </h1>
                 <p className="font-sans text-accent text-sm font-bold mb-1">Founder & CEO, RSL/A</p>
-                <p className="font-body text-textMuted text-sm mb-8">Marketing & AI Automation Expert</p>
+                <p className="font-sans text-textMuted text-sm mb-8">Marketing & AI Automation Expert</p>
 
                 {/* Contact actions */}
                 <div className="w-full flex flex-col gap-3 mb-8">
@@ -112,9 +112,9 @@ export default function Rahul() {
                                 href={action.href}
                                 target={action.external ? '_blank' : undefined}
                                 rel={action.external ? 'noopener noreferrer' : undefined}
-                                className={`flex items-center justify-center gap-3 w-full py-5 rounded-full text-base font-sans font-bold transition-all duration-300 hover:scale-[1.02] active:scale-95 ${action.highlight
-                                    ? 'bg-accent text-white btn-neon'
-                                    : 'bg-surface border border-accent-border text-text hover:border-accent/30'
+                                className={`flex items-center justify-center gap-3 w-full py-4 rounded-xl text-base font-sans font-bold transition-colors ${action.highlight
+                                    ? 'bg-accent text-white hover:bg-accent/90'
+                                    : 'bg-surface border border-accent-border text-text hover:border-accent/40 hover:bg-accent-light'
                                     }`}
                             >
                                 <Icon size={20} strokeWidth={2} />
@@ -130,7 +130,7 @@ export default function Rahul() {
                 {/* Email */}
                 <a
                     href="mailto:lalia@rsla.io"
-                    className="font-mono text-xs tracking-wider text-textMuted hover:text-accent transition-colors mb-5 inline-flex items-center min-h-[44px]"
+                    className="font-sans text-sm tracking-wider text-textMuted hover:text-accent transition-colors mb-5 inline-flex items-center min-h-[44px]"
                 >
                     lalia@rsla.io
                 </a>
@@ -155,7 +155,7 @@ export default function Rahul() {
                 <div className="w-full border-t border-accent-border mb-6" />
 
                 {/* Footer */}
-                <Link to="/" className="font-mono text-[10px] uppercase tracking-widest text-textMuted/70 hover:text-textMuted transition-colors inline-flex items-center min-h-[44px] px-4">
+                <Link to="/" className="font-sans text-sm uppercase tracking-widest text-textMuted/70 hover:text-textMuted transition-colors inline-flex items-center min-h-[44px] px-4">
                     Powered by RSL/A
                 </Link>
             </div>

@@ -27,20 +27,12 @@ export default function BookCall() {
             <div className="max-w-4xl mx-auto bg-surfaceAlt border border-accent-border rounded-[2rem] md:rounded-[3rem] p-6 md:p-16 text-center shadow-sm relative overflow-hidden">
                 <ShineBorder shineColor={['#0070F3', '#00C2FF']} borderWidth={1} duration={12} />
 
-                <span className="inline-block font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent border border-accent/30 rounded-full px-4 py-1.5 mb-6">
-                    Client Portal
-                </span>
-
-                <h1 className="text-3xl md:text-5xl font-sans font-bold mb-4 tracking-tight text-text">
+                <h1 className="text-3xl md:text-5xl font-sans font-bold mb-4 tracking-tight text-text leading-[1.1]">
                     <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
-                        Book Your
-                    </TextAnimate>{' '}
-                    <span className="font-drama italic font-bold text-accent">
-                        <TextAnimate animation="blurInUp" by="word" delay={0.3} startOnView={false} as="span">
-                            Session.
-                        </TextAnimate></span>
+                        Book your session.
+                    </TextAnimate>
                 </h1>
-                <p className="font-body text-textMuted mb-10 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
+                <p className="font-sans text-textMuted mb-10 max-w-lg mx-auto text-lg leading-relaxed">
                     Pick a time that works for you. Whether it's onboarding, a strategy check-in, or a support call, we'll make sure you're covered.
                 </p>
 

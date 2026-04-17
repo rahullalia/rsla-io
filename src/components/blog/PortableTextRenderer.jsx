@@ -47,9 +47,9 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
     if (status === 'unlocked') {
         return (
             <div className="my-12 p-8 rounded-[1.5rem] border-2 border-accent/30 bg-accent/5 text-center">
-                <p className="font-mono text-xs text-accent uppercase tracking-widest mb-4">Download Ready</p>
+                <p className="font-sans text-sm text-accent uppercase tracking-widest mb-4">Download Ready</p>
                 <h4 className="text-xl font-bold font-sans text-text mb-2">{title}</h4>
-                <p className="font-mono text-sm text-textMuted mb-6">Your download should start automatically.</p>
+                <p className="font-sans text-sm text-textMuted mb-6">Your download should start automatically.</p>
                 <a
                     href={downloadUrl}
                     download
@@ -63,10 +63,10 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
 
     return (
         <div className="my-12 p-8 rounded-[1.5rem] border-2 border-dashed border-accent/30 bg-accent/5 text-center">
-            <p className="font-mono text-xs text-accent uppercase tracking-widest mb-4">Free Resource</p>
+            <p className="font-sans text-sm text-accent uppercase tracking-widest mb-4">Free Resource</p>
             <h4 className="text-xl font-bold font-sans text-text mb-2">{title}</h4>
             {description && (
-                <p className="font-mono text-sm text-textMuted mb-6 max-w-md mx-auto">{description}</p>
+                <p className="font-sans text-sm text-textMuted mb-6 max-w-md mx-auto">{description}</p>
             )}
             <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
                 <input
@@ -76,7 +76,7 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={status === 'submitting'}
                     required
-                    className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-mono text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                    className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-sans text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
                 />
                 <button
                     type="submit"
@@ -87,7 +87,7 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
                 </button>
             </form>
             {status === 'error' && (
-                <p className="font-mono text-xs text-coral mt-3">Something went wrong. Try again.</p>
+                <p className="font-sans text-sm text-coral mt-3">Something went wrong. Try again.</p>
             )}
         </div>
     );
@@ -127,7 +127,7 @@ export const PortableTextComponents = {
                         />
                     </div>
                     {value.caption && (
-                        <figcaption className="text-center text-sm font-mono text-textMuted mt-4 italic">
+                        <figcaption className="text-center text-sm font-sans text-textMuted mt-4 italic">
                             {value.caption}
                         </figcaption>
                     )}
@@ -155,7 +155,7 @@ export const PortableTextComponents = {
                         />
                     </div>
                     {(value.caption || value.credit) && (
-                        <figcaption className="text-center text-sm font-mono text-textMuted mt-4 italic">
+                        <figcaption className="text-center text-sm font-sans text-textMuted mt-4 italic">
                             {value.caption}{value.credit ? ` — ${value.credit}` : ''}
                         </figcaption>
                     )}
@@ -166,7 +166,7 @@ export const PortableTextComponents = {
             return (
                 <pre className="bg-slate-900 text-white rounded-xl p-6 overflow-x-auto my-8 max-w-full shadow-lg">
                     {value.filename && (
-                        <div className="text-sm text-accent font-mono mb-4 border-b border-white/10 pb-3">
+                        <div className="text-sm text-accent font-sans mb-4 border-b border-white/10 pb-3">
                             {value.filename}
                         </div>
                     )}
@@ -210,7 +210,7 @@ export const PortableTextComponents = {
                         />
                     </div>
                     {caption && (
-                        <figcaption className="text-center text-sm font-mono text-textMuted mt-4 italic">
+                        <figcaption className="text-center text-sm font-sans text-textMuted mt-4 italic">
                             {caption}
                         </figcaption>
                     )}
@@ -225,7 +225,7 @@ export const PortableTextComponents = {
                         <span className="w-1 self-stretch bg-accent/40 rounded-full shrink-0"></span>
                         <div className="flex-1">
                             {title && <h4 className="text-xl font-bold font-sans text-text mb-3">{title}</h4>}
-                            <p className="font-mono text-textMuted leading-relaxed text-sm md:text-base">{content}</p>
+                            <p className="font-sans text-textMuted leading-relaxed text-lg">{content}</p>
                         </div>
                     </div>
                 </div>
@@ -240,7 +240,7 @@ export const PortableTextComponents = {
                     {stats.map((stat, idx) => (
                         <div key={idx} className="bg-surfaceAlt border border-accent-border rounded-2xl p-6 text-center shadow-sm">
                             <div className="text-4xl font-bold font-sans text-accent mb-2">{stat.value}</div>
-                            <div className="text-xs font-mono text-textMuted uppercase tracking-widest">{stat.label}</div>
+                            <div className="text-xs font-sans text-textMuted uppercase tracking-widest">{stat.label}</div>
                         </div>
                     ))}
                 </div>
@@ -305,7 +305,7 @@ export const PortableTextComponents = {
                     {(author || role) && (
                         <div className="mt-6 pl-8 flex items-center gap-3">
                             <div className="w-8 h-[2px] bg-accent/40" />
-                            <div className="font-mono text-sm text-textMuted">
+                            <div className="font-sans text-sm text-textMuted">
                                 {author && <span className="font-bold text-text">{author}</span>}
                                 {author && role && <span className="mx-1">·</span>}
                                 {role && <span>{role}</span>}
@@ -325,7 +325,7 @@ export const PortableTextComponents = {
                         <span className="w-1 self-stretch bg-accent rounded-full shrink-0"></span>
                         <div className="flex-1">
                             <h4 className="text-xl font-bold font-sans mb-4">Tech Specs</h4>
-                            <ul className="space-y-3 font-mono text-sm md:text-base">
+                            <ul className="space-y-3 font-sans text-lg">
                                 {tools.map((tool, idx) => (
                                     <li key={idx} className="flex items-baseline gap-3">
                                         <span className="text-accent">◆</span>
@@ -352,7 +352,7 @@ export const PortableTextComponents = {
             const text = (value?.children || []).map(c => c.text || '').join('');
             const id = slugify(text);
             return (
-                <h2 id={id} className="text-2xl font-body font-bold text-text mt-12 mb-4 scroll-mt-32">
+                <h2 id={id} className="text-2xl md:text-4xl font-sans font-extrabold text-text mt-12 mb-4 scroll-mt-32">
                     {children}
                 </h2>
             );
@@ -360,19 +360,19 @@ export const PortableTextComponents = {
         h3: ({ children, value }) => {
             const text = (value?.children || []).map(c => c.text || '').join('');
             const id = slugify(text);
-            return <h3 id={id} className="text-lg text-text mt-8 mb-3 font-body font-semibold scroll-mt-32">{children}</h3>;
+            return <h3 id={id} className="text-xl md:text-2xl text-text mt-8 mb-3 font-sans font-semibold scroll-mt-32">{children}</h3>;
         },
-        h4: ({ children }) => <h4 className="text-base md:text-lg text-text mt-8 mb-3 font-sans font-medium">{children}</h4>,
-        normal: ({ children }) => <p className="text-base md:text-lg leading-relaxed text-textMuted mb-6 font-body">{children}</p>,
+        h4: ({ children }) => <h4 className="text-lg text-text mt-8 mb-3 font-sans font-medium">{children}</h4>,
+        normal: ({ children }) => <p className="text-lg leading-relaxed text-textMuted mb-6 font-sans">{children}</p>,
         blockquote: ({ children }) => (
-            <blockquote className="border-l-[3px] border-accent pl-6 my-10 font-quote text-2xl lg:text-[28px] text-text leading-[1.4]">
+            <blockquote className="border-l-[3px] border-accent pl-6 my-10 font-cormorant italic text-2xl lg:text-[28px] text-text leading-[1.4]">
                 {children}
             </blockquote>
         ),
     },
     list: {
-        bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 text-base md:text-lg leading-relaxed text-textMuted space-y-2 marker:text-accent/40">{children}</ul>,
-        number: ({ children }) => <ol className="list-decimal pl-6 mb-6 text-base md:text-lg leading-relaxed text-textMuted space-y-2 marker:text-accent/60 font-mono">{children}</ol>,
+        bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 text-lg leading-relaxed text-textMuted space-y-2 marker:text-accent/40">{children}</ul>,
+        number: ({ children }) => <ol className="list-decimal pl-6 mb-6 text-lg leading-relaxed text-textMuted space-y-2 marker:text-accent/60 font-sans">{children}</ol>,
     },
     listItem: {
         bullet: ({ children }) => <li>{children}</li>,

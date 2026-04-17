@@ -58,7 +58,7 @@ export default function StatsSection() {
                             />
                             {stat.suffix}
                         </div>
-                        <div className="font-body text-sm mt-2 text-textMuted">
+                        <div className="font-sans text-sm mt-2 text-textMuted">
                             {stat.label}
                         </div>
                     </div>

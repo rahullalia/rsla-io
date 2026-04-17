@@ -75,7 +75,7 @@ export default function ShareBar({ title, url, showLabel = true }) {
 
     return (
         <div className="flex items-center gap-1">
-            {showLabel && <span className="font-mono text-[10px] uppercase tracking-widest text-textLight mr-2">Share</span>}
+            {showLabel && <span className="font-sans text-sm uppercase tracking-widest text-textLight mr-2">Share</span>}
             {links.map(({ label, icon, href }) => (
                 <a
                     key={label}

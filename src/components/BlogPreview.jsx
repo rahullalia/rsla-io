@@ -65,11 +65,11 @@ export default function BlogPreview() {
             <div className="max-w-6xl mx-auto">
                 <div className="flex items-end justify-between mb-12">
                     <div>
-                        <span className="font-mono text-xs uppercase tracking-wider text-accent">Blog</span>
-                        <h2 className="font-sans font-bold text-3xl md:text-4xl tracking-tight mt-3 text-text">
+                        <span className="font-sans text-sm uppercase tracking-wider text-accent">Blog</span>
+                        <h2 className="font-sans font-extrabold text-2xl md:text-4xl tracking-tight mt-3 text-text">
                             Latest from the blog
                         </h2>
-                        <p className="font-body text-base text-textMuted mt-2">
+                        <p className="font-sans text-base text-textMuted mt-2">
                             Practical takes on AI, marketing, and building systems that scale.
                         </p>
                     </div>
@@ -116,17 +116,17 @@ export default function BlogPreview() {
                                         {post.categories.slice(0, 2).map((cat, idx) => (
                                             <span
                                                 key={cat.slug?.current || idx}
-                                                className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-accent-light text-accent border border-accent-medium"
+                                                className="font-sans text-sm uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-accent-light text-accent border border-accent-medium"
                                             >
                                                 {cat.name}
                                             </span>
                                         ))}
                                     </div>
                                 )}
-                                <h3 className="font-sans font-bold text-lg text-text leading-snug mb-2 group-hover:text-accent transition-colors">
+                                <h3 className="font-sans font-semibold text-xl md:text-2xl text-text leading-snug mb-2 group-hover:text-accent transition-colors">
                                     {post.title}
                                 </h3>
-                                <time className="font-mono text-xs text-textMuted">
+                                <time className="font-sans text-sm text-textMuted">
                                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
                                         month: 'short',
                                         day: 'numeric',

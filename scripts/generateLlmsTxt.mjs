@@ -69,7 +69,7 @@ async function generateLlmsTxt() {
     `- Website: ${SITE_URL}`,
     `- Blog: ${SITE_URL}/blog`,
     `- Case Studies: ${SITE_URL}/work`,
-    `- Book a Call: ${SITE_URL}/start-here`,
+    `- Book a Call: ${SITE_URL}/book-a-call`,
     `- Sitemap: ${SITE_URL}/sitemap.xml`,
     `- RSS Feed: ${SITE_URL}/rss.xml`,
     ''

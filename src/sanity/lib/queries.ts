@@ -603,69 +603,6 @@ export const caseStudyBySlugV2Query = groq`
   }
 `;
 
-// ===== INDUSTRY PAGES (pSEO) =====
-
-// Get single industry page by slug
-export const industryPageBySlugQuery = groq`
-  *[_type == "industryPage" && slug.current == $slug && status == "published"][0] {
-    industry,
-    "slug": slug.current,
-    pageType,
-    heroQuestion,
-    heroSubtitle,
-    costHeadline,
-    costStats,
-    painParagraph,
-    solutionHeadline,
-    transformations,
-    proofNumber,
-    proofLine,
-    proofTimeframe,
-    proofDetail,
-    relatedCaseStudy->{
-      title,
-      "slug": slug.current,
-      tag,
-      metrics
-    },
-    faq,
-    seoTitle,
-    seoDescription,
-    seoKeywords,
-    status
-  }
-`;
-
-// Get all published industry pages (for listings and prerender)
-export const industryPagesQuery = groq`
-  *[_type == "industryPage" && status == "published"] | order(industry asc) {
-    industry,
-    "slug": slug.current,
-    pageType,
-    heroQuestion,
-    heroSubtitle,
-    costHeadline,
-    costStats,
-    painParagraph,
-    solutionHeadline,
-    transformations,
-    proofNumber,
-    proofLine,
-    proofTimeframe,
-    proofDetail,
-    relatedCaseStudy->{
-      title,
-      "slug": slug.current,
-      tag,
-      metrics
-    },
-    faq,
-    seoTitle,
-    seoDescription,
-    seoKeywords
-  }
-`;
-
 // Get featured V2 case studies for homepage
 export const featuredCaseStudiesV2Query = groq`
   *[_type == "caseStudyV2" && featured == true] | order(priority asc) [0...3] {

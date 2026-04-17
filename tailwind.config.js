@@ -49,7 +49,7 @@ export default {
         surface: "#FFFFFF",           // white — cards, containers
         surfaceAlt: "#F1F5F9",       // slate-100 — alternating sections
         text: "#0F172A",              // slate-900 — primary text
-        textMuted: "#64748B",         // slate-500 — secondary text
+        textMuted: "#475569",         // slate-600 — secondary text (bumped from slate-500 for WCAG AAA on all surfaces)
         textLight: "#94A3B8",         // slate-400 — tertiary text
         accent: "#0066E0",            // brand blue (darkened from #0070F3 for WCAG AA contrast)
         cyan: "#00C2FF",              // electric cyan
@@ -95,10 +95,12 @@ export default {
       },
       fontFamily: {
         sans: ["Satoshi", "sans-serif"],
-        body: ["Inter", "sans-serif"],
-        mono: ['"Space Grotesk"', "sans-serif"],
-        drama: ['"Playfair Display"', "serif"],
-        quote: ["Caveat", "cursive"],
+        cormorant: ["Cormorant", '"Cormorant Garamond"', "serif"],
+        // Decorative aliases — all resolve to Cormorant
+        editorial: ["Cormorant", '"Cormorant Garamond"', "serif"],
+        drama: ["Cormorant", '"Cormorant Garamond"', "serif"],
+        // System monospace stack — code blocks only
+        mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",
