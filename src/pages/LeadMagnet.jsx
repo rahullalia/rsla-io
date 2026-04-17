@@ -59,11 +59,17 @@ export default function LeadMagnet() {
 
       if (!res.ok) throw new Error('Subscription failed');
 
-      // Redirect to the resource — only allow https:// or same-origin paths
-      // to prevent javascript:/data:/protocol-relative redirect abuse via Sanity content
-      const url = magnet.resourceUrl || '';
-      const isSafeUrl = /^https:\/\//i.test(url) || /^\//.test(url);
-      if (!isSafeUrl) {
+      // Redirect to the resource — only allow absolute https:// URLs or
+      // same-origin absolute paths (starting with a single slash).
+      // Explicitly rejects:
+      //   javascript:/data:/vbscript: — unsafe schemes
+      //   http://       — insecure
+      //   //evil.com/…  — protocol-relative (inherits protocol, escapes to any origin)
+      //   relative      — ambiguous
+      const url = (magnet.resourceUrl || '').trim();
+      const isHttps = /^https:\/\//i.test(url);
+      const isSameOriginPath = url.startsWith('/') && !url.startsWith('//');
+      if (!isHttps && !isSameOriginPath) {
         throw new Error('Invalid resource URL');
       }
       window.location.href = url;
