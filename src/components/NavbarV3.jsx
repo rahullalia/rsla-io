@@ -1,14 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
 
 const serviceSubLinks = [
-    { title: 'Websites', url: '/services/websites' },
-    { title: 'Search Visibility', url: '/services/search-visibility' },
-    { title: 'AI Automations', url: '/services/ai-automations' },
-    { title: 'CRM Systems', url: '/services/crm-systems' },
-    { title: 'Custom Development', url: '/services/custom-development' },
+    {
+        title: 'Websites',
+        url: '/services/websites',
+        description: 'Fast, SEO-ready builds that ship in weeks.',
+    },
+    {
+        title: 'Search Visibility',
+        url: '/services/search-visibility',
+        description: 'Rankings on Google, ChatGPT, Perplexity, and Claude.',
+    },
+    {
+        title: 'AI Automations',
+        url: '/services/ai-automations',
+        description: 'n8n, Make, and custom scripts that replace manual work.',
+    },
+    {
+        title: 'CRM Systems',
+        url: '/services/crm-systems',
+        description: 'GoHighLevel pipelines, workflows, and integrations.',
+    },
+    {
+        title: 'Custom Development',
+        url: '/services/custom-development',
+        description: 'SaaS products, MVPs, internal tools, APIs.',
+    },
 ];
 
 const menu = [
@@ -25,8 +45,13 @@ export default function NavbarV3() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+    const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
+    const servicesTriggerRef = useRef(null);
+    const servicesMenuRef = useRef(null);
+    // 'first' | 'last' | null — what to focus once the menu is open
+    const pendingFocusRef = useRef(null);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -38,7 +63,88 @@ export default function NavbarV3() {
     useEffect(() => {
         setMobileOpen(false);
         setMobileServicesOpen(false);
+        setDesktopServicesOpen(false);
     }, [location.pathname]);
+
+    // After the menu opens, move focus to the requested item (if any)
+    useEffect(() => {
+        if (!desktopServicesOpen || !pendingFocusRef.current) return;
+        const items = servicesMenuRef.current?.querySelectorAll('a[role="menuitem"]');
+        if (!items || items.length === 0) {
+            pendingFocusRef.current = null;
+            return;
+        }
+        const target = pendingFocusRef.current === 'last' ? items.length - 1 : 0;
+        items[target]?.focus();
+        pendingFocusRef.current = null;
+    }, [desktopServicesOpen]);
+
+    // Global Escape listener: close the menu from anywhere on the page
+    useEffect(() => {
+        if (!desktopServicesOpen) return;
+        const onKey = (e) => {
+            if (e.key === 'Escape') setDesktopServicesOpen(false);
+        };
+        document.addEventListener('keydown', onKey);
+        return () => document.removeEventListener('keydown', onKey);
+    }, [desktopServicesOpen]);
+
+    const focusServicesMenuItem = (targetIndex) => {
+        const items = servicesMenuRef.current?.querySelectorAll('a[role="menuitem"]');
+        if (!items || items.length === 0) return;
+        const normalized = ((targetIndex % items.length) + items.length) % items.length;
+        items[normalized]?.focus();
+    };
+
+    const closeServicesMenuAndRefocusTrigger = () => {
+        setDesktopServicesOpen(false);
+        servicesTriggerRef.current?.focus();
+    };
+
+    const handleServicesTriggerKeyDown = (e) => {
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            // If already open (e.g. mouse hover), focus first item immediately
+            if (desktopServicesOpen) {
+                focusServicesMenuItem(0);
+            } else {
+                pendingFocusRef.current = 'first';
+                setDesktopServicesOpen(true);
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (desktopServicesOpen) {
+                focusServicesMenuItem(-1);
+            } else {
+                pendingFocusRef.current = 'last';
+                setDesktopServicesOpen(true);
+            }
+        }
+        // Escape on trigger is handled by the global Escape listener
+    };
+
+    const handleServicesMenuKeyDown = (e) => {
+        const items = Array.from(servicesMenuRef.current?.querySelectorAll('a[role="menuitem"]') || []);
+        const currentIndex = items.indexOf(document.activeElement);
+
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            closeServicesMenuAndRefocusTrigger();
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            focusServicesMenuItem(currentIndex + 1);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            focusServicesMenuItem(currentIndex - 1);
+        } else if (e.key === 'Home') {
+            e.preventDefault();
+            focusServicesMenuItem(0);
+        } else if (e.key === 'End') {
+            e.preventDefault();
+            focusServicesMenuItem(items.length - 1);
+        }
+        // Tab falls through — browser moves focus naturally, onBlur handles close
+    };
 
     const isActive = (url) => {
         if (url === '/') return location.pathname === '/';
@@ -74,31 +180,95 @@ export default function NavbarV3() {
 
                                 if (item.children) {
                                     return (
-                                        <li key={item.url} className="relative group">
+                                        <li
+                                            key={item.url}
+                                            className="relative"
+                                            onMouseEnter={() => setDesktopServicesOpen(true)}
+                                            onMouseLeave={(e) => {
+                                                // Keep open if keyboard focus is still inside the menu group
+                                                if (e.currentTarget.contains(document.activeElement)) return;
+                                                setDesktopServicesOpen(false);
+                                            }}
+                                            onBlur={(e) => {
+                                                // Close only when focus has left the entire menu group
+                                                if (e.currentTarget.contains(e.relatedTarget)) return;
+                                                setDesktopServicesOpen(false);
+                                            }}
+                                        >
                                             <Link
+                                                ref={servicesTriggerRef}
                                                 to={item.url}
+                                                aria-haspopup="menu"
+                                                aria-expanded={desktopServicesOpen}
+                                                onKeyDown={handleServicesTriggerKeyDown}
                                                 className={`inline-flex h-11 items-center gap-1 px-5 font-sans font-medium text-base transition-colors ${
                                                     active ? 'text-accent' : 'text-text/70 hover:text-text'
                                                 }`}
                                             >
                                                 {item.title}
-                                                <ChevronDown size={14} strokeWidth={2} className="opacity-50 transition-transform group-hover:rotate-180" />
+                                                <ChevronDown
+                                                    size={14}
+                                                    strokeWidth={2}
+                                                    className={`opacity-50 transition-transform ${desktopServicesOpen ? 'rotate-180' : ''}`}
+                                                />
                                             </Link>
-                                            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute top-full left-0 pt-2">
-                                                <div className="bg-surface border border-accent-border rounded-xl shadow-lg py-2 min-w-[220px]">
-                                                    {item.children.map((child) => (
+                                            <div
+                                                className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200 ${
+                                                    desktopServicesOpen
+                                                        ? 'visible opacity-100 translate-y-0'
+                                                        : 'invisible opacity-0 translate-y-1'
+                                                }`}
+                                                onKeyDown={handleServicesMenuKeyDown}
+                                            >
+                                                <div
+                                                    ref={servicesMenuRef}
+                                                    role="menu"
+                                                    aria-label="Services menu"
+                                                    className="bg-surface border border-accent-border rounded-2xl shadow-[0_12px_40px_-8px_rgba(15,23,42,0.15)] overflow-hidden w-[560px]"
+                                                >
+                                                    <div className="grid grid-cols-2 gap-px bg-accent-border">
+                                                        {item.children.map((child) => {
+                                                            const isCurrent = location.pathname === child.url;
+                                                            return (
+                                                                <Link
+                                                                    key={child.url}
+                                                                    to={child.url}
+                                                                    role="menuitem"
+                                                                    tabIndex={desktopServicesOpen ? 0 : -1}
+                                                                    className={`group/tile block px-5 py-4 bg-surface transition-colors ${
+                                                                        isCurrent ? 'bg-accent-light' : 'hover:bg-accent-light focus-visible:bg-accent-light'
+                                                                    }`}
+                                                                >
+                                                                    <div
+                                                                        className={`font-sans font-semibold text-base mb-1 transition-colors ${
+                                                                            isCurrent ? 'text-accent' : 'text-text group-hover/tile:text-accent'
+                                                                        }`}
+                                                                    >
+                                                                        {child.title}
+                                                                    </div>
+                                                                    <p className="font-sans text-sm text-textMuted leading-snug">
+                                                                        {child.description}
+                                                                    </p>
+                                                                </Link>
+                                                            );
+                                                        })}
+                                                        {/* 6th tile — See all services CTA */}
                                                         <Link
-                                                            key={child.url}
-                                                            to={child.url}
-                                                            className={`block px-5 py-2.5 font-sans text-sm transition-colors ${
-                                                                location.pathname === child.url
-                                                                    ? 'text-accent bg-accent/5'
-                                                                    : 'text-text/70 hover:text-text hover:bg-surfaceAlt'
-                                                            }`}
+                                                            to={item.url}
+                                                            role="menuitem"
+                                                            tabIndex={desktopServicesOpen ? 0 : -1}
+                                                            className="group/tile flex items-center justify-between px-5 py-4 bg-accent-light hover:bg-accent/10 focus-visible:bg-accent/10 transition-colors"
                                                         >
-                                                            {child.title}
+                                                            <span className="font-sans font-semibold text-base text-accent">
+                                                                See all services
+                                                            </span>
+                                                            <ArrowRight
+                                                                size={16}
+                                                                strokeWidth={2}
+                                                                className="text-accent transition-transform group-hover/tile:translate-x-1"
+                                                            />
                                                         </Link>
-                                                    ))}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
@@ -170,26 +340,35 @@ export default function NavbarV3() {
                                             </button>
                                             {mobileServicesOpen && (
                                                 <ul className="pl-4 border-b border-accent-border">
-                                                    <li>
+                                                    {item.children.map((child) => {
+                                                        const isCurrent = location.pathname === child.url;
+                                                        return (
+                                                            <li key={child.url} className="border-b border-accent-border/50 last:border-b-0">
+                                                                <Link
+                                                                    to={child.url}
+                                                                    className={`block py-3 ${
+                                                                        isCurrent ? 'text-accent' : 'text-text hover:text-accent'
+                                                                    }`}
+                                                                >
+                                                                    <div className="font-sans font-semibold text-base">
+                                                                        {child.title}
+                                                                    </div>
+                                                                    <p className="font-sans text-sm text-textMuted mt-0.5 leading-snug">
+                                                                        {child.description}
+                                                                    </p>
+                                                                </Link>
+                                                            </li>
+                                                        );
+                                                    })}
+                                                    <li className="border-t border-accent-border/50 mt-1">
                                                         <Link
                                                             to={item.url}
-                                                            className="block py-3 font-sans text-base text-textMuted hover:text-accent transition-colors"
+                                                            className="flex items-center justify-between py-3 font-sans font-semibold text-sm text-accent hover:opacity-80 transition-opacity"
                                                         >
-                                                            All Services
+                                                            See all services
+                                                            <ArrowRight size={14} strokeWidth={2} />
                                                         </Link>
                                                     </li>
-                                                    {item.children.map((child) => (
-                                                        <li key={child.url}>
-                                                            <Link
-                                                                to={child.url}
-                                                                className={`block py-3 font-sans text-base transition-colors ${
-                                                                    location.pathname === child.url ? 'text-accent' : 'text-textMuted hover:text-accent'
-                                                                }`}
-                                                            >
-                                                                {child.title}
-                                                            </Link>
-                                                        </li>
-                                                    ))}
                                                 </ul>
                                             )}
                                         </li>

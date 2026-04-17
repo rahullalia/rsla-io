@@ -148,7 +148,7 @@ function homeContent() {
     ],
     html: `<main>
 <h1>Your business is doing manually what AI could do in seconds.</h1>
-<p><a href="/#contact">Let's Talk</a> | <a href="/work">See What We've Built</a></p>
+<p><a href="/contact">Let's Talk</a> | <a href="/work">See What We've Built</a></p>
 
 <section><h2>What We Build</h2>
 <article><h3>01 — Lead Gen: Leads that find you.</h3>
@@ -668,9 +668,88 @@ function bookCallContent() {
     description: 'Schedule a call with RSL/A. Existing clients can book onboarding, strategy, and support sessions.',
     canonical: `${SITE}/book-a-call`,
     html: `<main>
-<h1>Book Your Session</h1>
+<h1>Book your session.</h1>
 <p>Pick a time that works for you. Whether it is onboarding, a strategy check-in, or a support call, we will make sure you are covered.</p>
-<p>To schedule a call, please visit this page in a browser with JavaScript enabled, or contact us directly at <a href="mailto:team@rsla.io">team@rsla.io</a>.</p>
+<p>To schedule a call, please visit this page in a browser with JavaScript enabled, or contact us directly at <a href="mailto:hello@rsla.io">hello@rsla.io</a>.</p>
+</main>`,
+  };
+}
+
+function contactContent() {
+  return {
+    title: 'Book a free growth mapping call | RSL/A',
+    description: "Book a free 30-minute growth mapping call. We'll audit your funnel, find the bottlenecks, and show you exactly where AI moves the needle. No pitch, just answers.",
+    canonical: `${SITE}/contact`,
+    keywords: 'AI strategy call, growth mapping call, AI consultation, marketing audit, automation consultation, free strategy session',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      name: 'Contact RSL/A',
+      url: `${SITE}/contact`,
+      description: 'Book a free 30-minute growth mapping call with RSL/A.',
+      isPartOf: { '@type': 'WebSite', name: 'RSL/A', url: SITE },
+    },
+    html: `<main>
+<h1>Book a free growth mapping call.</h1>
+<p>30 minutes. We audit your funnel, find the bottlenecks, and show you exactly where AI moves the needle. No pitch, just answers.</p>
+<p>To book, please visit this page in a browser with JavaScript enabled, or email us at <a href="mailto:hello@rsla.io">hello@rsla.io</a>.</p>
+${siteNav}
+</main>`,
+  };
+}
+
+// Service detail pages (5 service categories matching src/pages/ServiceDetail.jsx)
+const SERVICE_DETAILS = {
+  websites: {
+    title: 'Websites',
+    headline: 'Custom websites that convert.',
+    description: 'New builds and full rebuilds. Fast, custom-designed, SEO-ready. Launches that ship in weeks, not quarters.',
+  },
+  'search-visibility': {
+    title: 'Search Visibility',
+    headline: 'Show up where buyers look.',
+    description: 'Rankings on Google, ChatGPT, Perplexity, and Claude. One system that shows up everywhere buyers look.',
+  },
+  'ai-automations': {
+    title: 'AI Automations',
+    headline: 'Replace manual work with AI.',
+    description: 'n8n, Make, and custom scripts that replace manual work. Leads qualified and tasks routed while you sleep.',
+  },
+  'crm-systems': {
+    title: 'CRM Systems',
+    headline: 'One dashboard for everything.',
+    description: 'GoHighLevel pipelines, workflows, and integrations. One dashboard for leads, deals, and bookings.',
+  },
+  'custom-development': {
+    title: 'Custom Development',
+    headline: 'When off-the-shelf is not enough.',
+    description: 'SaaS products, MVPs, internal tools, APIs. Built from scratch, owned by you.',
+  },
+};
+
+function serviceDetailContent(slug) {
+  const s = SERVICE_DETAILS[slug];
+  if (!s) return null;
+  return {
+    route: `/services/${slug}`,
+    title: `${s.title} | RSL/A`,
+    description: s.description,
+    canonical: `${SITE}/services/${slug}`,
+    keywords: `${s.title.toLowerCase()}, AI services, RSL/A, B2B AI systems`,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: s.title,
+      description: s.description,
+      provider: { '@type': 'Organization', name: 'RSL/A', url: SITE },
+      url: `${SITE}/services/${slug}`,
+      areaServed: { '@type': 'Place', name: 'Worldwide' },
+    },
+    html: `<main>
+<h1>${esc(s.headline)}</h1>
+<p>${esc(s.description)}</p>
+<p><a href="/contact">Let's Talk</a> | <a href="/services">All Services</a></p>
+${siteNav}
 </main>`,
   };
 }
@@ -1013,6 +1092,7 @@ async function main() {
     { route: '/', ...homeContent() },
     { route: '/about', ...aboutContent() },
     { route: '/services', ...servicesContent() },
+    { route: '/contact', ...contactContent() },
     { route: '/privacy-policy', ...privacyContent() },
     { route: '/terms', ...termsContent() },
     { route: '/disclaimer', ...disclaimerContent() },
@@ -1026,6 +1106,13 @@ async function main() {
   ];
 
   for (const page of staticPages) {
+    writePage(page.route, inject(template, page));
+    count++;
+  }
+
+  // Service detail pages (one per service slug)
+  for (const slug of Object.keys(SERVICE_DETAILS)) {
+    const page = serviceDetailContent(slug);
     writePage(page.route, inject(template, page));
     count++;
   }
