@@ -5855,7 +5855,7 @@
                                     },
                                     {
                                         "name": "Authorization",
-                                        "value": "Bearer skN57wVLuwoVn4JfF1loKsr9dRni2eRwNd9NedNeJKXzmFqe3NmzDFaeP8o8YfPHws5OjnH0G13kAVkJga4Vcus6lg6fZuA2bIgbiEZOMLSCvZwr4JvsYlyWkQHSJ2Il2SYFtZHrznNvDm4ZKPrcZeugd2bZ1XvBIfjPR4lsBiGUobvIGUlL"
+                                        "value": "Bearer YOUR_SANITY_WRITE_TOKEN_HERE"
                                     }
                                 ],
                                 "timeout": "",

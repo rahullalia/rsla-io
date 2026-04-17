@@ -20,7 +20,12 @@ const DRY_RUN = process.argv.includes('--dry-run');
 const PROJECT_ID = 'yz25oyux';
 const DATASET = 'production';
 const API_VERSION = '2025-03-01';
-const TOKEN = 'skAhaCsua4bfA0ooEnN5XdJ1So0E7Q8MogaW932a20AKLIh6qGiOfZx7pDDRhRrEWNSQNlFT527F74i8tGoxoyNBIBqROP249vXhktwZEyTGVQBf5aXe80gcgeErZ8jE8US2bTsE1F9ozjntXYeAhhLkcThOPCgosrlznOI9k5JsSryHIaya';
+const TOKEN = process.env.SANITY_API_TOKEN_V2;
+
+if (!TOKEN) {
+    console.error('ERROR: SANITY_API_TOKEN_V2 env var required. Set it in .env.local or export before running.');
+    process.exit(1);
+}
 
 const QUERY_URL = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/query/${DATASET}`;
 const MUTATE_URL = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/mutate/${DATASET}`;
