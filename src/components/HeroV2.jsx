@@ -25,7 +25,7 @@ export default function HeroV2() {
 
     return (
         <AuroraBackground>
-            <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-start justify-end h-[100dvh] pb-40 md:pb-28">
+            <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-start justify-center md:justify-end min-h-[calc(100dvh-80px)] md:h-[100dvh] pt-24 pb-16 md:pt-0 md:pb-28">
                 <div ref={contentRef} className="opacity-0">
                     {/* Headline */}
                     <h1 className="font-sans font-bold text-text text-4xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05] max-w-5xl mb-10">

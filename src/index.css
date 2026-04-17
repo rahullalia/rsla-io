@@ -86,8 +86,16 @@
 
 
 @layer base {
+  /* overflow-x: clip prevents horizontal scroll from animations WITHOUT creating
+     a scroll container — which is what breaks pinch-zoom on iOS Safari when
+     combined with position: fixed elements (our navbar). Using clip instead of
+     hidden keeps zoom working while still preventing GSAP/marquee overflow. */
+  html, body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
   body {
-    @apply bg-background text-text font-sans overflow-x-hidden antialiased;
+    @apply bg-background text-text font-sans antialiased;
   }
   :root {
     /* Blue-gray palette mapped to shadcn CSS variables */

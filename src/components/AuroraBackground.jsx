@@ -35,7 +35,7 @@ export default function AuroraBackground({ children, className, showRadialGradie
         <div
             ref={bgRef}
             className={cn(
-                'relative flex flex-col h-[100dvh] items-center justify-center bg-background text-text transition-colors',
+                'relative flex flex-col min-h-[calc(100dvh-80px)] md:h-[100dvh] items-center justify-center bg-background text-text transition-colors',
                 className
             )}
         >
