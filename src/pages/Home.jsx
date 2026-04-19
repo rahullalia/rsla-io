@@ -27,6 +27,7 @@ import HeroV2 from '../components/HeroV2';
 import LogoMarquee from '../components/LogoMarquee';
 import FounderSection from '../components/FounderSection';
 import ServicesV2 from '../components/ServicesV2';
+import Testimonials from '../components/Testimonials';
 import CtaWithGlow from '../components/CtaWithGlow';
 import { client } from '../sanity/lib/client';
 import { featuredCaseStudiesV2Query } from '../sanity/lib/queries';
@@ -290,7 +291,10 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* SECTION 8 — CTA */}
+                {/* SECTION 8 — TESTIMONIALS */}
+                <Testimonials />
+
+                {/* SECTION 9 — CTA */}
                 <CtaWithGlow />
             </div>
         </>

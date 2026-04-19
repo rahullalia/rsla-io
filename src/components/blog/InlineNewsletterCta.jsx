@@ -11,10 +11,10 @@ export default function InlineNewsletterCta() {
         setStatus('submitting');
         let succeeded = false;
         try {
-            const res = await fetch('https://api.convertkit.com/v3/forms/9130465/subscribe', {
+            const res = await fetch('/api/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ api_key: import.meta.env.VITE_KIT_API_KEY, email }),
+                body: JSON.stringify({ email, formId: '9130465' }),
             });
             if (res.ok) {
                 setStatus('success');

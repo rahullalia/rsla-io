@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { urlForImage } from '../../sanity/lib/image';
 
 const KIT_FORM_ID = '9130465';
-const KIT_API_KEY = import.meta.env.VITE_KIT_API_KEY;
 
 const isUnsafeUrl = (url) => /^(javascript|data|vbscript):/i.test(url);
 
@@ -26,10 +25,10 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
 
         setStatus('submitting');
         try {
-            const res = await fetch(`https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`, {
+            const res = await fetch('/api/subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ api_key: KIT_API_KEY, email }),
+                body: JSON.stringify({ email, formId: KIT_FORM_ID }),
             });
             if (res.ok) {
                 setStatus('unlocked');

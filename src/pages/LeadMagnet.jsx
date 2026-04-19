@@ -6,7 +6,6 @@ import { leadMagnetBySlugQuery } from '@/sanity/lib/queries';
 import { FlickeringGrid } from '@/components/ui/flickering-grid';
 
 const KIT_FORM_ID = import.meta.env.VITE_KIT_FORM_ID;
-const KIT_API_KEY = import.meta.env.VITE_KIT_API_KEY;
 
 export default function LeadMagnet() {
   const { slug } = useParams();
@@ -39,23 +38,19 @@ export default function LeadMagnet() {
 
     try {
       const body = {
-        api_key: KIT_API_KEY,
         email,
-        first_name: firstName || undefined,
+        formId: KIT_FORM_ID,
+        firstName: firstName || undefined,
       };
-      // Add tag if configured
       if (magnet.kitTagId) {
         body.tags = [magnet.kitTagId];
       }
 
-      const res = await fetch(
-        `https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-        }
-      );
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
 
       if (!res.ok) throw new Error('Subscription failed');
 

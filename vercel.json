@@ -5,6 +5,9 @@
   "functions": {
     "api/llm/[slug].mjs": {
       "runtime": "@vercel/node@5.6.9"
+    },
+    "api/subscribe.mjs": {
+      "runtime": "@vercel/node@5.6.9"
     }
   },
   "headers": [

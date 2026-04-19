@@ -5,7 +5,6 @@ import { FlickeringGrid } from '../components/ui/flickering-grid';
 import { TextAnimate } from '@/components/ui/text-animate';
 
 const KIT_FORM_ID = import.meta.env.VITE_KIT_FORM_ID;
-const KIT_API_KEY = import.meta.env.VITE_KIT_API_KEY;
 
 const benefits = [
     'Case studies saving clients $20K to $136K annually',
@@ -25,14 +24,11 @@ export default function Insider() {
         setLoading(true);
 
         try {
-            const res = await fetch(
-                `https://api.convertkit.com/v3/forms/${KIT_FORM_ID}/subscribe`,
-                {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ api_key: KIT_API_KEY, email }),
-                }
-            );
+            const res = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, formId: KIT_FORM_ID }),
+            });
 
             if (!res.ok) throw new Error('Subscription failed');
             setSubmitted(true);

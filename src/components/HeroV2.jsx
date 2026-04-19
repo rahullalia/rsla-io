@@ -33,18 +33,18 @@ export default function HeroV2() {
                         <span className="font-sans font-bold text-accent">B2B companies.</span>
                     </h1>
 
-                    {/* CTAs */}
+                    {/* CTAs — primary goal is the discovery call, so "Let's Talk" is solid */}
                     <div className="flex flex-wrap gap-3 sm:gap-4">
-                        <Link to="/work">
+                        <Link to="/contact">
                             <InteractiveHoverButton className="font-sans font-bold text-base px-8 py-3">
-                                See the Work
+                                Let&apos;s Talk
                             </InteractiveHoverButton>
                         </Link>
                         <Link
-                            to="/contact"
+                            to="/work"
                             className="inline-flex items-center px-8 py-3 rounded-xl font-sans font-bold text-base text-text border border-accent-border-strong hover:border-accent/30 hover:bg-accent-light transition-colors"
                         >
-                            Let's Talk
+                            See the Work
                         </Link>
                     </div>
                 </div>
