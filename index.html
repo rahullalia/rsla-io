@@ -39,8 +39,19 @@
 <body>
   <div class="noise-overlay"></div>
 
+  <!--
+    Prerendered HTML (from scripts/prerender.mjs) gets injected inside #root
+    as <div id="prerender">...</div>. React's createRoot().render() replaces
+    all children of #root on its first render — so the prerender div is
+    automatically removed when React takes over.
+
+    We deliberately do NOT pre-wipe the prerender div with an inline script.
+    That pattern caused "empty shell" failures: if the React bundle was slow
+    or failed to load, the prerender content would already be gone, leaving
+    a blank page. Leaving it in place means crawlers, slow networks, and
+    bundle failures all see meaningful content as graceful fallback.
+  -->
   <div id="root"></div>
-  <script>document.getElementById('prerender')?.remove()</script>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 
