@@ -69,11 +69,11 @@ export default function CookieConsent() {
                     </div>
                     <div>
                         <p className="font-sans font-semibold text-sm text-text mb-1">
-                            We value your experience
+                            This website uses cookies
                         </p>
                         <p className="font-sans text-sm text-textMuted leading-relaxed">
-                            Cookies help us tailor the site to what you actually need. We only use analytics to improve your experience. No ad tracking, no data sales. Ever.{' '}
-                            <Link to="/privacy-policy" className="text-accent hover:underline">Privacy Policy</Link>
+                            We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, personalize content, and serve targeted advertisements. By clicking &apos;Accept,&apos; you consent to our use of cookies. For more information, see our{' '}
+                            <Link to="/privacy-policy" className="text-accent hover:underline">Privacy Policy</Link>.
                         </p>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ export default function CookieConsent() {
                         onClick={accept}
                         className="px-6 py-2.5 bg-accent text-white font-sans font-bold text-sm rounded-xl hover:bg-accent/90 transition-colors shadow-sm"
                     >
-                        Got it, accept all
+                        Accept
                     </button>
                     <button
                         onClick={decline}
