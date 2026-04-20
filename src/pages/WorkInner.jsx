@@ -13,7 +13,7 @@ import ShareBar from '../components/ShareBar';
 const CaseStudyCard = ({ slug, tag, title, description, metrics }) => (
     <Link
         to={`/work/${slug}`}
-        className="group flex flex-col h-full bg-surfaceAlt rounded-[2rem] border border-accent-border overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
+        className="group flex flex-col h-full bg-surfaceAlt rounded-[2rem] border border-accent-border overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-[transform,box-shadow,border-color] duration-md ease-out-smooth"
     >
         <div className="p-8 flex flex-col flex-grow">
             <div className="mb-6 flex justify-between items-start">

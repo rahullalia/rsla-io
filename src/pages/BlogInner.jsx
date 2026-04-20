@@ -357,7 +357,7 @@ export default function BlogInner() {
                                             <a
                                                 href={`#${h.id}`}
                                                 aria-current={activeId === h.id ? 'true' : undefined}
-                                                className={`block text-[15px] leading-snug py-1.5 pl-3 border-l-2 transition-all ${
+                                                className={`block text-[15px] leading-snug py-1.5 pl-3 border-l-2 transition-[color,border-color] duration-sm ease-out-smooth ${
                                                     activeId === h.id
                                                         ? 'border-accent text-accent font-medium'
                                                         : 'border-transparent text-textMuted hover:text-accent hover:border-accent'
@@ -407,7 +407,7 @@ export default function BlogInner() {
                                 <Link
                                     key={related._id}
                                     to={`/blog/${related.slug.current}`}
-                                    className="group flex flex-col bg-surface rounded-xl border border-accent-border overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                                    className="group flex flex-col bg-surface rounded-xl border border-accent-border overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-[transform,box-shadow,border-color] duration-md ease-out-smooth"
                                 >
                                     {relatedImg && (
                                         <div className="aspect-[3/2] overflow-hidden bg-surfaceAlt">

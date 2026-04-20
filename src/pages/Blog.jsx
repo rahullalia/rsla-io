@@ -190,7 +190,7 @@ export default function Blog() {
                                 value={searchInput}
                                 onChange={(e) => handleSearchInput(e.target.value)}
                                 placeholder="Search articles..."
-                                className="w-full pl-11 pr-10 min-h-[44px] rounded-full bg-surfaceAlt border border-accent-border text-text font-sans text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                                className="w-full pl-11 pr-10 min-h-[44px] rounded-full bg-surfaceAlt border border-accent-border text-text font-sans text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-[border-color,box-shadow] duration-sm ease-out-smooth"
                             />
                             {searchInput && (
                                 <button
@@ -209,7 +209,7 @@ export default function Blog() {
                                 <select
                                     value={activeCategory}
                                     onChange={(e) => handleCategoryClick(e.target.value)}
-                                    className="appearance-none w-full sm:w-auto min-h-[44px] pl-4 pr-10 rounded-full bg-surfaceAlt border border-accent-border text-text font-sans text-sm uppercase tracking-wider cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                                    className="appearance-none w-full sm:w-auto min-h-[44px] pl-4 pr-10 rounded-full bg-surfaceAlt border border-accent-border text-text font-sans text-sm uppercase tracking-wider cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-[border-color,box-shadow] duration-sm ease-out-smooth"
                                 >
                                     <option value="">All Topics</option>
                                     {categories.map((cat) => (
@@ -268,7 +268,7 @@ export default function Blog() {
                                     <Link
                                         key={post._id}
                                         to={`/blog/${post.slug.current}`}
-                                        className="group flex flex-col h-full bg-surfaceAlt rounded-[2rem] border border-accent-border overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
+                                        className="group flex flex-col h-full bg-surfaceAlt rounded-[2rem] border border-accent-border overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-[transform,box-shadow,border-color] duration-md ease-out-smooth"
                                     >
                                         {imageUrl && (
                                             <div className="relative aspect-[3/2] overflow-hidden bg-surfaceAlt">
@@ -276,7 +276,7 @@ export default function Blog() {
                                                     src={imageUrl}
                                                     alt={post.featuredImage?.alt || post.title}
                                                     loading="lazy"
-                                                    className="w-full h-full object-cover transition-all duration-500 scale-100 group-hover:scale-105"
+                                                    className="w-full h-full object-cover transition-transform duration-image-zoom ease-out-smooth scale-100 group-hover:scale-105"
                                                 />
                                             </div>
                                         )}

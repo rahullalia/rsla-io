@@ -17,14 +17,14 @@ const CaseStudyCard = ({ data }) => {
     return (
         <Link
             to={`/work/${data.slug}`}
-            className="group flex flex-col h-full bg-surfaceAlt rounded-[2rem] border border-accent-border overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
+            className="group flex flex-col h-full bg-surfaceAlt rounded-[2rem] border border-accent-border overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-[transform,box-shadow,border-color] duration-md ease-out-smooth"
         >
             {imageUrl && (
                 <div className="relative aspect-[16/10] overflow-hidden bg-surface border-b border-accent-border">
                     <img
                         src={imageUrl}
                         alt={data.featuredImage?.alt || data.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        className="w-full h-full object-cover transition-transform duration-image-zoom ease-out-smooth group-hover:scale-[1.03]"
                         loading="lazy"
                     />
                     {data.featured && (
@@ -144,7 +144,7 @@ export default function Work() {
                         <select
                             value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}
-                            className="appearance-none min-h-[44px] pl-4 pr-10 rounded-full bg-surfaceAlt border border-accent-border text-text font-sans text-sm uppercase tracking-wider cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                            className="appearance-none min-h-[44px] pl-4 pr-10 rounded-full bg-surfaceAlt border border-accent-border text-text font-sans text-sm uppercase tracking-wider cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-[border-color,box-shadow] duration-sm ease-out-smooth"
                         >
                             {categories.map((category) => (
                                 <option key={category} value={category}>

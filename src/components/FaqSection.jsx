@@ -57,20 +57,20 @@ export default function FaqSection() {
                         >
                             <button
                                 onClick={() => toggle(i)}
-                                className="w-full flex items-center justify-between gap-4 px-6 py-5 min-h-[44px] text-left cursor-pointer"
+                                className="w-full flex items-center justify-between gap-4 px-6 py-5 min-h-[44px] text-left cursor-pointer transition-transform duration-sm ease-out-smooth active:scale-[0.995]"
                             >
                                 <span className="font-sans font-bold text-text text-base pr-4">
                                     {faq.q}
                                 </span>
                                 <ChevronDown
                                     size={18}
-                                    className={`shrink-0 text-textMuted transition-transform duration-300 ${
+                                    className={`shrink-0 text-textMuted transition-transform duration-md ease-out-smooth ${
                                         openIndex === i ? 'rotate-180' : ''
                                     }`}
                                 />
                             </button>
                             <div
-                                className={`grid transition-all duration-300 ease-out ${
+                                className={`grid transition-[grid-template-rows,opacity] duration-lg ease-out-smooth ${
                                     openIndex === i ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                                 }`}
                             >

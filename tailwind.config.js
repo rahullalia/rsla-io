@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
+  future: {
+    // Gate `hover:` variants behind @media (hover: hover) so taps on touch
+    // devices no longer trigger sticky hover states.
+    hoverOnlyWhenSupported: true,
+  },
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -15,6 +20,22 @@ export default {
         "marquee-scroll": "marquee-scroll var(--marquee-duration) linear infinite",
         "marquee-reverse": "marquee-scroll var(--marquee-duration) linear infinite reverse",
         shine: "shine var(--duration) infinite linear",
+      },
+      // Motion tokens — Emil Kowalski's curves and bracket durations.
+      // Exposed as Tailwind classes so we don't have to chase arbitrary-value
+      // resolution quirks with var() references.
+      transitionDuration: {
+        xs: "120ms",
+        sm: "180ms",
+        md: "220ms",
+        lg: "320ms",
+        "image-zoom": "350ms",
+        "photo-hover": "400ms",
+      },
+      transitionTimingFunction: {
+        "out-smooth": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "in-out-smooth": "cubic-bezier(0.77, 0, 0.175, 1)",
+        drawer: "cubic-bezier(0.32, 0.72, 0, 1)",
       },
       keyframes: {
         grid: {

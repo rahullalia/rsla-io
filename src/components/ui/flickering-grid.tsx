@@ -115,6 +115,10 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
     let animationFrameId: number
     let gridParams: ReturnType<typeof setupCanvas>
 
@@ -126,6 +130,19 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
     }
 
     updateCanvasSize()
+
+    // Static render — draw the initial random state once, no animation loop.
+    const drawStatic = () => {
+      drawGrid(
+        ctx,
+        canvas.width,
+        canvas.height,
+        gridParams.cols,
+        gridParams.rows,
+        gridParams.squares,
+        gridParams.dpr
+      )
+    }
 
     let lastTime = 0
     const animate = (time: number) => {
@@ -163,7 +180,11 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
     intersectionObserver.observe(canvas)
 
     if (isInView) {
-      animationFrameId = requestAnimationFrame(animate)
+      if (prefersReducedMotion) {
+        drawStatic()
+      } else {
+        animationFrameId = requestAnimationFrame(animate)
+      }
     }
 
     return () => {

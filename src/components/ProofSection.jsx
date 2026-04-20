@@ -96,7 +96,7 @@ export default function ProofSection() {
                                 <div className="flex-shrink-0 flex items-center gap-3">
                                     <div className="font-sans font-bold text-5xl md:text-7xl text-accent leading-none">{proof.metric}</div>
                                     {proof.slug && (
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-textMuted group-hover:text-accent group-hover:translate-x-1 transition-all">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-textMuted group-hover:text-accent group-hover:translate-x-1 transition-[color,transform] duration-sm ease-out-smooth">
                                             <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                                         </svg>
                                     )}

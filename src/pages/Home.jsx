@@ -178,13 +178,13 @@ export default function Home() {
                                     ? urlForImage(cs.featuredImage.asset)?.width(960).height(600).url()
                                     : null;
                                 const card = (
-                                    <article className="group h-full flex flex-col rounded-2xl border border-accent-border bg-surface overflow-hidden hover:border-accent/30 hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-300">
+                                    <article className="group h-full flex flex-col rounded-2xl border border-accent-border bg-surface overflow-hidden hover:border-accent/30 hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-[border-color,box-shadow] duration-md ease-out-smooth">
                                         {imageUrl && (
                                             <div className="aspect-[16/10] overflow-hidden bg-surfaceAlt">
                                                 <img
                                                     src={imageUrl}
                                                     alt={cs.featuredImage?.alt || cs.title}
-                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                                                    className="w-full h-full object-cover transition-transform duration-image-zoom ease-out-smooth group-hover:scale-[1.03]"
                                                     loading="lazy"
                                                 />
                                             </div>

@@ -56,7 +56,7 @@ export default function CookieConsent() {
 
     return (
         <div
-            className={`fixed bottom-6 left-6 right-6 md:left-6 md:right-auto z-[9999] transition-all duration-300 ease-out ${
+            className={`fixed bottom-6 left-6 right-6 md:left-6 md:right-auto z-[9999] transition-[transform,opacity] duration-md ease-out-smooth ${
                 exiting ? 'translate-y-8 opacity-0' : 'translate-y-0 opacity-100'
             }`}
             role="dialog"

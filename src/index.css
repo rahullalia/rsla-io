@@ -123,6 +123,16 @@
     /* Brand custom properties (for CTA glow, etc.) */
     --brand: 211 100% 48%;
     --brand-foreground: 211 100% 48%;
+
+    /* Motion tokens — Emil Kowalski curves. Use these everywhere instead of
+       hand-rolled cubic-beziers or the anemic built-in easings. */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    --duration-xs: 120ms;
+    --duration-sm: 180ms;
+    --duration-md: 220ms;
+    --duration-lg: 320ms;
   }
   .theme {
     --animate-shine: shine var(--duration) infinite linear;
@@ -190,9 +200,13 @@
   min-height: 200%;
   aspect-ratio: 1;
   background: conic-gradient(from 0deg, transparent 20%, #0070F3 40%, #00C2FF 50%, #0070F3 60%, transparent 80%);
-  animation: beamRotate 4s linear infinite;
   pointer-events: none;
   z-index: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card-beam::before {
+    animation: beamRotate 4s linear infinite;
+  }
 }
 
 /* Border Beam effect — rotating conic-gradient border */
@@ -208,9 +222,13 @@
   width: 300%;
   height: 300%;
   background: conic-gradient(from 0deg, transparent 30%, #0070F3 45%, #00C2FF 55%, transparent 70%);
-  animation: beamRotate 4s linear infinite;
   pointer-events: none;
   z-index: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .border-beam::before {
+    animation: beamRotate 4s linear infinite;
+  }
 }
 .border-beam::after {
   content: '';
@@ -240,7 +258,7 @@
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s ease;
+  transition: transform var(--duration-sm) var(--ease-out);
 }
 .link-underline:hover::after {
   transform: scaleX(1);
@@ -249,10 +267,14 @@
 /* Neon glow for primary CTAs */
 .btn-neon {
   box-shadow: 0 0 20px rgba(0, 112, 243, 0.3), 0 0 60px rgba(0, 112, 243, 0.1);
-  animation: neonPulse 3s ease-in-out infinite;
 }
 .btn-neon:hover {
   box-shadow: 0 0 25px rgba(0, 112, 243, 0.5), 0 0 80px rgba(0, 194, 255, 0.2);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-neon {
+    animation: neonPulse 3s ease-in-out infinite;
+  }
 }
 @keyframes neonPulse {
   0%, 100% { box-shadow: 0 0 20px rgba(0, 112, 243, 0.3), 0 0 60px rgba(0, 112, 243, 0.1); }
@@ -285,6 +307,19 @@
 }
 .btn-gradient-border:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* Respect user motion preference — shorten transitions and neutralize
+   transform-based movement while keeping opacity/color cues for comprehension. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 @theme inline {

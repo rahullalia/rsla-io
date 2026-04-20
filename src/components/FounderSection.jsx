@@ -30,7 +30,7 @@ export default function FounderSection() {
             <div className="max-w-6xl mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-12 md:gap-16 items-start">
                 {/* Photo */}
                 <div className="md:sticky md:top-32 w-full md:w-2/5 flex-shrink-0">
-                    <div className="w-full aspect-[3/4] rounded-[2rem] bg-accent-light overflow-hidden transition-all duration-700 hover:scale-[1.02]">
+                    <div className="w-full aspect-[3/4] rounded-[2rem] bg-accent-light overflow-hidden transition-transform duration-photo-hover ease-out-smooth hover:scale-[1.02]">
                         <img src="/images/rahul.webp" alt="Rahul Lalia" className="w-full h-full object-cover" />
                     </div>
                 </div>

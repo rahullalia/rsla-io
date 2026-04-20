@@ -1,5 +1,10 @@
 import React, { useCallback, useEffect } from "react"
-import { motion, useMotionTemplate, useMotionValue } from "motion/react"
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+} from "motion/react"
 
 import { cn } from "@/lib/utils"
 
@@ -24,6 +29,10 @@ export function MagicCard({
 }: MagicCardProps) {
   const mouseX = useMotionValue(-gradientSize)
   const mouseY = useMotionValue(-gradientSize)
+  // Spring-smoothed position so the radial gradient lags the cursor instead
+  // of snapping to it — adds natural momentum to a decorative effect.
+  const springX = useSpring(mouseX, { stiffness: 220, damping: 28, mass: 0.4 })
+  const springY = useSpring(mouseY, { stiffness: 220, damping: 28, mass: 0.4 })
   const reset = useCallback(() => {
     mouseX.set(-gradientSize)
     mouseY.set(-gradientSize)
@@ -77,7 +86,7 @@ export function MagicCard({
         className="bg-border pointer-events-none absolute inset-0 rounded-[inherit] duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
-          radial-gradient(${gradientSize}px circle at ${mouseX}px ${mouseY}px,
+          radial-gradient(${gradientSize}px circle at ${springX}px ${springY}px,
           ${gradientFrom}, 
           ${gradientTo}, 
           var(--border) 100%
@@ -90,7 +99,7 @@ export function MagicCard({
         className="pointer-events-none absolute inset-px rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
-            radial-gradient(${gradientSize}px circle at ${mouseX}px ${mouseY}px, ${gradientColor}, transparent 100%)
+            radial-gradient(${gradientSize}px circle at ${springX}px ${springY}px, ${gradientColor}, transparent 100%)
           `,
           opacity: gradientOpacity,
         }}

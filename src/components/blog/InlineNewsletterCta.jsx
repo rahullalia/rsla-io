@@ -56,12 +56,12 @@ export default function InlineNewsletterCta() {
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={status === 'submitting'}
                         required
-                        className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-sans text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                        className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-sans text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-[border-color,box-shadow] duration-sm ease-out-smooth"
                     />
                     <button
                         type="submit"
                         disabled={status === 'submitting'}
-                        className="px-5 min-h-[44px] rounded-full bg-accent text-white font-sans font-bold text-sm hover:bg-accent/90 transition-colors disabled:opacity-50 cursor-pointer"
+                        className="px-5 min-h-[44px] rounded-full bg-accent text-white font-sans font-bold text-sm hover:bg-accent/90 active:scale-[0.97] transition-[background-color,transform] duration-sm ease-out-smooth disabled:opacity-50 cursor-pointer"
                     >
                         {status === 'submitting' ? '...' : 'Join'}
                     </button>

@@ -213,10 +213,10 @@ export default function NavbarV3() {
                                                 />
                                             </Link>
                                             <div
-                                                className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200 ${
+                                                className={`absolute top-full left-1/2 pt-3 origin-top transition-[opacity,transform,visibility] duration-sm ease-out-smooth ${
                                                     desktopServicesOpen
-                                                        ? 'visible opacity-100 translate-y-0'
-                                                        : 'invisible opacity-0 translate-y-1'
+                                                        ? 'visible opacity-100 -translate-x-1/2 scale-100'
+                                                        : 'invisible opacity-0 -translate-x-1/2 scale-95'
                                                 }`}
                                                 onKeyDown={handleServicesMenuKeyDown}
                                             >

@@ -75,12 +75,12 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={status === 'submitting'}
                     required
-                    className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-sans text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-all"
+                    className="flex-1 px-4 min-h-[44px] rounded-full bg-surface border border-accent-border text-text font-sans text-sm placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/40 transition-[border-color,box-shadow] duration-sm ease-out-smooth"
                 />
                 <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="px-5 min-h-[44px] rounded-full bg-accent text-white font-sans font-bold text-sm hover:bg-accent/90 transition-colors disabled:opacity-50 cursor-pointer"
+                    className="px-5 min-h-[44px] rounded-full bg-accent text-white font-sans font-bold text-sm hover:bg-accent/90 active:scale-[0.97] transition-[background-color,transform] duration-sm ease-out-smooth disabled:opacity-50 cursor-pointer"
                 >
                     {status === 'submitting' ? '...' : (buttonText || 'Download')}
                 </button>
@@ -274,7 +274,7 @@ export const PortableTextComponents = {
                 <div className="my-10 flex justify-center">
                     <Tag
                         {...linkProps}
-                        className={`inline-flex items-center gap-2 px-8 py-4 rounded-full font-sans font-bold text-base transition-all hover:scale-105 ${
+                        className={`inline-flex items-center gap-2 px-8 py-4 rounded-full font-sans font-bold text-base transition-[transform,background-color,border-color,box-shadow] duration-md ease-out-smooth hover:scale-105 active:scale-[0.97] ${
                             isPrimary
                                 ? 'bg-accent text-white shadow-[0_0_20px_rgba(0,112,243,0.3)]'
                                 : 'bg-transparent text-text border-2 border-accent-border hover:border-accent/40'
@@ -391,10 +391,10 @@ export const PortableTextComponents = {
             const rel = value?.blank ? 'noopener noreferrer' : undefined;
 
             if (href.startsWith('/')) {
-                return <Link to={href} className="text-accent underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-all">{children}</Link>;
+                return <Link to={href} className="text-accent underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-[text-decoration-color] duration-sm ease-out-smooth">{children}</Link>;
             }
             return (
-                <a href={href} target={target} rel={rel} className="text-accent underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-all">
+                <a href={href} target={target} rel={rel} className="text-accent underline decoration-accent/30 hover:decoration-accent underline-offset-4 transition-[text-decoration-color] duration-sm ease-out-smooth">
                     {children}
                 </a>
             );
