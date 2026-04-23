@@ -31,7 +31,11 @@ export default function BlogPreview() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        client.fetch(query).then(setPosts).catch(() => {});
+        let isMounted = true;
+        client.fetch(query).then((data) => {
+            if (isMounted) setPosts(data || []);
+        }).catch(() => {});
+        return () => { isMounted = false; };
     }, []);
 
     useEffect(() => {
@@ -98,7 +102,7 @@ export default function BlogPreview() {
                         <Link
                             key={post._id}
                             to={`/blog/${post.slug.current}`}
-                            className="blog-card group bg-surface rounded-2xl border border-accent-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow duration-md ease-out-smooth"
+                            className="blog-card opacity-0 group bg-surface rounded-2xl border border-accent-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow duration-md ease-out-smooth"
                         >
                             {post.featuredImage?.asset && (
                                 <div className="aspect-[16/10] overflow-hidden">

@@ -25,6 +25,21 @@ const ALLOWED_FORM_IDS = new Set([
     '9130465', // main RSL/A Insider form
 ]);
 
+const rateMap = new Map();
+const RATE_WINDOW_MS = 60_000;
+const RATE_LIMIT = 5;
+
+function isRateLimited(ip) {
+    const now = Date.now();
+    const entry = rateMap.get(ip);
+    if (!entry || now - entry.start > RATE_WINDOW_MS) {
+        rateMap.set(ip, { start: now, count: 1 });
+        return false;
+    }
+    entry.count++;
+    return entry.count > RATE_LIMIT;
+}
+
 function isValidEmail(email) {
     if (!email || typeof email !== 'string') return false;
     if (email.length > 254) return false;
@@ -35,6 +50,12 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') {
         res.setHeader('Allow', 'POST');
         res.status(405).json({ error: 'Method not allowed' });
+        return;
+    }
+
+    const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 'unknown';
+    if (isRateLimited(ip)) {
+        res.status(429).json({ error: 'Too many requests. Please try again later.' });
         return;
     }
 

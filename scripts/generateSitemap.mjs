@@ -90,5 +90,6 @@ ${urls
 }
 
 generateSitemap().catch((err) => {
-  console.warn('Sitemap generation skipped (non-fatal):', err.message || err);
+  console.error('ERROR: Sitemap generation FAILED:', err.message || err);
+  process.exitCode = 1;
 });

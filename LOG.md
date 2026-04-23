@@ -3,7 +3,7 @@
 ## 2026-04-22 - Code Audit & Critical Fixes
 
 ### What happened
-Full codebase audit across all layers: config, API routes, components, pages, hooks, Sanity queries, build scripts, and Tailwind config.
+Full codebase audit across all layers: config, API routes, components, pages, hooks, Sanity queries, build scripts, and Tailwind config. 30 issues identified, 12 fixed so far.
 
 ### Fixed (deployed)
 
@@ -12,24 +12,15 @@ Full codebase audit across all layers: config, API routes, components, pages, ho
 | 1 | Prerender HTML flash (unstyled plain text visible before React renders) | Critical | `index.html` | Added inline `<style>#prerender{display:none}</style>` in `<head>` with `<noscript>` fallback |
 | 2 | CSP blocked Meta Pixel (script, img, connect-src all missing Facebook domains) | Critical | `vercel.json:23` | Added `connect.facebook.net` to `script-src` and `connect-src`, `www.facebook.com` to `img-src` |
 | 3 | `lazyRetry` infinite reload loop (stale tab after deploy = infinite page reloads) | Critical | `src/App.jsx:17-24` | Added `sessionStorage` guard; second failure falls back to NotFound page instead of looping |
-
-### Needs input from Rahul
-
-| # | Issue | Severity | What's needed |
-|---|-------|----------|---------------|
-| 4 | Sentry DSN is empty - zero error monitoring in production | Critical | Sentry DSN string. Check if it's set in Vercel env vars or grab from sentry.io dashboard |
+| 4 | Sentry DSN empty in `.env.local` | Critical | `.env.local` | Confirmed DSN is set in Vercel env vars; works in production, only affects local dev |
+| 5 | No rate limiting on `subscribe.mjs` (Kit subscriber spam risk) | High | `api/subscribe.mjs` | Added in-memory IP-based rate limiter (5 req/min per IP) |
+| 6 | No rate limiting on `llm/[slug].mjs` (serverless cost risk) | High | `api/llm/[slug].mjs` | Added in-memory IP-based rate limiter (30 req/min per IP) + GET-only method check |
+| 7 | Build scripts silently swallow failures | High | `scripts/prerender.mjs`, `generateSitemap.mjs`, `generateRssFeed.mjs` | Changed from `console.warn` to `console.error` + set `process.exitCode = 1` so failed builds are visible |
+| 8 | Sanity fetches missing isMounted guards | High | `BlogPreview.jsx`, `LeadMagnet.jsx` | Added isMounted guards and .catch() error handling |
+| 9 | GSAP opacity-0 flash on 5 components | High | `FounderSection`, `BlogPreview`, `StatsSection`, `Testimonials`, `CtaWithGlow` | Added `opacity-0` CSS class to all GSAP-animated elements |
+| 10 | Seo.jsx stale meta tags persist across route changes | High | `src/components/Seo.jsx` | Full cleanup of all meta tags on unmount; removed unused `JSON_LD_ID` variable |
 
 ### Identified - not yet fixed
-
-#### High priority
-| # | Issue | Severity | File |
-|---|-------|----------|------|
-| 5 | No rate limiting on `subscribe.mjs` (Kit subscriber spam risk, costs money) | High | `api/subscribe.mjs` |
-| 6 | No rate limiting on `llm/[slug].mjs` (serverless cost risk) | High | `api/llm/[slug].mjs` |
-| 7 | Build scripts silently swallow failures (Sanity outage = broken deploy with no alert) | High | `scripts/prerender.mjs:1179`, `generateSitemap.mjs:92`, `generateRssFeed.mjs:81` |
-| 8 | All Sanity fetches lack AbortController (wasted requests, state-on-unmounted errors) | High | Multiple pages |
-| 9 | Multiple GSAP opacity-0 flash issues (elements missing `opacity-0` CSS class) | High | `FounderSection`, `BlogPreview`, `CtaWithGlow`, `StatsSection`, `Testimonials` |
-| 10 | Seo.jsx stale meta tags persist across route changes | High | `src/components/Seo.jsx` |
 
 #### Medium priority
 | # | Issue | Severity | File |
@@ -51,10 +42,8 @@ Full codebase audit across all layers: config, API routes, components, pages, ho
 | 21 | `rollupOptions.external: []` is a no-op | `vite.config.js:19` |
 | 22 | `firstName` not sanitized in subscribe endpoint | `api/subscribe.mjs:81` |
 | 23 | Tags array accepts arbitrary values (no allowlist) | `api/subscribe.mjs:84` |
-| 24 | No HTTP method check on LLM endpoint | `api/llm/[slug].mjs:156` |
-| 25 | Unused Tailwind values (accent-wash, font-editorial, font-drama, marquee-scroll, marquee-reverse) | `tailwind.config.js` |
-| 26 | Lead magnet pages missing from prerender/sitemap | `scripts/` |
-| 27 | `fixFavicon.mjs` destructively overwrites source SVG | `scripts/fixFavicon.mjs:27` |
-| 28 | 6 files with `console.error` left in production code | Various |
-| 29 | Blog debounce timer ref not cleared on unmount | `Blog.jsx` |
-| 30 | `JSON_LD_ID` unused variable in Seo.jsx | `src/components/Seo.jsx` |
+| 24 | Unused Tailwind values (accent-wash, font-editorial, font-drama, marquee-scroll, marquee-reverse) | `tailwind.config.js` |
+| 25 | Lead magnet pages missing from prerender/sitemap | `scripts/` |
+| 26 | `fixFavicon.mjs` destructively overwrites source SVG | `scripts/fixFavicon.mjs:27` |
+| 27 | 6 files with `console.error` left in production code | Various |
+| 28 | Blog debounce timer ref not cleared on unmount | `Blog.jsx` |

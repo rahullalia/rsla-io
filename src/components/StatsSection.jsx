@@ -49,7 +49,7 @@ export default function StatsSection() {
         >
             <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 {stats.map((stat) => (
-                    <div key={stat.label} className="stat-item">
+                    <div key={stat.label} className="stat-item opacity-0">
                         <div className="font-sans font-bold text-4xl md:text-5xl tracking-tight text-text">
                             {stat.prefix || ''}
                             <NumberTicker

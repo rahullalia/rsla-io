@@ -20,14 +20,22 @@ export default function LeadMagnet() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    let isMounted = true;
     client.fetch(leadMagnetBySlugQuery, { slug }).then((data) => {
+      if (!isMounted) return;
       if (!data) {
         setNotFound(true);
       } else {
         setMagnet(data);
       }
       setLoading(false);
+    }).catch(() => {
+      if (isMounted) {
+        setNotFound(true);
+        setLoading(false);
+      }
     });
+    return () => { isMounted = false; };
   }, [slug]);
 
   const handleSubmit = async (e) => {

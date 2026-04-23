@@ -1177,6 +1177,7 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.warn('Pre-render skipped (non-fatal):', err.message || err);
-  console.warn('Site will work as a normal SPA without pre-rendered HTML.');
+  console.error('ERROR: Pre-render FAILED:', err.message || err);
+  console.error('Site will work as a normal SPA but has NO pre-rendered HTML for SEO.');
+  process.exitCode = 1;
 });

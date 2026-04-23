@@ -37,22 +37,22 @@ export default function FounderSection() {
 
                 {/* Text */}
                 <div className="flex-1">
-                    <h2 className="founder-text font-sans font-extrabold text-2xl md:text-4xl text-text tracking-tight mb-8">
+                    <h2 className="founder-text opacity-0 font-sans font-extrabold text-2xl md:text-4xl text-text tracking-tight mb-8">
                         Hi. I'm Rahul.
                     </h2>
                     <div className="space-y-6 font-sans text-textMuted text-lg leading-relaxed">
-                        <p className="founder-text">
+                        <p className="founder-text opacity-0">
                             I have spent the better part of five years in the trenches of marketing, automation, and business infrastructure. Started in analytics. Got laid off. Built an agency from nothing. And along the way, I watched founders with real talent suffocate under work that never should have touched their hands.
                         </p>
-                        <p className="founder-text">
+                        <p className="founder-text opacity-0">
                             That became the only question worth answering: how do you build systems that actually run a business, not just look good in a demo?
                         </p>
-                        <p className="founder-text">
+                        <p className="founder-text opacity-0">
                             I put everything out there. The strategies, the tools, the exact workflows. You can learn all of it from my content. But knowing how it works and actually building it so it holds under pressure and scales without breaking? That demands precision. That is what RSL/A exists to do.
                         </p>
                     </div>
 
-                    <div className="founder-text mt-10 border-t border-accent-border pt-8">
+                    <div className="founder-text opacity-0 mt-10 border-t border-accent-border pt-8">
                         <p className="font-sans font-bold text-xl text-text mb-1">Rahul Lalia</p>
                         <p className="font-sans text-sm uppercase tracking-widest text-textMuted">Founder, RSL/A</p>
                     </div>

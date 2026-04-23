@@ -54,7 +54,7 @@ function Avatar({ name }) {
 function TestimonialCard({ name, role, body, featured = false, isHiddenOnMobile = false }) {
     return (
         <div
-            className={`testimonial-card bg-surface rounded-2xl p-6 sm:p-8 border border-accent-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow ${featured ? 'lg:row-span-2' : ''
+            className={`testimonial-card opacity-0 bg-surface rounded-2xl p-6 sm:p-8 border border-accent-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] hover:shadow-lg transition-shadow ${featured ? 'lg:row-span-2' : ''
                 } ${isHiddenOnMobile ? 'hidden sm:block' : ''}`}
         >
             <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">

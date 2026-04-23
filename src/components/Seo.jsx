@@ -20,26 +20,27 @@ function setOrCreateLink(rel, href) {
     el.setAttribute('href', href);
 }
 
-const JSON_LD_ID = 'seo-jsonld';
+function removeMeta(attr, attrValue) {
+    const el = document.querySelector(`meta[${attr}="${attrValue}"]`);
+    if (el) el.remove();
+}
 
 export default function Seo({ title, description, canonical, noIndex, ogImage, ogType, jsonLd, keywords }) {
     useEffect(() => {
-        // Title
         if (title) {
             document.title = title;
         }
 
-        // Description
         if (description) {
             setOrCreateMeta('name', 'description', description);
         }
 
-        // Keywords
         if (keywords) {
             setOrCreateMeta('name', 'keywords', keywords);
+        } else {
+            removeMeta('name', 'keywords');
         }
 
-        // OG tags
         if (title) {
             setOrCreateMeta('property', 'og:title', title);
         }
@@ -56,7 +57,6 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, o
         setOrCreateMeta('name', 'twitter:site', '@rahul_lalia');
         setOrCreateMeta('name', 'twitter:image', resolvedOgImage);
 
-        // Twitter tags
         if (title) {
             setOrCreateMeta('name', 'twitter:title', title);
         }
@@ -64,27 +64,20 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, o
             setOrCreateMeta('name', 'twitter:description', description);
         }
 
-        // Canonical link
         if (canonical) {
             setOrCreateLink('canonical', canonical);
         }
 
-        // Robots
         if (noIndex) {
             setOrCreateMeta('name', 'robots', 'noindex, follow');
         } else {
-            const robotsMeta = document.querySelector('meta[name="robots"]');
-            if (robotsMeta) {
-                robotsMeta.remove();
-            }
+            removeMeta('name', 'robots');
         }
 
-        // JSON-LD structured data (supports single object or array of objects)
         if (jsonLd) {
             const schemas = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
-            // Remove any previous JSON-LD blocks
-            document.querySelectorAll(`script[data-seo-jsonld]`).forEach(el => el.remove());
-            schemas.forEach((schema, i) => {
+            document.querySelectorAll('script[data-seo-jsonld]').forEach(el => el.remove());
+            schemas.forEach((schema) => {
                 const script = document.createElement('script');
                 script.setAttribute('data-seo-jsonld', '');
                 script.type = 'application/ld+json';
@@ -93,12 +86,21 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, o
             });
         }
 
-        // Cleanup on unmount
         return () => {
+            removeMeta('name', 'description');
+            removeMeta('name', 'keywords');
+            removeMeta('name', 'robots');
+            removeMeta('property', 'og:title');
+            removeMeta('property', 'og:description');
+            removeMeta('property', 'og:url');
+            removeMeta('property', 'og:type');
+            removeMeta('property', 'og:image');
+            removeMeta('name', 'twitter:card');
+            removeMeta('name', 'twitter:title');
+            removeMeta('name', 'twitter:description');
+            removeMeta('name', 'twitter:image');
             const canonicalEl = document.querySelector('link[rel="canonical"]');
-            if (canonicalEl) {
-                canonicalEl.remove();
-            }
+            if (canonicalEl) canonicalEl.remove();
             document.querySelectorAll('script[data-seo-jsonld]').forEach(el => el.remove());
         };
     }, [title, description, canonical, noIndex, ogImage, ogType, jsonLd, keywords]);

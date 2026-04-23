@@ -153,7 +153,32 @@ function buildCaseStudyMarkdown(data) {
   return parts.join('\n').trim();
 }
 
+const rateMap = new Map();
+const RATE_WINDOW_MS = 60_000;
+const RATE_LIMIT = 30;
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const entry = rateMap.get(ip);
+  if (!entry || now - entry.start > RATE_WINDOW_MS) {
+    rateMap.set(ip, { start: now, count: 1 });
+    return false;
+  }
+  entry.count++;
+  return entry.count > RATE_LIMIT;
+}
+
 export default async function handler(req, res) {
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
+    return res.status(405).send('Method not allowed.');
+  }
+
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 'unknown';
+  if (isRateLimited(ip)) {
+    return res.status(429).send('Too many requests. Please try again later.');
+  }
+
   const { slug } = req.query;
 
   if (!slug || !/^[a-z0-9][a-z0-9-]*$/.test(slug) || slug.length > 200) {

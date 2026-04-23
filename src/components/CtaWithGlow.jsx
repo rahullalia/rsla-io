@@ -69,7 +69,7 @@ export default function CtaWithGlow({
                 <div className="w-[600px] h-[400px] rounded-full bg-accent/8 blur-[120px]" />
             </div>
 
-            <div className="cta-glow-content relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 text-center px-6 sm:gap-8">
+            <div className="cta-glow-content [&>*]:opacity-0 relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 text-center px-6 sm:gap-8">
                 <h2 className="font-sans font-extrabold text-2xl md:text-4xl tracking-tight text-white">
                     {title}
                 </h2>
