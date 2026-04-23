@@ -100,7 +100,7 @@ export default async function handler(req, res) {
         email,
     };
     if (firstName && typeof firstName === 'string') {
-        payload.first_name = firstName.slice(0, 100);
+        payload.first_name = firstName.replace(/<[^>]*>/g, '').slice(0, 100);
     }
     if (Array.isArray(tags) && tags.length > 0 && tags.length <= 10) {
         payload.tags = tags.filter((t) => typeof t === 'string' || typeof t === 'number');

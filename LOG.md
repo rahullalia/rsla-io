@@ -35,10 +35,11 @@ Full codebase audit across all layers: config, API routes, components, pages, ho
 | 24 | `JSON_LD_ID` unused variable in Seo.jsx | Low | Removed |
 | 25 | Blog debounce timer ref not cleared on unmount | Low | Added cleanup `useEffect` |
 
-### Not fixed (intentional / low risk)
+| 26 | `firstName` not sanitized in subscribe endpoint | Low | Strip HTML tags before sending to Kit |
+| 27 | Lead magnet pages missing from prerender | Low | Added lead magnet fetch + pre-rendering to `prerender.mjs` (2 pages); intentionally excluded from sitemap since they're `noIndex` |
+
+### Not fixed (intentional)
 
 | # | Issue | Notes |
 |---|-------|-------|
-| 26 | Dual analytics (GA4 unconditional + GTM behind consent) | Intentional per commit `9d3883b` |
-| 27 | `firstName` not sanitized in subscribe endpoint | Low risk; Kit escapes on their end |
-| 28 | Lead magnet pages missing from prerender/sitemap | Pages are `noIndex`; exclusion is intentional |
+| 28 | Dual analytics (GA4 unconditional + GTM behind consent) | Intentional per Rahul's decision; GTM should also load unconditionally |
