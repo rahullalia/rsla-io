@@ -42,6 +42,11 @@ export default function Blog() {
         setSearchInput(searchQuery);
     }, [searchQuery]);
 
+    // Clean up debounce timer on unmount
+    useEffect(() => {
+        return () => clearTimeout(debounceRef.current);
+    }, []);
+
     // Update URL params helper
     const updateParams = useCallback((updates) => {
         setSearchParams((prev) => {

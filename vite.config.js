@@ -15,15 +15,13 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      // Exclude sanity.config.ts (only used for CLI schema deploy, not the website)
-      external: [],
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
-          gsap: ['gsap', '@gsap/react'],
+          gsap: ['gsap'],
           sanity: ['@sanity/client', '@sanity/image-url', '@portabletext/react'],
           router: ['react-router-dom'],
-          motion: ['motion'],
+          motion: ['motion', 'motion/react'],
           sentry: ['@sentry/react'],
         },
       },

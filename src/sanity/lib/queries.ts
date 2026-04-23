@@ -2,128 +2,7 @@
 const groq = (strings: TemplateStringsArray, ...values: unknown[]): string =>
   String.raw({ raw: strings }, ...values);
 
-// Get all blog posts (with pagination support)
-// Only shows posts with publishedAt set (drafts have no publishedAt)
-export const blogPostsQuery = groq`
-  *[_type == "blogPost" && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) [$start...$end] {
-    _id,
-    title,
-    slug,
-    excerpt,
-    publishedAt,
-    featuredImage {
-      asset->,
-      alt
-    },
-    author->{
-      name,
-      slug,
-      role,
-      image {
-        asset->,
-        alt
-      }
-    },
-    categories[]->{
-      name,
-      slug
-    }
-  }
-`;
-
-// Get single blog post by slug
-export const blogPostBySlugQuery = groq`
-  *[_type == "blogPost" && slug.current == $slug][0] {
-    _id,
-    title,
-    slug,
-    excerpt,
-    publishedAt,
-    featuredImage {
-      asset->,
-      alt
-    },
-    author->{
-      name,
-      slug,
-      role,
-      image {
-        asset->,
-        alt
-      },
-      bio
-    },
-    categories[]->{
-      name,
-      slug
-    },
-    body,
-    seo,
-    relatedCaseStudies[]->{
-      title,
-      "slug": slug.current,
-      tag,
-      description,
-      metrics
-    }
-  }
-`;
-
-// Get all blog post slugs (for static generation)
-// Only published posts get static pages
-export const blogPostSlugsQuery = groq`
-  *[_type == "blogPost" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()][].slug.current
-`;
-
-// Get total count of published blog posts
-export const blogPostsCountQuery = groq`
-  count(*[_type == "blogPost" && defined(publishedAt) && publishedAt <= now()])
-`;
-
-// Get recent blog posts (for sidebar or related posts)
-export const recentBlogPostsQuery = groq`
-  *[_type == "blogPost" && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) [0...5] {
-    _id,
-    title,
-    slug,
-    publishedAt,
-    featuredImage {
-      asset->,
-      alt
-    }
-  }
-`;
-
-// Get featured case studies for homepage (ordered by priority)
-export const featuredCaseStudiesQuery = groq`
-  *[_type == "caseStudy" && featured == true] | order(priority asc) [0...3] {
-    title,
-    "slug": slug.current,
-    tag,
-    description,
-    metrics,
-    featured,
-    priority
-  }
-`;
-
-// Get all case studies (ordered by priority)
-export const caseStudiesQuery = groq`
-  *[_type == "caseStudy"] | order(priority asc) {
-    title,
-    "slug": slug.current,
-    tag,
-    description,
-    metrics,
-    featured,
-    category,
-    priority,
-    annualSavings,
-    publishedAt
-  }
-`;
-
-// Get single case study by slug
+// Get single case study by slug (V1 fallback for old slugs)
 export const caseStudyBySlugQuery = groq`
   *[_type == "caseStudy" && slug.current == $slug][0] {
     title,
@@ -218,26 +97,6 @@ export const featuredCaseStudyFallbackQuery = groq`
   }
 `;
 
-// Get related V2 blog posts for a case study page (match by category keywords)
-// Pass $categoryKeywords as an array of lowercase keyword strings derived from the case study category
-export const relatedBlogPostsForCaseStudyQuery = groq`
-  *[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && count((categories[]->slug.current)[@ in $categoryKeywords]) > 0] | order(publishedAt desc) [0...2] {
-    _id,
-    title,
-    slug,
-    excerpt,
-    publishedAt,
-    featuredImage {
-      asset->,
-      alt
-    },
-    categories[]->{
-      name,
-      slug
-    }
-  }
-`;
-
 // Get related V2 blog posts by category (for sidebar, excluding current post)
 export const relatedBlogPostsByCategoryQuery = groq`
   *[_type == "blogPostV2" && status == "published" && defined(publishedAt) && publishedAt <= now() && _id != $currentId && count((categories[]->slug.current)[@ in $categorySlugs]) > 0] | order(publishedAt desc) [0...5] {
@@ -248,44 +107,6 @@ export const relatedBlogPostsByCategoryQuery = groq`
     featuredImage {
       asset->,
       alt
-    }
-  }
-`;
-
-// Get all case study slugs (for sitemap/static generation)
-export const caseStudySlugsQuery = groq`
-  *[_type == "caseStudy" && defined(slug.current)][].slug.current
-`;
-
-// ===== V2 QUERIES =====
-
-// Get all V2 blog posts (with pagination support)
-export const blogPostsV2Query = groq`
-  *[_type == "blogPostV2" && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) [$start...$end] {
-    _id,
-    _type,
-    title,
-    slug,
-    excerpt,
-    pullQuote,
-    readingTime,
-    publishedAt,
-    featuredImage {
-      asset->,
-      alt
-    },
-    author->{
-      name,
-      slug,
-      role,
-      image {
-        asset->,
-        alt
-      }
-    },
-    categories[]->{
-      name,
-      slug
     }
   }
 `;
@@ -357,11 +178,6 @@ export const blogPostBySlugV2Query = groq`
       }
     }
   }
-`;
-
-// Get total count of published V2 blog posts
-export const blogPostsCountV2Query = groq`
-  count(*[_type == "blogPostV2" && defined(publishedAt) && publishedAt <= now()])
 `;
 
 // Get all published V2 blog posts (primary listing query)
@@ -638,14 +454,3 @@ export const leadMagnetBySlugQuery = groq`
   }
 `;
 
-// Get all published lead magnet slugs (for prerender + sitemap)
-export const leadMagnetSlugsQuery = groq`
-  *[_type == "leadMagnet" && status == "published" && defined(slug.current)] {
-    "slug": slug.current,
-    title,
-    description,
-    seoTitle,
-    seoDescription,
-    tagline
-  }
-`;

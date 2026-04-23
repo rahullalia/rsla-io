@@ -1,5 +1,5 @@
 {
-  "name": "temp-vite",
+  "name": "rsla-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -17,7 +17,6 @@
     "@sanity/client": "^7.15.0",
     "@sanity/image-url": "^2.0.3",
     "@sentry/react": "^10.40.0",
-    "@types/canvas-confetti": "^1.9.0",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -34,7 +33,7 @@
     "@eslint/js": "^9.39.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@types/react-router-dom": "^5.3.3",
+    "@types/canvas-confetti": "^1.9.0",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.24",
     "eslint": "^9.39.1",

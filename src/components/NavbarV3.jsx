@@ -66,6 +66,20 @@ export default function NavbarV3() {
         setDesktopServicesOpen(false);
     }, [location.pathname]);
 
+    // Lock body scroll and handle Escape when mobile menu is open
+    useEffect(() => {
+        if (!mobileOpen) return;
+        document.body.style.overflow = 'hidden';
+        const onKey = (e) => {
+            if (e.key === 'Escape') setMobileOpen(false);
+        };
+        document.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', onKey);
+        };
+    }, [mobileOpen]);
+
     // After the menu opens, move focus to the requested item (if any)
     useEffect(() => {
         if (!desktopServicesOpen || !pendingFocusRef.current) return;

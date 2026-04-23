@@ -17,8 +17,6 @@ export default {
         aurora: "aurora 60s linear infinite",
         marquee: "marquee var(--duration) infinite linear",
         "marquee-vertical": "marquee-vertical var(--duration) infinite linear",
-        "marquee-scroll": "marquee-scroll var(--marquee-duration) linear infinite",
-        "marquee-reverse": "marquee-scroll var(--marquee-duration) linear infinite reverse",
         shine: "shine var(--duration) infinite linear",
       },
       // Motion tokens — Emil Kowalski's curves and bracket durations.
@@ -54,10 +52,6 @@ export default {
           from: { transform: "translateY(0)" },
           to: { transform: "translateY(calc(-100% - var(--gap)))" },
         },
-        "marquee-scroll": {
-          "0%": { transform: "translate3d(0, 0, 0)" },
-          "100%": { transform: "translate3d(-50%, 0, 0)" },
-        },
         shine: {
           "0%": { backgroundPosition: "0% 0%" },
           "50%": { backgroundPosition: "100% 100%" },
@@ -77,16 +71,11 @@ export default {
         coral: "#FF6B6B",             // soft coral (errors only)
 
         // Accent opacity variants
-        "accent-wash": "rgba(0,112,243,0.04)",
         "accent-light": "rgba(0,112,243,0.05)",
         "accent-medium": "rgba(0,112,243,0.10)",
         "accent-border": "rgba(0,112,243,0.08)",
         "accent-border-strong": "rgba(0,112,243,0.15)",
 
-        // Backward-compat aliases (prevents existing pages from breaking)
-        dark: "#0F172A",              // was #111827, now matches text
-        primary: "#FFFFFF",           // was #FFFFFF, unchanged
-        sand: "#F8FAFC",              // was #F9FAFB, now matches background
 
         // shadcn CSS variable tokens (for Magic UI components)
         foreground: "hsl(var(--foreground))",
@@ -117,9 +106,6 @@ export default {
       fontFamily: {
         sans: ["Satoshi", "sans-serif"],
         cormorant: ["Cormorant", '"Cormorant Garamond"', "serif"],
-        // Decorative aliases — all resolve to Cormorant
-        editorial: ["Cormorant", '"Cormorant Garamond"', "serif"],
-        drama: ["Cormorant", '"Cormorant Garamond"', "serif"],
         // System monospace stack — code blocks only
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
