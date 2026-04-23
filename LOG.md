@@ -37,9 +37,9 @@ Full codebase audit across all layers: config, API routes, components, pages, ho
 
 | 26 | `firstName` not sanitized in subscribe endpoint | Low | Strip HTML tags before sending to Kit |
 | 27 | Lead magnet pages missing from prerender | Low | Added lead magnet fetch + pre-rendering to `prerender.mjs` (2 pages); intentionally excluded from sitemap since they're `noIndex` |
+| 28 | Dual analytics (GA4 + Meta Pixel standalone + GTM) | Medium | Removed standalone GA4 and Meta Pixel from `index.html` (were double-tracking). Consolidated to GTM-only, loaded unconditionally. Cookie banner kept as transparency measure, no longer gates tag loading |
 
-### Not fixed (intentional)
-
-| # | Issue | Notes |
-|---|-------|-------|
-| 28 | Dual analytics (GA4 unconditional + GTM behind consent) | Intentional per Rahul's decision; GTM should also load unconditionally |
+### Decisions made
+- **All tracking loads unconditionally.** GTM manages GA4 and Meta Pixel. No consent gating. US-based B2B company; CCPA requires opt-out not opt-in. If EU traffic grows, configure Google Consent Mode v2 in GTM (no code change needed).
+- **V1 Sanity schemas are dead.** All 8 V1 case studies have matching V2 entries. V1 fallback code removed. V1 documents can be deleted from Sanity when ready.
+- **Cookie banner is transparency-only.** Accept/Decline stored in localStorage but does not control any tag loading.

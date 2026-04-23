@@ -16,7 +16,7 @@ src/
     Seo.jsx               # Per-page SEO (title, description, OG, Twitter, canonical, robots)
     NavbarV2.jsx           # Tubelight navbar (desktop top pill + mobile bottom pill, GSAP lamp)
     FooterV2.jsx           # Light theme 5-col footer with Kit newsletter + Solutions column
-    CookieConsent.jsx      # GDPR cookie banner (gates GTM loading)
+    CookieConsent.jsx      # Cookie transparency banner (does not gate tracking)
     blog/PortableTextRenderer.jsx  # Sanity rich text renderer
   pages/
     Home.jsx               # / (13 lazy-loaded sections, 3 Suspense groups)
@@ -74,8 +74,8 @@ docs/
 ## Sanity CMS
 
 - **Project ID:** `yz25oyux`, **Dataset:** `production`, **API Version:** `2025-03-01`
-- **Active schemas:** blogPostV2, caseStudyV2, industryPage, author, category, blogGenerationJob
-- **Legacy schemas:** blogPost, caseStudy (V1, not queried by website)
+- **Active schemas:** blogPostV2, caseStudyV2, leadMagnet, industryPage, author, category, blogGenerationJob
+- **Legacy schemas:** blogPost, caseStudy (V1, fully migrated to V2, no longer queried)
 - **Content:** 60+ blog posts, 11 case studies, 12 industry pages, 19 categories, 1 author
 
 ## SEO
@@ -86,17 +86,14 @@ docs/
 - Pre-rendered nav on all pages for internal link discovery
 - Related posts fallback: category-matched posts when `relatedPosts` is empty
 - IndexNow key: `42f4e2d222a8441d91b82a1d06d0db72`
-- 73 total pre-rendered pages: 15 static, 2 listings, 33 blog, 11 case studies, 12 industry
+- 68+ pre-rendered pages: 14 static, 2 listings, 34 blog, 11 case studies, 2 lead magnets (+ industry pages)
 
 ## Typography
 
 | Font | CSS Class | Role |
 |---|---|---|
-| Satoshi | `.font-sans` | Headlines, H1 to H3, logo wordmark |
-| Inter | `.font-body` | Body copy, long-form, UI elements |
-| Space Grotesk | `.font-mono` | Tech labels, tags, uppercase badges |
-| Playfair Display | `.font-drama` | Single accent word per section (italic, max 2 words) |
-| Caveat | `.font-quote` | Blockquotes and pull quotes |
+| Satoshi | `.font-sans` | All UI text, headlines, body copy |
+| Cormorant | `.font-cormorant` | Decorative italic only (pull quotes, captions) |
 
 ## Color Palette (Blue-Gray Theme)
 
@@ -115,7 +112,7 @@ docs/
 
 ## Error Handling
 
-- `lazyRetry()` wraps all lazy imports (3 retries, 1.5s backoff, then page reload)
+- `lazyRetry()` wraps lazy imports (1 reload attempt via sessionStorage guard, then falls back to NotFound)
 - `ResilientErrorBoundary`: frequency-based crash detection (3+ errors in 3s = genuine crash). Silent auto-recovery for transient errors, no `window.location.reload()`
 
 ## Industry Pages (pSEO)
