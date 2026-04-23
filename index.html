@@ -13,6 +13,8 @@
   <link rel="preload" href="/fonts/Satoshi-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/Satoshi-Bold.woff2" as="font" type="font/woff2" crossorigin />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>#prerender{display:none}</style>
+  <noscript><style>#prerender{display:block}</style></noscript>
   <title>RSL/A | The trusted AI growth partner for B2B companies</title>
   <meta name="description" content="We build your website, get it found on Google and ChatGPT, and automate what's slowing you down. Custom websites and AI systems for fast-moving B2B companies." />
   <meta name="keywords" content="AI growth partner, custom B2B website, AI website agency, SEO for B2B, AI automation, ChatGPT visibility" />
@@ -73,6 +75,11 @@
     or failed to load, the prerender content would already be gone, leaving
     a blank page. Leaving it in place means crawlers, slow networks, and
     bundle failures all see meaningful content as graceful fallback.
+
+    The inline <style> below hides the prerender div from sighted users to
+    prevent a flash of unstyled HTML. Crawlers and screen readers still see
+    the content (it's in the DOM, just visually hidden). If JS fails entirely,
+    the noscript block re-shows it so there's always a fallback.
   -->
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
