@@ -7,6 +7,22 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+function usePauseOffscreen(containerRef, tlRef) {
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el || !tlRef.current) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) tlRef.current?.play();
+                else tlRef.current?.pause();
+            },
+            { threshold: 0 }
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, [containerRef, tlRef]);
+}
 import {
     Search,
     Users,
@@ -95,6 +111,8 @@ function WebsitesBackground() {
     const containerRef = useRef(null);
     const cursorRef = useRef(null);
     const pulseRef = useRef(null);
+    const tlRef = useRef(null);
+    usePauseOffscreen(containerRef, tlRef);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -113,7 +131,8 @@ function WebsitesBackground() {
             gsap.set(cursorRef.current, { x: -10, y: 210, opacity: 0 });
             gsap.set(pulseRef.current, { x: 0, y: 0, scale: 0, opacity: 0 });
 
-            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4, paused: true });
+            tlRef.current = tl;
 
             // Cursor enters
             tl.to(cursorRef.current, { opacity: 1, duration: 0.2 }, 0);
@@ -335,6 +354,8 @@ function SearchVisibilityBackground() {
     const cursorRef = useRef(null);
     const cardRef = useRef(null);
     const dividerRef = useRef(null);
+    const tlRef = useRef(null);
+    usePauseOffscreen(containerRef, tlRef);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -362,7 +383,8 @@ function SearchVisibilityBackground() {
             gsap.set(dividerRef.current, { opacity: 0 });
             setBuriedBadge();
 
-            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5, paused: true });
+            tlRef.current = tl;
 
             // Phase 1: SERP populates
             tl.to('.serp-row', {
@@ -546,6 +568,8 @@ const automationNodes = [
 function AutomationsBackground() {
     const containerRef = useRef(null);
     const packetRef = useRef(null);
+    const tlRef = useRef(null);
+    usePauseOffscreen(containerRef, tlRef);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -558,7 +582,8 @@ function AutomationsBackground() {
                 y: -10,
             });
 
-            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5, paused: true });
+            tlRef.current = tl;
 
             // Phase 1: nodes fade in stacked
             tl.to('.auto-node', {
@@ -695,6 +720,8 @@ function CRMBackground() {
     const containerRef = useRef(null);
     const cardRef = useRef(null);
     const revenueRef = useRef(null);
+    const tlRef = useRef(null);
+    usePauseOffscreen(containerRef, tlRef);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -724,7 +751,8 @@ function CRMBackground() {
             gsap.set(cardRef.current, { x: 0, opacity: 0 });
             setRevenue(0);
 
-            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4, paused: true });
+            tlRef.current = tl;
 
             // Reset revenue at the start of each iteration
             tl.call(() => {
@@ -878,6 +906,8 @@ function CustomDevBackground() {
     const containerRef = useRef(null);
     const barRef = useRef(null);
     const statusRef = useRef(null);
+    const tlRef = useRef(null);
+    usePauseOffscreen(containerRef, tlRef);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -886,7 +916,8 @@ function CustomDevBackground() {
             gsap.set(barRef.current, { scaleX: 0, transformOrigin: 'left' });
             if (statusRef.current) statusRef.current.textContent = 'init...';
 
-            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4, paused: true });
+            tlRef.current = tl;
 
             // Phase 1: code lines fade in top-to-bottom
             tl.to('.code-line', {

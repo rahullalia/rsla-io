@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PortableText } from '@portabletext/react';
 import { client } from '../sanity/lib/client';
-import { caseStudyBySlugQuery, caseStudyBySlugV2Query, relatedCaseStudiesQuery } from '../sanity/lib/queries';
+import { caseStudyBySlugV2Query, relatedCaseStudiesQuery } from '../sanity/lib/queries';
 import { urlForImage } from '../sanity/lib/image';
 import { PortableTextComponents } from '../components/blog/PortableTextRenderer';
 import Seo from '../components/Seo';
@@ -85,11 +85,7 @@ export default function WorkInner() {
         const fetchData = async () => {
             setLoading(true);
             try {
-                // Try V2 first, fall back to V1
-                let fetchedStudy = await client.fetch(caseStudyBySlugV2Query, { slug });
-                if (!fetchedStudy) {
-                    fetchedStudy = await client.fetch(caseStudyBySlugQuery, { slug });
-                }
+                const fetchedStudy = await client.fetch(caseStudyBySlugV2Query, { slug });
 
                 if (!fetchedStudy) {
                     if (isMounted) {

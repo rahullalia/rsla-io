@@ -2,67 +2,6 @@
 const groq = (strings: TemplateStringsArray, ...values: unknown[]): string =>
   String.raw({ raw: strings }, ...values);
 
-// Get single case study by slug (V1 fallback for old slugs)
-export const caseStudyBySlugQuery = groq`
-  *[_type == "caseStudy" && slug.current == $slug][0] {
-    title,
-    "slug": slug.current,
-    tag,
-    description,
-    metrics,
-    featured,
-    category,
-    priority,
-    annualSavings,
-    publishedAt,
-    content,
-    seo {
-      metaTitle,
-      metaDescription,
-      keywords,
-      socialImage {
-        asset->
-      }
-    },
-    clientName,
-    industry,
-    timeframe,
-    faqSchema,
-    tldr,
-    keyTakeaways,
-    problemStatement,
-    solutionApproach,
-    resultsOutcome,
-    servicesUsed,
-    featuredImage {
-      asset->,
-      alt
-    },
-    relatedCases[]->{
-      title,
-      "slug": slug.current,
-      tag,
-      description,
-      metrics
-    },
-    relatedBlogPosts[]->{
-      _id,
-      title,
-      slug,
-      excerpt,
-      publishedAt,
-      featuredImage {
-        asset->,
-        alt
-      },
-      categories[]->{
-        name,
-        slug
-      }
-    }
-  }
-`;
-
 // Get related case studies by category (fallback when relatedCases is empty)
 export const relatedCaseStudiesQuery = groq`
   *[_type == "caseStudyV2" && slug.current != $slug && category == $category] | order(priority asc) [0...3] {
