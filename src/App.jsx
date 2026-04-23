@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useState, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import NavbarV3 from './components/NavbarV3';
 import FooterV2 from './components/FooterV2';
-import CookieConsent, { initConsent } from './components/CookieConsent';
+import CookieConsent from './components/CookieConsent';
 import ScrollToTop from './components/ScrollToTop';
 
 // Main navigation pages loaded eagerly — eliminates Safari dynamic import
@@ -84,9 +84,6 @@ const LeadMagnet = lazyRetry(() => import('./pages/LeadMagnet'));
 const NotFound = lazyRetry(() => import('./pages/NotFound'));
 
 const chromelessRoutes = ['/rahul', '/sid', '/booking-confirmed'];
-
-// Load GTM immediately if user already accepted cookies
-initConsent();
 
 function App() {
   const location = useLocation();

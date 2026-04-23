@@ -4,26 +4,6 @@ import { Cookie } from 'lucide-react';
 
 const CONSENT_KEY = 'rsla_cookie_consent';
 
-function loadGTM() {
-    if (window._gtmLoaded) return;
-    window._gtmLoaded = true;
-
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-MVJQSMF8';
-    document.head.appendChild(script);
-}
-
-export function initConsent() {
-    const consent = localStorage.getItem(CONSENT_KEY);
-    if (consent === 'accepted') {
-        loadGTM();
-    }
-}
-
 export default function CookieConsent() {
     const [visible, setVisible] = useState(false);
     const [exiting, setExiting] = useState(false);
@@ -43,7 +23,6 @@ export default function CookieConsent() {
 
     const accept = () => {
         localStorage.setItem(CONSENT_KEY, 'accepted');
-        loadGTM();
         dismiss();
     };
 
