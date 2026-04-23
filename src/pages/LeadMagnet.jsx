@@ -111,6 +111,7 @@ export default function LeadMagnet() {
       <Seo
         title={pageTitle}
         description={pageDescription}
+        canonical={`https://rsla.io/r/${slug}`}
         noIndex
       />
 

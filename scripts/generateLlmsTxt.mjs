@@ -40,11 +40,11 @@ async function generateLlmsTxt() {
     '',
     '## Services',
     '',
-    '- AI Lead Generation: Paid ads with AI optimization that generate qualified leads and book calls automatically.',
-    '- AI Automations: Custom AI systems that automate lead nurture, follow-ups, CRM workflows, and business operations.',
-    '- AI Operations: CRM infrastructure, dashboards, and intelligent reporting systems that run your business.',
-    '- Smart Websites: High-converting websites built for lead capture and search visibility.',
-    '- Local SEO: Google Business Profile optimization, local search rankings, and review management.',
+    '- Websites: New builds and full rebuilds. Fast, custom-designed, SEO-ready websites built on React and Next.js.',
+    '- Search Visibility: Rankings on Google, ChatGPT, Perplexity, and Claude. SEO, AEO, and content systems.',
+    '- AI Automations: n8n, Make, and custom AI agents that replace manual work. Lead follow-up, proposals, content, reporting.',
+    '- CRM Systems: GoHighLevel pipelines, workflows, and integrations. One system managing leads, bookings, and communication.',
+    '- Custom Development: SaaS products, MVPs, internal tools, and APIs. Full-stack builds from prototype to production.',
     '',
     '## Blog Posts',
     '',
@@ -52,14 +52,16 @@ async function generateLlmsTxt() {
 
   for (const post of blogPosts) {
     const excerpt = post.excerpt ? `: ${post.excerpt}` : '';
-    lines.push(`- [${post.title}](${SITE_URL}/api/llm/${post.slug})${excerpt}`);
+    lines.push(`- [${post.title}](${SITE_URL}/blog/${post.slug})${excerpt}`);
+    lines.push(`  LLM-optimized: ${SITE_URL}/api/llm/${post.slug}`);
   }
 
   lines.push('', '## Case Studies', '');
 
   for (const cs of caseStudies) {
     const desc = cs.description ? `: ${cs.description}` : '';
-    lines.push(`- [${cs.title}](${SITE_URL}/api/llm/${cs.slug})${desc}`);
+    lines.push(`- [${cs.title}](${SITE_URL}/work/${cs.slug})${desc}`);
+    lines.push(`  LLM-optimized: ${SITE_URL}/api/llm/${cs.slug}`);
   }
 
   lines.push(

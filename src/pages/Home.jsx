@@ -139,6 +139,17 @@ export default function Home() {
                         alternateName: ['RSLA', 'RSL/A', 'RSL A'],
                         url: 'https://rsla.io',
                     },
+                    {
+                        '@context': 'https://schema.org',
+                        '@type': 'FAQPage',
+                        mainEntity: [
+                            { '@type': 'Question', name: 'What types of businesses do you work with?', acceptedAnswer: { '@type': 'Answer', text: 'We work with B2B companies and service businesses doing $500K+ in revenue who want to systematize their marketing and operations with AI. If you rely on leads, appointments, or repeat customers to grow, we can help.' } },
+                            { '@type': 'Question', name: 'How long does it take to see results?', acceptedAnswer: { '@type': 'Answer', text: 'Most clients see measurable results within 30 to 60 days. Websites launch in 2 to 4 weeks. Search visibility campaigns start generating impressions within the first month. AI automation systems go live in 2 to 3 weeks.' } },
+                            { '@type': 'Question', name: 'Do you lock clients into long-term contracts?', acceptedAnswer: { '@type': 'Answer', text: 'No. We work on a month-to-month basis after the initial build. We believe in earning your business every month. If we are not delivering, you should not be stuck.' } },
+                            { '@type': 'Question', name: 'What platforms and tools do you use?', acceptedAnswer: { '@type': 'Answer', text: 'We build custom websites on React and Next.js, use GoHighLevel for CRM and automation, n8n and Make for workflow automation, and Claude and GPT for AI systems. We pick the right tool for each job.' } },
+                            { '@type': 'Question', name: 'How is RSL/A different from other agencies?', acceptedAnswer: { '@type': 'Answer', text: 'We build the entire system, not just one piece. Website, search visibility, AI automations, CRM, and reporting, all connected. Most agencies hand you leads and call it a day. We make sure those leads turn into revenue.' } },
+                        ],
+                    },
                 ]}
             />
 

@@ -48,8 +48,8 @@ export default function Services() {
     return (
         <div ref={pageRef}>
             <Seo
-                title="Services | RSL/A"
-                description="End-to-end AI systems that generate leads, close deals, and scale operations. Websites, search visibility, AI automations, CRM systems, and custom development."
+                title="AI Marketing & Automation Services for B2B | RSL/A"
+                description="Custom websites, SEO, AI automations, CRM systems, and software development. End-to-end AI systems that generate leads, close deals, and scale operations."
                 keywords="AI services, custom websites, AI automation, CRM systems, search visibility, custom development, AI lead generation, B2B AI systems"
                 canonical="https://rsla.io/services"
                 jsonLd={{
@@ -82,7 +82,7 @@ export default function Services() {
                 <div className="services-hero-content opacity-0 max-w-4xl mx-auto text-center">
                     <h1 className="font-sans font-bold text-3xl md:text-5xl text-text tracking-tight mb-6 leading-[1.1]">
                         <TextAnimate animation="blurInUp" by="word" delay={0.08} startOnView={false} as="span">
-                            What we can help you with.
+                            What we build for B2B companies.
                         </TextAnimate>
                     </h1>
                     <p className="font-sans text-lg text-textMuted leading-relaxed max-w-2xl mx-auto">

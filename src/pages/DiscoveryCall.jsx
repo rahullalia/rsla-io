@@ -20,9 +20,28 @@ export default function DiscoveryCall() {
     return (
         <main className="min-h-screen bg-surface pt-32 pb-24 px-6 md:px-12">
             <Seo
-                title="Book a Discovery Call | RSL/A"
-                description="Book a free 30-minute growth mapping call. We'll audit your funnel, find the bottlenecks, and show you exactly where AI moves the needle."
+                title="Book a Free AI Growth Mapping Call | RSL/A"
+                description="Book a free 30-minute growth mapping call. We'll audit your funnel, find the bottlenecks, and show you exactly where AI moves the needle. No pitch, just answers."
                 canonical="https://rsla.io/contact"
+                keywords="free consultation, AI growth call, marketing audit, business growth mapping"
+                jsonLd={{
+                    '@context': 'https://schema.org',
+                    '@type': 'ContactPage',
+                    name: 'Book a Growth Mapping Call',
+                    url: 'https://rsla.io/contact',
+                    description: 'Book a free 30-minute growth mapping call with RSL/A.',
+                    mainEntity: {
+                        '@type': 'Organization',
+                        name: 'RSL/A',
+                        url: 'https://rsla.io',
+                        contactPoint: {
+                            '@type': 'ContactPoint',
+                            contactType: 'sales',
+                            url: 'https://rsla.io/contact',
+                            availableLanguage: 'English',
+                        },
+                    },
+                }}
             />
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-12">

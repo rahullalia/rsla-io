@@ -56,18 +56,21 @@ async function generateSitemap() {
       loc: `${SITE_URL}${path}`,
       lastmod: today,
       priority,
+      changefreq: ['/', '/blog', '/work'].includes(path) ? 'weekly' : 'monthly',
     })),
     // Blog posts
     ...blogSlugs.map(({ slug, publishedAt, updatedAt }) => ({
       loc: `${SITE_URL}/blog/${slug}`,
       lastmod: (updatedAt || publishedAt || today).split('T')[0],
       priority: '0.6',
+      changefreq: 'monthly',
     })),
     // Case studies
     ...caseSlugs.map(({ slug, publishedAt }) => ({
       loc: `${SITE_URL}/work/${slug}`,
       lastmod: publishedAt ? publishedAt.split('T')[0] : today,
       priority: '0.7',
+      changefreq: 'monthly',
     })),
   ];
 
@@ -75,9 +78,10 @@ async function generateSitemap() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
       .map(
-        ({ loc, lastmod, priority }) => `  <url>
+        ({ loc, lastmod, priority, changefreq }) => `  <url>
     <loc>${loc}</loc>
     <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
   </url>`
       )

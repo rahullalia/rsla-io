@@ -147,8 +147,8 @@ export default function Blog() {
     return (
         <div className="min-h-screen bg-surface text-text pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
             <Seo
-                title="Blog | RSL/A"
-                description="Insights on marketing automation, AI systems, local SEO, and business growth strategies from RSL/A."
+                title="Blog: AI Marketing, Automation & Growth Insights | RSL/A"
+                description="Practical guides on GoHighLevel, Claude AI, marketing automation, local SEO, and AI-powered growth strategies. Written by practitioners, not theorists."
                 keywords="AI automation blog, marketing automation insights, business AI strategies, AI for small business"
                 canonical="https://rsla.io/blog"
                 jsonLd={{
@@ -163,7 +163,7 @@ export default function Blog() {
                         itemListElement: posts.map((p, i) => ({
                             '@type': 'ListItem',
                             position: i + 1,
-                            url: `https://rsla.io/blog/${p.slug}`,
+                            url: `https://rsla.io/blog/${p.slug?.current || p.slug}`,
                             name: p.title,
                         })),
                     },

@@ -149,7 +149,7 @@ function homeContent() {
         description: "The trusted AI growth partner for fast-moving B2B companies. We build your website, get it found on Google and ChatGPT, and automate what's slowing you down.",
         founder: { '@type': 'Person', name: 'Rahul Lalia', jobTitle: 'Founder & CEO' },
         sameAs: [
-          'https://www.instagram.com/rahulslalia/',
+          'https://www.instagram.com/rahul.lalia/',
           'https://www.linkedin.com/in/rahullalia/',
           'https://www.youtube.com/@rahul_lalia',
           'https://www.tiktok.com/@rahul_lalia',
@@ -160,29 +160,33 @@ function homeContent() {
       {
         '@context': 'https://schema.org', '@type': 'FAQPage',
         mainEntity: [
-          { '@type': 'Question', name: 'What types of businesses do you work with?', acceptedAnswer: { '@type': 'Answer', text: 'We work with service-based businesses, local operators, and B2B companies doing $500K+ in revenue who want to systematize their marketing and operations. If you rely on leads, appointments, or repeat customers to grow, we can help.' } },
-          { '@type': 'Question', name: 'How long does it take to see results?', acceptedAnswer: { '@type': 'Answer', text: 'Most clients see measurable results within 30 to 60 days. Ad campaigns typically start generating leads within the first week. Automation systems go live in 2 to 3 weeks. Full CRM and operations buildouts take 4 to 6 weeks depending on complexity.' } },
-          { '@type': 'Question', name: 'Do you lock clients into long-term contracts?', acceptedAnswer: { '@type': 'Answer', text: 'No. We work on a month-to-month basis after the initial setup period. We believe in earning your business every month. If we are not delivering, you should not be stuck.' } },
-          { '@type': 'Question', name: 'What platforms do you use?', acceptedAnswer: { '@type': 'Answer', text: 'We primarily use GoHighLevel for CRM and automation, Meta and Google for paid ads, and custom AI tools built on OpenAI, Make, and Zapier. We pick the right tool for the job, not the one that pays us the most.' } },
-          { '@type': 'Question', name: 'How is RSL/A different from other marketing agencies?', acceptedAnswer: { '@type': 'Answer', text: 'We do not just run ads. We build the entire system: lead generation, automated follow-up, CRM, booking, and reporting. Most agencies hand you leads and call it a day. We make sure those leads turn into revenue.' } },
+          { '@type': 'Question', name: 'What types of businesses do you work with?', acceptedAnswer: { '@type': 'Answer', text: 'We work with B2B companies and service businesses doing $500K+ in revenue who want to systematize their marketing and operations with AI. If you rely on leads, appointments, or repeat customers to grow, we can help.' } },
+          { '@type': 'Question', name: 'How long does it take to see results?', acceptedAnswer: { '@type': 'Answer', text: 'Most clients see measurable results within 30 to 60 days. Websites launch in 2 to 4 weeks. Search visibility campaigns start generating impressions within the first month. AI automation systems go live in 2 to 3 weeks.' } },
+          { '@type': 'Question', name: 'Do you lock clients into long-term contracts?', acceptedAnswer: { '@type': 'Answer', text: 'No. We work on a month-to-month basis after the initial build. We believe in earning your business every month. If we are not delivering, you should not be stuck.' } },
+          { '@type': 'Question', name: 'What platforms and tools do you use?', acceptedAnswer: { '@type': 'Answer', text: 'We build custom websites on React and Next.js, use GoHighLevel for CRM and automation, n8n and Make for workflow automation, and Claude and GPT for AI systems. We pick the right tool for each job.' } },
+          { '@type': 'Question', name: 'How is RSL/A different from other agencies?', acceptedAnswer: { '@type': 'Answer', text: 'We build the entire system, not just one piece. Website, search visibility, AI automations, CRM, and reporting, all connected. Most agencies hand you leads and call it a day. We make sure those leads turn into revenue.' } },
         ],
       },
     ],
     html: `<main>
-<h1>Your business is doing manually what AI could do in seconds.</h1>
-<p><a href="/contact">Let's Talk</a> | <a href="/work">See What We've Built</a></p>
+<h1>The trusted AI growth partner for fast-moving B2B companies.</h1>
+<p><a href="/contact">Book a Free Call</a> | <a href="/work">See Our Work</a></p>
 
 <section><h2>What We Build</h2>
-<article><h3>01 — Lead Gen: Leads that find you.</h3>
-<p>We set up ad systems across Facebook and Google that test creatives, kill what's not working, and scale what is. Every dollar tracked, every lead scored, every qualified prospect fed straight into your pipeline.</p></article>
-<article><h3>02 — AI Automation: Booking calls while you sleep.</h3>
-<p>Someone messages at 2 AM. By 2:01 AM they have a calendar invite. No human touched it. We build bots and automations that qualify leads, answer questions, and chase follow-ups. All without you.</p></article>
-<article><h3>03 — Operations: One brain running your business.</h3>
-<p>Your CRM says one thing, your calendar says another. We wire it all into one system. Leads, pipeline, bookings, reporting. One dashboard that tells you exactly what needs attention.</p></article>
+<article><h3>Websites</h3>
+<p>New builds and full rebuilds. Fast, custom-designed, SEO-ready websites built on React and Next.js.</p></article>
+<article><h3>Search Visibility</h3>
+<p>Rankings on Google, ChatGPT, Perplexity, and Claude. SEO, AEO, and content systems that compound over time.</p></article>
+<article><h3>AI Automations</h3>
+<p>n8n, Make, and custom AI agents that replace manual work. Lead follow-up, proposals, content, and reporting on autopilot.</p></article>
+<article><h3>CRM Systems</h3>
+<p>GoHighLevel pipelines, workflows, and integrations. One system managing leads, bookings, and communication.</p></article>
+<article><h3>Custom Development</h3>
+<p>SaaS products, MVPs, internal tools, and APIs. Full-stack builds from prototype to production.</p></article>
 </section>
 
 <section><h2>By the Numbers</h2>
-<ul><li>40+ clients served</li><li>$2.1M+ revenue generated</li><li>12 case studies</li><li>98% client retention</li></ul>
+<ul><li>40+ clients served</li><li>$2.1M+ revenue generated</li><li>11 case studies</li><li>98% client retention</li></ul>
 </section>
 
 <section><h2>What Clients Say</h2>
@@ -202,11 +206,11 @@ function homeContent() {
 
 <section><h2>Frequently Asked Questions</h2>
 <dl>
-<dt>What types of businesses do you work with?</dt><dd>We work with service-based businesses, local operators, and B2B companies doing $500K+ in revenue who want to systematize their marketing and operations. If you rely on leads, appointments, or repeat customers to grow, we can help.</dd>
-<dt>How long does it take to see results?</dt><dd>Most clients see measurable results within 30 to 60 days. Ad campaigns typically start generating leads within the first week. Automation systems go live in 2 to 3 weeks. Full CRM and operations buildouts take 4 to 6 weeks depending on complexity.</dd>
-<dt>Do you lock clients into long-term contracts?</dt><dd>No. We work on a month-to-month basis after the initial setup period. We believe in earning your business every month. If we're not delivering, you shouldn't be stuck.</dd>
-<dt>What platforms do you use?</dt><dd>We primarily use GoHighLevel for CRM and automation, Meta and Google for paid ads, and custom AI tools built on OpenAI, Make, and Zapier. We pick the right tool for the job, not the one that pays us the most.</dd>
-<dt>How is RSL/A different from other marketing agencies?</dt><dd>We don't just run ads. We build the entire system: lead generation, automated follow-up, CRM, booking, and reporting. Most agencies hand you leads and call it a day. We make sure those leads turn into revenue.</dd>
+<dt>What types of businesses do you work with?</dt><dd>We work with B2B companies and service businesses doing $500K+ in revenue who want to systematize their marketing and operations with AI. If you rely on leads, appointments, or repeat customers to grow, we can help.</dd>
+<dt>How long does it take to see results?</dt><dd>Most clients see measurable results within 30 to 60 days. Websites launch in 2 to 4 weeks. Search visibility campaigns start generating impressions within the first month. AI automation systems go live in 2 to 3 weeks.</dd>
+<dt>Do you lock clients into long-term contracts?</dt><dd>No. We work on a month-to-month basis after the initial build. We believe in earning your business every month. If we are not delivering, you should not be stuck.</dd>
+<dt>What platforms and tools do you use?</dt><dd>We build custom websites on React and Next.js, use GoHighLevel for CRM and automation, n8n and Make for workflow automation, and Claude and GPT for AI systems. We pick the right tool for each job.</dd>
+<dt>How is RSL/A different from other agencies?</dt><dd>We build the entire system, not just one piece. Website, search visibility, AI automations, CRM, and reporting, all connected. Most agencies hand you leads and call it a day. We make sure those leads turn into revenue.</dd>
 <dt>Do you offer white-label services for other agencies?</dt><dd>Yes. We partner with agencies who need AI automation, CRM buildouts, or technical infrastructure they cannot build in-house. Reach out and we can discuss your setup.</dd>
 <dt>What does the onboarding process look like?</dt><dd>It starts with a strategy call where we audit your current setup. Then we deliver a custom roadmap within 48 hours. Once approved, we start building. Most clients are fully live within 2 to 4 weeks.</dd>
 </dl>
@@ -221,7 +225,7 @@ function homeContent() {
 
 function aboutContent() {
   return {
-    title: 'About | RSL/A',
+    title: 'About Rahul Lalia & RSL/A | AI Growth Agency',
     description: 'Meet Rahul Lalia, founder of RSL/A. Five years in marketing, automation, and business infrastructure, building systems that actually run businesses.',
     canonical: `${SITE}/about`,
     keywords: 'Rahul Lalia, RSL/A founder, AI automation expert, marketing automation consultant, business systems builder',
@@ -229,6 +233,7 @@ function aboutContent() {
       '@context': 'https://schema.org', '@type': 'Person',
       name: 'Rahul Lalia', jobTitle: 'Founder & CEO',
       url: `${SITE}/about`, image: `${SITE}/images/rahul.webp`,
+      description: 'Founder of RSL/A. Builds AI growth systems for B2B companies. Five years in marketing, automation, and business infrastructure.',
       worksFor: { '@type': 'Organization', name: 'RSL/A', url: SITE },
       sameAs: [
         'https://www.linkedin.com/in/rahullalia/',
@@ -274,8 +279,8 @@ function aboutContent() {
 
 function servicesContent() {
   return {
-    title: 'Services | RSL/A',
-    description: 'End-to-end AI systems that generate leads, close deals, and scale operations. Websites, search visibility, AI automations, CRM systems, and custom development.',
+    title: 'AI Marketing & Automation Services for B2B | RSL/A',
+    description: 'Custom websites, SEO, AI automations, CRM systems, and software development. End-to-end AI systems that generate leads, close deals, and scale operations.',
     canonical: `${SITE}/services`,
     keywords: 'AI services, custom websites, AI automation, CRM systems, search visibility, custom development, AI lead generation, B2B AI systems',
     jsonLd: {
@@ -295,7 +300,7 @@ function servicesContent() {
       },
     },
     html: `<main>
-<h1>Everything we build runs on AI.</h1>
+<h1>What we build for B2B companies.</h1>
 <p>We do not do "marketing." We build AI infrastructure for founders. Here is what that actually means.</p>
 
 <section id="lead-generation"><h2>Lead Gen: Stop paying for clicks. Start paying for customers.</h2>
@@ -899,8 +904,8 @@ function blogListingContent(posts) {
   }).join('\n');
 
   return {
-    title: 'Blog | RSL/A',
-    description: 'Insights on marketing automation, AI systems, local SEO, and business growth strategies from RSL/A.',
+    title: 'Blog: AI Marketing, Automation & Growth Insights | RSL/A',
+    description: 'Practical guides on GoHighLevel, Claude AI, marketing automation, local SEO, and AI-powered growth strategies. Written by practitioners, not theorists.',
     canonical: `${SITE}/blog`,
     jsonLd: {
       '@context': 'https://schema.org', '@type': 'CollectionPage',
@@ -936,8 +941,8 @@ function workListingContent(caseStudies) {
   }
 
   return {
-    title: 'Case Studies | RSL/A',
-    description: 'Real results from real clients. See how RSL/A uses AI automation, paid ads, and CRM systems to drive measurable growth.',
+    title: 'AI Automation Case Studies: Real Client Results | RSL/A',
+    description: 'Real results from real clients. See how RSL/A uses AI automation, custom websites, and CRM systems to drive measurable growth for B2B companies.',
     canonical: `${SITE}/work`,
     jsonLd: {
       '@context': 'https://schema.org', '@type': 'CollectionPage',
@@ -974,8 +979,10 @@ function blogPostContent(post) {
       headline: post.title,
       description,
       datePublished: post.publishedAt,
+      ...(post.updatedAt && { dateModified: post.updatedAt }),
+      ...(ogImage && { image: ogImage }),
       author: { '@type': 'Person', name: post.author?.name || 'Rahul Lalia' },
-      publisher: { '@type': 'Organization', name: 'RSL/A', url: SITE },
+      publisher: { '@type': 'Organization', name: 'RSL/A', url: SITE, logo: { '@type': 'ImageObject', url: `${SITE}/images/logo/lockup-nobg.webp` } },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
     },
     {
@@ -1026,14 +1033,25 @@ function caseStudyContent(cs) {
   const canonical = `${SITE}/work/${cs.slug}`;
   const ogImage = cs.seo?.socialImage?.asset?.url || cs.featuredImage?.asset?.url || null;
 
-  const jsonLd = {
-    '@context': 'https://schema.org', '@type': 'Article',
-    headline: cs.title,
-    description,
-    datePublished: cs.publishedAt,
-    author: { '@type': 'Person', name: 'Rahul Lalia' },
-    publisher: { '@type': 'Organization', name: 'RSL/A', url: SITE },
-  };
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org', '@type': 'Article',
+      headline: cs.title,
+      description,
+      datePublished: cs.publishedAt,
+      ...(cs.updatedAt && { dateModified: cs.updatedAt }),
+      ...(ogImage && { image: ogImage }),
+      author: { '@type': 'Person', name: 'Rahul Lalia' },
+      publisher: { '@type': 'Organization', name: 'RSL/A', url: SITE, logo: { '@type': 'ImageObject', url: `${SITE}/images/logo/lockup-nobg.webp` } },
+    },
+    {
+      '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Case Studies', item: `${SITE}/work` },
+        { '@type': 'ListItem', position: 2, name: cs.title },
+      ],
+    },
+  ];
 
   const bodyHtml = ptToHtml(cs.content);
 
@@ -1104,6 +1122,7 @@ async function main() {
         excerpt,
         pullQuote,
         publishedAt,
+        "updatedAt": _updatedAt,
         body,
         featuredImage { asset-> },
         author->{ name },
@@ -1131,6 +1150,7 @@ async function main() {
         timeframe,
         servicesUsed,
         publishedAt,
+        "updatedAt": _updatedAt,
         featuredImage { asset-> },
         seo { metaTitle, metaDescription, keywords, socialImage { asset-> } },
         faqSchema

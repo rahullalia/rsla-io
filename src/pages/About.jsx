@@ -39,7 +39,7 @@ export default function About() {
     return (
         <main ref={pageRef} className="min-h-screen">
             <Seo
-                title="About | RSL/A"
+                title="About Rahul Lalia & RSL/A | AI Growth Agency"
                 description="Meet Rahul Lalia, founder of RSL/A. Five years in marketing, automation, and business infrastructure, building systems that actually run businesses."
                 keywords="Rahul Lalia, RSL/A founder, AI automation expert, marketing automation consultant, business systems builder"
                 canonical="https://rsla.io/about"
@@ -50,6 +50,7 @@ export default function About() {
                     jobTitle: 'Founder & CEO',
                     url: 'https://rsla.io/about',
                     image: 'https://rsla.io/images/rahul.webp',
+                    description: 'Founder of RSL/A. Builds AI growth systems for B2B companies. Five years in marketing, automation, and business infrastructure.',
                     worksFor: {
                         '@type': 'Organization',
                         name: 'RSL/A',

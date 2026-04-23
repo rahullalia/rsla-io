@@ -53,6 +53,7 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, o
         setOrCreateMeta('property', 'og:type', ogType || 'website');
         const resolvedOgImage = ogImage || 'https://rsla.io/og-image.png';
         setOrCreateMeta('property', 'og:image', resolvedOgImage);
+        setOrCreateMeta('property', 'og:locale', 'en_US');
         setOrCreateMeta('name', 'twitter:card', 'summary_large_image');
         setOrCreateMeta('name', 'twitter:site', '@rahul_lalia');
         setOrCreateMeta('name', 'twitter:image', resolvedOgImage);
@@ -95,6 +96,7 @@ export default function Seo({ title, description, canonical, noIndex, ogImage, o
             removeMeta('property', 'og:url');
             removeMeta('property', 'og:type');
             removeMeta('property', 'og:image');
+            removeMeta('property', 'og:locale');
             removeMeta('name', 'twitter:card');
             removeMeta('name', 'twitter:title');
             removeMeta('name', 'twitter:description');

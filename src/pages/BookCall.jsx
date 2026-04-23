@@ -22,6 +22,7 @@ export default function BookCall() {
             <Seo
                 title="Book a Call | RSL/A"
                 description="Schedule a call with RSL/A. Existing clients can book onboarding, strategy, and support sessions."
+                canonical="https://rsla.io/book-a-call"
                 noIndex
             />
             <div className="max-w-4xl mx-auto bg-surfaceAlt border border-accent-border rounded-[2rem] md:rounded-[3rem] p-6 md:p-16 text-center shadow-sm relative overflow-hidden">

@@ -44,6 +44,7 @@ export default function Insider() {
             <Seo
                 title="Insider Newsletter | RSL/A"
                 description="Get weekly automation insights delivered to your inbox."
+                canonical="https://rsla.io/insider"
                 noIndex
             />
 

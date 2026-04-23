@@ -66,7 +66,7 @@ export default function NotFound() {
 
     return (
         <main ref={containerRef} className="min-h-screen bg-surface flex items-center justify-center px-6">
-            <Seo title="Page Not Found | RSL/A" noIndex />
+            <Seo title="Page Not Found | RSL/A" description="This page does not exist." noIndex />
 
             <section className="w-full max-w-lg mx-auto">
                 {/* 404 */}

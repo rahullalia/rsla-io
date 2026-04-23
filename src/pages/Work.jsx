@@ -43,8 +43,8 @@ export default function Work() {
     return (
         <main className="min-h-screen bg-surface text-text pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
             <Seo
-                title="Case Studies | RSL/A"
-                description="Real results from real clients. See how RSL/A uses AI automation, paid ads, and CRM systems to drive measurable growth."
+                title="AI Automation Case Studies: Real Client Results | RSL/A"
+                description="Real results from real clients. See how RSL/A uses AI automation, custom websites, and CRM systems to drive measurable growth for B2B companies."
                 keywords="AI automation case studies, marketing automation results, AI lead generation results, business automation ROI"
                 canonical="https://rsla.io/work"
                 jsonLd={{
