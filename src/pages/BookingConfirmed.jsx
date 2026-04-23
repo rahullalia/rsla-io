@@ -7,6 +7,8 @@ import { TextAnimate } from '@/components/ui/text-animate';
 
 export default function BookingConfirmed() {
     useEffect(() => {
+        window.dataLayer?.push({ event: 'booking_confirmed' });
+
         const colors = ['#0070F3', '#00C2FF', '#34d399', '#818CF8', '#F59E0B'];
         const timers = [];
 

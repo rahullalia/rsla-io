@@ -31,6 +31,7 @@ export default function Insider() {
             });
 
             if (!res.ok) throw new Error('Subscription failed');
+            window.dataLayer?.push({ event: 'newsletter_subscribe', source: 'insider' });
             setSubmitted(true);
         } catch {
             setError('Something went wrong. Try again?');

@@ -61,6 +61,7 @@ export default function LeadMagnet() {
       });
 
       if (!res.ok) throw new Error('Subscription failed');
+      window.dataLayer?.push({ event: 'newsletter_subscribe', source: 'lead_magnet', slug });
 
       // Redirect to the resource — only allow absolute https:// URLs or
       // same-origin absolute paths (starting with a single slash).
