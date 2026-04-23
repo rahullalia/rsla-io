@@ -17,8 +17,14 @@ import Blog from './pages/Blog';
 function lazyRetry(importFn) {
   return lazy(() =>
     importFn().catch(() => {
-      window.location.reload();
-      return new Promise(() => {}); // never resolves — reload takes over
+      const key = 'lazyRetryReloaded';
+      if (!sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, '1');
+        window.location.reload();
+        return new Promise(() => {});
+      }
+      sessionStorage.removeItem(key);
+      return import('./pages/NotFound');
     })
   );
 }
