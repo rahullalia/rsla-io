@@ -722,7 +722,6 @@ function contactContent() {
 <h1>Book a free growth mapping call.</h1>
 <p>30 minutes. We audit your funnel, find the bottlenecks, and show you exactly where AI moves the needle. No pitch, just answers.</p>
 <p>To book, please visit this page in a browser with JavaScript enabled, or email us at <a href="mailto:hello@rsla.io">hello@rsla.io</a>.</p>
-${siteNav}
 </main>`,
   };
 }
@@ -778,7 +777,6 @@ function serviceDetailContent(slug) {
 <h1>${esc(s.headline)}</h1>
 <p>${esc(s.description)}</p>
 <p><a href="/contact">Let's Talk</a> | <a href="/services">All Services</a></p>
-${siteNav}
 </main>`,
   };
 }

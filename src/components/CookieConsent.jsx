@@ -66,7 +66,7 @@ export default function CookieConsent() {
                     </button>
                     <button
                         onClick={decline}
-                        className="px-4 py-2.5 font-sans text-sm text-textLight hover:text-textMuted transition-colors"
+                        className="px-4 py-2.5 font-sans text-sm text-textLight hover:text-textMuted border border-accent-border rounded-xl transition-colors"
                     >
                         Decline
                     </button>

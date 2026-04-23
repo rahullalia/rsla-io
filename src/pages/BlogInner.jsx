@@ -135,7 +135,6 @@ export default function BlogInner() {
         };
 
         fetchPostData();
-        window.scrollTo(0, 0);
 
         return () => { isMounted = false; };
     }, [slug]);
@@ -415,6 +414,8 @@ export default function BlogInner() {
                                                 src={relatedImg}
                                                 alt={related.featuredImage?.alt || related.title}
                                                 loading="lazy"
+                                                width="600"
+                                                height="400"
                                                 className="w-full h-full object-cover"
                                             />
                                         </div>

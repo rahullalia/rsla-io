@@ -155,7 +155,7 @@ export default function LeadMagnet() {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             disabled={submitting}
-            className="w-full px-5 py-3 rounded-xl bg-surfaceAlt border border-accent-border text-text font-sans text-base placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
+            className="w-full px-5 py-3 rounded-xl bg-surfaceAlt border border-accent-border text-text font-sans text-base placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-colors"
           />
           <input
             type="email"
@@ -164,7 +164,7 @@ export default function LeadMagnet() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={submitting}
-            className="w-full px-5 py-3 rounded-xl bg-surfaceAlt border border-accent-border text-text font-sans text-base placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
+            className="w-full px-5 py-3 rounded-xl bg-surfaceAlt border border-accent-border text-text font-sans text-base placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-colors"
           />
           <button
             type="submit"

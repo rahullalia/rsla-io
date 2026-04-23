@@ -9,39 +9,45 @@ export default function NotFound() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.nf-number', { opacity: 1, y: 0 });
+                gsap.set('.nf-broke', { opacity: 1, y: 0 });
+                gsap.set(strikeRef.current, { scaleX: 1 });
+                gsap.set('.nf-broke-text', { color: '#94A3B8' });
+                gsap.set('.nf-kidding', { opacity: 1, y: 0 });
+                gsap.set('.nf-desc', { opacity: 1, y: 0 });
+                gsap.set('.nf-links', { opacity: 1, y: 0 });
+                return;
+            }
+
             const tl = gsap.timeline({ delay: 0.3 });
 
-            // 404 number drops in
             tl.fromTo('.nf-number',
                 { y: -40, opacity: 0 },
                 { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }
             );
 
-            // "You broke something." appears
             tl.fromTo('.nf-broke',
                 { opacity: 0, y: 10 },
                 { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' },
                 '+=0.2'
             );
 
-            // Strikethrough draws across
             tl.fromTo(strikeRef.current,
                 { scaleX: 0 },
                 { scaleX: 1, duration: 0.5, ease: 'power2.inOut' },
                 '+=0.8'
             );
 
-            // Text fades to muted
             tl.to('.nf-broke-text', { color: '#94A3B8', duration: 0.3 }, '<+=0.2');
 
-            // "Just kidding" appears
             tl.fromTo('.nf-kidding',
                 { opacity: 0, y: 8 },
                 { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
                 '+=0.1'
             );
 
-            // Description + links fade in
             tl.fromTo('.nf-desc',
                 { opacity: 0, y: 12 },
                 { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },

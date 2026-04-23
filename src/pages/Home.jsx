@@ -77,6 +77,14 @@ export default function Home() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.utils.toArray('.hr-reveal').forEach((el) => {
+                    gsap.set(el, { opacity: 1, y: 0 });
+                });
+                return;
+            }
+
             gsap.utils.toArray('.hr-reveal').forEach((el) => {
                 gsap.fromTo(
                     el,

@@ -12,9 +12,14 @@ export default function Services() {
     const pageRef = useRef(null);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.services-hero-content', { opacity: 1, y: 0 });
+                gsap.set('.services-bento > *', { opacity: 1, y: 0 });
+                return;
+            }
+
             gsap.fromTo('.services-hero-content',
                 { y: 40, opacity: 0 },
                 { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.1 }
@@ -90,8 +95,8 @@ export default function Services() {
             <section className="bg-accent-light pb-20 md:pb-32 pt-4 md:pt-8 px-6 md:px-12">
                 <div className="max-w-6xl mx-auto">
                     <BentoGrid className="services-bento">
-                        {features.map((feature, idx) => (
-                            <BentoCard key={idx} {...feature} />
+                        {features.map((feature) => (
+                            <BentoCard key={feature.name} {...feature} />
                         ))}
                     </BentoGrid>
                 </div>

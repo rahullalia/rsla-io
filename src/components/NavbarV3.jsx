@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
 
@@ -47,7 +47,7 @@ export default function NavbarV3() {
     const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
     const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
     const location = useLocation();
-    const navigate = useNavigate();
+
     const servicesTriggerRef = useRef(null);
     const servicesMenuRef = useRef(null);
     // 'first' | 'last' | null — what to focus once the menu is open
@@ -165,10 +165,6 @@ export default function NavbarV3() {
         return location.pathname.startsWith(url);
     };
 
-    const handleCtaClick = () => {
-        navigate('/contact');
-    };
-
     return (
         <>
             <header
@@ -186,6 +182,8 @@ export default function NavbarV3() {
                                 src={LOGO_SRC}
                                 alt="RSL/A"
                                 className="h-10 w-auto"
+                                width="40"
+                                height="40"
                             />
                         </Link>
                         <ul className="flex items-center justify-self-center">
@@ -304,12 +302,13 @@ export default function NavbarV3() {
                             })}
                         </ul>
                         <div className="flex items-center gap-2 shrink-0 justify-self-end">
-                            <InteractiveHoverButton
-                                onClick={handleCtaClick}
-                                className="font-sans font-bold text-sm px-5 py-2.5"
-                            >
-                                Let&apos;s Talk
-                            </InteractiveHoverButton>
+                            <Link to="/contact">
+                                <InteractiveHoverButton
+                                    className="font-sans font-bold text-sm px-5 py-2.5"
+                                >
+                                    Let&apos;s Talk
+                                </InteractiveHoverButton>
+                            </Link>
                         </div>
                     </nav>
 
@@ -320,6 +319,8 @@ export default function NavbarV3() {
                                 src={LOGO_SRC}
                                 alt="RSL/A"
                                 className="h-10 w-auto"
+                                width="40"
+                                height="40"
                             />
                         </Link>
                         <button
@@ -403,12 +404,13 @@ export default function NavbarV3() {
                             })}
                         </ul>
                         <div className="flex flex-col gap-3">
-                            <InteractiveHoverButton
-                                onClick={handleCtaClick}
-                                className="w-full font-sans font-bold text-base px-6 py-4"
-                            >
-                                Let&apos;s Talk
-                            </InteractiveHoverButton>
+                            <Link to="/contact">
+                                <InteractiveHoverButton
+                                    className="w-full font-sans font-bold text-base px-6 py-4"
+                                >
+                                    Let&apos;s Talk
+                                </InteractiveHoverButton>
+                            </Link>
                         </div>
                     </div>
                 </div>

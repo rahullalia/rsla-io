@@ -14,6 +14,11 @@ export default function HeroV2() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set(contentRef.current, { opacity: 1, y: 0 });
+                return;
+            }
             gsap.fromTo(
                 contentRef.current,
                 { y: 20, opacity: 0 },

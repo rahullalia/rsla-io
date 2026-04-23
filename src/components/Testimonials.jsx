@@ -79,6 +79,11 @@ export default function Testimonials() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.testimonial-card', { opacity: 1, y: 0 });
+                return;
+            }
             gsap.fromTo(
                 '.testimonial-card',
                 { y: 40, opacity: 0 },

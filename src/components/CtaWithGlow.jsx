@@ -24,6 +24,11 @@ export default function CtaWithGlow({
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.cta-glow-content > *', { opacity: 1, y: 0 });
+                return;
+            }
             gsap.fromTo(
                 '.cta-glow-content > *',
                 { y: 30, opacity: 0 },

@@ -1,5 +1,5 @@
 import { type ComponentPropsWithoutRef, type ReactNode } from "react"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { ArrowRight } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import { cn } from "@/lib/utils"
@@ -14,7 +14,6 @@ interface BentoCardProps {
   className: string
   background: ReactNode
   Icon: React.ElementType
-  description: string
   href: string
   cta: string
 }
@@ -38,7 +37,6 @@ const BentoCard = ({
   className,
   background,
   Icon,
-  description,
   href,
   cta,
 }: BentoCardProps) => (
@@ -63,7 +61,7 @@ const BentoCard = ({
       <div className="flex w-full transform-gpu flex-row items-center transition-transform duration-lg ease-out-smooth lg:hidden">
         <span className="inline-flex items-center font-sans text-sm font-semibold text-accent p-0">
           {cta}
-          <ArrowRightIcon className="ms-2 h-4 w-4 rtl:rotate-180" />
+          <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180" />
         </span>
       </div>
     </div>
@@ -71,7 +69,7 @@ const BentoCard = ({
     <div className="absolute bottom-0 hidden w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-[transform,opacity] duration-lg ease-out-smooth group-hover:translate-y-0 group-hover:opacity-100 lg:flex">
       <span className="inline-flex items-center font-sans text-sm font-semibold text-accent p-0">
         {cta}
-        <ArrowRightIcon className="ms-2 h-4 w-4 rtl:rotate-180" />
+        <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180" />
       </span>
     </div>
 

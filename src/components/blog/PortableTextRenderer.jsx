@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { urlForImage } from '../../sanity/lib/image';
 
-const KIT_FORM_ID = '9130465';
+const KIT_FORM_ID = import.meta.env.VITE_KIT_FORM_ID || '9130465';
 
 const isUnsafeUrl = (url) => /^(javascript|data|vbscript):/i.test(url);
 
@@ -11,6 +11,7 @@ function GatedResourceBlock({ title, description, downloadUrl, buttonText }) {
     const [email, setEmail] = useState('');
 
     const triggerDownload = (url) => {
+        if (isUnsafeUrl(url)) return;
         const a = document.createElement('a');
         a.href = url;
         a.download = url.split('/').pop() || 'resource';
@@ -202,6 +203,7 @@ export const PortableTextComponents = {
                     <div className={`relative rounded-xl overflow-hidden bg-surfaceAlt border border-accent-border shadow-lg ${isVertical ? 'w-full max-w-sm aspect-[9/16]' : 'w-full aspect-video'}`}>
                         <iframe
                             src={embedUrl}
+                            title={caption || 'Embedded video'}
                             className="absolute inset-0 w-full h-full"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen

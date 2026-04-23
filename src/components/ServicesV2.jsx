@@ -116,6 +116,17 @@ function WebsitesBackground() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.wire-el', { opacity: 1, scale: 1 });
+                gsap.set('.live-el', { opacity: 1 });
+                gsap.set('.toast', { opacity: 1, y: 0, scale: 1 });
+                gsap.set('.scanner', { opacity: 0 });
+                gsap.set(cursorRef.current, { opacity: 0 });
+                gsap.set(pulseRef.current, { opacity: 0 });
+                return;
+            }
+
             const stops = [
                 { x: 60, y: 22, sel: '.wire-nav' },
                 { x: 80, y: 70, sel: '.wire-hero' },
@@ -359,6 +370,15 @@ function SearchVisibilityBackground() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.serp-row', { opacity: 1, y: 0 });
+                gsap.set(cardRef.current, { opacity: 1, y: 0, scale: 1 });
+                gsap.set(dividerRef.current, { opacity: 1 });
+                gsap.set(cursorRef.current, { opacity: 0 });
+                return;
+            }
+
             const setBuriedBadge = () => {
                 const badge = cardRef.current?.querySelector('.rank-badge');
                 if (!badge) return;
@@ -573,6 +593,14 @@ function AutomationsBackground() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.auto-node', { opacity: 1, y: 0 });
+                gsap.set('.auto-check', { opacity: 1, scale: 1 });
+                gsap.set(packetRef.current, { opacity: 0 });
+                return;
+            }
+
             // Initial state
             gsap.set('.auto-node', { opacity: 0, y: 6 });
             gsap.set('.auto-check', { opacity: 0, scale: 0 });
@@ -725,6 +753,12 @@ function CRMBackground() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set(cardRef.current, { opacity: 1, x: 0 });
+                return;
+            }
+
             const slots = { lead: 0, prop: 96, won: 192 };
             const revenueCounter = { val: 0 };
 
@@ -911,6 +945,13 @@ function CustomDevBackground() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.code-line', { opacity: 1, x: 0 });
+                gsap.set(barRef.current, { scaleX: 1 });
+                return;
+            }
+
             // Initial state
             gsap.set('.code-line', { opacity: 0, x: -4 });
             gsap.set(barRef.current, { scaleX: 0, transformOrigin: 'left' });
@@ -1106,6 +1147,12 @@ export default function ServicesV2() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.services-bento > *', { opacity: 1, y: 0 });
+                return;
+            }
+
             gsap.fromTo(
                 '.services-bento > *',
                 { y: 40, opacity: 0 },
@@ -1139,8 +1186,8 @@ export default function ServicesV2() {
                 </div>
 
                 <BentoGrid className="services-bento">
-                    {features.map((feature, idx) => (
-                        <BentoCard key={idx} {...feature} />
+                    {features.map((feature) => (
+                        <BentoCard key={feature.name} {...feature} />
                     ))}
                 </BentoGrid>
             </div>

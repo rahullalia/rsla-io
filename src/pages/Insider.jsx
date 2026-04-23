@@ -99,7 +99,7 @@ export default function Insider() {
                                 placeholder="your@email.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="flex-1 px-5 py-3 rounded-xl bg-surfaceAlt border border-accent-border text-text font-sans text-base placeholder:text-textMuted focus:outline-none focus:border-accent/50 transition-colors"
+                                className="flex-1 px-5 py-3 rounded-xl bg-surfaceAlt border border-accent-border text-text font-sans text-base placeholder:text-textMuted focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-colors"
                             />
                             <button
                                 type="submit"

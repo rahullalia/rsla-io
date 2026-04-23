@@ -6,7 +6,7 @@ Sentry.init({
   enabled: import.meta.env.PROD,
   integrations: [
     Sentry.browserTracingIntegration(),
-    Sentry.replayIntegration({ maskAllText: false, blockAllMedia: false }),
+    Sentry.replayIntegration({ maskAllText: true, blockAllMedia: false }),
   ],
   tracesSampleRate: 0.2,
   replaysSessionSampleRate: 0,

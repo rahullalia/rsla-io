@@ -138,7 +138,6 @@ export default function Blog() {
         };
 
         fetchPosts();
-        window.scrollTo(0, 0);
 
         return () => { isMounted = false; };
     }, [currentPage, activeCategory, searchQuery]);
@@ -293,8 +292,8 @@ export default function Blog() {
                                                             Pinned
                                                         </span>
                                                     )}
-                                                    {post.categories?.slice(0, 2).map((category, idx) => (
-                                                        <span key={idx} className="font-sans text-sm uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-2 py-1 rounded-sm">
+                                                    {post.categories?.slice(0, 2).map((category) => (
+                                                        <span key={category.name} className="font-sans text-sm uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-2 py-1 rounded-sm">
                                                             {category.name}
                                                         </span>
                                                     ))}

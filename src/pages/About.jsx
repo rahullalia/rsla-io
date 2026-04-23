@@ -8,9 +8,15 @@ export default function About() {
     const pageRef = useRef(null);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.about-hero-content', { opacity: 1, y: 0 });
+                gsap.set('.about-section', { opacity: 1, y: 0 });
+                gsap.set('.words-section blockquote p', { opacity: 1, y: 0 });
+                return;
+            }
+
             gsap.fromTo('.about-hero-content',
                 { y: 40, opacity: 0 },
                 { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.1 }

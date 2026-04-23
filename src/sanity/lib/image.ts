@@ -6,7 +6,7 @@ const imageBuilder = createImageUrlBuilder({
     dataset,
 })
 
-export const urlForImage = (source: any) => {
+export const urlForImage = (source: Parameters<typeof imageBuilder.image>[0]) => {
     if (!source) return null
     return imageBuilder.image(source).auto('format').quality(80)
 }

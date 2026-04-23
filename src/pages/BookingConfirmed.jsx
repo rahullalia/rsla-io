@@ -8,9 +8,9 @@ import { TextAnimate } from '@/components/ui/text-animate';
 export default function BookingConfirmed() {
     useEffect(() => {
         const colors = ['#0070F3', '#00C2FF', '#34d399', '#818CF8', '#F59E0B'];
+        const timers = [];
 
         const timer = setTimeout(() => {
-            // Big center explosion
             confetti({
                 particleCount: 150,
                 spread: 360,
@@ -22,8 +22,7 @@ export default function BookingConfirmed() {
                 ticks: 200,
             });
 
-            // Follow-up shower from top
-            setTimeout(() => {
+            timers.push(setTimeout(() => {
                 confetti({
                     particleCount: 100,
                     spread: 180,
@@ -34,10 +33,9 @@ export default function BookingConfirmed() {
                     scalar: 1.1,
                     ticks: 180,
                 });
-            }, 300);
+            }, 300));
 
-            // Side bursts
-            setTimeout(() => {
+            timers.push(setTimeout(() => {
                 confetti({
                     particleCount: 60,
                     angle: 60,
@@ -56,10 +54,12 @@ export default function BookingConfirmed() {
                     startVelocity: 40,
                     scalar: 1.1,
                 });
-            }, 600);
+            }, 600));
         }, 400);
 
-        return () => clearTimeout(timer);
+        timers.push(timer);
+
+        return () => timers.forEach(clearTimeout);
     }, []);
 
     return (

@@ -1,10 +1,10 @@
 
-!.env.example
 !.vscode/extensions.json
 .claude/
 .DS_Store
 .env
 .env.*
+!.env.example
 .idea
 .sanity/
 .superpowers/

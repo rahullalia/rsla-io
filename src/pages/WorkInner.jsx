@@ -1,45 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PortableText } from '@portabletext/react';
-import { client } from '../sanity/lib/client';
-import { caseStudyBySlugV2Query, relatedCaseStudiesQuery } from '../sanity/lib/queries';
-import { urlForImage } from '../sanity/lib/image';
-import { PortableTextComponents } from '../components/blog/PortableTextRenderer';
-import Seo from '../components/Seo';
+import { client } from '@/sanity/lib/client';
+import { caseStudyBySlugV2Query, relatedCaseStudiesQuery } from '@/sanity/lib/queries';
+import { urlForImage } from '@/sanity/lib/image';
+import { PortableTextComponents } from '@/components/blog/PortableTextRenderer';
+import Seo from '@/components/Seo';
 import { TextAnimate } from '@/components/ui/text-animate';
-import ShareBar from '../components/ShareBar';
-
-// Local CaseStudyCard component
-const CaseStudyCard = ({ slug, tag, title, description, metrics }) => (
-    <Link
-        to={`/work/${slug}`}
-        className="group flex flex-col h-full bg-surfaceAlt rounded-[2rem] border border-accent-border overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-[transform,box-shadow,border-color] duration-md ease-out-smooth"
-    >
-        <div className="p-8 flex flex-col flex-grow">
-            <div className="mb-6 flex justify-between items-start">
-                <span className="font-sans text-sm uppercase tracking-wider text-accent border border-accent/20 bg-accent/5 px-2 py-1 rounded-sm">
-                    {tag}
-                </span>
-            </div>
-            <h3 className="font-sans font-semibold text-xl md:text-2xl tracking-tight mb-3 group-hover:text-accent transition-colors">
-                {title}
-            </h3>
-            <p className="font-sans text-sm text-textMuted mb-8 flex-grow leading-relaxed">
-                {description}
-            </p>
-            {metrics && metrics.length > 0 && (
-                <div className="mt-auto grid grid-cols-2 gap-4 pt-6 border-t border-accent-border">
-                    {metrics.slice(0, 2).map((metric, idx) => (
-                        <div key={idx}>
-                            <strong className="block text-xl font-bold font-sans text-text">{metric.value}</strong>
-                            <span className="font-sans text-sm uppercase tracking-wider text-accent">{metric.label}</span>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    </Link>
-);
+import ShareBar from '@/components/ShareBar';
+import CaseStudyCard from '@/components/CaseStudyCard';
 
 const INDUSTRY_LABELS = {
     'salon-spa': 'Salon/Spa',
@@ -115,7 +84,6 @@ export default function WorkInner() {
         };
 
         fetchData();
-        window.scrollTo(0, 0);
 
         return () => { isMounted = false; };
     }, [slug]);
@@ -214,6 +182,8 @@ export default function WorkInner() {
                             src={urlForImage(caseStudy.featuredImage.asset)?.width(1600).height(900).url()}
                             alt={caseStudy.featuredImage?.alt || caseStudy.title}
                             className="w-full h-full object-cover"
+                            width="1600"
+                            height="900"
                         />
                     </div>
                 )}
@@ -326,11 +296,8 @@ export default function WorkInner() {
                             {relatedCases.slice(0, 2).map((related) => (
                                 <CaseStudyCard
                                     key={related.slug}
-                                    slug={related.slug}
-                                    tag={related.tag}
-                                    title={related.title}
-                                    description={related.description}
-                                    metrics={related.metrics || []}
+                                    data={related}
+                                    showImage={false}
                                 />
                             ))}
                         </div>

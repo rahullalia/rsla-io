@@ -16,13 +16,15 @@ export default function AuroraBackground({ children, className, showRadialGradie
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) return;
             gsap.to('.aurora-gradient-layer', {
-                yPercent: 30, // Move down 30% of its height on scroll
+                yPercent: 30,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: bgRef.current,
                     start: 'top top',
-                    end: 'bottom top', // when bottom of viewport hits top of viewport
+                    end: 'bottom top',
                     scrub: true,
                 }
             });

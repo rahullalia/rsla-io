@@ -55,13 +55,13 @@ async function generateRssFeed() {
       <guid isPermaLink="true">${link}</guid>
       <description>${escapeXml(post.excerpt || '')}</description>
       <pubDate>${pubDate}</pubDate>
-      <author>${escapeXml(post.authorName || 'Rahul Lalia')}</author>
+      <dc:creator>${escapeXml(post.authorName || 'Rahul Lalia')}</dc:creator>
 ${categories}
     </item>`;
   });
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>${escapeXml(FEED_TITLE)}</title>
     <link>${SITE_URL}/blog</link>

@@ -9,7 +9,11 @@ export default function FounderSection() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Text fade up
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                gsap.set('.founder-text', { opacity: 1, y: 0 });
+                return;
+            }
             gsap.fromTo('.founder-text',
                 { y: 40, opacity: 0 },
                 {
@@ -31,7 +35,7 @@ export default function FounderSection() {
                 {/* Photo */}
                 <div className="md:sticky md:top-32 w-full md:w-2/5 flex-shrink-0">
                     <div className="w-full aspect-[3/4] rounded-[2rem] bg-accent-light overflow-hidden transition-transform duration-photo-hover ease-out-smooth hover:scale-[1.02]">
-                        <img src="/images/rahul.webp" alt="Rahul Lalia" className="w-full h-full object-cover" />
+                        <img src="/images/rahul.webp" alt="Rahul Lalia" className="w-full h-full object-cover" loading="lazy" width="600" height="800" />
                     </div>
                 </div>
 
