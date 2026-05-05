@@ -1,5 +1,94 @@
 # LOG.md - rslaWebsite
 
+## 2026-05-04 - Evergreen Blog Format + Repo Cleanup
+
+### What happened
+Implemented an evergreen blog format optimized for SEO/AEO/GEO. Added structured instant-value sections that serve both human readers and AI/search engines. Also cleaned ~18,000 lines of dead code from both rslaWebsite and rslaStudio repos.
+
+### Schema changes (rslaStudio)
+- Added `keyTakeaways` field (string array, 3-7 items, max 150 chars each) for featured snippet targeting
+- Added `bottomLine` field (text, max 300 chars) for AEO conclusion extraction
+- Tightened validation: title 70 chars, excerpt 160, metaDescription 155, featuredImage.alt 125
+- Renamed `pullQuote` label to "TL;DR" with clearer description for editors
+
+### Frontend changes (BlogInner.jsx)
+- Key Takeaways renders as styled bullet list in bordered card (`.key-takeaways` class)
+- Bottom Line section after article body in matching card (`.bottom-line` class)
+- TL;DR section gets `.tldr` class for speakable targeting
+- BlogPosting JSON-LD now includes `wordCount` and `speakable` specification
+
+### Prerender changes (prerender.mjs)
+- Fetches `keyTakeaways`, `bottomLine`, editorial `updatedAt` (falls back to `_updatedAt`)
+- Outputs both sections as semantic HTML with `aria-label` and proper heading hierarchy
+- TL;DR gets `.tldr` class in prerendered HTML
+- JSON-LD includes `speakable`, `wordCount`, `dateModified`
+
+### Repo cleanup
+- rslaStudio: removed stale contentStrategy docs (archived), one-off scripts, post markdown files, executed plan docs. Added BRAIN.md, GEMINI.md, TODO.md.
+- rslaWebsite: removed `content/posts/post11-22.md`, `content/scripts/` (57 files), `docs/conversionResearch/`, `docs/plan.md`, `docs/sessionHistory.md`, `docs/uiComponents.md`, stale superpowers plans, unused `Button` and `NumberTicker` UI components.
+- Total removed: ~18,000 lines across both repos.
+
+### Commits
+- `bdf11a5` feat(blog): add evergreen format with key takeaways, bottom line, and enhanced schema
+- `e2d3342` chore: remove stale docs, executed plans, and numbered post drafts
+- `964b949` chore: remove 57 one-off content scripts (all previously executed)
+- `eeb073c` chore: remove unused Button and NumberTicker UI components
+- rslaStudio `c1b5120` feat(schema): add keyTakeaways and bottomLine fields, tighten SEO char limits
+- rslaStudio `f5c7176` chore: clean up stale scripts, content strategy docs, and add project docs
+
+### Still pending
+- Populate `keyTakeaways` and `bottomLine` on existing posts via Sanity Studio
+- Content rewrites in `content/rewrites/` need to be published through Sanity
+
+---
+
+## 2026-05-04 - Blog Listing + Inner Page Redesign
+
+### What happened
+Full redesign of both blog pages inspired by Riverside.com/blog. Iterated through multiple rounds of feedback on layout, typography, spacing, and component design.
+
+### Blog listing page (`Blog.jsx`)
+- Riverside-style hero: featured post (left 58%) + "Trending topics to read" dark banner + 3 sidebar posts (right 42%) with thumbnails, category tags, dates
+- "All Articles" section with dropdown category filter + full-width search bar
+- Newsletter card (MagicCard spotlight effect, blue border) at position 2 in grid on page 1
+- 8 posts/page on page 1 (+ newsletter = 9 grid items), 9 posts/page on page 2+
+- Scroll-to-top on page/category change
+- Removed: popular posts section, explore topics, resources section, author from cards
+
+### Blog inner page (`BlogInner.jsx`)
+- Dark hero header (bg-black): title left 60% + landscape image right 40%, breadcrumb, author + role, date + reading time
+- Black sticky ToC sidebar (rounded-xl): white text, blue underline on active section (not blue text)
+- Body text: 20px black (`text-text`) with 1.6 line-height (was 18px gray)
+- Heading sizes: H2 28-32px, H3 22-24px (closer to Riverside)
+- Mobile ToC also black to match desktop
+- Removed: case study section, share links from ToC, "In this article" label
+- Reading progress bar + active heading tracker optimized with requestAnimationFrame (fixes scroll lag)
+- Emil design polish: active:scale on cards, stagger animation on related posts, transition underlines
+
+### Other changes
+- `PortableTextRenderer.jsx`: body text to 20px black, lists to match, heading sizes adjusted
+- `queries.ts`: added blogHeroPostsQuery, blogPopularPostsQuery, blogCategoriesWithCountQuery, keyTakeaways field
+- `postcss` updated 8.5.6 -> 8.5.14 (Dependabot alert #17 resolved)
+- Custom arrow SVG added to `public/images/icons/`
+
+### Decisions made
+- **No "popular posts" section.** No real popularity signal exists. Featured hero handles curation, All Articles is the archive. Simpler and honest.
+- **Featured image standardized at 1200x630.** Used for hero, listing cards, OG tags, WhatsApp/iMessage previews. Inline body images remain flexible.
+- **Black header + black ToC** for high contrast editorial feel. Body stays white with black text.
+- **Key Takeaways field** added to Sanity query but UI only renders when data exists. Schema update needed in Sanity studio separately.
+- **8+1 pagination on page 1.** Newsletter card takes a grid slot, so 8 posts + 1 newsletter = 9 items (3 full rows). Page 2+ gets 9 posts, no newsletter.
+
+### Commits
+- `39f7901` redesign(blog): overhaul blog listing and inner pages
+- `a59ac36` fix(deps): update postcss to 8.5.14 to resolve XSS vulnerability
+
+### Still pending
+- ~~Sanity schema: add `keyTakeaways` field to blogPostV2~~ (done 2026-05-04, now string array)
+- Sanity schema: ensure all featured images are uploaded at 1200x630
+- Mobile: tested and working on iPhone SE (375px) and iPad (768px), but should verify on physical devices
+
+---
+
 ## 2026-04-30 - GTM Conversion Tracking Complete
 
 ### What happened

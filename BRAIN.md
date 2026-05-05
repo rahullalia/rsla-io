@@ -85,8 +85,9 @@ docs/
 ## SEO / AEO / GEO
 
 - `Seo.jsx` uses `useEffect` to set `document.title`, meta tags, og:locale, and JSON-LD
-- JSON-LD on all indexed pages: Organization, WebSite, FAQPage (home), Person (about), ProfessionalService (services), BlogPosting + BreadcrumbList (blog posts), Article + BreadcrumbList (case studies), ContactPage (contact), CollectionPage (blog/work listings)
-- All prerender schemas sync with React component schemas (FAQ, BlogPosting dateModified/image, publisher.logo)
+- JSON-LD on all indexed pages: Organization, WebSite, FAQPage (home), Person (about), ProfessionalService (services), BlogPosting + BreadcrumbList + SpeakableSpecification (blog posts), Article + BreadcrumbList (case studies), ContactPage (contact), CollectionPage (blog/work listings)
+- BlogPosting schema includes: `wordCount`, `speakable` (targets `.tldr` + `.key-takeaways`), `dateModified` (editorial `updatedAt` with `_updatedAt` fallback)
+- All prerender schemas sync with React component schemas (FAQ, BlogPosting dateModified/image, publisher.logo, speakable)
 - Pre-rendered nav on all pages for internal link discovery
 - Related posts fallback: category-matched posts when `relatedPosts` is empty
 - IndexNow key: `42f4e2d222a8441d91b82a1d06d0db72`
@@ -179,4 +180,4 @@ API endpoints use Upstash Redis for rate limiting (`api/lib/rateLimit.mjs`).
 - [ ] **Write Local SEO pillar page**: Consolidates position 4-7 GBP rankings.
 - [ ] **Expand service detail pages**: Currently noIndexed (thin content). Expand each to 800-1200 words with process, deliverables, case studies, FAQ. Re-index after.
 - [ ] **Add internal links in Sanity blog posts**: Blog-to-blog and blog-to-service cross-links within post bodies. Priority: top 8 posts by impressions.
-- [ ] **GitHub Dependabot alert**: Check github.com/rahullalia/rsla-io/security/dependabot/17 (1 moderate vulnerability)
+- [x] **GitHub Dependabot alert**: Updated postcss 8.5.6 -> 8.5.14 (fixes CVE XSS in CSS stringify). Alert #17 resolved.
