@@ -973,6 +973,14 @@ function blogPostContent(post) {
   const description = post.seo?.metaDescription || post.excerpt || '';
   const canonical = `${SITE}/blog/${post.slug}`;
   const ogImage = post.seo?.socialImage?.asset?.url || post.featuredImage?.asset?.url || null;
+  const dateModified = post.updatedAt || post.updatedAtFallback || null;
+
+  const wordCount = (post.body || []).reduce((count, block) => {
+    if (block._type === 'block') {
+      return count + (block.children || []).reduce((c, child) => c + (child.text || '').split(/\s+/).filter(Boolean).length, 0);
+    }
+    return count;
+  }, 0);
 
   const jsonLd = [
     {
@@ -980,11 +988,13 @@ function blogPostContent(post) {
       headline: post.title,
       description,
       datePublished: post.publishedAt,
-      ...(post.updatedAt && { dateModified: post.updatedAt }),
+      ...(dateModified && { dateModified }),
+      ...(wordCount > 0 && { wordCount }),
       ...(ogImage && { image: ogImage }),
       author: { '@type': 'Person', name: post.author?.name || 'Rahul Lalia' },
       publisher: { '@type': 'Organization', name: 'RSL/A', url: SITE, logo: { '@type': 'ImageObject', url: `${SITE}/images/logo/lockup-nobg.webp` } },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.tldr', '.key-takeaways'] },
     },
     {
       '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -1009,6 +1019,14 @@ function blogPostContent(post) {
   const date = formatDate(post.publishedAt);
   const firstCat = (post.categories || [])[0];
 
+  const keyTakeawaysHtml = post.keyTakeaways?.length
+    ? `<section class="key-takeaways" aria-label="Key takeaways"><h2>Key Takeaways</h2><ul>${post.keyTakeaways.map(t => `<li>${esc(t)}</li>`).join('')}</ul></section>`
+    : '';
+
+  const bottomLineHtml = post.bottomLine
+    ? `<section class="bottom-line" aria-label="The bottom line"><h2>The Bottom Line</h2><p>${esc(post.bottomLine)}</p></section>`
+    : '';
+
   return {
     route: `/blog/${post.slug}`,
     title,
@@ -1021,9 +1039,11 @@ function blogPostContent(post) {
 <header>
 <h1>${esc(post.title)}</h1>
 <p><time datetime="${post.publishedAt}">${date}</time>${post.author?.name ? ` — By ${esc(post.author.name)}` : ''}</p>
-${post.pullQuote ? `<p><strong>TL;DR:</strong> ${esc(post.pullQuote)}</p>` : ''}
+${post.pullQuote ? `<p class="tldr"><strong>TL;DR:</strong> ${esc(post.pullQuote)}</p>` : ''}
 </header>
+${keyTakeawaysHtml}
 ${bodyHtml}
+${bottomLineHtml}
 </article></main>`,
   };
 }
@@ -1122,8 +1142,11 @@ async function main() {
         "slug": slug.current,
         excerpt,
         pullQuote,
+        keyTakeaways,
+        bottomLine,
         publishedAt,
-        "updatedAt": _updatedAt,
+        updatedAt,
+        "updatedAtFallback": _updatedAt,
         body,
         featuredImage { asset-> },
         author->{ name },

@@ -66,6 +66,7 @@ export const blogPostBySlugV2Query = groq`
     showTableOfContents,
     featured,
     keyTakeaways,
+    bottomLine,
     featuredImage {
       asset->,
       alt

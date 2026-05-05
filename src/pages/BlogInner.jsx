@@ -154,6 +154,13 @@ export default function BlogInner() {
     const seoKeywords = post.seo?.keywords?.join(', ') || null;
     const firstCategory = post.categories?.[0] || null;
 
+    const wordCount = post.body?.reduce((count, block) => {
+        if (block._type === 'block') {
+            return count + (block.children || []).reduce((c, child) => c + (child.text || '').split(/\s+/).filter(Boolean).length, 0);
+        }
+        return count;
+    }, 0) || 0;
+
     const blogPostingSchema = {
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
@@ -162,6 +169,7 @@ export default function BlogInner() {
         image: seoImage !== 'https://rsla.io/og-image.png' ? seoImage : undefined,
         datePublished: post.publishedAt,
         ...(post.updatedAt && { dateModified: post.updatedAt }),
+        ...(wordCount > 0 && { wordCount }),
         author: {
             '@type': 'Person',
             name: post.author?.name || 'Rahul Lalia',
@@ -172,6 +180,10 @@ export default function BlogInner() {
             logo: { '@type': 'ImageObject', url: 'https://rsla.io/images/logo/lockup-nobg.webp' },
         },
         mainEntityOfPage: `https://rsla.io/blog/${slug}`,
+        speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['.tldr', '.key-takeaways'],
+        },
     };
 
     const breadcrumbSchema = {
@@ -350,19 +362,24 @@ export default function BlogInner() {
                 <div className="max-w-[720px]">
                     {/* TL;DR */}
                     {post.pullQuote && (
-                        <div className="mb-10">
+                        <div className="tldr mb-10">
                             <span className="block font-sans text-sm font-semibold uppercase tracking-[0.15em] text-accent mb-2">TL;DR</span>
                             <p className="text-xl text-text leading-[1.6] font-sans">{post.pullQuote}</p>
                         </div>
                     )}
 
-                    {/* Key Takeaways (renders when Sanity field exists) */}
+                    {/* Key Takeaways */}
                     {post.keyTakeaways && post.keyTakeaways.length > 0 && (
-                        <div className="mb-12">
-                            <h2 className="text-2xl md:text-4xl font-sans font-extrabold text-text mb-6 tracking-tight leading-[1.1]">Key takeaways</h2>
-                            <div className="prose-container max-w-none">
-                                <PortableText value={post.keyTakeaways} components={PortableTextComponents} />
-                            </div>
+                        <div className="key-takeaways mb-12 bg-surfaceAlt rounded-xl p-6 border border-accent-border">
+                            <h2 className="text-xl md:text-2xl font-sans font-extrabold text-text mb-4 tracking-tight leading-[1.1]">Key Takeaways</h2>
+                            <ul className="space-y-2">
+                                {post.keyTakeaways.map((item, i) => (
+                                    <li key={i} className="flex items-start gap-3 font-sans text-base text-text leading-relaxed">
+                                        <span className="text-accent font-bold mt-0.5 shrink-0">-</span>
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     )}
 
@@ -370,6 +387,14 @@ export default function BlogInner() {
                     <div className="prose-container max-w-none">
                         <PortableText value={post.body} components={PortableTextComponents} />
                     </div>
+
+                    {/* The Bottom Line */}
+                    {post.bottomLine && (
+                        <div className="bottom-line mt-12 mb-10 bg-surfaceAlt rounded-xl p-6 border border-accent-border">
+                            <h2 className="text-xl md:text-2xl font-sans font-extrabold text-text mb-3 tracking-tight leading-[1.1]">The Bottom Line</h2>
+                            <p className="font-sans text-base text-text leading-relaxed">{post.bottomLine}</p>
+                        </div>
+                    )}
 
                     {/* Newsletter CTA */}
                     <InlineNewsletterCta />
