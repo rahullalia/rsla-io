@@ -6,7 +6,7 @@ import Seo from '@/components/Seo';
 import RelatedCaseStudies from '@/components/services/RelatedCaseStudies';
 import ServiceFaq, { generateFaqSchema } from '@/components/services/ServiceFaq';
 
-export default function ServiceLayout({ service, children }) {
+export default function ServiceLayout({ service, children, ctaOverride }) {
     const pageRef = useRef(null);
 
     useEffect(() => {
@@ -82,23 +82,25 @@ export default function ServiceLayout({ service, children }) {
 
             <ServiceFaq faqs={service.faqs} serviceName={service.title} />
 
-            <section className="bg-accent-light border-t border-accent-border py-20 md:py-28 px-6 md:px-12">
-                <div className="max-w-3xl mx-auto text-center">
-                    <h2 className="font-sans font-extrabold text-text text-2xl md:text-4xl tracking-tight leading-[1.1] mb-4">
-                        Ready to get started?
-                    </h2>
-                    <p className="font-sans text-lg text-textMuted leading-relaxed mb-8">
-                        Book a free strategy call. No pitch, no pressure. We'll look at your situation and tell you exactly what we'd do.
-                    </p>
-                    <Link
-                        to="/contact"
-                        onClick={() => window.dataLayer?.push({ event: 'cta_click', cta_location: 'service_detail_bottom' })}
-                        className="inline-flex items-center gap-2 rounded-xl bg-accent px-8 py-3 font-sans font-bold text-base text-white shadow-sm transition-colors hover:bg-accent/90"
-                    >
-                        Book a call
-                    </Link>
-                </div>
-            </section>
+            {ctaOverride || (
+                <section className="bg-accent-light border-t border-accent-border py-20 md:py-28 px-6 md:px-12">
+                    <div className="max-w-3xl mx-auto text-center">
+                        <h2 className="font-sans font-extrabold text-text text-2xl md:text-4xl tracking-tight leading-[1.1] mb-4">
+                            Ready to get started?
+                        </h2>
+                        <p className="font-sans text-lg text-textMuted leading-relaxed mb-8">
+                            Book a free strategy call. No pitch, no pressure. We will look at your situation and tell you exactly what we would do.
+                        </p>
+                        <Link
+                            to="/contact"
+                            onClick={() => window.dataLayer?.push({ event: 'cta_click', cta_location: 'service_detail_bottom' })}
+                            className="inline-flex items-center gap-2 rounded-xl bg-accent px-8 py-3 font-sans font-bold text-base text-white shadow-sm transition-colors hover:bg-accent/90"
+                        >
+                            Book a call
+                        </Link>
+                    </div>
+                </section>
+            )}
         </main>
     );
 }

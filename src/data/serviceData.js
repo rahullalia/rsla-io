@@ -2,40 +2,72 @@ export const services = {
   "web-design": {
     title: "Web Design",
     displayName: "Websites",
-    headline: "Websites That Win Business",
-    description: "Custom React and Next.js websites built for conversion, speed, and brand credibility.",
-    metaTitle: "Custom Web Design Agency | RSL/A",
-    metaDescription: "Custom B2B web design and website redesign services. React and Next.js builds that convert visitors into leads. Get a website that works as hard as you do.",
-    keywords: "custom web design, B2B website design, website redesign, React website, Next.js website, conversion-focused design",
+    headline: "Your website should be your best salesperson.",
+    description: "Custom websites built to rank on Google, get recommended by AI, and convert visitors into customers. No templates. No guesswork. We are blunt about what works and what does not.",
+    metaTitle: "Custom Web Design That Ranks and Converts | RSL/A",
+    metaDescription: "Custom websites built for SEO, AEO, and conversions. No templates. Sites that rank on Google and get recommended by ChatGPT. Free mockup in 72 hours.",
+    keywords: "custom web design, website design, web design agency, SEO website, AEO website, conversion-focused web design, website redesign, local business website",
     canonical: "https://rsla.io/services/web-design",
     caseStudies: [
       {
         href: "/work/fieldshare-seo-website-rebrand",
-        title: "FieldShare SEO and Website Rebrand",
-        metric: "3x organic traffic in 90 days"
+        title: "Fieldshare: Page 1 Rankings in 6 Months",
+        metric: "Page 1 rankings in 6 months"
       },
       {
         href: "/work/adreviveai-saas-build",
-        title: "AdRevive AI SaaS Build",
-        metric: "0 to production in 6 weeks"
+        title: "AdReviveAI: Idea to Live SaaS in 4 Weeks",
+        metric: "Idea to production in 4 weeks"
       }
     ],
     faqs: [
       {
-        q: "What platforms do you build on?",
-        a: "We build primarily in React and Next.js. Most client sites ship on Vercel with a Sanity or headless CMS backend. If you have an existing stack we can work within it."
+        q: "How do you build websites?",
+        a: "Every site is custom-coded from scratch. We do not use pre-built templates or page builders. Your site gets its own unique codebase, designed and written specifically for your brand and your audience. If you have an existing platform you need to stay on, we can work within it."
       },
       {
         q: "How long does a website project take?",
-        a: "A standard marketing site takes 4 to 6 weeks from kickoff to launch. Larger builds with custom functionality run 8 to 12 weeks. We give you a firm timeline before we start."
+        a: "As fast as one week for a focused landing page, up to two months for a full multi-page build with custom integrations. It depends on scope, number of pages, and whether we are building from scratch or redesigning an existing site. We give you a firm timeline before we start."
       },
       {
         q: "Do you handle copywriting and design too?",
-        a: "Yes. We write conversion copy, design in Figma, and hand off a production-ready site. You don't need a separate designer or copywriter."
+        a: "Yes. During onboarding we dig into your brand, services, target audience, and service area. We write conversion copy based on that research, design your pages, and hand off a finished site. You do not need a separate designer or copywriter."
       },
       {
         q: "What if I already have a site and just want a redesign?",
-        a: "Redesigns are a big part of what we do. We audit your current site, identify what's hurting conversions, and rebuild from there. Sometimes that's a full rebuild; sometimes it's targeted changes to key pages."
+        a: "Redesigns are about half of what we do. We audit your current site, identify what is hurting conversions and rankings, and rebuild from there. We handle content migration, set up redirects, and make sure you do not lose any search rankings in the process."
+      },
+      {
+        q: "What is the difference between a custom website and a template?",
+        a: "A template is a pre-built layout that gets reused across hundreds of businesses with swapped logos and colors. A custom website is built around your brand voice, your messaging, and your audience. It looks and feels like you, not like every other business in your industry. That uniqueness is what makes visitors trust you and Google rank you."
+      },
+      {
+        q: "Can AI build me a website instead?",
+        a: "AI can generate a website in minutes. But is it optimized to rank? Is the content written for your specific buyer? Is the on-page SEO strong enough to even get indexed by Google? A good-looking website that nobody finds is just an expensive business card nobody reads. We use AI in our build process to move faster, but the strategy, structure, and optimization are done by people who know what actually drives results."
+      },
+      {
+        q: "What does SEO-ready actually mean?",
+        a: "It means the technical foundation is built right from day one. Your site structure, page titles, descriptions, speed, mobile experience, and internal linking are all optimized before launch. If the foundation is solid and you do the right things in the right order, you are likely to rank. If the foundation is broken, no amount of content or marketing spend will fix it."
+      },
+      {
+        q: "What is answer engine optimization?",
+        a: "AEO is structuring your website content so AI tools like ChatGPT, Gemini, Perplexity, and Claude can find, understand, and recommend your business. As more people use AI to search for services, showing up in AI-generated answers is becoming just as important as ranking on Google."
+      },
+      {
+        q: "Do you guarantee page 1 rankings?",
+        a: "No. Anyone who guarantees specific rankings is either lying or does not understand how search works. What we guarantee is a website with a strong technical foundation that is built to rank. We have brought websites to page 1 and top 3 positions, but it takes time, the right strategy, and ongoing effort. We will be straight with you about what is realistic."
+      },
+      {
+        q: "What happens after launch?",
+        a: "A website is a living product that needs to be fed, optimized, and taken care of. We offer ongoing support for content updates, performance monitoring, and SEO improvements. Build it once, but expect to keep building on it."
+      },
+      {
+        q: "Do you work with local businesses?",
+        a: "Yes. If you are a local business, we build your website with local search in mind from the start. That means connecting to your Google Business Profile, creating content for your service area, and making sure you show up in local results and on Maps. We are based in Bakersfield and understand what local businesses need."
+      },
+      {
+        q: "What do I need to provide before we start?",
+        a: "We handle most of the heavy lifting, but we will need access to your brand assets (logo, colors, fonts if you have them), a list of your services, information about your target audience, and any existing content you want to keep. If you do not have a brand pack, we will help you figure that out during onboarding."
       }
     ]
   },
