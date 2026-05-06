@@ -279,10 +279,10 @@ function aboutContent() {
 
 function servicesContent() {
   return {
-    title: 'AI Marketing & Automation Services for B2B | RSL/A',
-    description: 'Custom websites, SEO, AI automations, CRM systems, and software development. End-to-end AI systems that generate leads, close deals, and scale operations.',
+    title: 'Local SEO Services & AI Marketing for Small Business | RSL/A',
+    description: 'Local SEO services, custom web design, AI automation, and CRM systems for small businesses. End-to-end systems that get you found and keep you growing.',
     canonical: `${SITE}/services`,
-    keywords: 'AI services, custom websites, AI automation, CRM systems, search visibility, custom development, AI lead generation, B2B AI systems',
+    keywords: 'local seo services, local seo for small business, web design agency, AI automation, CRM setup, marketing agency, local seo packages',
     jsonLd: {
       '@context': 'https://schema.org', '@type': 'ProfessionalService',
       name: 'RSL/A', url: `${SITE}/services`,
@@ -352,6 +352,10 @@ function servicesContent() {
 <li><strong>Performance tracking:</strong> You know exactly where visitors come from, what they do, and why they leave. No guessing.</li>
 <li><strong>Content engine:</strong> AI-assisted content creation for blogs, case studies, and landing pages that drive organic traffic consistently.</li>
 </ul>
+</section>
+
+<section><h2>Local Services</h2>
+<ul><li><a href="/services/bakersfield">Bakersfield, CA</a></li></ul>
 </section>
 </main>`,
   };
