@@ -5,7 +5,7 @@ const KIT_FORM_ID = import.meta.env.VITE_KIT_FORM_ID || '9130465';
 export default function InlineNewsletterCta() {
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState('idle');
-    const [focused, setFocused] = useState(false);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -67,17 +67,14 @@ export default function InlineNewsletterCta() {
                     placeholder="you@company.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
                     disabled={status === 'submitting'}
                     required
-                    className="flex-1 h-[42px] px-3.5 rounded-xl border bg-background text-sm font-sans outline-none transition-colors"
-                    style={{ borderColor: focused ? '#0070F3' : '#CBD5E1' }}
+                    className="flex-1 h-[42px] px-3.5 rounded-xl border border-slate-200 bg-background text-sm font-sans outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-[border-color,box-shadow] duration-150 ease-out"
                 />
                 <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="h-[42px] px-5 rounded-xl bg-accent text-white font-sans font-semibold text-sm hover:bg-accent/90 transition-colors disabled:opacity-50 cursor-pointer whitespace-nowrap"
+                    className="h-[42px] px-5 rounded-xl bg-accent text-white font-sans font-semibold text-sm hover:bg-accent/90 active:scale-[0.97] transition-[background-color,transform] duration-150 ease-out disabled:opacity-50 cursor-pointer whitespace-nowrap"
                 >
                     {status === 'submitting' ? '...' : 'Get The Insider'}
                 </button>

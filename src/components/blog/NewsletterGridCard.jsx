@@ -140,7 +140,7 @@ export default function NewsletterGridCard() {
                     <button
                         type="submit"
                         disabled={status === 'submitting'}
-                        className="h-[44px] rounded-xl bg-accent text-white text-sm font-semibold font-sans cursor-pointer hover:bg-accent/90 transition-colors disabled:opacity-50"
+                        className="h-[44px] rounded-xl bg-accent text-white text-sm font-semibold font-sans cursor-pointer hover:bg-accent/90 active:scale-[0.97] transition-[background-color,transform] duration-150 ease-out disabled:opacity-50"
                     >
                         {status === 'submitting' ? '...' : 'Get The Insider'}
                     </button>

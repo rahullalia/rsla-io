@@ -9,7 +9,7 @@ export default function Insider() {
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [focused, setFocused] = useState(false);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -107,16 +107,13 @@ export default function Insider() {
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            onFocus={() => setFocused(true)}
-                            onBlur={() => setFocused(false)}
                             placeholder="you@company.com"
-                            className="h-[44px] px-4 rounded-xl border bg-background text-sm font-sans outline-none transition-colors"
-                            style={{ borderColor: focused ? '#0070F3' : '#CBD5E1' }}
+                            className="h-[44px] px-4 rounded-xl border border-slate-200 bg-background text-sm font-sans outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-[border-color,box-shadow] duration-150 ease-out"
                         />
                         <button
                             type="submit"
                             disabled={loading}
-                            className="h-[44px] rounded-xl bg-accent text-white text-sm font-semibold font-sans cursor-pointer hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="h-[44px] rounded-xl bg-accent text-white text-sm font-semibold font-sans cursor-pointer hover:bg-accent/90 active:scale-[0.97] transition-[background-color,transform] duration-150 ease-out disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {loading ? 'Subscribing...' : 'Get The Insider'}
                         </button>
