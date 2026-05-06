@@ -360,3 +360,8 @@
     }
   }
 }
+
+.highlight-mark {
+  background: linear-gradient(transparent 60%, rgba(0, 112, 243, 0.12) 60%);
+  padding: 0 2px;
+}
