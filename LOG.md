@@ -1,5 +1,42 @@
 # LOG.md - rslaWebsite
 
+## 2026-05-08 - Fix "Crawled - Currently Not Indexed" (GSC Permanent Fix)
+
+### What happened
+GSC reported 136 URLs as "Crawled - currently not indexed" and the count was growing (97 to 136 over 3 months). Root cause: the SPA catch-all rewrite in vercel.json served HTTP 200 + full homepage content for every dead URL (`_next/` chunks, old slugs, random URLs). Google saw these as real pages.
+
+### Root cause
+`/((?!api/).*)` rewrite to `/index.html` made every unknown URL return HTTP 200 with homepage title, canonical, OG tags, and pre-rendered content. The React NotFound component set noindex, but only after JS execution which Google often skips for low-priority pages.
+
+### Changes
+- **vercel.json**: Changed catch-all from `/((?!api/).*)` -> `/index.html` to `/((?!api/|_next/).*)` -> `/404.html`. Excludes `_next/` (Vercel native 404) and serves 404 page with noindex for all other unknown URLs.
+- **scripts/prerender.mjs**: Added `dist/404.html` generation at dist root. Has `<meta name="robots" content="noindex, follow" />` baked into HTML (no JS required).
+- **scripts/validateBuild.mjs** (new): Build-time validation that checks sitemap/prerender parity, no accidental noindex on sitemap pages, redirect destinations resolve, and 404.html exists. Breaks build on failure.
+- **package.json**: Added `validateBuild.mjs` to build chain after sitemap generation.
+
+### GSC breakdown (136 URLs)
+- ~95 `_next/static/` chunks (old Next.js era, now get native 404)
+- ~25 deleted blog/work URLs (already have 301 redirects, just need Google re-crawl)
+- ~6 utility files (rss.xml, sitemap.xml, etc. - expected)
+- 3 pagination URLs (canonicalize to /blog - expected)
+- 5 real content pages (re-indexed manually in GSC)
+
+### Re-indexed in GSC
+- `/blog/med-spa-seo-what-actually-works`
+- `/blog/how-to-rank-higher-on-google-maps-a-comprehensive-guide`
+- `/work/nonprofit-crm-volunteer-automation`
+- `/work/seo-content-marketing-automation`
+- `/work/ai-lead-response-autoresponder`
+
+### Monitoring
+- Check GSC "Crawled - currently not indexed" count around May 25-June 1
+- Expected: count drops as Google re-crawls `_next/` URLs (sees 404) and other dead URLs (sees noindex)
+
+### Commits
+- `0165692` fix(seo): serve 404 page for unknown URLs instead of homepage
+
+---
+
 ## 2026-05-06 - Newsletter Signup Redesign (The Insider)
 
 ### What happened
